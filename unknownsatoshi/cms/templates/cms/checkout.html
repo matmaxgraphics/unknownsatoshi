@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>UnknownSatoshi | Checkout</title>
+    
+	<!--SEO Control-->
+    <meta name="description" content="enter your details to gain access to the premium contents">
+    <link rel="icon" href="assets/images/favicon.jpg">
+
+    <!--Viewport Control-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!--Custom Stylesheet-->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+
+    <!--Bootstrap CDN-->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+	<!--Remix Icon CDN-->
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+	<!--Google font-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+	<div class="page-wrapper checkout-container">		
+        <div class="navbar">
+            <div class="navbar__Link navbar__Link-brand">
+                <a href="index.html" class="index-link">
+                <img src="assets/images/logo.png" class="navbar-logo" alt="website's logo">
+                </a>
+            </div>
+        
+            <div class="navbar__Link navbar__Link-toggle">
+                <img src="assets/images/hamburger.png" alt="site's hamburger" oncl>
+                <!-- <img src="assets/images/close-hamburger.png" alt="close menu" class="close-menu"> -->
+            </div>
+    
+            <nav class="navbar__Items">
+                <ul>
+                    <li class="navbar__Link">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+
+                    <li class="navbar__Link">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+
+                    <li class="navbar__Link">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+
+                    <li class="navbar__Link">
+                        <a class="nav-link" href="trade.html">Trade Record</a>
+                    </li>
+
+                    <li class="navbar__Link">
+                        <a class="nav-link" href="course.html">Courses</a>
+                    </li>
+
+                    <li class="navbar__Link">
+                        <a class="nav-link" href="store.html">Online Store</a>
+                    </li>
+
+                    <li class="navbar__Link">
+                        <a class="nav-link" href="contact.html">Contact us</a>
+                    </li>
+                                        
+                </ul>
+            </nav>
+            
+        </div>
+        
+        <header>
+            <h2>Checkout</h2>
+        </header>
+        <section class="checkout-wrapper">
+            <div class="checkout-fields">               
+                <form action="checkout.html" method="post">
+                    <div class="plan-field">
+                        <label for="productCat">Selected Plan</label>
+                        <select name="select-plan" class="input-field">
+                            <option value="monthly">$50/Monthly</option>
+                            <option value="quarterly">$130/Quarterly</option>
+                            <option value="half-year">$250/Half Yearly</option>
+                        </select>
+                    </div>
+
+                    <section class="card-details">
+                        <p>Card Details</p>
+                        <main class="logo-container">
+                            <img src="assets/images/master.png" class="card-logo" alt="master card logo">
+                            <img src="assets/images/verve.png" class="card-logo" alt="verve card logo">
+                            <img src="assets/images/visa.png" class="card-logo" alt="visa card logo">
+                        </main>
+                        <div>
+                            <label for="card-number">Card Number</label>
+                            <input type="text" class="input-field" name="card-number" data-mask="0000 0000 0000 0000" placeholder="Card Number" required>
+                        </div>
+                        <main class="small-fields">
+                            <div>
+                                <label for="expiry-data">Expiry Date</label>
+                                <input type="text" name="expiry-data" class="input-field" data-mask="00 / 00" placeholder="MM / YY" maxlength="7" title="Feild can't contain letters" required>
+                            </div>
+                            <div>
+                                <label for="cvc">CVC</label>
+                                <input type="text" class="input-field" data-mask="000" placeholder="000" required>
+                            </div>
+                        </main>
+                        <button class="btn" type="submit" name="checkout-btn">Make Payment</button>
+                    </section>
+                    
+                </form>
+                
+            </div>
+        </section>
+
+	</div>
+
+
+
+
+
+
+
+<!--BOOTSTRAP JAVASCRIPT-->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script> -->
+
+<!--CUSTOM JAVASCRIPT-->
+<script src="assets/js/script.js"></script>
+
+<!--Jquery CDN-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+</body>
+</html>

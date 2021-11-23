@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>UnknownSatoshi | All-in-One Community to Learn, Sell and Buy Cryptocurrency</title>
+    
+	<!--SEO Control-->
+	<meta charset="utf-8" />
+    <meta name="description" content=" ">
+    <link rel="icon" href="{% static 'images/favicon.jpg' %}">
+    <meta name="robots" content="no-index,nofollow">
+
+    <!--Viewport Control-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!--Custom Stylesheet-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin.css' %}" />
+
+    <!--Bootstrap CDN-->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+	<!--Remix Icon CDN-->
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+	<!--Google font-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+	<div class="page-wrapper">		
+        <nav class="login-nav">
+            <img src="{% static 'images/logo.png' %}" alt="logo" class="navbar-logo logo-exception">
+
+        </nav>
+        <h2>Admin Panel</h2>
+        <section class="pages-wrapper admin-index">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Pages</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Pages">Trade History</td>
+                        <td data-label="Action"><a class="btn" href="{% url 'adminhistory' %}">Edit</a></td>
+                    </tr>
+
+                    <tr>
+                        <td data-label="Pages">Courses</td>
+                        <td data-label="Action"><a class="btn" href="{% url 'admincourse' %}">Edit</a></td>
+                    </tr>
+
+                    <tr>
+                        <td data-label="Pages">Online Store</td>
+                        <td data-label="Action"><a class="btn" href="{% url 'adminstore' %}">Edit</a></td>
+                    </tr>
+
+                    <tr>
+                        <td data-label="Pages">Blog</td>
+                        <td data-label="Action"><a class="btn" href="{% url 'adminblog' %}">Edit</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+	</div>
+
+
+
+
+
+
+
+<!--BOOTSTRAP JAVASCRIPT-->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script> -->
+
+<!--CUSTOM JAVASCRIPT-->
+<script src="{% static 'js/script.js' %}"></script>
+
+<!--Jquery CDN-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</body>
+</html>

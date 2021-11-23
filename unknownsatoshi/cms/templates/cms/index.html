@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>UnknownSatoshi | All-in-One Community to Learn, Sell and Buy Cryptocurrency</title>
+
+	<!--SEO Control-->
+	<meta charset="utf-8" />
+    <meta name="description" content="Unknown Satoshi is a community focused platform which educates and empowers you with the right crypto knowledge and tools.">
+    <link rel="icon" href=" {% static 'images/favicon.jpg' %}">
+
+    <!--Viewport Control-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!--Custom Stylesheet-->
+    <link rel="stylesheet" type="text/css" href=" {% static 'css/style.css' %}" />
+
+    <!--Bootstrap CDN-->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+	<!--OWL CAROUSEL CSS CDN-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.theme.default.min.css">
+
+	<!--Remix Icon CDN-->
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+	<!--Google font-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+	<div class="page-wrapper">
+		<header class="banner-wrapper">
+		
+			<div class="navbar">
+				<div class="navbar__Link navbar__Link-brand">
+					<a href="index.html" class="index-link">
+					<img src="{% static 'images/logo.png' %}" class="navbar-logo" alt="website's logo">
+					</a>
+				</div>
+			
+				<div class="navbar__Link navbar__Link-toggle">
+					<img src=" {% static 'images/hamburger.png' %}" alt="site's hamburger" oncl>
+					<!-- <img src="assets/images/close-hamburger.png" alt="close menu" class="close-menu"> -->
+				</div>
+		
+				<nav class="navbar__Items">
+					<ul>
+					<li class="navbar__Link">
+						<a class="nav-link" href="{% url 'about' %}">About</a>
+					</li>
+					<li class="navbar__Link">
+						<a class="nav-link" href="{% url 'contact' %}">Contact us</a>
+					</li>
+					<li class="navbar__Link">
+						<a class="nav-link" href="{% url 'trade-history' %}">Trade History</a>
+					</li>
+					<li class="navbar__Link">
+						<a class="nav-link" href="{% url 'courses' %}">Courses</a>
+					</li>
+					<li class="navbar__Link">
+						<a class="nav-link" href="{% url 'onlinestore' %}">Online Store</a>
+					</li>
+					<li class="navbar__Link">
+						<a class="nav-link" href="{% url 'blog' %}">Blog</a>
+					</li>
+					</ul>
+				</nav>
+				<nav class="navbar__Items navbar__Items--right">
+                {% if request.user.is_authenticated %}
+                  <div class="navbar__Link">
+                <a class="btn hire-btn"  href="{% url 'logout' %}">Logout</a>
+                </div>
+                    {% else %}
+
+                    <div class="navbar__Link">
+                                    <a class="btn hire-btn"  href="{% url 'login' %}">Sign Up</a>
+                                    </div>
+
+                    {% endif%}
+
+                
+            </nav>
+			</div>
+		
+		
+		<br>
+			<section class="hero-section">
+				<div class="hero-section__title">
+				<h1>Welcome to Unknown Satoshi</h1>
+				<p>A community focused platform which educates and empowers you with the right crypto knowledge and tools.</p>
+				</div>
+				<br>
+				<a class="btn" href="https://discord.gg/zFGTdZYsQ4">Join Community</a>
+				<small>Join Our Discord Group For Free Now</small>
+
+				<img src="{% static 'images/hero-img.png' %}" class="hero-img" alt="image of cryptocurrency trading signal">
+			</section>
+		</header>
+
+
+		<section class="blog-section">
+			<h2>Blog Post</h2>
+			<h4>Don't know where to start? Check out some of our blog posts to know more about cryptocurrency</h4>
+			<div class="blog-post__container">
+				<div class="blog-post__card">
+					<a href="#">
+						<img src="{% static 'images/img-1.jpg' %}" alt="demo image">
+						<div class="text-container">
+							<h5>The hidden mystery behind cryptocurrency</h5>
+							<p>I'm going to hire professional help tomorrow. I can't handle this anymore. She fell over the coffee table and now there is blood in her catheter...</p>
+						</div>
+					</a>
+				</div>
+
+				<div class="blog-post__card">
+					<a href="#">
+						<img src="{% static 'images/img-6.jpg' %}" alt="demo image">
+						<div class="text-container">
+							<h5><a href="#">How to grow your crypto currency portfolio</a></h5>
+							<p>I'm going to hire professional help tomorrow. I can't handle this anymore. She fell over the coffee table and now there is blood in her catheter...</p>
+						</div>
+					</a>
+				</div>
+
+				<div class="blog-post__card">
+					<a href="#">
+						<img src="{% static 'images/img-2.jpg' %}" alt="demo image">
+						<div class="text-container">
+							<h5><a href="#">The hidden mystery behind cryptocurrency</a></h5>
+							<p>I'm going to hire professional help tomorrow. I can't handle this anymore. She fell over the coffee table and now there is blood in her catheter...</p>
+						</div>
+					</a>
+				</div>
+				
+			</div>
+		</section>
+
+		<hr>
+		<section class="subscription-section">
+			<div class="subscription-container">
+				<h2>Unknown Satoshi Pro</h2>
+				<p>Get started with UnknownSatoshi Pro today! <br> You don't have to do anything, we would do that for you, all you have to do is choose a plan.<br>
+					which takes less than 2mins.</p>
+				<a class="btn" href="subscription.html">Get Started</a>
+			</div>
+		</section>
+		<hr>
+
+		<section class="course-section">
+			<h2>You cannot find any course as simple to learn as this!</h2>
+			<div class="course-container">
+				<div class="course-container__item">
+					<a href="#">
+						<img src="{% static 'images/img-3.jpg' %}" alt="demo image">
+						<h5>Beginners Guide to Crypto </h5>
+						<p>In this course, we introduce you to the basics of crypto and what you should know to kickstart your journey as a crypto beginner. </p>
+					</a>
+				</div>
+
+				<div class="course-container__item">
+					<a href="#">
+						<img src="{% static 'images/img-5.jpg' %}" alt="demo image">
+						<h5>Technical Analysis Mastery </h5>
+						<p>In this course, we provide you with all you need to know about how to trade cryptocurrencies. This course takes you from a beginner to professional technical analyst.</p>
+					</a>
+				</div>
+
+				<div class="course-container__item">
+					<a href="#">
+						<img src="{% static 'images/img-6.jpg' %}" alt="demo image">
+						<h5>Beginners Guide to Crypto </h5>
+						<p>In this course, we introduce you to the basics of crypto and what you should know to kickstart your journey as a crypto beginner. </p>
+					</a>
+				</div>
+			</div>
+			<div class="course-btn__container">
+				<a class="btn" href="{% url 'courses' %}">See More Courses</a>
+			</div>			
+		</section>
+		
+		<hr>
+
+		<section class="history-section">
+			<div class="description-container">
+				<h2>Check out our trade record</h2>
+				<p>Check out Unknown Satoshi's signal performance and percentage profit & loss per trade to know what you are missing! </p>
+				<a class="btn" role="button" href="{% url 'trade-history' %}">See Record</a>
+			</div>
+
+			<div class="image-container">
+				<img src="{% static 'images/history.png' %}" alt="3D illustration of Trade History">
+			</div>
+		</section>
+
+
+		<section class="testimonial-section">
+			<h2>Take a look at the reviews from our community</h2>
+			<div class="owl-carousel owl-theme testimonial-wrapper" id="slider">
+				<div class="testimonial-container item">
+						<div class="star-rating">
+							<i class="ri-star-fill"></i>
+							<i class="ri-star-fill"></i>
+							<i class="ri-star-fill"></i>
+							<i class="ri-star-fill"></i>
+							<i class="ri-star-line"></i>
+						</div>
+						<main>
+							<p> Swift and secure trading, sure trading signals, master of coin predictions. I love it. </p>
+							<p class="bold">Omobolaji Memofoyi</p>
+							<cite>-CEO, Ladybees Gallery </cite>
+						</main>
+					</a>
+				</div>
+	
+				<div class="testimonial-container item">
+						<div class="star-rating">
+							<i class="ri-star-fill"></i>
+							<i class="ri-star-fill"></i>
+							<i class="ri-star-fill"></i>
+							<i class="ri-star-fill"></i>
+							<i class="ri-star-line"></i>
+						</div>
+						<main>
+							<p>Unknown Satoshi is an amazing community. Being part of the community since inception has made me profit, with their timely calls, tutorials, market analysis and reliable market updates. I would recommend the brand to anybody whether newbies or expert traders. </p>
+							<p class="bold">Oguntade Habeeb</p>
+							<cite>-Visual Designer, Emerald HB </cite>
+						</main>
+				</div>
+	
+				<div class="testimonial-container item">
+						<div class="star-rating">
+							<i class="ri-star-fill"></i>
+							<i class="ri-star-fill"></i>
+							<i class="ri-star-fill"></i>
+							<i class="ri-star-fill"></i>
+							<i class="ri-star-line"></i>
+						</div>
+						<main>
+							<p>I have made alot of progress in crypto ever since I joined Unknown Satoshi crypto community, and the most surprising thing is, it was for free. I haven't only learned, but I have also earned through their guidance. </p>
+							<p class="bold">Olajugba John</p>
+							<cite>-CEO, Triple J Global </cite>
+						</main>
+				</div>
+
+				<div class="testimonial-container item">
+					<div class="star-rating">
+						<i class="ri-star-fill"></i>
+						<i class="ri-star-fill"></i>
+						<i class="ri-star-fill"></i>
+						<i class="ri-star-fill"></i>
+						<i class="ri-star-line"></i>
+					</div>
+					<main>
+						<p>I  started my crypto journey from the Unknown Satoshi group, I was never a fan of crypto, since I joined the group I have been growing my portfolio with the help of the community members and I am glad to be part of the community!</p>
+						<p class="bold">Adeshina Lasisi</p>
+						<cite>-Software engineer, Africa Prudential Plc</cite>
+					</main>
+			</div>
+			</div>
+		</section>
+
+
+		<section class="trading-section">
+			<div class="description-container">
+				<h2>We Provide you the best trading signal</h2>
+				<p>Focusing on the latest investigations, we can positively say that in the 
+					context of big impact becomes a key factor of The Functionality of Corresponding Property" 
+				</p>
+				<a class="btn" href="#">Get Started</a>
+			</div>
+
+			<div class="image-container">
+				<img src="{% static 'images/signal.png' %}" alt="3D image design of trading signal">
+			</div>
+		</section>
+
+
+
+		<section class="newsletter-section">
+			<h2>Newsletter</h2>
+			<p>Sign up for our weekly newsletter to get the latest news, special offers, market researchs, crypto analysis and more. We promise not to spam your mail</p>
+
+			<form action="{% url 'home' %}" method="post">
+				<input type="email" name="email" id="email" class="input-field" placeholder="Input your email address..." required>
+				<a class="btn" role="button" href="#">Join Newsletter</a>
+			</form>
+		</section>
+
+
+		<section class="join-community">
+			<h2>Become part of a global community of elite crypto traders</h2>
+			<p>Don't miss the life changing opportunity crypto has to offer. Get access to latest informations, crypto signals and Market analysis</p>
+			<a class="btn" href="https://discord.gg/zFGTdZYsQ4">Join Community</a>
+		</section>
+	</div>
+
+	<footer>
+		<div class="footer-content__container">
+			<section class="footer-content__item">
+				<h4>Contact Us</h4>
+				<div class="contact-options">
+					<img src="{% static 'images/alt-logo.png' %}" alt="logo for unknown satoshi" class="alt-logo">
+					<p>A community focused platform which educates and empowers you with the right crypto knowledge and tools.</p>
+					<p class="iconic-paragraph"><i class="ri-mail-line"></i><a href="mailto:unknown@unknownsatoshi.com">unknown@unknownsatoshi.com</a></p>
+				</div>
+				
+				<div class="social-links">
+					<h4>Connect Socially</h4>
+					<a href="https://t.me/unknown_satoshi"><i class="ri-telegram-line"></i></a>
+					<a href="https://twitter.com/unknown_satoshi?t=neIjfJivVymH9Kg75UjqlA&s=09"><i class="ri-twitter-fill"></i></a>
+					<a href="https://instagram.com/theunknownsatoshi?utm_medium=copy_link"><i class="ri-instagram-line"></i></a>
+					<a href="https://youtube.com/channel/UCzpteHI9OCi6eAzRJyTZjRg"><i class="ri-youtube-line"></i></a>
+				</div>
+			</section>
+
+			<section class="footer-content__item">
+				<h4>Quick Access</h4>
+				<div class="links">
+					<a href="{% url 'home' %}">Home</a>
+					<a href="{% url 'about' %}">About</a>
+					<a href="{% url 'trade-history' %}">Trade Record</a>
+					<a href="{% url 'contact' %}">Contact</a>
+					<a href="{% url 'faqs' %}">FAQs</a>
+					<a href="{% url 'blog' %}">Blog</a>
+				</div>
+			</section>
+
+			<section class="footer-content__item">
+				<h4>Company</h4>
+				<div class="links">
+					<a href="competition.html">Trading Competition</a>
+					<a href="{% url 'courses' %}">Courses</a>
+					<a href="{% url 'onlinestore' %}">Store</a>
+					<a href="privacy.html">Privacy Policy</a>
+					<a href="terms.html">Terms and Conditions</a>
+				</div>
+			</section>
+		</div>
+	</footer>
+	  
+
+
+
+
+
+
+<!--BOOTSTRAP JAVASCRIPT-->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script> -->
+
+<!--CUSTOM JAVASCRIPT-->
+<script src="{% static 'js/script.js' %}"></script>
+
+
+<!--Jquery CDN-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!--OWL CAROUSEL 2 CDN-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js"></script>
+<script type="text/javascript">
+    $('#slider').owlCarousel({
+    loop:true,
+    margin:15,
+    nav:false,
+    dots: true,
+    autoplay:true,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:2
+        },
+        1000:{
+            items:3
+        }
+    }
+})
+</script>
+</body>
+</html>
