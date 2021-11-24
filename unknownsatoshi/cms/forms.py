@@ -2,7 +2,7 @@ from django.forms import ModelForm, fields
 from django.contrib.auth.models import User
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Cms, Course, Store, Blog
+from .models import Cms, Course, Product, Product, Blog
 
 class CmsForm(ModelForm):
     class Meta:
@@ -23,18 +23,18 @@ class CmsForm(ModelForm):
 class BlogForm(ModelForm):
     class Meta:
         model = Blog
-        fields = ['poststitle', 'postsauthour', 'posts', 'featured_image','featured_stories','latest_news','latest_articles']
+        fields = ['title', 'author', 'post', 'featured_image','featured_stories','latest_news','latest_articles']
     
     def __init__(self, *args, **kwargs):
         super(BlogForm, self).__init__(*args, **kwargs)
 
-        self.fields['poststitle'].widget.attrs.update(
+        self.fields['title'].widget.attrs.update(
             {'class': 'input'})
         
-        self.fields['postsauthour'].widget.attrs.update(
+        self.fields['author'].widget.attrs.update(
             {'class': 'input'})
         
-        self.fields['posts'].widget.attrs.update(
+        self.fields['post'].widget.attrs.update(
             {'class': 'input'})
 
         self.fields['featured_stories'].widget.attrs.update(
@@ -62,16 +62,16 @@ class CourseForm(ModelForm):
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'input'})
 
-class StoreForm(ModelForm):
+class ProductForm(ModelForm):
     class Meta:
-        model = Store
-        fields = ['stores', 'stores_link','price', 'featured_image', 'tags']
+        model = Product
+        fields = ['product_name', 'product_link','price', 'featured_image', 'tags']
         widgets = {
             'tags': forms.CheckboxSelectMultiple(),
         }
     
     def __init__(self, *args, **kwargs):
-        super(StoreForm, self).__init__(*args, **kwargs)
+        super(ProductForm, self).__init__(*args, **kwargs)
 
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'input'})

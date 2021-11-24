@@ -56,8 +56,8 @@
       <div class="item">
         <a class="sub-btn">Manage Store<i class="fas fa-angle-right dropdown"></i></a>
         <div class="sub-menu">
-            <a href="{% url 'adminstore' %}" class="sub-item">Manage Products</a>
-            <a href="{% url 'create-store' %}" class="sub-item">Add Product</a>
+            <a href="{% url 'admin-product' %}" class="sub-item">Manage Products</a>
+            <a href="{% url 'create-product' %}" class="sub-item">Add Product</a>
         </div>
       </div>
 
@@ -99,7 +99,7 @@
 	<div class="page-wrapper admin-wrapper">		
         <section class="alt-nav">
             <h4>Add Product</h4>
-            <a href="{% url 'adminstore' %}" class="btn">Manage Products</a>
+            <a href="{% url 'admin-product' %}" class="btn">Manage Products</a>
         </section> 
         <div class="content-container">
             <section class="add-product">
@@ -108,11 +108,11 @@
                     {% csrf_token %}
                         <div>
                             <label for="productName">Product Name</label>
-                            {{ form.stores }}
+                            {{ form.product_name }}
                         </div>
                         <div>
                             <label for="productLink">Product Link</label>
-                            {{form.stores_link}}
+                            {{form.product_link}}
                         </div>
                         <div>
                             <label for="price">Price</label>

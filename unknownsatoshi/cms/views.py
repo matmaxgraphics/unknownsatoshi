@@ -6,8 +6,8 @@ from django.utils.text import slugify
 from django.contrib.auth import login
 
 from django.http import HttpResponse
-from .models import Adminlogin, Cms, Course, Store, Blog
-from .forms import CmsForm, CourseForm, StoreForm, BlogForm
+from .models import Cms, Course, Product, Blog
+from .forms import CmsForm, CourseForm, ProductForm, BlogForm
 
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
@@ -19,19 +19,19 @@ def logoutadmin(request):
     logout(request)
     return redirect('home')
 
+
 def adminlog(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
-            admin =Adminlogin.objects.create(name=user.username, created_by=user)
-
+            Adminlogin.objects.create(name=user.username, created_by=user)
             return redirect('adminhistory')
-    
     else:
         form = UserCreationForm()
     return render(request, 'cms/admin-login.html', {'form': form})
+
 
 #admin views for trade history
 @login_required(login_url='adminlogin')
@@ -40,27 +40,32 @@ def adminlog(request):
 def adminpanel(request):
     return render(request, 'cms/admin-index.html')
 
+
 @login_required(login_url='adminlogin')
 @allowed_user(allowed_roles=['admin'])
 @admin_only
 def adminhistory(request):
+    template_name = 'cms/admin-history/index.html'
     cms = Cms.objects.all()
     context = {'cms':cms}
-    return render(request, 'cms/admin-history/index.html',context)
+    return render(request, template_name, context)
 
 
 @login_required(login_url='adminlogin')
 @allowed_user(allowed_roles=['admin'])
 @admin_only
 def trade(request, pk):
+    template_name = 'cms/admin-history/edit.html'
     tradeobj = Cms.objects.get(id=pk)
-    print('tradeobj:', tradeobj)
-    return render(request, 'cms/admin-history/edit.html', {'trade': tradeobj})
+    context = {'tradeobj:', tradeobj}
+    return render(request, template_name, context)
+
 
 @login_required(login_url='adminlogin')
 @allowed_user(allowed_roles=['admin'])
 @admin_only
 def createTrade(request):
+    template_name = 'cms/admin-history/createhistory.html'
     form = CmsForm
     if request.method == 'POST':
         form = CmsForm(request.POST)
@@ -68,14 +73,14 @@ def createTrade(request):
             form.save()
             return redirect('adminhistory')
     context = {'form':form}
-    return render(request, 'cms/admin-history/createhistory.html', context)
-
+    return render(request, template_name, context)
 
 
 @login_required(login_url='adminlogin')
 @allowed_user(allowed_roles=['admin'])
 @admin_only
 def updateTrade(request, pk):
+    template_name = 'cms/admin-history/createhistory.html'
     trade = Cms.objects.get(id=pk)
     form = CmsForm(instance=trade)
 
@@ -85,20 +90,20 @@ def updateTrade(request, pk):
             form.save()
             return redirect('adminhistory')
     context = {'form':form}
-    return render(request, 'cms/admin-history/createhistory.html', context)
+    return render(request, template_name, context)
+
 
 @login_required(login_url='adminlogin')
 @allowed_user(allowed_roles=['admin'])
 @admin_only
 def deleteTrade(request, pk):
+    template_name = 'cms/admin-history/edit.html'
     trade = Cms.objects.get(id=pk)
     if request.method == 'POST':
         trade.delete()
-        print(trade)
         return redirect('adminhistory')
     context = {'trade': trade}
-    return render(request, 'cms/admin-history/edit.html', context)
-
+    return render(request, template_name, context)
 
 
 #admin views for courses
@@ -106,14 +111,17 @@ def deleteTrade(request, pk):
 @allowed_user(allowed_roles=['admin'])
 @admin_only
 def admincourse(request):
+    template_name = 'cms/admin-course/index.html'
     courses_field = Course.objects.all()
     context = {'courses_field':courses_field}
-    return render(request, 'cms/admin-course/index.html', context)
+    return render(request, template_name, context)
+
 
 @login_required(login_url='adminlogin')
 @allowed_user(allowed_roles=['admin'])
 @admin_only
 def updateCourse(request, pk):
+    template_name = 'cms/admin-course/create.html'
     info = Course.objects.get(id=pk)
     form = CourseForm(instance=info)
 
@@ -123,12 +131,14 @@ def updateCourse(request, pk):
             form.save()
             return redirect('admincourse')
     context = {'form':form}
-    return render(request, 'cms/admin-course/create.html', context)
+    return render(request, template_name, context)
+
 
 @login_required(login_url='adminlogin')
 @allowed_user(allowed_roles=['admin'])
 @admin_only
 def createCourse(request):
+    template_name = 'cms/admin-course/create.html'
     form = CourseForm
     if request.method == 'POST':
         form = CourseForm(request.POST, request.FILES)
@@ -136,87 +146,102 @@ def createCourse(request):
             form.save()
             return redirect('admincourse')
     context = {'form':form}
-    return render(request, 'cms/admin-course/create.html', context)
+    return render(request, template_name, context)
+
 
 @login_required(login_url='adminlogin')
 @allowed_user(allowed_roles=['admin'])
 @admin_only
 def deleteCourse(request, pk):
+    template_name = 'cms/admin-course/edit.html'
     info = Course.objects.get(id=pk)
     if request.method == 'POST':
         info.delete()
         return redirect('admincourse')
     context = {'info': info}
-    return render(request, 'cms/admin-course/edit.html', context)
+    return render(request, template_name, context)
+
 
 #admin views for store
 @login_required(login_url='adminlogin')
 @allowed_user(allowed_roles=['admin'])
 @admin_only
-def adminStore(request):
-    store_field = Store.objects.all()
-    context = {'store_field':store_field}
-    return render(request, 'cms/admin-store/index.html', context)
+def admin_product(request):
+    template_name = 'cms/admin-store/index.html'
+    products = Product.objects.all()
+    context = {'products':products}
+    return render(request, template_name, context)
+
 
 @login_required(login_url='adminlogin')
 @allowed_user(allowed_roles=['admin'])
 @admin_only
-def createStore(request):
-    form = StoreForm
+def create_product(request):
+    template_name = 'cms/admin-store/create.html'
+    form = ProductForm
     if request.method == 'POST':
-        form = StoreForm(request.POST, request.FILES)
+        form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('adminstore')
     context = {'form':form}
-    return render(request, 'cms/admin-store/create.html', context)
+    return render(request, template_name, context)
+
 
 @login_required(login_url='adminlogin')
 @allowed_user(allowed_roles=['admin'])
 @admin_only
-def updateStore(request, pk):
-    shop = Store.objects.get(id=pk)
-    form = StoreForm(instance=shop)
+def update_product(request, pk):
+    template_name = 'cms/admin-store/create.html'
+    product = Product.objects.get(id=pk)
+    form = ProductForm(instance=product)
 
     if request.method == 'POST':
-        form = StoreForm(request.POST, request.FILES,instance=shop)
+        form = ProductForm(request.POST, request.FILES,instance=product)
         if form.is_valid():
             form.save()
             return redirect('adminstore')
     context = {'form':form}
-    return render(request, 'cms/admin-store/create.html', context)
+    return render(request, template_name, context)
+
 
 @login_required(login_url='adminlogin')
 @allowed_user(allowed_roles=['admin'])
 @admin_only
-def deleteStore(request, pk):
-    shop = Store.objects.get(id=pk)
+def delete_product(request, pk):
+    template_name = 'cms/admin-store/edit.html'
+    product = Product.objects.get(id=pk)
     if request.method == 'POST':
-        shop.delete()
+        product.delete()
         return redirect('adminstore')
-    context = {'shop': shop}
-    return render(request, 'cms/admin-store/edit.html', context)
+    context = {'product': product}
+    return render(request, template_name, context)
+
+################################################################################
 
 # blog views for admin
-def singleBlog(request):
-    return render(request, 'cms/single.html')
+def single_blog(request):
+    template_name = 'cms/single.html'
+    return render(request, template_name)
 
-def adminblog(request):
+
+def admin_blog(request):
+    template_name = 'cms/admin-blog/posts/index.html'
     blogs = Blog.objects.all()
     featured_story =Blog.objects.filter(featured_stories=True)
     latest_new =Blog.objects.filter(latest_news=True)
     latest_article =Blog.objects.filter(latest_articles=True)
-    context = {'blogs':blogs,
-                'featured_story':featured_story,
-                'latest_new':latest_new,
-                'latest_article':latest_article,
-                
+    context = {
+        'blogs':blogs,
+        'featured_story':featured_story,
+        'latest_new':latest_new,
+        'latest_article':latest_article,        
+    }
+    return render(request, template_name, context)
 
-                }
 
-    return render(request, 'cms/admin-blog/posts/index.html', context)
-
-def createBlog(request):
+def create_blog(request):
+    template_name = 'cms/admin-blog/posts/create.html'
     form = BlogForm
     if request.method == 'POST':
         form = BlogForm(request.POST, request.FILES)
@@ -224,9 +249,11 @@ def createBlog(request):
             form.save()
             return redirect('adminblog')
     context = {'form':form}
-    return render(request, 'cms/admin-blog/posts/create.html', context)
+    return render(request, template_name, context)
 
-def updateBlog(request, pk):
+
+def update_blog(request, pk):
+    template_name = 'cms/admin-blog/posts/create.html'
     blog = Blog.objects.get(id=pk)
     form = BlogForm(instance=blog)
 
@@ -236,80 +263,102 @@ def updateBlog(request, pk):
             form.save()
             return redirect('adminblog')
     context = {'form':form}
-    return render(request, 'cms/admin-blog/posts/create.html', context)
+    return render(request, template_name, context)
 
-def deleteBlog(request, pk):
-    deleteblog = Blog.objects.get(id=pk)
+
+def delete_blog(request, pk):
+    template_name = 'cms/admin-blog/posts/delete.html'
+    blog = Blog.objects.get(id=pk)
     if request.method == 'POST':
-        deleteblog.delete()
+        blog.delete()
         return redirect('adminblog')
-    context = {'deleteblog': deleteblog}
-    return render(request, 'cms/admin-blog/posts/delete.html', context)
+    context = {'blog': blog}
+    return render(request, template_name, context)
+
 
 #normal pages for users views
 def home(request):
-    #projects = Project.objects.all()
-    #context = {'projects':projects}
     return render(request, 'cms/index.html')
 
 
 def about(request):
-    return render(request, 'cms/about.html')
+    template_name = 'cms/about.html'
+    return render(request, template_name)
 
 
 def contact(request):
-    return render(request, 'cms/contact.html')
+    template_name = "cms/contact.html"
+    return render(request, template_name)
 
 
 def register(request):
-    return render(request, 'cms/register.html')
-
+    template_name = 'cms/register.html'
+    return render(request, template_name)
+    
 
 def login(request):
-    return render(request, 'cms/login.html')
+    template_name = 'cms/login.html'
+    return render(request, template_name)
 
 
 def courses(request):
+    template_name = 'cms/course.html'
     courses_field = Course.objects.all()
     context = {'courses_field':courses_field}
-    return render(request, 'cms/course.html', context)
+    return render(request, template_name, context)
 
 
 def trade_history(request):
+    template_name = 'cms/trade.html'
     cmss = Cms.objects.all()
     context = {'cmss':cmss}
-    return render(request, 'cms/trade.html',context)
+    return render(request, template_name,context)
 
 
 def onlinestore(request):
-    store_field = Store.objects.all()
-    context = {'store_field':store_field}
-    return render(request, 'cms/store.html', context)
+    template_name = 'cms/store.html'
+    products = Product.objects.all()
+    context = {'products':products}
+    return render(request, template_name, context)
 
 
+# blog list
 def blog(request):
+    template_name = 'cms/blog.html'
     blogs = Blog.objects.all()
     featured_story =Blog.objects.filter(featured_stories=True)
     latest_new =Blog.objects.filter(latest_news=True)
     latest_article =Blog.objects.filter(latest_articles=True)
-    context = {'blogs':blogs,
-                'featured_story':featured_story,
-                'latest_new':latest_new,
-                'latest_article':latest_article,
-                
+    context = {
+        'blogs':blogs,
+        'featured_story':featured_story,
+        'latest_new':latest_new,
+        'latest_article':latest_article,
+    }
+    return render(request, template_name, context)
 
-                }
 
-    return render(request, 'cms/blog.html', context)
+# blog details
+def blog_detail(request, pk):
+    template_name = 'cms/single.html'
+    blog = Blog.objects.get(id=pk)
+    context = {'blog': blog}
+    return render(request, template_name, context)
 
-#def singleBlog(request, pk):
-    #blogobj = Blog.objects.get(id=pk)
-    #print('blogobj:', blogobj)
-    #return render(request, 'cms/single.html', {'single-blog': blogobj})
 
+# faq page
 def faqs(request):
-    return render(request, 'cms/faqs.html')
+    template_name = 'cms/faqs.html'
+    return render(request, template_name)
 
+
+#authentication page
 def Auth(request):
-    return render(request, 'cms/auth.html')
+    template_name = 'cms/auth.html'
+    return render(request, template_name)
 
+
+#premium subscription page
+def premium_subscription(request):
+    template_name = "cms/subscription.html"
+    return render(request, template_name)

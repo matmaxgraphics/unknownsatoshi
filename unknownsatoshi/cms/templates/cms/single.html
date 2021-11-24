@@ -66,97 +66,34 @@
             </nav>
            <nav class="navbar__Items navbar__Items--right">
                 {% if request.user.is_authenticated %}
-                  <div class="navbar__Link">
-                <a class="btn hire-btn"  href="{% url 'logout' %}">Logout</a>
-                </div>
-                    {% else %}
-
                     <div class="navbar__Link">
-                                    <a class="btn hire-btn"  href="{% url 'login' %}">Sign Up</a>
-                                    </div>
-
-                    {% endif%}
-
-                
+                        <a class="btn hire-btn"  href="{% url 'logout' %}">Logout</a>
+                    </div>
+                {% else %}
+                    <div class="navbar__Link">
+                        <a class="btn hire-btn"  href="{% url 'login' %}">Sign Up</a>
+                    </div>
+                {% endif %}
             </nav>
         </div>
 		
 		
 		<br>
         
-        <section class="article-wrapper">
-            <div class="post-details">
-                <span class="iconic-span"><i class="ri-calendar-line"></i>25th, Oct 2021</span>
-                <span class="iconic-span"><i class="ri-user-line"></i>25th, Oct 2021</span>
-            </div>
-            <div class="blog-content_container">
-                <img src="{% static 'images/img-3.jpg' %}" class="blog-banner" alt="demo image for blog post">
-
-                <h1 class="post-title">The hidden mystery behind cryptocurrency</h1>
-                <div class="post-content">
-                    <p>The shoes had been there for as long as anyone could remember. In fact, it was difficult for anyone to come up with a date they had first appeared. 
-                        It had seemed they'd always been there and yet they seemed so out of place. Why nobody had removed them was a question that had been asked time and again, 
-                        but while they all thought it, nobody had ever found the energy to actually do it. So, the shoes remained on the steps, out of place in one sense, but perfectly normal in another</p>
-                    <p>I recently discovered I could make fudge with just chocolate chips, sweetened condensed milk, vanilla extract, and a thick pot on slow heat. I tried it with dark chocolate chunks 
-                        and I tried it with semi-sweet chocolate chips. It's better with both kinds. It comes out pretty bad with just the dark chocolate. The best add-ins are crushed almonds and marshmallows -- 
-                        what you get from that is Rocky Road. It takes about twenty minutes from start to fridge, and then it takes about six months to work off the twenty pounds you gain from eating it. All things in moderation, friends. All things in moderation.</p>
-                    <p>Sometimes it's just better not to be seen. That's how Harry had always lived his life. He prided himself as being the fly on the wall and the fae that blended into the crowd. That's why he was so shocked that she noticed him.</p>
-                    <p>It was that terrifying feeling you have as you tightly hold the covers over you with the knowledge that there is something hiding under your bed. You want to look, but you don't at the same time. 
-                        You're frozen with fear and unable to act. That's where she found herself and she didn't know what to do next</p>
-                    <p>
-                        She asked the question even though she didn't really want to hear the answer. It was a no-win situation since she already knew. If he told the truth, she'd get confirmation of her worst fears. If he lied, she'd know that he wasn't who she 
-                        thought he was which would be almost as bad. Yet she asked the question anyway and waited for his answer.</p>
-                        <figure>
-                            <img src="{% static 'images/img-1.jpg' %}" class="content-img" alt="blog content image">
-                            <figcaption>Demo image of blog content</figcaption>
-                        </figure>
-
-                    <p>The shoes had been there for as long as anyone could remember. In fact, it was difficult for anyone to come up with a date they had first appeared. 
-                        It had seemed they'd always been there and yet they seemed so out of place. Why nobody had removed them was a question that had been asked time and again, 
-                        but while they all thought it, nobody had ever found the energy to actually do it. So, the shoes remained on the steps, out of place in one sense, but perfectly normal in another</p>
-                    <p>I recently discovered I could make fudge with just chocolate chips, sweetened condensed milk, vanilla extract, and a thick pot on slow heat. I tried it with dark chocolate chunks 
-                        and I tried it with semi-sweet chocolate chips. It's better with both kinds. It comes out pretty bad with just the dark chocolate. The best add-ins are crushed almonds and marshmallows -- 
-                        what you get from that is Rocky Road. It takes about twenty minutes from start to fridge, and then it takes about six months to work off the twenty pounds you gain from eating it. All things in moderation, friends. All things in moderation.</p>
-                    <p>Sometimes it's just better not to be seen. That's how Harry had always lived his life. He prided himself as being the fly on the wall and the fae that blended into the crowd. That's why he was so shocked that she noticed him.</p>
-                    <p>It was that terrifying feeling you have as you tightly hold the covers over you with the knowledge that there is something hiding under your bed. You want to look, but you don't at the same time. 
-                        You're frozen with fear and unable to act. That's where she found herself and she didn't know what to do next</p>
-                    <p>
-                        She asked the question even though she didn't really want to hear the answer. It was a no-win situation since she already knew. If he told the truth, she'd get confirmation of her worst fears. If he lied, she'd know that he wasn't who she 
-                        thought he was which would be almost as bad. Yet she asked the question anyway and waited for his answer.</p>
-                </div>
-            </div>
-        </section>
+       
 
         <section class="blog-post__section">
+        
+                
             <main class="stories-section related-posts">
-                <h2>Featured Stories</h2>
+                <h2>{{blog.title}}</h2>
                 <div class="blog-post__container">
                     <div class="blog-post__card">
                         <a href="#">
-                            <img src="{% static 'images/img-1.jpg' %}" alt="demo image">
+                            <img src="{{blog.featured_image.url}}" alt="demo image">
                             <div class="text-container">
-                                <h5>The hidden mystery behind cryptocurrency</h5>
-                                <p>I'm going to hire professional help tomorrow. I can't handle this anymore. She fell over the coffee table and now there is blood in her catheter...</p>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="blog-post__card">
-                        <a href="#">
-                            <img src="{% static 'images/img-6.jpg' %}" alt="demo image">
-                            <div class="text-container">
-                                <h5><a href="#">How to grow your crypto currency portfolio</a></h5>
-                                <p>I'm going to hire professional help tomorrow. I can't handle this anymore. She fell over the coffee table and now there is blood in her catheter...</p>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="blog-post__card">
-                        <a href="#">
-                            <img src="{% static 'images/img-2.jpg' %}" alt="demo image">
-                            <div class="text-container">
-                                <h5><a href="#">The hidden mystery behind cryptocurrency</a></h5>
-                                <p>I'm going to hire professional help tomorrow. I can't handle this anymore. She fell over the coffee table and now there is blood in her catheter...</p>
+                                <h5><a href="#">{{blog.title}}</a></h5>
+                                <p>{{blog.post}}</p>
                             </div>
                         </a>
                     </div>

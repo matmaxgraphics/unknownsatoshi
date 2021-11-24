@@ -3,43 +3,54 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
+    # main website views
     path('', views.home, name='home'),
-    path('adminpanel', views.adminpanel, name='adminpanel'),
-    path('adminlogin', auth_views.LoginView.as_view(template_name='cms/admin-login.html'), name='adminlogin'),
-    path('logout/', views.logoutadmin, name="logout"),
-    path('adminhistory', views.adminhistory, name='adminhistory'),
-    path('admincourse', views.admincourse, name='admincourse'),
-    path('adminstore', views.adminStore, name='adminstore'),
-    path('create-trade/', views.createTrade, name='create-trade'),
-    path('create-course/', views.createCourse, name='create-course'),
-    path('create-store/', views.createStore, name='create-store'),
-    path('delete-trade/<str:pk>/', views.deleteTrade, name='delete-trade'),
-    path('delete-course/<str:pk>/', views.deleteCourse, name='delete-course'),
-    path('delete-store/<str:pk>/', views.deleteStore, name='delete-store'),
-    path('update-trade/<str:pk>/', views.updateTrade, name='update-trade'),
-    path('update-course/<str:pk>/', views.updateCourse, name='update-course'),
-    path('update-store/<str:pk>/', views.updateStore, name='update-store'),
-    path('update-blog/<str:pk>/', views.updateBlog, name='update-blog'),
-    path('trade/<str:pk>/', views.trade, name='trade'),
-    path('single-blog/', views.singleBlog, name='single-blog'),
-    path('adminblog/', views.adminblog, name='adminblog'),
-    path('create-blog/', views.createBlog, name='create-blog'),
-    path('delete-blog/<str:pk>/', views.deleteBlog, name='delete-blog'),
-
-    
-    
-    path('contact/', views.contact, name='contact'),
+    path('blog/', views.blog, name='blog'),
+    path('faqs/', views.faqs, name='faqs'),
     path('about/', views.about, name='about'),
+    path('contact/', views.contact, name='contact'),
     path('courses/', views.courses, name='courses'),
     path('trade-history/', views.trade_history, name='trade-history'),
     path('onlinestore/', views.onlinestore, name='onlinestore'),
-    path('blog/', views.blog, name='blog'),
-    path('faqs/', views.faqs, name='faqs'),
+    path("subscription/", views.premium_subscription, name="premium-subscription"),
     path('notauth/', views.Auth, name='notauth'),
+    
+    # admin panel
+    path('adminpanel', views.adminpanel, name='adminpanel'),
+    
+    # admin login panel
+    path('adminlogin', auth_views.LoginView.as_view(template_name='cms/admin-login.html'), name='adminlogin'),
+    
+    # admin logout
+    path('logout/', views.logoutadmin, name="logout"),
+    
+    # admin history section
+    path('adminhistory', views.adminhistory, name='adminhistory'),
+   
+    # admin product section
+    path('admin-product', views.admin_product, name='admin-product'),
+    path('create-product/', views.create_product, name='create-product'),
+    path('update-product/<str:pk>/', views.update_product, name='update-product'),
+    path('delete-product/<str:pk>/', views.delete_product, name='delete-product'),
 
-    #path('project/<str:pk>/', views.project, name='project'),
+    # admin trade section
+    path('create-trade/', views.createTrade, name='create-trade'),
+    path('trade/<str:pk>/', views.trade, name='trade'),
+    path('delete-trade/<str:pk>/', views.deleteTrade, name='delete-trade'),
+    path('update-trade/<str:pk>/', views.updateTrade, name='update-trade'),
 
-    #path('create-project/', views.createProject, name='create-project'),
-    #path('update-project<str:pk>/', views.updateProject, name='update-project'),
-    #path('delete-project<str:pk>/', views.deleteProject, name='delete-project'),
+    # admin course section
+    path('admincourse', views.admincourse, name='admincourse'),
+    path('create-course/', views.createCourse, name='create-course'),
+    path('update-course/<str:pk>/', views.updateCourse, name='update-course'),
+    path('delete-course/<str:pk>/', views.deleteCourse, name='delete-course'),
+
+    
+    
+    # admin blog section
+    path('create-blog/', views.create_blog, name='create-blog'),
+    path('adminblog/', views.admin_blog, name='adminblog'),
+    path('update-blog/<str:pk>/', views.update_blog, name='update-blog'),
+    path('delete-blog/<str:pk>/', views.delete_blog, name='delete-blog'),
+    path('blog-detail/<str:pk>/', views.blog_detail, name='blog-detail'),
 ]

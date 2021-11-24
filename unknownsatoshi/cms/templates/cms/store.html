@@ -99,15 +99,15 @@
                 <div class="product-wrapper">
                     <h2>Merch</h2>
                     <div class="products-container">
-                    {% for store in store_field %}
+                    {% for product in products %}
                         <div class="product-container__item">
-                            <img src="{{store.featured_image.url}}" alt="picture of merch product">
+                            <img src="{{product.featured_image.url}}" alt="picture of merch product">
                             <main>
                                 <div class="details-container">
-                                    <p>{{store.stores}}</p>
-                                    <a class="btn" href="{{store.stores_link}}">Buy Now</a>
+                                    <p>{{product.product_name}}</p>
+                                    <a class="btn" href="{{product.product_link}}">Buy Now</a>
                                 </div>
-                                <h5>${{store.price}}</h5>
+                                <h5>${{product.price}}</h5>
                             </main>
                         </div>
                     {% endfor %}
@@ -126,15 +126,15 @@
                 <div class="product-wrapper">
                     <h2>NFT Arts</h2>
                     <div class="products-container">
-                         {% for store in store_field %}
+                         {% for product in products %}
                         <div class="product-container__item">
-                            <img src="{{store.featured_image.url}}" alt="picture of merch product">
+                            <img src="{{product.featured_image.url}}" alt="picture of merch product">
                             <main>
                                 <div class="details-container">
-                                    <p>{{store.stores}}</p>
-                                    <a class="btn" href="{{store.stores_link}}">Buy Now</a>
+                                    <p>{{product.product_name}}</p>
+                                    <a class="btn" href="{{product.product_link}}">Buy Now</a>
                                 </div>
-                                <h5>${{store.price}}</h5>
+                                <h5>${{product.price}}</h5>
                             </main>
                         </div>
                     {% endfor %}

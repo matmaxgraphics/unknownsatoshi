@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -38,7 +38,7 @@
 		
 			<div class="navbar">
 				<div class="navbar__Link navbar__Link-brand">
-					<a href="index.html" class="index-link">
+					<a href="{% url 'home' %}" class="index-link">
 					<img src="{% static 'images/logo.png' %}" class="navbar-logo" alt="website's logo">
 					</a>
 				</div>
@@ -71,10 +71,10 @@
 					</ul>
 				</nav>
 				<nav class="navbar__Items navbar__Items--right">
-                {% if request.user.is_authenticated %}
-                  <div class="navbar__Link">
-                <a class="btn hire-btn"  href="{% url 'logout' %}">Logout</a>
-                </div>
+					{% if request.user.is_authenticated %}
+					<div class="navbar__Link">
+						<a class="btn hire-btn"  href="{% url 'logout' %}">Logout</a>
+					</div>
                     {% else %}
 
                     <div class="navbar__Link">
@@ -84,7 +84,7 @@
                     {% endif%}
 
                 
-            </nav>
+            	</nav>
 			</div>
 		
 		
@@ -146,7 +146,7 @@
 				<h2>Unknown Satoshi Pro</h2>
 				<p>Get started with UnknownSatoshi Pro today! <br> You don't have to do anything, we would do that for you, all you have to do is choose a plan.<br>
 					which takes less than 2mins.</p>
-				<a class="btn" href="subscription.html">Get Started</a>
+				<a class="btn" href="{% url 'premium-subscription' %}">Get Started</a>
 			</div>
 		</section>
 		<hr>
@@ -271,7 +271,7 @@
 				<p>Focusing on the latest investigations, we can positively say that in the 
 					context of big impact becomes a key factor of The Functionality of Corresponding Property" 
 				</p>
-				<a class="btn" href="#">Get Started</a>
+				<a class="btn" href="{% url 'premium-subscription' %}">Get Started</a>
 			</div>
 
 			<div class="image-container">

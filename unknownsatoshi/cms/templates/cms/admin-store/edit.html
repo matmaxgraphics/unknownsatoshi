@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Admin Panel | Edit Store</title>
+	<title>Admin Panel | Edit Product</title>
     
 	<!--SEO Control-->
 	<meta charset="utf-8" />
@@ -53,8 +53,8 @@
       <div class="item">
         <a class="sub-btn">Manage Store<i class="fas fa-angle-right dropdown"></i></a>
         <div class="sub-menu">
-            <a href="{% url 'adminstore' %}" class="sub-item">Manage Products</a>
-            <a href="{% url 'create-store' %}" class="sub-item">Add Product</a>
+            <a href="{% url 'admin-product' %}" class="sub-item">Manage Products</a>
+            <a href="{% url 'create-product' %}" class="sub-item">Add Product</a>
         </div>
       </div>
 
@@ -96,7 +96,7 @@
 	  <div class="page-wrapper admin-wrapper">		
         <section class="alt-nav">
             <h4>Delete Store</h4>
-            <a href="{% url 'adminstore' %}" class="btn">Manage Store</a>
+            <a href="{% url 'admin-product' %}" class="btn">Manage Product</a>
         </section> 
         <div class="content-container">
             <section class="add-product">
@@ -108,7 +108,7 @@
                                 Are You Sure You Want To Delete
                             </div>
                             <input style="color: white; font-weight: bold;" class="btn" type="submit"></input>
-                            <button class="btn" type="submit"><a href="{% url 'adminstore' %}"></a>No</button>
+                            <button class="btn" type="submit"><a href="{% url 'admin-product' %}"></a>No</button>
                         </form> 
                      </div>
                 </aside>

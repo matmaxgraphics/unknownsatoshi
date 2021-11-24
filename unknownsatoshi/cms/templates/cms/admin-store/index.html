@@ -3,7 +3,7 @@
 {% load static %}
 <head>
 	<meta charset="utf-8">
-	<title>Admin Panel | Manage Store</title>
+	<title>Admin Panel | Manage Product</title>
     
 	<!--SEO Control-->
 	<meta charset="utf-8" />
@@ -56,8 +56,8 @@
       <div class="item">
         <a class="sub-btn">Manage Store<i class="fas fa-angle-right dropdown"></i></a>
         <div class="sub-menu">
-            <a href="{% url 'adminstore' %}" class="sub-item">Manage Products</a>
-            <a href="{% url 'create-store' %}" class="sub-item">Add Product</a>
+            <a href="{% url 'admin-product' %}" class="sub-item">Manage Products</a>
+            <a href="{% url 'create-product' %}" class="sub-item">Add Product</a>
         </div>
       </div>
 
@@ -99,7 +99,7 @@
 	  <div class="page-wrapper admin-wrapper">		
         <section class="alt-nav">
             <h4>Manage Store</h4>
-            <a href="{% url 'create-store' %}" class="btn">Add Product</a>
+            <a href="{% url 'create-product' %}" class="btn">Add Product</a>
         </section>
 
       <section class="trade-table store-table">
@@ -114,15 +114,15 @@
             </tr>
           </thead>
           <tbody>
-          {% for store in store_field %}
+          {% for product in products %}
             <tr>
               <td data-label="S/N">1</td>
               <td data-label="image"><img src="{{store.featured_image.url}}"></td>
-              <td data-label="Product Name">{{store.stores}}</td>
-              <td data-label="Price">${{ store.price}}</td>
-              <td data-label="Action"><a href="{% url 'update-store' store.id %}" class="edit">edit</a></td>
+              <td data-label="Product Name">{{product.product_name}}</td>
+              <td data-label="Price">${{ product.price}}</td>
+              <td data-label="Action"><a href="{% url 'update-product' product.id %}" class="edit">edit</a></td>
               <td><button class="delete" >
-                  <a style="color: rgb(233, 143, 25);" href="{% url 'delete-store' store.id%}" class="edit">Delete</a></button></td>
+                  <a style="color: rgb(233, 143, 25);" href="{% url 'delete-product' product.id %}" class="edit">Delete</a></button></td>
             </tr>
           {% endfor %}
             
