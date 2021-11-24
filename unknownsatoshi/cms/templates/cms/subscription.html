@@ -115,45 +115,140 @@
                 <p>Choose your subscription plan</p>
             </div>
 
-            <div class="pricing-container">
-                <div class="plan-wrapper">
-                    <div class="plan-box">
-                        <div class="discount">
-                            <p><del>$60</del></p>
-                            <p class="saved primary">save $15</p>
+            <div class="payment-option">
+                <!-- Tabs -->
+                <ul id="nav-tab" class="switcher">
+                  <li class="active"><a href="#card">Pay with Card</a></li>
+                  <li><a href="#crypto">Pay with Cryptocurrency</a></li>
+                  
+                </ul>
+              
+                <!-- Tab panes -->
+                <div class="tab-content">
+                  <div class="tab-pane active" id="card">
+                    <div class="pricing-container">
+                        <div class="plan-wrapper">
+                            <div class="plan-box">
+                                <div class="discount">
+                                    <p><del>$60</del></p>
+                                    <p class="saved primary">save $15</p>
+                                </div>
+                                <h4>Monthly plan</h4>
+                                <hr>
+                                <p class="duration"><span>$50</span> /month</p>
+                                <a href="register.html" class="btn primary">Select Plan</a>
+                            </div>
+        
+                            <div class="plan-box">
+                                <div class="discount">
+                                    <p><del>$150</del></p>
+                                    <p class="saved purple">save $20</p>
+                                </div>
+                                <h4>Monthly plan</h4>
+                                <hr>
+                                <p class="duration"><span>$130</span> /month</p>
+                                <a href="register.html" class="btn purple">Select Plan</a>
+                            </div>
+        
+                            <div class="plan-box popular-box">
+                                <p class="popular">Most Popular</p>
+                                <div class="discount popular-discount">
+                                    <p><del>$300</del></p>
+                                    <p class="saved success">save $50</p>
+                                </div>
+                                <main>
+                                    <h4>Monthly plan</h4>
+                                    <hr>
+                                    <p class="duration"><span>$250</span> /month</p>
+                                    <a href="register.html" class="btn success">Select Plan</a>
+                                </main>
+                            </div>
                         </div>
-                        <h4>Monthly plan</h4>
-                        <hr>
-                        <p class="duration"><span>$50</span> /month</p>
-                        <a href="register.html" class="btn primary">Select Plan</a>
                     </div>
+                  </div>
+                  
+                  <div class="tab-pane" id="crypto">
+                    <!--=======PAYMENT VIA CRYPTO ============-->
 
-                    <div class="plan-box">
-                        <div class="discount">
-                            <p><del>$150</del></p>
-                            <p class="saved purple">save $20</p>
-                        </div>
-                        <h4>Monthly plan</h4>
-                        <hr>
-                        <p class="duration"><span>$130</span> /month</p>
-                        <a href="register.html" class="btn purple">Select Plan</a>
-                    </div>
+                    <!--MODAL CONTROLLING CRYPTO ADDRESS-->
+                    <main class="modal" id="dialogueModal">
+                        <aside class="dialogue-box">
+                            <div class="content-wrapper">
+                            <span class="close" onclick="document.getElementById('dialogueModal').style.display='none'">&times;</span>
+                                <h4>For Crypto Payments pay to</h4>
+                                <div class="address-input">
+                                    <label for="usdt-trc20">USDT(TRC20)</label>
+                                    <input type="text" id="wallet-address" name="usdt-trc20" class="input-field" value="TG6DGfAv1wEmnEdAf9tsHJLBfRBXfSxg7s">
+                                </div>
+                                <div class="address-input">
+                                    <label for="usdt-bep20">USDT(BEP20)</label>
+                                    <input type="text" id="wallet-address" name="usdt-bep20" class="input-field" value="0x3b1ec9574a0b1b643db349D8d30392dBeFC8CdD2">
+                                </div>
+                                <div class="address-input">
+                                    <label for="usdt-erc20">USDT(ERC20)</label>
+                                    <input type="text" id="wallet-address" name="usdt-erc20" class="input-field" value="0x3b1ec9574a0b1b643db349D8d30392dBeFC8CdD2">
+                                </div>
+                                <div class="btn-group">
+                                <small class="warning"><span>Note:</span> verify network and wallets address twice before payment</small>
+                                <p class="payment-verify">
+                                    After payment, send proof of payment which includes:
+                                    <ul>
+                                        <li class="proof-item">Name</li>
+                                        <li class="proof-item">Last 10 digits of your wallets address</li>
+                                        <li class="proof-item">screenshot of transfer</li>
+                                    </ul>
+                                    to: <a href="mailto:unknown@unknownsatoshi.com">unknown@unknownsatoshi.com</a>
+                                </p>
+                                </div>
+                            </div>
+                        </aside>
+                    </main>
+                    <!--END OF MODAL WINDOW-->
 
-                    <div class="plan-box popular-box">
-                        <p class="popular">Most Popular</p>
-                        <div class="discount popular-discount">
-                            <p><del>$300</del></p>
-                            <p class="saved success">save $50</p>
+
+                    <div class="pricing-container">
+                        <div class="plan-wrapper">
+                            <div class="plan-box">
+                                <div class="discount">
+                                    <p><del>$60</del></p>
+                                    <p class="saved primary">save $15</p>
+                                </div>
+                                <h4>Monthly plan</h4>
+                                <hr>
+                                <p class="duration"><span>$50</span> /month</p>
+                                <button class="btn primary" onclick="document.getElementById('dialogueModal').style.display='block'">Select Plan</button>
+                            </div>
+
+                            <div class="plan-box">
+                                <div class="discount">
+                                    <p><del>$150</del></p>
+                                    <p class="saved purple">save $20</p>
+                                </div>
+                                <h4>Monthly plan</h4>
+                                <hr>
+                                <p class="duration"><span>$130</span> /month</p>
+                                <button class="btn purple" onclick="document.getElementById('dialogueModal').style.display='block'">Select Plan</button>
+                            </div>
+
+                            <div class="plan-box popular-box">
+                                <p class="popular">Most Popular</p>
+                                <div class="discount popular-discount">
+                                    <p><del>$300</del></p>
+                                    <p class="saved success">save $50</p>
+                                </div>
+                                <main>
+                                    <h4>Monthly plan</h4>
+                                    <hr>
+                                    <p class="duration"><span>$250</span> /month</p>
+                                    <button class="btn success" onclick="document.getElementById('dialogueModal').style.display='block'">Select Plan</button>
+                                </main>
+                            </div>
                         </div>
-                        <main>
-                            <h4>Monthly plan</h4>
-                            <hr>
-                            <p class="duration"><span>$250</span> /month</p>
-                            <a href="register.html" class="btn success">Select Plan</a>
-                        </main>
                     </div>
                 </div>
+                </div>
             </div>
+            
         </section>
 	</div>
 
@@ -212,6 +307,8 @@
 
 <!--CUSTOM JAVASCRIPT-->
 <script src="assets/js/script.js"></script>
+<script src="assets/js/modal.js"></script>
+<script src="assets/js/tab.js"></script>
 
 <!--Jquery CDN-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
