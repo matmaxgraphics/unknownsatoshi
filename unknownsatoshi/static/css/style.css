@@ -2224,3 +2224,155 @@ footer .footer-content__item .links a:hover {
 .privacy-wrapper .cookies-container h4 {
   margin-bottom: 12px;
 }
+
+/*========MODAL STYLING-=========*/
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  padding-top: 100px;
+  /* Location of the box */
+  padding-bottom: 12px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: black;
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+.dialogue-box {
+  background-color: #1A1A1A;
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 550px;
+  height: auto;
+  margin: auto;
+}
+.dialogue-box .content-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.dialogue-box .address-input {
+  margin-top: 36px;
+  width: 90%;
+}
+.dialogue-box .address-input .input-field {
+  margin-top: 12px;
+}
+.dialogue-box .close {
+  color: #aaaaaa;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  margin-top: -20%;
+  margin-bottom: 15%;
+  font-size: 24px;
+  font-weight: 500;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.dialogue-box .close:hover, .dialogue-box .close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.dialogue-box p {
+  margin-bottom: 12px;
+  text-align: left;
+}
+.dialogue-box .btn-group {
+  margin-top: 12px;
+}
+.dialogue-box .btn-group small {
+  color: #45AD43;
+}
+.dialogue-box .btn-group p {
+  margin-top: 24px;
+}
+.dialogue-box .btn-group ul {
+  margin-left: 24px;
+}
+.dialogue-box .btn-group a {
+  margin-top: 12px;
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 600px) {
+  .dialogue-box {
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 348px) {
+  .dialogue-box {
+    padding: 12px;
+    height: 270px;
+  }
+}
+.payment-option {
+  width: 100%;
+}
+.payment-option .switcher {
+  list-style: none;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  width: 100%;
+}
+.payment-option .switcher li {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: 100%;
+}
+.payment-option .switcher a {
+  text-decoration: none;
+  color: #C4C4C4;
+  padding: 10px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  border-bottom: 1px solid transparent;
+  width: 100%;
+}
+.payment-option .switcher a:hover {
+  color: #F8A606;
+}
+.payment-option .switcher .active a {
+  color: #F8A606;
+  border-bottom: 1px solid #F8A606;
+}
+.payment-option .switcher .active a:hover {
+  border-color: transparent;
+  background: #333333;
+  color: white;
+}
+.payment-option .tab-pane {
+  display: none;
+}
+.payment-option .tab-pane.active {
+  display: block;
+}
