@@ -36,7 +36,7 @@
 	<div class="page-wrapper">		
         <div class="navbar">
             <div class="navbar__Link navbar__Link-brand">
-                <a href="index.html" class="index-link">
+                <a href="{% url 'home' %}" class="index-link">
                 <img src="{% static 'images/logo.png' %}" class="navbar-logo" alt="website's logo">
                 </a>
             </div>
@@ -100,11 +100,11 @@
                 <div class="blog-post__container">
                    {% for blog in latest_article %}
                     <div class="blog-post__card">
-                        <a href="#">
+                        <a href="{{blog.get_absolute_url}}">
                             <img src="{{blog.featured_image.url }}" alt="demo image">
                             <div class="text-container">
-                                <h5>{{blog.poststitle}}</h5>
-                                <p>{{blog.posts}}<a style="color: #EE5717;" href="{% url 'single-blog' %}">..Read More...</a></p>
+                                <h5>{{blog.title}}</h5>
+                                <p>{{blog.snippet}}<a style="color: #EE5717;" href="{% url 'blog-detail' blog.pk%}">..Read More...</a></p>
                             </div>
                         </a>
                     </div>
@@ -121,11 +121,11 @@
                 <div class="blog-post__container">
                     {% for blog in latest_new %}
                     <div class="blog-post__card">
-                        <a href="{% url 'single-blog' %}">
+                        <a href="{% url 'blog-detail' blog.pk %}">
                             <img src="{{blog.featured_image.url }}" alt="demo image">
                             <div class="text-container">
-                                <h5>{{blog.poststitle}}</h5>
-                                <p>{{blog.posts}}<a style="color: #EE5717;" href="{% url 'single-blog' %}">..Read More...</a></p>
+                                <h5>{{blog.title}}</h5>
+                                <p>{{blog.snippet}}<a style="color: #EE5717;" href="{% url 'blog-detail' blog.pk %}">..Read More...</a></p>
                             </div>
                         </a>
                     </div>
@@ -138,23 +138,20 @@
                 <a>Load More<i class="ri-arrow-down-circle-line"></i></a>
             </div>
 
-
             <main class="stories-section">
                 <h2>Featured Stories</h2>
                 <div class="blog-post__container">
                     {% for blog in featured_story %}
-                    <div class="blog-post__card">
-                        <a href="#">
-                            <img src="{{blog.featured_image.url }}" alt="demo image">
-                            <div class="text-container">
-                                <h5>{{blog.poststitle}}</h5>
-                                <p>{{blog.posts}}<a style="color: #EE5717;" href="{% url 'single-blog' %}">..Read More...</a> </p>
-                            </div>
-                        </a>
-                    </div>
-
+                        <div class="blog-post__card">
+                            <a href="#">
+                                <img src="{{blog.featured_image.url }}" alt="demo image">
+                                <div class="text-container">
+                                    <h5>{{blog.title}}</h5>
+                                    <p>{{blog.snippet}}<a style="color: #EE5717;" href="{% url 'blog-detail' blog.pk %}">..Read More...</a> </p>
+                                </div>
+                            </a>
+                        </div>
                     {% endfor %}
-                    
                 </div>
             </main>
 

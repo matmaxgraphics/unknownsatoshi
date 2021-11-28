@@ -36,7 +36,7 @@
 	<div class="page-wrapper">		
         <div class="navbar">
             <div class="navbar__Link navbar__Link-brand">
-                <a href="index.html" class="index-link">
+                <a href="{% url 'home' %}" class="index-link">
                 <img src="{% static 'images/logo.png' %}" class="navbar-logo" alt="website's logo">
                 </a>
             </div>
@@ -76,8 +76,8 @@
                     {% else %}
 
                     <div class="navbar__Link">
-                                    <a class="btn hire-btn"  href="{% url 'login' %}">Sign Up</a>
-                                    </div>
+						<a class="btn hire-btn"  href="{% url 'register' %}">Sign Up</a>
+					</div>
 
                     {% endif%}
 

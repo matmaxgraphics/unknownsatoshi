@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -37,8 +37,9 @@
 		<header class="banner-wrapper">
 		
 			<div class="navbar">
+				
 				<div class="navbar__Link navbar__Link-brand">
-					<a href="index.html" class="index-link">
+					<a href="{% url 'home' %}" class="index-link">
 					<img src="{% static 'images/logo.png' %}" class="navbar-logo" alt="website's logo">
 					</a>
 				</div>
@@ -70,21 +71,19 @@
 					</li>
 					</ul>
 				</nav>
+
 				<nav class="navbar__Items navbar__Items--right">
-                {% if request.user.is_authenticated %}
-                  <div class="navbar__Link">
-                <a class="btn hire-btn"  href="{% url 'logout' %}">Logout</a>
-                </div>
+					{% if request.user.is_authenticated %}
+						<div class="navbar__Link">
+							<a class="btn hire-btn"  href="{% url 'user-logout' %}">Logout</a>
+						</div>
                     {% else %}
-
-                    <div class="navbar__Link">
-                                    <a class="btn hire-btn"  href="{% url 'login' %}">Sign Up</a>
-                                    </div>
-
+						<div class="navbar__Link">
+							<a class="btn hire-btn"  href="{% url 'register' %}">Sign Up</a>
+						</div>
                     {% endif%}
+            	</nav>
 
-                
-            </nav>
 			</div>
 		
 		
@@ -98,7 +97,7 @@
 				<a class="btn" href="https://discord.gg/zFGTdZYsQ4">Join Community</a>
 				<small>Join Our Discord Group For Free Now</small>
 
-				<img src="{% static 'images/hero-img.png' %}" class="hero-img" alt="image of cryptocurrency trading signal">
+				<img src="{% static './images/hero-img.png' %}" class="hero-img" alt="image of cryptocurrency trading signal">
 			</section>
 		</header>
 
@@ -109,7 +108,7 @@
 			<div class="blog-post__container">
 				<div class="blog-post__card">
 					<a href="#">
-						<img src="{% static 'images/img-1.jpg' %}" alt="demo image">
+						<img src="{% static './images/img-1.jpg' %}" alt="demo image">
 						<div class="text-container">
 							<h5>The hidden mystery behind cryptocurrency</h5>
 							<p>I'm going to hire professional help tomorrow. I can't handle this anymore. She fell over the coffee table and now there is blood in her catheter...</p>
@@ -119,7 +118,7 @@
 
 				<div class="blog-post__card">
 					<a href="#">
-						<img src="{% static 'images/img-6.jpg' %}" alt="demo image">
+						<img src="{% static './images/img-6.jpg' %}" alt="demo image">
 						<div class="text-container">
 							<h5><a href="#">How to grow your crypto currency portfolio</a></h5>
 							<p>I'm going to hire professional help tomorrow. I can't handle this anymore. She fell over the coffee table and now there is blood in her catheter...</p>
@@ -129,7 +128,7 @@
 
 				<div class="blog-post__card">
 					<a href="#">
-						<img src="{% static 'images/img-2.jpg' %}" alt="demo image">
+						<img src="{% static './images/img-2.jpg' %}" alt="demo image">
 						<div class="text-container">
 							<h5><a href="#">The hidden mystery behind cryptocurrency</a></h5>
 							<p>I'm going to hire professional help tomorrow. I can't handle this anymore. She fell over the coffee table and now there is blood in her catheter...</p>
@@ -146,7 +145,7 @@
 				<h2>Unknown Satoshi Pro</h2>
 				<p>Get started with UnknownSatoshi Pro today! <br> You don't have to do anything, we would do that for you, all you have to do is choose a plan.<br>
 					which takes less than 2mins.</p>
-				<a class="btn" href="subscription.html">Get Started</a>
+				<a class="btn" href="{% url 'premium-subscription' %}">Get Started</a>
 			</div>
 		</section>
 		<hr>
@@ -156,7 +155,7 @@
 			<div class="course-container">
 				<div class="course-container__item">
 					<a href="#">
-						<img src="{% static 'images/img-3.jpg' %}" alt="demo image">
+						<img src="{% static './images/img-3.jpg' %}" alt="demo image">
 						<h5>Beginners Guide to Crypto </h5>
 						<p>In this course, we introduce you to the basics of crypto and what you should know to kickstart your journey as a crypto beginner. </p>
 					</a>
@@ -164,7 +163,7 @@
 
 				<div class="course-container__item">
 					<a href="#">
-						<img src="{% static 'images/img-5.jpg' %}" alt="demo image">
+						<img src="{% static './images/img-5.jpg' %}" alt="demo image">
 						<h5>Technical Analysis Mastery </h5>
 						<p>In this course, we provide you with all you need to know about how to trade cryptocurrencies. This course takes you from a beginner to professional technical analyst.</p>
 					</a>
@@ -172,7 +171,7 @@
 
 				<div class="course-container__item">
 					<a href="#">
-						<img src="{% static 'images/img-6.jpg' %}" alt="demo image">
+						<img src="{% static './images/img-6.jpg' %}" alt="demo image">
 						<h5>Beginners Guide to Crypto </h5>
 						<p>In this course, we introduce you to the basics of crypto and what you should know to kickstart your journey as a crypto beginner. </p>
 					</a>
@@ -193,7 +192,7 @@
 			</div>
 
 			<div class="image-container">
-				<img src="{% static 'images/history.png' %}" alt="3D illustration of Trade History">
+				<img src="{% static './images/history.png' %}" alt="3D illustration of Trade History">
 			</div>
 		</section>
 
@@ -271,11 +270,11 @@
 				<p>Focusing on the latest investigations, we can positively say that in the 
 					context of big impact becomes a key factor of The Functionality of Corresponding Property" 
 				</p>
-				<a class="btn" href="#">Get Started</a>
+				<a class="btn" href="{% url 'premium-subscription' %}">Get Started</a>
 			</div>
 
 			<div class="image-container">
-				<img src="{% static 'images/signal.png' %}" alt="3D image design of trading signal">
+				<img src="{% static './images/signal.png' %}" alt="3D image design of trading signal">
 			</div>
 		</section>
 
@@ -304,7 +303,7 @@
 			<section class="footer-content__item">
 				<h4>Contact Us</h4>
 				<div class="contact-options">
-					<img src="{% static 'images/alt-logo.png' %}" alt="logo for unknown satoshi" class="alt-logo">
+					<img src="{% static './images/alt-logo.png' %}" alt="logo for unknown satoshi" class="alt-logo">
 					<p>A community focused platform which educates and empowers you with the right crypto knowledge and tools.</p>
 					<p class="iconic-paragraph"><i class="ri-mail-line"></i><a href="mailto:unknown@unknownsatoshi.com">unknown@unknownsatoshi.com</a></p>
 				</div>
@@ -336,7 +335,7 @@
 					<a href="competition.html">Trading Competition</a>
 					<a href="{% url 'courses' %}">Courses</a>
 					<a href="{% url 'onlinestore' %}">Store</a>
-					<a href="privacy.html">Privacy Policy</a>
+					<a href="p">Privacy Policy</a>
 					<a href="terms.html">Terms and Conditions</a>
 				</div>
 			</section>

@@ -1,32 +1,64 @@
-from django.shortcuts import render, redirect
-
-from .forms import SignUpForm
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import Group
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from userprolog.models import User
+from django.contrib import messages
 
 
 
-def register(request):
+# user registeration
+def user_register(request):
+    template_name = 'userprolog/register.html'
     if request.method =="POST":
-        form = SignUpForm(request.POST)
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        phone_no = request.POST.get("phone_no")
+        password1 = request.POST.get("password1")
+        password2 = request.POST.get("password2")
+            
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "username already exists")
+            return redirect("register")
 
-        if form.is_valid():
-            user = form.save()
+        elif User.objects.filter(email=email).exists():
+            messages.error(request, "email already exits")
+            return redirect("register")
 
-            login(request, user)
-
-
-            return redirect('blog')
+        elif password1 != password2:
+            messages.error(request, "password do not match")
+            return redirect("register")
+        else:
+            user = User.objects.create(username=username, email=email, first_name=first_name, last_name=last_name, phone_no=phone_no,is_active=True, is_staff=False, is_superuser=False)
+            user.set_password(password1)
+            user.save()
+            group = Group.objects.get(name='user')
+            user.groups.add(group)
+            messages.success(request, "Account successfuly created")
+            return redirect("user-login")
     else:
-        form = SignUpForm()
+        return render(request, template_name)
+        
 
-    return render(request, 'register.html', {'form': form})
+# user login
+def user_login(request):
+    template_name = 'userprolog/login.html'
+    if request.method == 'POST':
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, f"login successful")
+            return redirect("home")
+        messages.info(request, f"login attempt failed")
+        return redirect("user-login")
+    return render(request, template_name)
 
- 
-    
-def logout(request):
+
+#user log out
+def user_logout(request):
     logout(request)
+    messages.success(request, f"logout successful")
     return redirect('home')

@@ -40,26 +40,25 @@
         <section class="login-wrapper">
             <div class="login-fields">
                 
-                <form action="" method="post">
+                <form action="{% url 'admin-login' %}" method="post">
                     {% csrf_token %}
-
-                         
 
                    <div>
                         <label for="email">Username</label>
-                        <input type="text" name="username" id="id_username"class="input-field" placeholder="Your username" required>
+                        <input type="text" name="username" id="username"class="input-field" placeholder="Your username" required>
                     </div>
+                    
                     <div>
                         <label for="password">Password</label>
-                        <input  type="password" name="password" id="id_password" class="input-field" placeholder="Your password" required>
+                        <input  type="password" name="password" id="password" class="input-field" placeholder="Your password" required>
                     </div>
 
                     <button class="btn" type="submit" name="login-btn">Login</button>
-                                        {% if form.errors %}
-                <div>
-                    Your username and password didn't match! Please try again!
-                </div>
-            {% endif %}
+                    {% if form.errors %}
+                        <div>
+                            Your username and password didn't match! Please try again!
+                        </div>
+                    {% endif %}
                 </form>
             </div>
         </section>

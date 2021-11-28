@@ -33,7 +33,7 @@
 	<div class="page-wrapper">		
         <div class="navbar">
             <div class="navbar__Link navbar__Link-brand">
-                <a href="index.html" class="index-link">
+                <a href="{% url 'home' %}" class="index-link">
                 <img src=" {% static 'images/logo.png' %}" class="navbar-logo" alt="website's logo">
                 </a>
             </div>
@@ -128,7 +128,7 @@
 			<h2>Newsletter</h2>
 			<p>Sign up for our weekly newsletter to update on special offers, crypto news and when a new course is available. We promise not to spam your mail</p>
 
-			<form action="index.html" method="post">
+			<form action="{% url 'home' %}" method="post">
 				<input type="email" name="email" id="email" class="input-field" placeholder="Input your email address..." required>
 				<button class="btn" type="submit" name="newsletter-btn">Join Newsletter</button>
 			</form>
