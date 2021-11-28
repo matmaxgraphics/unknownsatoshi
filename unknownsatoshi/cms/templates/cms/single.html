@@ -67,11 +67,11 @@
            <nav class="navbar__Items navbar__Items--right">
                 {% if request.user.is_authenticated %}
                     <div class="navbar__Link">
-                        <a class="btn hire-btn"  href="{% url 'logout' %}">Logout</a>
+                        <a class="btn hire-btn"  href="{% url 'user-logout' %}">Logout</a>
                     </div>
                 {% else %}
                     <div class="navbar__Link">
-                        <a class="btn hire-btn"  href="{% url 'login' %}">Sign Up</a>
+                        <a class="btn hire-btn"  href="{% url 'register' %}">Sign Up</a>
                     </div>
                 {% endif %}
             </nav>
@@ -79,28 +79,23 @@
 		
 		
 		<br>
-        
-       
+        <section class="article-wrapper">
+            <div class="post-details">
+                <span class="iconic-span"><i class="ri-calendar-line"></i>25th, Oct 2021</span>
+                <span class="iconic-span"><i class="ri-user-line"></i>25th, Oct 2021</span>
+            </div>
+            <div class="blog-content_container">
+                <img src="{{blog.featured_image.url}}" class="blog-banner" alt="demo image for blog post">
 
-        <section class="blog-post__section">
-        
-                
-            <main class="stories-section related-posts">
-                <h2>{{blog.title}}</h2>
-                <div class="blog-post__container">
-                    <div class="blog-post__card">
-                        <a href="#">
-                            <img src="{{blog.featured_image.url}}" alt="demo image">
-                            <div class="text-container">
-                                <h5><a href="#">{{blog.title}}</a></h5>
-                                <p>{{blog.post}}</p>
-                            </div>
-                        </a>
-                    </div>
+                <h1 class="post-title">{{blog.title}}</h1>
+                <div class="post-content">
+                    <p>{{blog.post}}</p>
                     
                 </div>
-            </main>
+            </div>
         </section>
+       
+
 
         <section class="newsletter-section">
 			<h2>Newsletter</h2>
