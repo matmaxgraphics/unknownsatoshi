@@ -1,14 +1,5 @@
 from django.contrib import admin
-
-# Register your models here.
-from .models import Cms, Product, Subscription, Tag, Review, Course, Product, Blog
-
-# admin.site.register(Cms)
-# admin.site.register(Tag)
-# admin.site.register(Review)
-# admin.site.register(Course)
-# admin.site.register(Store)
-# admin.site.register(Blog)
+from .models import *
 
 
 
@@ -39,10 +30,14 @@ class AdminStore(admin.ModelAdmin):
 
 @admin.register(Blog)
 class AdminBlog(admin.ModelAdmin):
-    list_display = ('title','author','post','featured_stories','latest_news','latest_articles','featured_image', 'premium')
+    list_display = ('author','title','post','featured_stories','latest_news','latest_articles','featured_image', 'premium')
     prepopulated_fields = {"slug": ("title",)}
 
-@admin.register(Subscription)
-class AdminSubscription(admin.ModelAdmin):
-    list_display = ('title', 'price', 'start_date', 'expiry_date')
+@admin.register(Plan)
+class AdminPlan(admin.ModelAdmin):
+    list_display = ('title', 'price', 'created_on')
     prepopulated_fields = {"slug": ("title",)}
+
+@admin.register(SubscriptionHistory)
+class AdminSubscriptionHistory(admin.ModelAdmin):
+    list_display = ('email', 'username', 'full_name', 'phone_no', 'plan', 'reference', 'start_date', 'expiry_date', 'active')

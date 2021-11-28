@@ -8,13 +8,13 @@
     <!--SEO Control-->
     <meta charset="utf-8" />
     <meta name="description" content="Unknown Satoshi is a community focused platform which educates and empowers you with the right crypto knowledge and tools.">
-    <link rel="icon" href="{% static 'images/favicon.jpg' %}">
+    <link rel="icon" href="{% static '/images/favicon.jpg' %}">
 
     <!--Viewport Control-->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!--Custom Stylesheet-->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static './css/style.css' %}" />
 
     <!--Bootstrap CDN-->
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -32,8 +32,8 @@
     <div class="page-wrapper reg-container">        
         <div class="navbar">
             <div class="navbar__Link navbar__Link-brand">
-                <a href="index.html" class="index-link">
-               <img src="{% static 'images/logo.png' %}" class="navbar-logo" alt="website's logo">
+                <a href="{% url 'home' %}" class="index-link">
+               <img src="{% static './images/logo.png' %}" class="navbar-logo" alt="website's logo">
                  </a>
             </div>
         
@@ -76,6 +76,18 @@
                 </div>
             </nav>
         </div>
+        {% if messages %}
+            
+            <div class="row">
+                {% for message in messages %}
+            <div class="alert alert{{message.tags}}">
+                {{message}}
+            </div>
+                
+            {% endfor %}
+
+            </div>    
+        {% endif %}
         
         <header>
             <h2>Welcome Back!</h2>
@@ -83,26 +95,25 @@
         </header>
         <section class="login-wrapper">
             <div class="login-fields">               
-                <form action="" method="post">
+                <form action="{% url 'user-login' %}" method="post">
                     {% csrf_token %}
-
-                         
 
                    <div>
                         <label for="email">Username</label>
                         <input type="text" name="username" id="id_username"class="input-field" placeholder="Your username" required>
                     </div>
+
                     <div>
                         <label for="password">Password</label>
                         <input  type="password" name="password" id="id_password" class="input-field" placeholder="Your password" required>
                     </div>
 
                     <button class="btn" type="submit" name="login-btn">Login</button>
-                                        {% if form.errors %}
-                <div>
-                    Your email and password didn't match! Please try again!
-                </div>
-            {% endif %}
+                {% if form.errors %}
+                    <div>
+                        Your email and password didn't match! Please try again!
+                    </div>
+                {% endif %}
                 </form>
                 
                 <p>Don't have an account? <a href="{% url 'register' %}" >Register now</a></p>
@@ -121,7 +132,7 @@
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script> -->
 
 <!--CUSTOM JAVASCRIPT-->
-<script src="assets/js/script.js"></script>
+<script src="{% static './js/script.js' %}"></script>
 
 <!--Jquery CDN-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

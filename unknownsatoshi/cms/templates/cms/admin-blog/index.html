@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+  
+
+
+  {% block content %}
+  <section class="panel-section" style="margin-top:-700px">
+    
+    <div class="panel-content"> 
+      <div class="page-wrapper admin-wrapper course-wrapper">		
+        <section class="alt-nav">
+            <h4>Manage Posts</h4>
+            <a href="{% url 'create-blog' %}" class="btn">Add Post</a>
+        </section>
+
+  
+      <section class="trade-table store-table course-table">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Post Title</th>
+              <th scope="col">Post</th>
+              <th scope="col">Author</th>
+              <th scope="col" colspan="3">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for blog in blogs %}
+            <tr>
+              <td data-label="post Title">{{blog.title}}</td>
+              <td data-label="post Title">{{blog.post}}</td>
+              <td data-label="Author">{{blog.author}}</td>
+              <td data-label="Action"><a href="{% url 'update-blog' blog.id %}" class="edit">edit</a></td>
+              <td><button class="delete" >
+                  <a style="color: rgb(233, 143, 25);" href="{% url 'delete-blog' blog.id%}" class="edit">Delete</a></button></td>		        
+            </tr>
+          {% endfor %}
+           
+          </tbody>
+         
+        </table>
+        
+        {% if blogs.count <= 1 %}
+          {{blogs.count}} Post
+        {% else %}
+          {{blogs.count}} Posts
+        {% endif %}
+      </section>
+	    </div>
+    </div>
+  </section>
+  {% endblock content %}

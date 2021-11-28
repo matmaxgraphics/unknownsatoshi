@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+
+{% block content %}
+  
+
+  
+  <section class="panel-section" style="margin-top:-700px">
+    <div class="panel-content">
+	  <div class="page-wrapper admin-wrapper">		
+        <section class="alt-nav">
+            <h4>Update User</h4>
+            <a href="{% url 'admin-user-list' %}" class="btn">Manage Users</a>
+        </section> 
+        <div class="content-container">
+            <section class="add-product">
+                <aside class="create-history">
+                    <div class="fields-wrapper">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <div>
+                                <label for="email">Email</label>
+                                {{form.email}}
+                            </div>
+              
+                            <div>
+                                <label for="image">Username</label>                   
+                                {{form.username }}
+                            </div>
+                            
+                            <div>
+                                <label for="first-name">First Name</label>
+                                {{ form.first_name }}
+                            </div>
+            
+                            <div>
+                                <label for="first-name">Last Name</label>
+                                {{ form.last_name }}
+                            </div>
+            
+                            <div>
+                                <label for="first-name">Phone No</label>
+                                {{ form.phone_no }}
+                            </div>
+            
+                            <div>
+                                <label for="password">Is Active</label>
+                                {{ form.is_active }}
+                            </div>
+              
+                            <div>
+                              <label for="confirm-password">Is Staff</label>
+                              {{ form.is_staff }}
+                            </div>
+
+                            <div>
+                                <label for="confirm-password">Is Superuser</label>
+                                {{ form.is_superuser }}
+                            </div>
+              
+                            <button class="btn" type="submit" name="submit-btn">Save User</button>
+                          </form>
+                     </div>
+                </aside>
+            </section>
+
+        </div>
+
+      
+	  </div>
+    </div>
+  </section>
+
+{% endblock content %}

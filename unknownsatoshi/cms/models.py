@@ -1,7 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import User
+from userprolog.models import User
 import uuid
 from django.urls import reverse
+from datetime import datetime, timedelta
 
 
 
@@ -25,6 +26,9 @@ class Cms(models.Model):
     featured_image = models.ImageField(null=True, blank=True, default="default.jpg")
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    
+    class Meta:
+        ordering = ('created',)
 
     def __str__(self):
         return self.title
@@ -68,7 +72,7 @@ class Product(models.Model):
 class Blog(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(blank=False, null=False)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, default=True)
     post = models.TextField()
     featured_stories = models.BooleanField(default=False)
     latest_news = models.BooleanField(default=False)
@@ -76,6 +80,7 @@ class Blog(models.Model):
     featured_image = models.ImageField(null=True, blank=True, default="default.png")
     premium = models.BooleanField(default=False)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    
 
     def __str__(self):
         return self.title
@@ -87,9 +92,31 @@ class Blog(models.Model):
         return reverse("blog-detail", kwargs={"pk": self.pk})
     
 
-class Subscription(models.Model):
+class Plan(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
-    price = models.IntegerField(default=0, null=True, blank=True)
+    price = models.IntegerField(default=0)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ("created_on",)
+
+    def __str__(self):
+        return self.title
+
+
+class SubscriptionHistory(models.Model):
+    email = models.EmailField(max_length=200, unique=True, blank=False)
+    username = models.CharField(max_length=100, unique=True, blank=False)
+    full_name = models.CharField(max_length=200, blank=False)
+    phone_no = models.CharField(max_length=11, unique=True, blank=False)
+    plan = models.ForeignKey(Plan, on_delete=models.CASCADE, default='monthly plan')
+    reference = models.CharField(max_length=200, unique=True, blank=False)
     start_date = models.DateTimeField(auto_now_add=True)
     expiry_date = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.plan
+
+
