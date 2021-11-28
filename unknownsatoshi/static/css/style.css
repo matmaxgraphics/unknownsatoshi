@@ -1403,6 +1403,9 @@ footer .footer-content__item .links a:hover {
   gap: 0.7rem;
   place-items: center;
 }
+.blog-post__section .articleCard, .blog-post__section .newsCard, .blog-post__section .storyCard {
+  display: none;
+}
 .blog-post__section .blog-post__card {
   max-width: 360px;
   max-width: 360px;
@@ -1919,12 +1922,13 @@ footer .footer-content__item .links a:hover {
   font-size: 24px;
 }
 .pricing-section .plan-wrapper .plan-box .discount .saved {
+  background-color: #222222;
   padding: 6px;
   border-radius: 18px;
   margin-left: 12px;
 }
 .pricing-section .plan-wrapper .plan-box .discount .primary {
-  background-color: #EE5717;
+  background-color: #434343;
 }
 .pricing-section .plan-wrapper .plan-box .discount .purple {
   background-color: #6A6FDC;
