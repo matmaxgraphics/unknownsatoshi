@@ -40,7 +40,7 @@ class BlogForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         self.fields['title'].widget.attrs.update({'class': "input-field"})
-        self.fields['post'].widget.attrs.update({'class': "input-field"})
+        self.fields['post'].widget.attrs.update({})
         self.fields['featured_image'].widget.attrs.update({'class': "input-field"})
         self.fields['featured_stories'].widget.attrs.update({})
         self.fields['latest_news'].widget.attrs.update({})

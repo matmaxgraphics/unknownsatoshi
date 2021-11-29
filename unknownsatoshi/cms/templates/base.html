@@ -33,6 +33,9 @@
       <!--Font Awesome CDN-->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+
+    <!--CK Editor CDN-->
+    <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/decoupled-document/ckeditor.js"></script>
   
     <!--Google font-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -118,6 +121,18 @@
 <!--ckeditor config from backend-->
 <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script>
+  DecoupledEditor
+      .create( document.querySelector( '#editor' ) )
+      .then( editor => {
+          const toolbarContainer = document.querySelector( '#toolbar-container' );
+
+          toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+      } )
+      .catch( error => {
+          console.error( error );
+      } );
+</script>
 
 <!--Jquery CDN-->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
