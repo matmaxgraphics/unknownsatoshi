@@ -1,8 +1,10 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from userprolog.models import User
 import uuid
 from django.urls import reverse
-from datetime import datetime, timedelta
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 
 
@@ -73,7 +75,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(blank=False, null=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=True)
-    post = models.TextField()
+    post = RichTextUploadingField()
     featured_stories = models.BooleanField(default=False)
     latest_news = models.BooleanField(default=False)
     latest_articles = models.BooleanField(default=False)

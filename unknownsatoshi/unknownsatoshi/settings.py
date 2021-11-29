@@ -22,9 +22,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 LOGIN_URL = 'login'
-
 LOGIN_REDIRECT_URL = 'blog'
-
 LOGOUT_REDIRECT_URL = 'home'
 
 
@@ -37,9 +35,41 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    #local apps
     'cms',
     'userprolog',
+
+    # for rich text field
+    'ckeditor',
+    'ckeditor_uploader',
+
+    #payment app
+    "djangoflutterwave",
 ]
+
+
+# ck editor configuration
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_CONFIGS = {
+    'awesome_ckeditor': {
+        'toolbar': 'Basic',
+    },
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 300,
+    },
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat', 'Source', 'Image', 'Update', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak']
+        ]
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,7 +86,7 @@ ROOT_URLCONF = 'unknownsatoshi.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,13 +152,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/images/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
+# mailing smtp configuration
 EMAIL_BACKEND = env("EMAIL_BACKEND")
 EMAIL_HOST = env("HOST")
 EMAIL_PORT = 587
@@ -138,6 +167,18 @@ EMAIL_HOST_USER = env("USER")
 EMAIL_HOST_PASSWORD = env("PASSWORD")
 DEFAULT_FROM_EMAIL = env("FROM_EMAIL")
 
+
+# flutterwave payment gateway configuration
+#for production
+FLW_PRODUCTION_PUBLIC_KEY = env("FLW_PRODUCTION_PUBLIC_KEY")
+FLW_PRODUCTION_SECRET_KEY = env("FLW_PRODUCTION_SECRET_KEY")
+FLW_PRODUCTION_ENCRYPTION_KEY=env("FLW_PRODUCTION_ENCRYPTION_KEY")
+
+#for test
+FLW_SANDBOX_PUBLIC_KEY = env("FLW_SANDBOX_PUBLIC_KEY")
+FLW_SANDBOX_SECRET_KEY = env("FLW_SANDBOX_SECRET_KEY")
+FLW_SANDBOX_ENCRYPTION_KEY=env("FLW_SANDBOX_ENCRYPTION_KEY")
+FLW_SANDBOX = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

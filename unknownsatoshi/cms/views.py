@@ -449,10 +449,16 @@ def Auth(request):
 
 
 # premium subscription list page
-def premium_subscription(request):
+def plan_list(request):
     template_name = "cms/subscription.html"
     plans = Plan.objects.all()
     context = {"plans":plans}
+    return render(request, template_name, context)
+
+def plan_details(request, id):
+    template_name = "cms/subscription.html"
+    plan = get_object_or_404(Plan, id=id)
+    context = {"plan":plan}
     return render(request, template_name, context)
 
 

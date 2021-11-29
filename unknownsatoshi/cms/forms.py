@@ -3,6 +3,10 @@ from django import forms
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
+
+
+
 
 class CmsForm(forms.ModelForm):
     
@@ -25,6 +29,7 @@ class CmsForm(forms.ModelForm):
 
         
 class BlogForm(forms.ModelForm):
+    post = forms.CharField(widget=CKEditorUploadingWidget())
     class Meta:
         model = Blog
         fields = ['title', 'post', 'featured_image','featured_stories','latest_news','latest_articles']
