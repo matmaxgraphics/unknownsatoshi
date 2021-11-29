@@ -2,6 +2,7 @@
 from pathlib import Path
 import os
 import environ
+import django_heroku
 
 env = environ.Env()
 environ.Env.read_env()
@@ -18,8 +19,9 @@ SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+if DEBUG == False:
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
-ALLOWED_HOSTS = ['*']
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'blog'
@@ -44,8 +46,12 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
 
-    #payment app
+    #payment module
     "djangoflutterwave",
+
+    #cloudinary modul
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 
@@ -112,6 +118,17 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE':'django.db.backends.postgresql_psycopg2',
+#         'NAME': env('DB_NAME'),
+#         'USER': env('DB_USER'),
+#         'PASSWORD': env('DB_PASS'),
+#         'HOST': env('DB_HOST'),
+#         'PORT': env('DB_PORT'),
+#     }
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -156,6 +173,38 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+# cloudinary config
+
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": env("cloud_name"),
+    "API_KEY": env("api_key"),
+    "API_SECRET": env("api_secret"),
+}
+
+# cloudinary configuration for image uploads
+#DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
+# django error logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'my_log_handler': {
+            'level': 'DEBUG' if DEBUG else 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'debug.log'),
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['my_log_handler'],
+            'level': 'DEBUG' if DEBUG else 'INFO',
+            'propagate': True,
+        },
+    },
+}
+
 
 # mailing smtp configuration
 EMAIL_BACKEND = env("EMAIL_BACKEND")
@@ -185,3 +234,5 @@ FLW_SANDBOX = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'userprolog.User'
+
+django_heroku.settings(locals())

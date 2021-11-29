@@ -35,6 +35,7 @@ def user_register(request):
             user.save()
             group = Group.objects.get(name='user')
             user.groups.add(group)
+            login(request,user)
             messages.success(request, "Account successfuly created")
             return redirect("user-login")
     else:
@@ -50,6 +51,8 @@ def user_login(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
+            if "next" in request.POST:
+                return redirect(request.POST.get("next"))
             messages.success(request, f"login successful")
             return redirect("home")
         messages.info(request, f"login attempt failed")

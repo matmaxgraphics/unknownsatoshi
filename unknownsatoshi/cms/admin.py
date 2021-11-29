@@ -35,9 +35,9 @@ class AdminBlog(admin.ModelAdmin):
 
 @admin.register(Plan)
 class AdminPlan(admin.ModelAdmin):
-    list_display = ('title', 'price', 'created_on')
+    list_display = ('title', 'desc', 'discount_price', 'price', 'discount', 'created_on')
     prepopulated_fields = {"slug": ("title",)}
 
 @admin.register(SubscriptionHistory)
 class AdminSubscriptionHistory(admin.ModelAdmin):
-    list_display = ('email', 'username', 'full_name', 'phone_no', 'plan', 'reference', 'start_date', 'expiry_date', 'active')
+    list_display = ('email', 'user', 'full_name', 'phone_no', 'plan', 'amount_paid', 'reference', 'transaction_id', 'status', 'start_date', 'expiry_date', 'active')

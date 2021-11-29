@@ -12,7 +12,6 @@ urlpatterns = [
     path('courses/', views.courses, name='courses'),
     path('trade-history/', views.trade_history, name='trade-history'),
     path('onlinestore/', views.onlinestore, name='onlinestore'),
-    path("subscription/", views.premium_subscription, name="premium-subscription"),
     path('notauth/', views.Auth, name='notauth'),
     
     # admin panel
@@ -61,7 +60,7 @@ urlpatterns = [
     path('delete-user/<str:id>/', views.admin_delete_user, name="admin-delete-user"),
 
     #subscrition section
-    path('monthly-subscription/<str:id>', views.monthly_subscription_checkout, name="monthly-plan"),
-    path('quarter-subscription/<str:id>', views.quarterly_subscription_checkout, name="quarter-plan"),
-    path('yearly-subscription/<str:id>', views.yearly_subscription_checkout, name="yearly-plan"),
+    path("subscription/plan-list", views.plan_list, name="plan-list"),
+    path("subscription/plan-detail/<str:slug>", views.plan_details, name="plan-detail"),
+    path('callback', views.payment_response, name='payment_response')
 ]
