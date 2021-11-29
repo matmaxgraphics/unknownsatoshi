@@ -133,46 +133,29 @@
               
                 <!-- Tab panes -->
                 <div class="tab-content">
-                  <div class="tab-pane active" id="card">
-                    <div class="pricing-container">
-                        <div class="plan-wrapper">
-                            <div class="plan-box">
-                                <div class="discount">
-                                    <p><del>$65</del></p>
-                                    <p class="saved primary">save $15</p>
+                    
+                    
+                    <div class="tab-pane active" id="card" >
+                           
+                        <div class="pricing-container">
+                            <div class="plan-wrapper">
+                                {% for plan in plans %}
+                                <div class="plan-box">
+                                    <div class="discount">
+                                        <p><del>${{plan.price}}</del></p>
+                                        <p class="saved primary">save ${{plan.discount}}</p>
+                                    </div>
+                                    <h4>{{plan.title}}</h4>
+                                    <hr>
+                                    <p class="duration"><span>${{plan.discount_price}}</span> /month</p>
+                                    <a href="{% url 'plan-detail' plan.slug %}" class="btn">Select Plan</a>
                                 </div>
-                                <h4>Monthly plan</h4>
-                                <hr>
-                                <p class="duration"><span>$50</span> /month</p>
-                                <a href="register.html" class="btn">Select Plan</a>
+                                {% endfor %}
                             </div>
-
-                            <div class="plan-box">
-                                <div class="discount">
-                                    <p><del>$150</del></p>
-                                    <p class="saved primary">save $20</p>
-                                </div>
-                                <h4>Quarterly plan</h4>
-                                <hr>
-                                <p class="duration"><span>$130</span> /quarterly</p>
-                                <a href="register.html" class="btn">Select Plan</a>
-                            </div>
-
-                            <div class="plan-box">
-                                <div class="discount">
-                                    <p><del>$300</del></p>
-                                    <p class="saved primary">save $50</p>
-                                </div>
-                                <h4>Half-yearly plan</h4>
-                                <hr>
-                                <p class="duration"><span>$50</span> /half-year</p>
-                                <a href="register.html" class="btn">Select Plan</a>
-                            </div>
-        
-                            
                         </div>
+                        
                     </div>
-                  </div>
+                    
                   
                   <div class="tab-pane" id="crypto">
                     <!--=======PAYMENT VIA CRYPTO ============-->

@@ -107,13 +107,17 @@
                         <label for="password">Password</label>
                         <input  type="password" name="password" id="id_password" class="input-field" placeholder="Your password" required>
                     </div>
+                    
+                    {% if request.GET.next %}
+                        <input type="hidden" name="next" value="{{request.GET.next}}">
+                    {% endif %}
 
                     <button class="btn" type="submit" name="login-btn">Login</button>
-                {% if form.errors %}
-                    <div>
-                        Your email and password didn't match! Please try again!
-                    </div>
-                {% endif %}
+                    {% if form.errors %}
+                        <div>
+                            Your email and password didn't match! Please try again!
+                        </div>
+                    {% endif %}
                 </form>
                 
                 <p>Don't have an account? <a href="{% url 'register' %}" >Register now</a></p>

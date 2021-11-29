@@ -1,11 +1,21 @@
+import uuid
+import math
+import random
+import requests
 from .models import *
 from .forms import *
-from django.contrib import messages
 from userprolog.models import User
+from django.contrib import messages
+from django.http import HttpResponse
+from .payment_helper import get_subscription_details
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login,logout
+from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404, render, redirect
 from .decorators import unauthenticated_user, allowed_user, admin_only
+from unknownsatoshi.settings import FLW_SANDBOX_PUBLIC_KEY, FLW_SANDBOX_SECRET_KEY
+
+
 
 
 def admin_login(request):
@@ -449,26 +459,82 @@ def Auth(request):
 
 
 # premium subscription list page
-def premium_subscription(request):
+def plan_list(request):
     template_name = "cms/subscription.html"
     plans = Plan.objects.all()
     context = {"plans":plans}
     return render(request, template_name, context)
 
 
-# monthly subscription
-def monthly_subscription_checkout(request,id):
-    plan_id = get_object_or_404(Plan, id=id)
-    plan = Plan.objects.filter(id=plan_id, title="monthly plan")
+# plan details
+@login_required(login_url="user-login")
+def plan_details(request, slug):
+    template_name = "cms/plan_payment.html"
+    plan = get_object_or_404(Plan, slug=slug)
+    user = request.user
+
+    if request.method == "GET":
+        user_id = str(user.id)
+        plan_id = plan.slug
+        first_name = user.first_name
+        last_name = user.last_name
+        amount = plan.discount_price
+        email = user.email
+        phone_no = user.phone_no
+        plan_title = plan.title
+        plan_desc = plan.desc
+        return redirect(str(process_payment(user_id, first_name, last_name, amount, email, phone_no, plan_title, plan_desc, plan_id)))
+    else:    
+        context = {"plan":plan, "user":user}
+    return render(request, template_name, context)
+
+
+# process plan payment
+def process_payment(user_id, first_name, last_name, amount, email, phone_no, plan_title, plan_desc, plan_id):
+    name = f"{first_name} {last_name}"
+    auth_token= FLW_SANDBOX_SECRET_KEY
+    hed = {'Authorization': 'Bearer ' + auth_token}
+
+    data = {
+        "tx_ref":''+str(math.floor(1000000 + random.random()*9000000)),
+        "amount":amount,
+        "currency":"USD",
+        "redirect_url":"http://localhost:8000/callback",
+        "payment_options":"card",
+        "meta":{
+            "consumer_id":user_id,
+            "consumer_mac":"92a3-912ba-1192a"
+        },
+        "customer":{
+            "email":email,
+            "phonenumber":phone_no,
+            "name":name
+        },
+        "customizations":{
+            "title":plan_title,
+            "description":plan_desc,
+            "logo":"https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg"
+        }
+    }
+
+    url = ' https://api.flutterwave.com/v3/payments'
+    response = requests.post(url, json=data, headers=hed)
+    response=response.json()
+    print("the response is", response)
+    link=response['data']['link']
+    print("link is ", link)
+    return link
+
+
+@require_http_methods(['GET', 'POST'])
+def payment_response(request):
+    status=request.GET.get('status', None)
+    tx_ref=request.GET.get('tx_ref', None)
+    transaction_id = request.GET.get('transaction_id', None)
+
+    print("payment status is",status)
+    print("transaction reference is", tx_ref)
+    print("transaction id is",transaction_id)   
+    messages.success("subscription successful")
+    return redirect("home")
     
-
-# quarterly subscription
-def quarterly_subscription_checkout(request,id):
-    plan_id = get_object_or_404(Plan, id=id)
-    plan = Plan.objects.filter(id=plan_id, title="quarterly plan")
-
-
-# yearly subscription
-def yearly_subscription_checkout(request,id):
-    plan_id = get_object_or_404(Plan, id=id)
-    plan = Plan.objects.filter(id=plan_id, title="yearly plan")
