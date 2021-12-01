@@ -13,7 +13,10 @@ urlpatterns = [
 
     # ckeditor
     path('ckeditor/', include('ckeditor_uploader.urls')),
+<<<<<<< HEAD
     
+=======
+>>>>>>> af2ac028e1060851709025a10821b4a1ca1a474a
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
