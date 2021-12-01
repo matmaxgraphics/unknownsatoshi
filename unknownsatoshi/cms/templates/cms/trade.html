@@ -37,7 +37,10 @@
                 <img src=" {% static 'images/logo.png' %}" class="navbar-logo" alt="website's logo">
                 </a>
             </div>
-        
+            
+            <div class="profile-wrapper">
+              <a href="profile.html"><img src="{% static './images/user1.png' %}" class="img-profile"></i></a>
+            </div>
             <div class="navbar__Link navbar__Link-toggle">
                 <img src="{% static 'images/hamburger.png' %}" alt="site's hamburger" oncl>
                 <!-- <img src="assets/images/close-hamburger.png" alt="close menu" class="close-menu"> -->
@@ -67,6 +70,9 @@
             </nav>
        <nav class="navbar__Items navbar__Items--right">
                 {% if request.user.is_authenticated %}
+                  <div class="profile">
+                    <a href="profile.html"><img src="{% static './images/user1.png' %}" class="img-profile"></i></a>
+                  </div>
                   <div class="navbar__Link">
                 <a class="btn hire-btn"  href="{% url 'logout' %}">Logout</a>
                 </div>
@@ -142,78 +148,38 @@
 		</section>
 	</div>
 
-		<footer>
-			<div class="footer-content__container">
-				<section class="footer-content__item">
-					<h4>Contact Us</h4>
-					<div class="contact-options">
-						<p><i class="ri-building-line"></i> 1018 Riddle Hill Hwy, Little Rock, Arkansas, 40401</p>
-						<p><i class="ri-mail-line"></i><a href="mailto:unknown@unknownsatoshi.com">unknown@unknownsatoshi.com</a></p>
-						<p><i class="ri-phone-line"></i><a href="tel:+234 701 2345 678">+234 701 2345 678</a></p>
-					</div>
-					
-					<div class="social-links">
-						<h4>Connect Socially</h4>
-						<a href="#"><i class="ri-linkedin-fill"></i></a>
-						<a href="#"><i class="ri-twitter-fill"></i></a>
-						<a href="#"><i class="ri-instagram-line"></i></a>
-					</div>
-				</section>
-
-				<section class="footer-content__item">
-					<h4>Quick Access</h4>
-					<div class="links">
-						<a href="{% url 'home' %}">Home</a>
-						<a href="{% url 'about' %}">About</a>
-						<a href="{% url 'trade-history' %}">Trade History</a>
-						<a href="{% url 'contact' %}">Contact</a>
-						<a href="{% url 'faqs' %}">FAQs</a>
-						<a href="{% url 'blog' %}">Blog</a>
-					</div>
-				</section>
-
-				<section class="footer-content__item">
-          <h4>Company</h4>
-          <div class="links">
-            <a href="competition.html">Trading Competition</a>
-            <a href="{% url 'courses' %}">Courses</a>
-            <a href="{% url 'onlinestore' %}">Store</a>
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="terms.html">Terms and Conditions</a>
-          </div>
+  <footer>
+		<div class="footer-content__container">
+			<section class="footer-content__item">
+				<h4>Contact Us</h4>
+				<div class="contact-options">
+					<img src="{% static 'images/alt-logo.png' %}" alt="logo for unknown satoshi" class="alt-logo">
+					<p>A community focused platform which educates and empowers you with the right crypto knowledge and tools.</p>
+					<p class="iconic-paragraph"><i class="ri-mail-line"></i><a href="mailto:unknown@unknownsatoshi.com">unknown@unknownsatoshi.com</a></p>
+				</div>
+				
+				<div class="social-links">
+					<h4>Connect Socially</h4>
+					<a href="https://t.me/unknown_satoshi"><i class="ri-telegram-line"></i></a>
+					<a href="https://twitter.com/unknown_satoshi?t=neIjfJivVymH9Kg75UjqlA&s=09"><i class="ri-twitter-fill"></i></a>
+					<a href="https://instagram.com/theunknownsatoshi?utm_medium=copy_link"><i class="ri-instagram-line"></i></a>
+					<a href="https://youtube.com/channel/UCzpteHI9OCi6eAzRJyTZjRg"><i class="ri-youtube-line"></i></a>
+				</div>
 			</section>
-			</div>
-		</footer><footer>
-      <div class="footer-content__container">
-        <section class="footer-content__item">
-          <h4>Contact Us</h4>
-          <div class="contact-options">
-            <img src="{% static 'images/alt-logo.png' %}" alt="logo for unknown satoshi" class="alt-logo">
-            <p>A community focused platform which educates and empowers you with the right crypto knowledge and tools.</p>
-            <p class="iconic-paragraph"><i class="ri-mail-line"></i><a href="mailto:unknown@unknownsatoshi.com">unknown@unknownsatoshi.com</a></p>
-          </div>
-          
-          <div class="social-links">
-            <h4>Connect Socially</h4>
-            <a href="https://t.me/unknown_satoshi"><i class="ri-telegram-line"></i></a>
-            <a href="https://twitter.com/unknown_satoshi?t=neIjfJivVymH9Kg75UjqlA&s=09"><i class="ri-twitter-fill"></i></a>
-            <a href="https://instagram.com/theunknownsatoshi?utm_medium=copy_link"><i class="ri-instagram-line"></i></a>
-          </div>
-        </section>
-  
-        <section class="footer-content__item">
-          <h4>Quick Access</h4>
-          <div class="links">
-            <a href="{% url 'home' %}">Home</a>
-            <a href="{% url 'about' %}">About</a>
-            <a href="{% url 'trade-history' %}">Trade Record</a>
-            <a href="{% url 'contact' %}">Contact</a>
-            <a href="{% url 'faqs' %}">FAQs</a>
-            <a href="{% url 'blog' %}">Blog</a>
-          </div>
-        </section>
-  
-        <section class="footer-content__item">
+
+			<section class="footer-content__item">
+				<h4>Quick Access</h4>
+				<div class="links">
+					<a href="{% url 'home' %}">Home</a>
+					<a href="{% url 'about' %}">About</a>
+					<a href="{% url 'trade-history' %}">Trade Record</a>
+					<a href="{% url 'contact' %}">Contact</a>
+					<a href="{% url 'faqs' %}">FAQs</a>
+					<a href="{% url 'blog' %}">Blog</a>
+				</div>
+			</section>
+
+			<section class="footer-content__item">
 				<h4>Company</h4>
 				<div class="links">
 					<a href="competition.html">Trading Competition</a>
@@ -223,8 +189,8 @@
 					<a href="terms.html">Terms and Conditions</a>
 				</div>
 			</section>
-      </div>
-    </footer>
+		</div>
+	</footer>
 	  
 
 

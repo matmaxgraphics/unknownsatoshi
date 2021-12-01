@@ -35,7 +35,10 @@
                 <img src="assets/images/logo.png" class="navbar-logo" alt="website's logo">
                 </a>
             </div>
-        
+            
+            <div class="profile-wrapper">
+                <a href="profile.html"><img src="{% static './images/user1.png' %}" class="img-profile"></i></a>
+            </div>
             <div class="navbar__Link navbar__Link-toggle">
                 <img src="assets/images/hamburger.png" alt="site's hamburger" oncl>
                 <!-- <img src="assets/images/close-hamburger.png" alt="close menu" class="close-menu"> -->
@@ -70,6 +73,9 @@
                 </ul>
             </nav>
             <nav class="navbar__Items navbar__Items--right">
+                <div class="profile">
+                    <a href="profile.html"><img src="{% static './images/user1.png' %}" class="img-profile"></i></a>
+                </div>
                 <div class="navbar__Link">
                 <a class="btn hire-btn" href="register.html">Sign Up</a>
                 </div>

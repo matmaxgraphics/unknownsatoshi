@@ -46,9 +46,6 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
 
-    #payment module
-    "djangoflutterwave",
-
     #cloudinary modul
     'cloudinary',
     'cloudinary_storage',
@@ -236,3 +233,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'userprolog.User'
 
 django_heroku.settings(locals())
+

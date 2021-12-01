@@ -35,11 +35,14 @@
 	<div class="page-wrapper">		
         <div class="navbar">
             <div class="navbar__Link navbar__Link-brand">
-                <a href="{% url 'onlinestore' %}" class="index-link">
-                <img src="{% static 'images/store-icon.png' %}" class="navbar-logo store-icon" alt="Gokana icon logo">
+                <a href="{% url 'home' %}" class="index-link">
+                <img src="{% static 'images/logo.png' %}" class="navbar-logo" alt="website's logo">
                 </a>
             </div>
-        
+            
+            <div class="profile-wrapper">
+                <a href="profile.html"><img src="{% static './images/user1.png' %}" class="img-profile"></i></a>
+            </div>
             <div class="navbar__Link navbar__Link-toggle">
                 <img src="{% static 'images/hamburger.png' %}" alt="site's hamburger" oncl>
                 <!-- <img src="assets/images/close-hamburger.png" alt="close menu" class="close-menu"> -->
@@ -72,6 +75,9 @@
             </nav>
 			<nav class="navbar__Items navbar__Items--right">
                 {% if request.user.is_authenticated %}
+                    <div class="profile">
+                        <a href="profile.html"><img src="{% static './images/user1.png' %}" class="img-profile"></i></a>
+                    </div>
                   <div class="navbar__Link">
                 <a class="btn hire-btn"  href="{% url 'logout' %}">Logout</a>
                 </div>
@@ -89,11 +95,6 @@
 		
 		
 		<br>
-			<section class="logo-container">
-                <div class="header-group">
-                    <img src="{% static 'images/store-logo.png' %}" alt="logo for gokana online store" class="store-logo">
-                </div>
-            </section>
 
             <section class="merch-store" id="merch">
                 <div class="product-wrapper">
@@ -146,74 +147,7 @@
                     <a>Load More<i class="ri-arrow-down-circle-line"></i></a>
                 </div>
             </section>
-			<section class="testimonial-section">
-                <h2>Take a look at the reviews from our community</h2>
-                <div class="owl-carousel owl-theme testimonial-wrapper" id="slider">
-                    <div class="testimonial-container item">
-                            <div class="star-rating">
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-line"></i>
-                            </div>
-                            <main>
-                                <p> Swift and secure trading, sure trading signals, master of coin predictions. I love it. </p>
-                                <p class="bold">Omobolaji Memofoyi</p>
-                                <cite>-CEO, Ladybees Gallery </cite>
-                            </main>
-                        </a>
-                    </div>
-        
-                    <div class="testimonial-container item">
-                            <div class="star-rating">
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-line"></i>
-                            </div>
-                            <main>
-                                <p>Unknown Satoshi is an amazing community. Being part of the community since inception has made me profit, with their timely calls, tutorials, market analysis and reliable market updates. I would recommend the brand to anybody whether newbies or expert traders. </p>
-                                <p class="bold">Oguntade Habeeb</p>
-                                <cite>-Visual Designer, Emerald HB </cite>
-                            </main>
-                    </div>
-        
-                    <div class="testimonial-container item">
-                            <div class="star-rating">
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-line"></i>
-                            </div>
-                            <main>
-                                <p>I have made alot of progress in crypto ever since I joined Unknown Satoshi crypto community, and the most surprising thing is, it was for free. I haven't only learned, but I have also earned through their guidance. </p>
-                                <p class="bold">Olajugba John</p>
-                                <cite>-CEO, Triple J Global </cite>
-                            </main>
-                    </div>
-    
-                    <div class="testimonial-container item">
-                        <div class="star-rating">
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-fill"></i>
-                            <i class="ri-star-line"></i>
-                        </div>
-                        <main>
-                            <p>I  started my crypto journey from the Unknown Satoshi group, I was never a fan of crypto, since I joined the group I have been growing my portfolio with the help of the community members and I am glad to be part of the community!</p>
-                            <p class="bold">Adeshina Lasisi</p>
-                            <cite>-Software engineer, Africa Prudential Plc</cite>
-                        </main>
-                </div>
-                </div>
-            </section>
-
-
-
+			
 		<section class="newsletter-section">
 			<h2>Newsletter</h2>
 			<p>Sign up for our weekly newsletter to update on special offers, crypto news and when a new course is available. We promise not to spam your mail</p>
