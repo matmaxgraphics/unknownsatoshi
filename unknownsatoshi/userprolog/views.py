@@ -1,8 +1,9 @@
 from django.contrib.auth.models import Group
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from userprolog.models import User
 from django.contrib import messages
+from .forms import *
 
 
 
@@ -33,14 +34,14 @@ def user_register(request):
             user = User.objects.create(username=username, email=email, first_name=first_name, last_name=last_name, phone_no=phone_no,is_active=True, is_staff=False, is_superuser=False)
             user.set_password(password1)
             user.save()
-            group = Group.objects.get(name='user')
+            group = Group.objects.get(id=2)
             user.groups.add(group)
             login(request,user)
             messages.success(request, "Account successfuly created")
             return redirect("user-login")
     else:
         return render(request, template_name)
-        
+
 
 # user login
 def user_login(request):
@@ -65,3 +66,22 @@ def user_logout(request):
     logout(request)
     messages.success(request, f"logout successful")
     return redirect('home')
+
+
+#user profile and update     
+def user_profile(request, id):
+    template_name = "userprolog/profile.html"
+    user = get_object_or_404(User, id=id)
+    form = UserUpdateForm()
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"User updated successfully")
+            return redirect("user-profile", id)
+        messages.info(request, f"unable to update user")
+        return redirect("user-profile", id)
+    else:
+        form = UserUpdateForm(instance=user)
+    context = {"form":form, "user":user}
+    return render(request, template_name, context)

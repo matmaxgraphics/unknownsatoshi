@@ -45,7 +45,7 @@
 				</div>
 				
 				<div class="profile-wrapper">
-					<a href="profile.html"><img src="{% static 'images/user1.png' %}" class="img-profile"></i></a>
+					<a href="{% url 'user-profile' user.id %}"><img src="{% static 'images/user1.png' %}" class="img-profile"></i></a>
 				</div>
 				<div class="navbar__Link navbar__Link-toggle">
 					<img src=" {% static 'images/hamburger.png' %}" alt="site's hamburger" oncl>
@@ -76,12 +76,10 @@
 				</nav>
 
 				<nav class="navbar__Items navbar__Items--right">
-					<div class="profile">
-						<a href="profile.html"><img src="{% static 'images/user1.png' %}" class="img-profile"></i></a>
-					</div>
+					
 					{% if request.user.is_authenticated %}
 						<div class="profile">
-							<a href="profile.html"><img src="{% static './images/user1.png' %}" class="img-profile"></i></a>
+							<a href="{% url 'user-profile' user.id %}"><img src="{% static './images/user1.png' %}" class="img-profile"></i></a>
 						</div>
 						<div class="navbar__Link">
 							<a class="btn hire-btn"  href="{% url 'user-logout' %}">Logout</a>
@@ -344,7 +342,7 @@
 					<a href="competition.html">Trading Competition</a>
 					<a href="{% url 'courses' %}">Courses</a>
 					<a href="{% url 'onlinestore' %}">Store</a>
-					<a href="p">Privacy Policy</a>
+					<a href="{% url 'privacy' %}">Privacy Policy</a>
 					<a href="terms.html">Terms and Conditions</a>
 				</div>
 			</section>

@@ -401,6 +401,16 @@ def contact(request):
     return render(request, template_name)
 
 
+def faq_view(request):
+    template_name = "cms/faqs.html"
+    return render(request, template_name)
+
+
+def privacy_view(request):
+    template_name = "cms/privacy.html"
+    return render(request, template_name)
+
+
 def courses(request):
     template_name = 'cms/course.html'
     courses = Course.objects.all()
