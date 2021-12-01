@@ -46,9 +46,6 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
 
-    #payment module
-    "djangoflutterwave",
-
     #cloudinary modul
     'cloudinary',
     'cloudinary_storage',

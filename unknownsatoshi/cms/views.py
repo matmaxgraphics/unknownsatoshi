@@ -475,23 +475,23 @@ def plan_details(request, slug):
 
     if request.method == "GET":
         user_id = str(user.id)
-        plan_id = plan.slug
+        plan_id = str(plan.id)
         first_name = user.first_name
         last_name = user.last_name
         amount = plan.discount_price
         email = user.email
-        phone_no = user.phone_no
+        phone_number = user.phone_no
         plan_title = plan.title
         plan_desc = plan.desc
-        return redirect(str(process_payment(user_id, first_name, last_name, amount, email, phone_no, plan_title, plan_desc, plan_id)))
+        return redirect(str(process_payment(user_id, plan_id, first_name, last_name, amount, email, phone_number, plan_title, plan_desc)))
     else:    
         context = {"plan":plan, "user":user}
     return render(request, template_name, context)
 
 
 # process plan payment
-def process_payment(user_id, first_name, last_name, amount, email, phone_no, plan_title, plan_desc, plan_id):
-    name = f"{first_name} {last_name}"
+def process_payment(user_id, plan_id, first_name, last_name, amount, email, phone_number, plan_title, plan_desc):
+    name = f"{first_name} {last_name}".capitalize()
     auth_token= FLW_SANDBOX_SECRET_KEY
     hed = {'Authorization': 'Bearer ' + auth_token}
 
@@ -507,7 +507,7 @@ def process_payment(user_id, first_name, last_name, amount, email, phone_no, pla
         },
         "customer":{
             "email":email,
-            "phonenumber":phone_no,
+            "phonenumber":phone_number,
             "name":name
         },
         "customizations":{
@@ -520,21 +520,22 @@ def process_payment(user_id, first_name, last_name, amount, email, phone_no, pla
     url = ' https://api.flutterwave.com/v3/payments'
     response = requests.post(url, json=data, headers=hed)
     response=response.json()
-    print("the response is", response)
     link=response['data']['link']
-    print("link is ", link)
+
+    # helper function to save subscription history to history table
+    payment_response(user_id, plan_id, amount, email, name, phone_number)
+
+
     return link
 
 
+# returns subscription's transaction_id, transaction_reference and transaction_status
 @require_http_methods(['GET', 'POST'])
-def payment_response(request):
+def payment_response(request, user_id, plan_id, amount, email, name, phone_number):
     status=request.GET.get('status', None)
     tx_ref=request.GET.get('tx_ref', None)
     transaction_id = request.GET.get('transaction_id', None)
 
-    print("payment status is",status)
-    print("transaction reference is", tx_ref)
-    print("transaction id is",transaction_id)   
-    messages.success("subscription successful")
+    get_subscription_details(user_id, plan_id, amount, email, name, phone_number, tx_ref, transaction_id, status)
     return redirect("home")
     
