@@ -92,6 +92,8 @@
 						</div>
                     {% else %}
 						<div class="navbar__Link">
+							<a class="login-link"  href="{% url 'user-login' %}">Login</a>
+							or
 							<a class="btn hire-btn"  href="{% url 'register' %}">Sign Up</a>
 						</div>
                     {% endif%}
