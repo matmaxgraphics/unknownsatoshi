@@ -95,7 +95,7 @@
         </header>
         <section class="login-wrapper">
             <div class="login-fields">               
-                <form action="{% url 'user-login' %}" method="post">
+                <form action="{% url 'user-login' %}" method="post" id="form">
                     {% csrf_token %}
 
                    <div>
@@ -106,13 +106,17 @@
                     <div>
                         <label for="password">Password</label>
                         <input  type="password" name="password" id="id_password" class="input-field" placeholder="Your password" required>
+                        <!-- An element to toggle between password visibility -->
+                        <main class="show-password">
+                            <input type="checkbox" onclick="showPword()"><span>Show password</span> 
+                        </main>
                     </div>
                     
                     {% if request.GET.next %}
                         <input type="hidden" name="next" value="{{request.GET.next}}">
                     {% endif %}
 
-                    <button class="btn" type="submit" name="login-btn">Login</button>
+                    <button class="btn" type="submit" id="submit" name="login-btn">Login</button>
                     {% if form.errors %}
                         <div>
                             Your email and password didn't match! Please try again!
@@ -137,6 +141,7 @@
 
 <!--CUSTOM JAVASCRIPT-->
 <script src="{% static './js/script.js' %}"></script>
+<script src="{% static './js/validate.js' %}"></script>
 
 <!--Jquery CDN-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

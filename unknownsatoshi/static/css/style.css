@@ -1,3 +1,4 @@
+@charset "UTF-8";
 html {
   scroll-behavior: smooth;
 }
@@ -130,6 +131,59 @@ textarea {
 
 .none {
   display: none;
+}
+
+#message {
+  display: none;
+  color: #C4C4C4;
+  position: relative;
+  text-align: left;
+  font-weight: normal;
+}
+
+#message p {
+  font-size: 14px;
+  text-align: left;
+  margin: 6px;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -20px;
+  content: "✔";
+}
+
+/* Add a red text color and an "x" icon when the requirements are wrong */
+.invalid {
+  color: #f73737;
+}
+
+.invalid:before {
+  position: relative;
+  left: -20px;
+  content: "✖";
+}
+
+.show-password {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin-top: 12px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.show-password span {
+  margin-left: 6px;
 }
 
 /*======ALTERNATIVE STYLING======*/
@@ -1362,7 +1416,7 @@ footer .footer-content__item .links a:hover {
   width: 50%;
   margin: auto;
   background-color: #1D1D1D;
-  height: 28em;
+  height: 30em;
   border-radius: 8px;
   margin-bottom: 60px;
 }
