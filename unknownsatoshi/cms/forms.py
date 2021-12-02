@@ -2,11 +2,21 @@ from userprolog.models import User
 from django import forms
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
-
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 
 
+
+
+class TagForm(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = '__all__'
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs.update({'class':"input-field"})
+        
 
 class CmsForm(forms.ModelForm):
     
@@ -24,8 +34,6 @@ class CmsForm(forms.ModelForm):
         self.fields['profit'].widget.attrs.update({'class': "input-field"})
         self.fields['tags'].widget.attrs.update({'class': "input-field"})
         self.fields['featured_image'].widget.attrs.update({'class': "input-field"})
-
-        
 
         
 class BlogForm(forms.ModelForm):
@@ -54,7 +62,7 @@ class CourseForm(forms.ModelForm):
         
     
     def __init__(self, *args, **kwargs):
-        super(CourseForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['courses'].widget.attrs.update({'class':"input-field"})
         self.fields['course_link'].widget.attrs.update({'class':"input-field"})
         self.fields['featured_image'].widget.attrs.update({'class':"input-field"})
@@ -112,7 +120,7 @@ class UserForm(UserCreationForm):
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'phone_no', 'email', 'username', 'is_active', 'is_staff', 'is_superuser']
+        fields = ['first_name', 'last_name', 'phone_no', 'email', 'username', 'profile_picture','is_active', 'is_staff', 'is_superuser']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -121,7 +129,41 @@ class UserUpdateForm(forms.ModelForm):
         self.fields['phone_no'].widget.attrs.update({'class':"input-field"})
         self.fields['email'].widget.attrs.update({'class':"input-field"})
         self.fields['username'].widget.attrs.update({'class':"input-field"})
+        self.fields['profile_picture'].widget.attrs.update({'class':"input-field"})
         self.fields['is_active'].widget.attrs.update({'class':"input"})
         self.fields['is_staff'].widget.attrs.update({'class':"input"})
         self.fields['is_superuser'].widget.attrs.update({'class':"input"})
 
+
+class PlanForm(forms.ModelForm):
+    class Meta:
+        model = Plan
+        fields = '__all__'
+        exclude = ('slug',)
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['title'].widget.attrs.update({'class':"input-field"})
+        self.fields['desc'].widget.attrs.update({'class':"input-field"})
+        self.fields['price'].widget.attrs.update({'class':"input-field"})
+        self.fields['discount_price'].widget.attrs.update({'class':"input-field"})
+        self.fields['discount'].widget.attrs.update({'class':"input-field"})
+
+
+class SubscriptionHistoryForm(forms.ModelForm):
+    class Meta:
+        model = SubscriptionHistory
+        fields = '__all__'
+        
+    def __init__(self, *args, **kwargs):
+        super(CourseForm, self).__init__(*args, **kwargs)
+        self.fields['user'].widget.attrs.update({'class':"input-field"})
+        self.fields['email'].widget.attrs.update({'class':"input-field"})
+        self.fields['full_name'].widget.attrs.update({'class':"input-field"})
+        self.fields['phone_no'].widget.attrs.update({'class':"input-field"})
+        self.fields['plan'].widget.attrs.update({'class':"input-field"})
+        self.fields['amount_paid'].widget.attrs.update({'class':"input-field"})
+        self.fields['reference'].widget.attrs.update({'class':"input-field"})
+        self.fields['transaction_id'].widget.attrs.update({'class':"input-field"})
+        self.fields['status'].widget.attrs.update({'class':"input-field"})
+        self.fields['active'].widget.attrs.update({'class':"input-field"})

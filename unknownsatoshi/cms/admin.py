@@ -41,3 +41,7 @@ class AdminPlan(admin.ModelAdmin):
 @admin.register(SubscriptionHistory)
 class AdminSubscriptionHistory(admin.ModelAdmin):
     list_display = ('email', 'user', 'full_name', 'phone_no', 'plan', 'amount_paid', 'reference', 'transaction_id', 'status', 'start_date', 'expiry_date', 'active')
+
+@admin.register(Newsletter)
+class AdminNesletter(admin.ModelAdmin):
+    list_display = ('email',)

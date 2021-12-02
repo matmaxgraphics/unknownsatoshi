@@ -2720,3 +2720,18 @@ footer .footer-content__item .links a:hover {
     width: 80%;
   }
 }
+
+/* PASSWORD RESET SECTION */
+
+#id_email {
+  background-color: #434343;
+  color: #fff;
+  padding: 10px;
+  height: 54px;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: "poppins", sans-serif;
+  width: 80% !important;
+}

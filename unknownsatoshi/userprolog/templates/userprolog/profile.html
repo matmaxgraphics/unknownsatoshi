@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}    
+	<div class="page-wrapper" style="margin-top: -350px;">		
+        <section class="user-profile">
+            
+            <div class="user-image">
+                <img src="{{user.profile_picture.url}}" alt="user's profile image">
+                <h4>{{user.username}}</h4>
+                <form action="{% url 'user-profile' user.id %}" method="get">
+                    <div>
+                        <label for="image">Change Picture</label>    
+                        {% for field in form %}   
+                            {% if field.field.widget.input_type == "file" %}
+                                <input type="{{field.field.widget.input_type}}" name="image" id="image" class="input-field" accept="image/*" required>
+                            {% endif %}             
+                        {% endfor %}
+                    </div>
+                </form>
+            </div>
+
+            <div class="profile-description">
+                <div class="profile-details">
+                    <h4>Profile Information</h4>
+                    <p><label for="username">Username:</label> {{user.username}}</p>
+                    <p><label for="email">Email:</label> {{ user.email }}</p>
+                    <p><label for="fullname">Full Name:</label> {{ user.first_name|title }} {{user.last_name|title}}</p>
+                    
+                </div>
+                <div class="profile-fields">
+                    <h4>Update Profile</h4>               
+                    <form action="{% url 'user-profile' user.pk %}" method="post">
+                        {% csrf_token %}
+                        <div>
+                            <label for="email">Email</label>
+                            {{form.email}}
+                        </div>
+          
+                        <div>
+                            <label for="image">Username</label>                   
+                            {{form.username }}
+                        </div>
+                        
+                        <div>
+                            <label for="first-name">First Name</label>
+                            {{ form.first_name }}
+                        </div>
+        
+                        <div>
+                            <label for="first-name">Last Name</label>
+                            {{ form.last_name }}
+                        </div>
+        
+                        <div>
+                            <label for="first-name">Phone No</label>
+                            {{ form.phone_no }}
+                        </div>
+                        
+                        {% if form.errors %}
+                            <div>
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                            
+                        <button class="btn" type="submit" name="save-btn">Save Changes</button>
+                      </form>
+                    
+                </div>
+
+            </div>
+        </section>
+	</div>
+{% endblock content %}

@@ -10,9 +10,11 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
     path('courses/', views.courses, name='courses'),
+    path("faqs", views.faq_view, name="faq"),
+    path("privacy", views.privacy_view, name="privacy"),
     path('trade-history/', views.trade_history, name='trade-history'),
     path('onlinestore/', views.onlinestore, name='onlinestore'),
-    path('notauth/', views.Auth, name='notauth'),
+    path('unauthorized-page/', views.unauthorized_page, name='unauthorized-page'),
     
     # admin panel
     path('admin-dashboard/', views.admin_panel, name='adminpanel'),
@@ -26,6 +28,14 @@ urlpatterns = [
     # admin history section
     path('admin-history/', views.admin_history, name='admin-history'),
    
+
+    # admin tag section
+    path("add-tag", views.admin_create_tag, name="admin-create-tag"),
+    path("plan-list", views.admin_tag_list, name="admin-tag-list"),
+    path("update-tag/<str:id>", views.admin_update_tag, name="admin-update-tag"),
+    path("delete-tag/<str:id>", views.admin_delete_tag, name="admin-delete-tag"),
+
+
     # admin product section
     path('admin-product', views.admin_product, name='admin-product'),
     path('create-product/', views.create_product, name='create-product'),
@@ -59,8 +69,17 @@ urlpatterns = [
     path('user-update/<str:id>/', views.admin_update_user, name="admin-update-user"),
     path('delete-user/<str:id>/', views.admin_delete_user, name="admin-delete-user"),
 
+    # admin subscription section
+    path("subscription-history", views.admin_subscription_history, name="admin-sub-list"),
+    
     #subscrition section
     path("subscription/plan-list", views.plan_list, name="plan-list"),
     path("subscription/plan-detail/<str:slug>", views.plan_details, name="plan-detail"),
-    path('callback', views.payment_response, name='payment_response')
+    path('callback', views.payment_response, name='payment_response'),
+
+    # plan section
+    path("add-plan", views.admin_create_plan, name="admin-create-plan"),
+    path("plan-lists", views.admin_plan_list, name="admin-plan-list"),
+    path("update-plan/<str:slug>", views.admin_update_plan, name="admin-update-plan"),
+    path("delete-plan/<str:slug>", views.admin_delete_plan, name="admin-delete-plan"),
 ]
