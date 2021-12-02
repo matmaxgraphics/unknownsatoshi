@@ -73,7 +73,7 @@ def trade(request, pk):
 @admin_only
 def create_trade(request):
     template_name = 'cms/admin-history/createhistory.html'
-    form = CmsForm
+    form = CmsForm()
     if request.method == 'POST':
         form = CmsForm(request.POST)
         if form.is_valid():
@@ -137,15 +137,16 @@ def admin_course(request):
 @login_required(login_url='admin-login')
 @allowed_user(allowed_roles=['admin'])
 @admin_only
-def update_course(request, pk):
-    template_name = 'cms/admin-course/create.html'
-    course = Course.objects.get(id=pk)
-    form = CourseForm(request.POST)
+def update_course(request, id):
+    template_name = 'cms/admin-course/edit.html'
+    course = Course.objects.get(id=id)
+    form = CourseForm(instance=course)
     if request.method == 'POST':
-        form = CourseForm(request.POST, request.FILES,instance=course)
+        form = CourseForm(request.POST, request.FILES, instance=course)
         if form.is_valid():
             form.save()
             return redirect('admin-course')
+        return redirect("update-course", id)
     else:
         form = CourseForm(instance=course)
     context = {'form':form}
@@ -158,12 +159,13 @@ def update_course(request, pk):
 @admin_only
 def create_course(request):
     template_name = 'cms/admin-course/create.html'
-    form = CourseForm
+    form = CourseForm()
     if request.method == 'POST':
         form = CourseForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('admin-course')
+        return redirect("admin-course")
     context = {'form':form}
     return render(request, template_name, context)
 
@@ -173,12 +175,12 @@ def create_course(request):
 @allowed_user(allowed_roles=['admin'])
 @admin_only
 def delete_course(request, pk):
-    template_name = 'cms/admin-course/edit.html'
-    info = Course.objects.get(id=pk)
+    template_name = 'cms/admin-course/delete.html'
+    course = Course.objects.get(id=pk)
     if request.method == 'POST':
-        info.delete()
+        course.delete()
         return redirect('admin-course')
-    context = {'info': info}
+    context = {'course': course}
     return render(request, template_name, context)
 
 
@@ -199,12 +201,15 @@ def admin_product(request):
 @admin_only
 def create_product(request):
     template_name = 'cms/admin-store/create.html'
-    form = ProductForm
+    form = ProductForm()
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('adminstore')
+            return redirect('admin-product')
+        return redirect("create-product")
+    else:
+        form = ProductForm(request.POST, request.FILES)
     context = {'form':form}
     return render(request, template_name, context)
 
@@ -259,16 +264,17 @@ def admin_blog(request):
 @admin_only
 def create_blog(request):
     template_name = 'cms/admin-blog/create.html'
-    form = BlogForm
+    form = BlogForm()
     if request.method == 'POST':
         form = BlogForm(request.POST, request.FILES)
         if form.is_valid():
             form.save(commit=False)
-            form.author = request.user
+            form.instance.author = request.user
             form.save()
             return redirect('admin-blog')
-        else:
-            form = BlogForm(request.POST, request.FILES)
+        return redirect("create-blog")
+    else:
+        form = BlogForm(request.POST, request.FILES)
     context = {'form':form}
     return render(request, template_name, context)
 
@@ -330,6 +336,8 @@ def admin_create_user(request):
             return redirect('admin-user-list')
         messages.info(request, f"Unable to create user, please try again")
         return redirect("admin-create-user")
+    else:
+        form = UserForm(request.POST, request.FILES)
     context = {'form': form}
     return render(request, template_name, context)
 
@@ -352,9 +360,9 @@ def admin_user_list(request):
 def admin_update_user(request, id):
     template_name = "cms/admin-user/edit.html"
     user = get_object_or_404(User, id=id)
-    form = UserUpdateForm()
+    form = UserUpdateForm(instance=user)
     if request.method == 'POST':
-        form = UserUpdateForm(request.POST, instance=user)
+        form = UserUpdateForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
             messages.success(request, f"User updated successfully")
@@ -394,10 +402,12 @@ def admin_create_plan(request):
         form = PlanForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, f"plan created")
-            return redirect('admin-create-plan')
-        else:
-            form = PlanForm(request.POST)
+            messages.success(request, f"Plan created")
+            return redirect('admin-plan-list')
+        messages.info(request, f"Unable to create plan")
+        return redirect("admin-create-plan")
+    else:
+        form = PlanForm(request.POST)
     context = {'form':form}
     return render(request, template_name, context)
 
@@ -451,75 +461,7 @@ def admin_delete_plan(request, slug):
         return render(request, template_name)
 
 
-# admin create tag
-@login_required(login_url='admin-login')
-@allowed_user(allowed_roles=['admin'])
-@admin_only
-def admin_create_tag(request):
-    template_name = 'cms/admin-tag/create.html'
-    form = TagForm()
-    if request.method == 'POST':
-        form = TagForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, f"tag created")
-            return redirect('admin-create-tag')
-        else:
-            form = TagForm(request.POST)
-    context = {'form':form}
-    return render(request, template_name, context)
-
-
-#admin plan tag
-@login_required(login_url='admin-login')
-@allowed_user(allowed_roles=['admin'])
-@admin_only
-def admin_tag_list(request):
-    template_name = "cms/admin-tag/index.html"
-    tags = Tag.objects.all()
-    context = {"tags":tags}
-    return render(request, template_name, context)
-
-
-#admin update tag
-@login_required(login_url='admin-login')
-@allowed_user(allowed_roles=['admin'])
-@admin_only
-def admin_update_tag(request, id):
-    template_name = "cms/admin-tag/edit.html"
-    tag = get_object_or_404(Tag, id=id)
-    form = TagForm()
-    if request.method == 'POST':
-        form = TagForm(request.POST, instance=tag)
-        if form.is_valid():
-            form.save()
-            messages.success(request, f"tag updated successfully")
-            return redirect("admin-tag-list")
-        messages.info(request, f"unable to update tag")
-        return redirect("admin-update-tag", id)
-    else:
-        form = TagForm(instance=tag)
-    context = {"form":form}
-    return render(request, template_name, context)
-
-
-# admin delete tag
-@login_required(login_url='admin-login')
-@allowed_user(allowed_roles=['admin'])
-@admin_only
-def admin_delete_tag(request, id):
-    template_name = 'cms/admin-tag/delete.html'
-    tag = get_object_or_404(Tag, id=id)
-    if request.method == 'POST':
-        tag.delete()
-        messages.success(request, f"tag deleted successfully")
-        return redirect('admin-tag-list')
-    else:
-        messages.info(request, f"unable to delete tag")
-        return render(request, template_name)
-
-
-#admin plan tag
+#admin subscription history
 @login_required(login_url='admin-login')
 @allowed_user(allowed_roles=['admin'])
 @admin_only
@@ -535,8 +477,8 @@ def admin_subscription_history(request):
 @login_required(login_url='admin-login')
 @allowed_user(allowed_roles=['admin'])
 @admin_only
-def admin_delete_tag(request, id):
-    template_name = 'cms/admin-tag/delete.html'
+def admin_delete_subscription(request, id):
+    template_name = 'cms/admin-subscription/delete.html'
     subscription = get_object_or_404(SubscriptionHistory, id=id)
     if request.method == 'POST':
         subscription.delete()
@@ -552,7 +494,7 @@ def home(request):
     template_name = 'cms/index.html'
     return render(request, template_name)
 
-
+#
 def about(request):
     template_name = 'cms/about.html'
     return render(request, template_name)
@@ -647,7 +589,7 @@ def plan_details(request, slug):
 
     if request.method == "GET":
         user_id = str(user.id)
-        plan_id = str(plan.id)
+        plan_id = str(plan.slug)
         first_name = user.first_name
         last_name = user.last_name
         amount = plan.discount_price
@@ -695,7 +637,7 @@ def process_payment(user_id, plan_id, first_name, last_name, amount, email, phon
     link=response['data']['link']
 
     # helper function to save subscription history to history table
-    payment_response(user_id, plan_id, amount, email, name, phone_number)
+    #payment_response(user_id, plan_id, amount, email, name, phone_number)
 
 
     return link
@@ -708,6 +650,5 @@ def payment_response(request, user_id, plan_id, amount, email, name, phone_numbe
     tx_ref=request.GET.get('tx_ref', None)
     transaction_id = request.GET.get('transaction_id', None)
 
-    get_subscription_details(user_id, plan_id, amount, email, name, phone_number, tx_ref, transaction_id, status)
+    #get_subscription_details(user_id, plan_id, amount, email, name, phone_number, tx_ref, transaction_id, status)
     return redirect("home")
-    

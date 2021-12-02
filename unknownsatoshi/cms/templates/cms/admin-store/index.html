@@ -31,8 +31,8 @@
                 <td data-label="Product Name">{{product.product_name}}</td>
                 <td data-label="Price">${{ product.price}}</td>
                 <td data-label="Action"><a href="{% url 'update-product' product.id %}" class="edit">edit</a></td>
-                <td><button class="delete">
-                    <a style="color: rgb(233, 143, 25);" href="{% url 'delete-product' product.id %}" class="edit">Delete</a></button></td>
+                <td>
+                    <a style="color: rgb(233, 143, 25);" href="{% url 'delete-product' product.id %}" class="delete">Delete</a></td>
               </tr>
             {% endfor %}
               

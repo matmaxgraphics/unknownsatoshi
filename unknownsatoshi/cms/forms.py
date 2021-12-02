@@ -8,21 +8,18 @@ from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 
 
-class TagForm(forms.ModelForm):
-    class Meta:
-        model = Tag
-        fields = '__all__'
-        
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['name'].widget.attrs.update({'class':"input-field"})
         
 
 class CmsForm(forms.ModelForm):
-    
+    title = forms.CharField(required=True)
+    entry = forms.IntegerField(min_value=1, required=True)
+    stoploss = forms.IntegerField(min_value=1, required=True)
+    tp_target = forms.IntegerField(min_value=1, required=True)
+    tp_achieved = forms.IntegerField(min_value=True, max_value=True, required=True)
+    profit = forms.IntegerField(min_value=1, required=True)
     class Meta:
         model = Cms
-        fields = ['title', 'entry', 'stoploss', 'tp_target', 'tp_achieved', 'profit', 'featured_image', 'tags']
+        fields = ['title', 'entry', 'stoploss', 'tp_target', 'tp_achieved', 'profit']
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -32,15 +29,15 @@ class CmsForm(forms.ModelForm):
         self.fields['tp_target'].widget.attrs.update({'class': "input-field"})
         self.fields['tp_achieved'].widget.attrs.update({'class': "input-field"})
         self.fields['profit'].widget.attrs.update({'class': "input-field"})
-        self.fields['tags'].widget.attrs.update({'class': "input-field"})
-        self.fields['featured_image'].widget.attrs.update({'class': "input-field"})
 
         
 class BlogForm(forms.ModelForm):
-    post = forms.CharField(widget=CKEditorUploadingWidget())
+    title = forms.CharField(required=True)
+    post = forms.CharField(widget=CKEditorUploadingWidget(), required=True)
+    
     class Meta:
         model = Blog
-        fields = ['title', 'post', 'featured_image','featured_stories','latest_news','latest_articles']
+        fields = ['title', 'slug', 'post', 'featured_image','featured_stories','latest_news','latest_articles', 'premium']
         exclude = ['author']
     
     
@@ -48,19 +45,23 @@ class BlogForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         self.fields['title'].widget.attrs.update({'class': "input-field"})
+        self.fields['slug'].widget.attrs.update({'class': "input-field"})
         self.fields['post'].widget.attrs.update({})
         self.fields['featured_image'].widget.attrs.update({'class': "input-field"})
         self.fields['featured_stories'].widget.attrs.update({})
         self.fields['latest_news'].widget.attrs.update({})
         self.fields['latest_articles'].widget.attrs.update({})
+        self.fields['premium'].widget.attrs.update({})
 
 
 class CourseForm(forms.ModelForm):
+    courses = forms.CharField(required=True)
+    course_link = forms.URLField(error_messages={'required':"Website link to product"})
+    featured_image = forms.ImageField(required=True, error_messages={'required':"An image is required"})
     class Meta:
         model = Course
         fields = ['courses', 'course_link', 'featured_image', ]
         
-    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['courses'].widget.attrs.update({'class':"input-field"})
@@ -68,10 +69,13 @@ class CourseForm(forms.ModelForm):
         self.fields['featured_image'].widget.attrs.update({'class':"input-field"})
 
 class ProductForm(forms.ModelForm):
+    product_name = forms.CharField(error_messages={'required':"Product name is required"})
+    product_link = forms.URLField(error_messages={'required':"Url is required"})
+    price = forms.IntegerField(min_value=1, error_messages={'required':"Product price is required"})
+    featured_image = forms.ImageField(required=True, error_messages={'required':"An image is required"})
     class Meta:
         model = Product
-        fields = ['product_name', 'product_link','price', 'featured_image', 'tags']
-        
+        fields = ['product_name', 'product_link','price', 'featured_image']
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -79,14 +83,15 @@ class ProductForm(forms.ModelForm):
         self.fields['product_link'].widget.attrs.update({'class':"input-field"})
         self.fields['price'].widget.attrs.update({'class':"input-field"})
         self.fields['featured_image'].widget.attrs.update({'class':"input-field"})
-        self.fields['tags'].widget.attrs.update({'class':"input-field"})
-
 
 class ProductUpdateForm(forms.ModelForm):
+    product_name = forms.CharField(error_messages={'required':"Product name is required"})
+    product_link = forms.URLField(error_messages={'required':"Url is required"})
+    price = forms.IntegerField(min_value=1, error_messages={'required':"Product price is required"})
+    featured_image = forms.ImageField(required=True, error_messages={'required':"An image is required"})
     class Meta:
         model = Product
-        fields = ['product_name', 'product_link','price', 'featured_image', 'tags']
-        
+        fields = ['product_name', 'product_link','price', 'featured_image']
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -94,10 +99,9 @@ class ProductUpdateForm(forms.ModelForm):
         self.fields['product_link'].widget.attrs.update({'class':"input-field"})
         self.fields['price'].widget.attrs.update({'class':"input-field"})
         self.fields['featured_image'].widget.attrs.update({'class':"input-field"})
-        self.fields['tags'].widget.attrs.update({'class':"input-field"})
 
-        
 
+# user creation form for admin and users
 class UserForm(UserCreationForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Repeat Password', widget=forms.PasswordInput)
@@ -117,6 +121,7 @@ class UserForm(UserCreationForm):
         self.fields['password2'].widget.attrs.update({'class':"input-field"})
 
 
+# user update form for admin
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
@@ -136,14 +141,20 @@ class UserUpdateForm(forms.ModelForm):
 
 
 class PlanForm(forms.ModelForm):
+    title = forms.CharField(required=True)
+    desc = forms.CharField(required=True)
+    price = forms.IntegerField(min_value=1, required=True)
+    discount_price = forms.IntegerField(min_value=1, required=True)
+    discount = forms.IntegerField(min_value=1, required=True)
+
     class Meta:
         model = Plan
         fields = '__all__'
-        exclude = ('slug',)
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['title'].widget.attrs.update({'class':"input-field"})
+        self.fields['slug'].widget.attrs.update({'class':"input-field"})
         self.fields['desc'].widget.attrs.update({'class':"input-field"})
         self.fields['price'].widget.attrs.update({'class':"input-field"})
         self.fields['discount_price'].widget.attrs.update({'class':"input-field"})

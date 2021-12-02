@@ -27,14 +27,6 @@ urlpatterns = [
     
     # admin history section
     path('admin-history/', views.admin_history, name='admin-history'),
-   
-
-    # admin tag section
-    path("add-tag", views.admin_create_tag, name="admin-create-tag"),
-    path("plan-list", views.admin_tag_list, name="admin-tag-list"),
-    path("update-tag/<str:id>", views.admin_update_tag, name="admin-update-tag"),
-    path("delete-tag/<str:id>", views.admin_delete_tag, name="admin-delete-tag"),
-
 
     # admin product section
     path('admin-product', views.admin_product, name='admin-product'),
@@ -51,7 +43,7 @@ urlpatterns = [
     # admin course section
     path('admincourse', views.admin_course, name='admin-course'),
     path('create-course/', views.create_course, name='create-course'),
-    path('update-course/<str:pk>/', views.update_course, name='update-course'),
+    path('update-course/<str:id>/', views.update_course, name='update-course'),
     path('delete-course/<str:pk>/', views.delete_course, name='delete-course'),
 
     
@@ -71,6 +63,7 @@ urlpatterns = [
 
     # admin subscription section
     path("subscription-history", views.admin_subscription_history, name="admin-sub-list"),
+    path("subscription/delete/<str:id>", views.admin_delete_subscription, name="delete-subscription"),
     
     #subscrition section
     path("subscription/plan-list", views.plan_list, name="plan-list"),

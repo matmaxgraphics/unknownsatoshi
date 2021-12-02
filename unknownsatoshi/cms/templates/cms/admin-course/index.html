@@ -28,10 +28,9 @@
             <tr>
               <td data-label="Course Name">{{course.courses}}</td>
               <td data-label="Course Name">{{course.course_link}}</td>
-              <td data-label="Course Name">{{course.featured_image}}</td>
+              <td data-label="image"><img src="{{course.featured_image.url}}"></td>
               <td data-label="Action"><a href="{% url 'update-course' course.id %}" class="edit">edit</a></td>
-              <td><button class="delete" >
-                  <a style="color: rgb(233, 143, 25);" href="{% url 'delete-course' course.id %}" class="edit">Delete</a></button></td>		        
+              <td><a style="color: rgb(233, 143, 25);" href="{% url 'delete-course' course.id %}" class="delete">Delete</a></td>		        
             </tr> 
           {% endfor %}   
             
@@ -40,8 +39,10 @@
       </section>
       {% if courses.count <= 1 %}
           {{courses.count}} Course
-        {% else %}
+      {% elif courses.count > 1 %}
           {{courses.count}} Courses
+      {% else %}
+        No course has been added
       {% endif %}
 	  </div>
     </div>

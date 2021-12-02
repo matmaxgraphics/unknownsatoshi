@@ -30,16 +30,15 @@
                                   <label for="price">Price</label>
                                   {{form.price}}
                               </div>
-                              <div>
-                                  <label for="image">Image</label>                   
-                                  {{form.featured_image }}
-                              </div>
-                              <div>
-                                  <label for="productCat">Product Category</label>
-                                  {{ form.tags }}
-                              </div>
-
-                              <button class="btn" type="submit" name="submit-btn">Save Product</button>
+                              
+                                {% for field in form %}   
+                                    {% if field.field.widget.input_type == "file" %}
+                                        <label for="">{{field.label}}</label>
+                                        <input type="{{field.field.widget.input_type}}" name="{{field.name}}" id="{{field.id}}" value="{{field.value}}" class="input-field" required>
+                                    {% endif %}             
+                                {% endfor %}
+    
+                              <button class="btn" type="submit" name="submit-btn" style="margin-top: 5px;">Save Product</button>
                           </form>
                       </div>
                   </section>
