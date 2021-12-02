@@ -16,8 +16,8 @@ urlpatterns = [
     path('onlinestore/', views.onlinestore, name='onlinestore'),
     path('unauthorized-page/', views.unauthorized_page, name='unauthorized-page'),
     
-    # admin panel
-    path('admin-dashboard/', views.admin_panel, name='adminpanel'),
+    # # admin panel
+    # path('admin-dashboard/', views.admin_panel, name='adminpanel'),
     
     # admin login panel
     path('admin-login/', views.admin_login, name='admin-login'),

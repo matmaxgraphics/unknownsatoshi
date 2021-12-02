@@ -26,7 +26,9 @@ def admin_login(request):
             login(request, user)
             if 'next' in request.POST:
                 return redirect(request.POST.get("next"))
+            messages.success(request, f"Welcome {user.username}")
             return redirect("admin-history")
+        messages.error(request, f"Login attempt failed, please try again")
         return redirect("admin-login")
     return render(request, template_name)
 
@@ -34,15 +36,16 @@ def admin_login(request):
 #admin logout
 def admin_logout(request):
     logout(request)
+    messages.success(request, f"Logout  Successful")
     return redirect("admin-login")
 
-#admin views for trade history
-@login_required(login_url='admin-login')
-@allowed_user(allowed_roles=['admin'])
-@admin_only
-def admin_panel(request):
-    template_name = 'cms/admin-index.html'
-    return render(request, template_name)
+# #admin views for trade history
+# @login_required(login_url='admin-login')
+# @allowed_user(allowed_roles=['admin'])
+# @admin_only
+# def admin_panel(request):
+#     template_name = 'cms/admin-index.html'
+#     return render(request, template_name)
 
 
 # admin history view
@@ -80,8 +83,10 @@ def create_trade(request):
             trade = form.save()
             messages.success(request, f"{trade.title} added")
             return redirect('admin-history')
-        else:
-            form = CmsForm(request.POST)
+        messages.error(request, f"Unable to create trade, please try again")
+        return redirect("admin-history")
+    else:
+        form = CmsForm(request.POST)
     context = {'form':form}
     return render(request, template_name, context)
 
@@ -98,8 +103,9 @@ def update_trade(request, pk):
         form = CmsForm(request.POST, request.FILES, instance=trade)
         if form.is_valid():
             form.save()
+            messages.success(request, f"Trade updated successfully")
             return redirect('admin-history')
-        messages.info(request, f"unable to update, try again")
+        messages.error(request, f"Unable to update trade, Try again")
         return redirect('update-trade', pk)
     else:
         form = CmsForm(instance=trade)
@@ -117,6 +123,7 @@ def delete_trade(request, pk):
     trade = Cms.objects.get(id=pk)
     if request.method == 'POST':
         trade.delete()
+        messages.success(request,f"Trade deleted")
         return redirect('admin-history')
     context = {'trade': trade}
     return render(request, template_name, context)
@@ -145,7 +152,9 @@ def update_course(request, id):
         form = CourseForm(request.POST, request.FILES, instance=course)
         if form.is_valid():
             form.save()
+            messages.success(request, f"Course updated")
             return redirect('admin-course')
+        messages.error(request, f"unable to update course, Try again")
         return redirect("update-course", id)
     else:
         form = CourseForm(instance=course)
@@ -164,8 +173,10 @@ def create_course(request):
         form = CourseForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, f"Course created successfully")
             return redirect('admin-course')
-        return redirect("admin-course")
+        messages.error(request, f"Unable to create course, Try again")
+        return redirect("reate-course")
     context = {'form':form}
     return render(request, template_name, context)
 
@@ -179,6 +190,7 @@ def delete_course(request, pk):
     course = Course.objects.get(id=pk)
     if request.method == 'POST':
         course.delete()
+        messages.success(request, f"Course deleted successfully")
         return redirect('admin-course')
     context = {'course': course}
     return render(request, template_name, context)
@@ -206,7 +218,9 @@ def create_product(request):
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, f"Product created successfully")
             return redirect('admin-product')
+        messages.error(request, f"Unable to create product, Try again")
         return redirect("create-product")
     else:
         form = ProductForm(request.POST, request.FILES)
@@ -226,7 +240,11 @@ def update_product(request, id):
         form = ProductUpdateForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
+            messages.success(request, f"Product updated successfully")
             return redirect('admin-product')
+        messages.error(request, f"Unable to update product, Try again")
+        return redirect("update-product", id)
+    else:
         form = ProductUpdateForm(instance=product)
     context = {'form':form}
     return render(request, template_name, context)
@@ -240,6 +258,7 @@ def delete_product(request, id):
     product = get_object_or_404(Product, id=id)
     if request.method == 'POST':
         product.delete()
+        messages.success(request, f"product successfully deleted")
         return redirect('admin-product')
     context = {'product': product}
     return render(request, template_name, context)
@@ -252,9 +271,7 @@ def delete_product(request, id):
 def admin_blog(request):
     template_name = 'cms/admin-blog/index.html'
     blogs = Blog.objects.all()
-    context = {
-        'blogs':blogs,     
-    }
+    context = {'blogs':blogs}
     return render(request, template_name, context)
 
 
@@ -271,7 +288,9 @@ def create_blog(request):
             form.save(commit=False)
             form.instance.author = request.user
             form.save()
+            messages.success(request, f"Blog created successfully")
             return redirect('admin-blog')
+        messages.error(request, f"Unable to create blo, Try again")
         return redirect("create-blog")
     else:
         form = BlogForm(request.POST, request.FILES)
@@ -292,8 +311,7 @@ def update_blog(request, pk):
             form.save()
             messages.success(request, f"Post updated successfully")
             return redirect('admin-blog')
-        
-        messages.info(request, f"Unable to update post, try again")
+        messages.error(request, f"Unable to update post, try again")
         form = BlogForm(request.POST, request.FILES, instance=blog)
     else:
          form = BlogForm(instance=blog)
@@ -313,8 +331,8 @@ def delete_blog(request, pk):
         messages.success(request, f"Post deleted successfully")
         return redirect('admin-blog')
     else:
-        messages.success(request, f"Unable to delete post, try again")
-        return render(request, template_name)
+        context = {"blog":blog}
+        return render(request, template_name, context)
 
 
 #admin create user
@@ -332,9 +350,9 @@ def admin_create_user(request):
             user.is_staff = False
             user.is_superuser = False
             user.save()
-            messages.success(request, f" successfully created")
+            messages.success(request, f" Account for {user.email} successfully created")
             return redirect('admin-user-list')
-        messages.info(request, f"Unable to create user, please try again")
+        messages.error(request, f"Unable to create user, please try again")
         return redirect("admin-create-user")
     else:
         form = UserForm(request.POST, request.FILES)
@@ -367,7 +385,7 @@ def admin_update_user(request, id):
             form.save()
             messages.success(request, f"User updated successfully")
             return redirect("admin-user-list")
-        messages.info(request, f"unable to update user")
+        messages.error(request, f"Unable to update user")
         return redirect("admin-update-user", id)
     else:
         form = UserUpdateForm(instance=user)
@@ -387,8 +405,8 @@ def admin_delete_user(request, id):
         messages.success(request, f"User deleted successfully")
         return redirect('admin-user-list')
     else:
-        messages.info(request, f"unable to delete user")
-        return render(request, template_name)
+        context = {"user":user}
+        return render(request, template_name, context)
 
 
 # admin create plan
@@ -402,9 +420,9 @@ def admin_create_plan(request):
         form = PlanForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, f"Plan created")
+            messages.success(request, f"Plan created successfully")
             return redirect('admin-plan-list')
-        messages.info(request, f"Unable to create plan")
+        messages.error(request, f"Unable to create plan")
         return redirect("admin-create-plan")
     else:
         form = PlanForm(request.POST)
@@ -430,14 +448,14 @@ def admin_plan_list(request):
 def admin_update_plan(request, slug):
     template_name = "cms/admin-plan/edit.html"
     plan = get_object_or_404(Plan, slug=slug)
-    form = PlanForm()
+    form = PlanForm(instance=plan)
     if request.method == 'POST':
         form = PlanForm(request.POST, instance=plan)
         if form.is_valid():
             form.save()
             messages.success(request, f"plan updated successfully")
             return redirect("admin-plan-list")
-        messages.info(request, f"unable to update user")
+        messages.error(request, f"Unable to update user, Try again")
         return redirect("admin-update-plan", slug)
     else:
         form = PlanForm(instance=plan)
@@ -454,11 +472,11 @@ def admin_delete_plan(request, slug):
     plan = get_object_or_404(Plan, slug=slug)
     if request.method == 'POST':
         plan.delete()
-        messages.success(request, f"plan deleted successfully")
+        messages.success(request, f"Plan deleted successfully")
         return redirect('admin-plan-list')
     else:
-        messages.info(request, f"unable to delete user")
-        return render(request, template_name)
+        context = {"plan":plan}
+        return render(request, template_name, context)
 
 
 #admin subscription history
@@ -485,7 +503,7 @@ def admin_delete_subscription(request, id):
         messages.success(request, f"subscription deleted successfully")
         return redirect('admin-sub-list')
     else:
-        messages.info(request, f"unable to delete subscription")
+        messages.error(request, f"Unable to delete subscription, Try again")
         return render(request, template_name)
 
 
@@ -604,7 +622,7 @@ def plan_details(request, slug):
 
 
 # process plan payment
-def process_payment(user_id, plan_id, first_name, last_name, amount, email, phone_number, plan_title, plan_desc):
+def process_payment(request,user_id, plan_id, first_name, last_name, amount, email, phone_number, plan_title, plan_desc):
     name = f"{first_name} {last_name}".capitalize()
     auth_token= FLW_SANDBOX_SECRET_KEY
     hed = {'Authorization': 'Bearer ' + auth_token}
@@ -638,8 +656,7 @@ def process_payment(user_id, plan_id, first_name, last_name, amount, email, phon
 
     # helper function to save subscription history to history table
     #payment_response(user_id, plan_id, amount, email, name, phone_number)
-
-
+    messages.success(request, f"subscription successfull")
     return link
 
 

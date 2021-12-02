@@ -59,7 +59,7 @@ def user_login(request):
                 return redirect(request.POST.get("next"))
             messages.success(request, f"login successful")
             return redirect("home")
-        messages.info(request, f"login attempt failed")
+        messages.error(request, f"login attempt failed")
         return redirect("user-login")
     return render(request, template_name)
 
@@ -83,7 +83,7 @@ def user_profile(request, id):
             form.save()
             messages.success(request, f"User updated successfully")
             return redirect("user-profile", id)
-        messages.info(request, f"unable to update user")
+        messages.error(request, f"Unable to update user")
         return redirect("user-profile", id)
     else:
         form = UserUpdateForm(instance=user)

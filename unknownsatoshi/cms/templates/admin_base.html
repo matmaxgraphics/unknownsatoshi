@@ -50,7 +50,6 @@
     </div>
    
     <ul class="nav-links">
-
       <div class="item">
         <a class="sub-btn">Manage Trade<i class="fas fa-angle-right dropdown"></i></a>
         <div class="sub-menu">
@@ -111,6 +110,15 @@
       <div class="sidebar-button">
         <img src="{% static './images/hamburger.png' %}" class='bx bx-menu sidebarBtn'></i>
       </div>
+      <div style="max-width: 350px;">
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{message.tags}}">
+                {{message}}
+              </div>
+            {% endfor %}		
+          {% endif %}	
+      </div>	
       <div class="search-box">
         <form action="" method="get">
           <input type="search" placeholder="Search...">
@@ -118,10 +126,12 @@
         </form>
       </div>
     </nav>
-  </section>
   
-  {% block content %} {% endblock %}
+  </section>
     
+    {% block content %} {% endblock %}
+
+
 
 <!--BOOTSTRAP JAVASCRIPT-->
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script> -->
