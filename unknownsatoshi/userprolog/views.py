@@ -4,10 +4,12 @@ from django.contrib.auth import authenticate, login, logout
 from userprolog.models import User
 from django.contrib import messages
 from .forms import *
+from .decorators import unauthenticated_user
 
 
 
 # user registeration
+@unauthenticated_user
 def user_register(request):
     template_name = 'userprolog/register.html'
     if request.method =="POST":
@@ -44,6 +46,7 @@ def user_register(request):
 
 
 # user login
+@unauthenticated_user
 def user_login(request):
     template_name = 'userprolog/login.html'
     if request.method == 'POST':
@@ -76,6 +79,7 @@ def user_profile(request, id):
     if request.method == 'POST':
         form = UserUpdateForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
+            form.is_active = True
             form.save()
             messages.success(request, f"User updated successfully")
             return redirect("user-profile", id)

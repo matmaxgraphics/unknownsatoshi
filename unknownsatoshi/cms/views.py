@@ -1,4 +1,3 @@
-import uuid
 import math
 import random
 import requests
@@ -6,7 +5,6 @@ from .models import *
 from .forms import *
 from userprolog.models import User
 from django.contrib import messages
-from django.http import HttpResponse
 from .payment_helper import get_subscription_details
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login,logout
@@ -383,9 +381,173 @@ def admin_delete_user(request, id):
     else:
         messages.info(request, f"unable to delete user")
         return render(request, template_name)
-    
 
-#normal pages for users views
+
+# admin create plan
+@login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_create_plan(request):
+    template_name = 'cms/admin-plan/create.html'
+    form = PlanForm()
+    if request.method == 'POST':
+        form = PlanForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"plan created")
+            return redirect('admin-create-plan')
+        else:
+            form = PlanForm(request.POST)
+    context = {'form':form}
+    return render(request, template_name, context)
+
+
+#admin plan list  
+@login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_plan_list(request):
+    template_name = "cms/admin-plan/index.html"
+    plans = Plan.objects.all()
+    context = {"plans":plans}
+    return render(request, template_name, context)
+
+
+#admin update plan
+@login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_update_plan(request, slug):
+    template_name = "cms/admin-plan/edit.html"
+    plan = get_object_or_404(Plan, slug=slug)
+    form = PlanForm()
+    if request.method == 'POST':
+        form = PlanForm(request.POST, instance=plan)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"plan updated successfully")
+            return redirect("admin-plan-list")
+        messages.info(request, f"unable to update user")
+        return redirect("admin-update-plan", slug)
+    else:
+        form = PlanForm(instance=plan)
+    context = {"form":form}
+    return render(request, template_name, context)
+
+
+# admin delete plan
+@login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_delete_plan(request, slug):
+    template_name = 'cms/admin-plan/delete.html'
+    plan = get_object_or_404(Plan, slug=slug)
+    if request.method == 'POST':
+        plan.delete()
+        messages.success(request, f"plan deleted successfully")
+        return redirect('admin-plan-list')
+    else:
+        messages.info(request, f"unable to delete user")
+        return render(request, template_name)
+
+
+# admin create tag
+@login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_create_tag(request):
+    template_name = 'cms/admin-tag/create.html'
+    form = TagForm()
+    if request.method == 'POST':
+        form = TagForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"tag created")
+            return redirect('admin-create-tag')
+        else:
+            form = TagForm(request.POST)
+    context = {'form':form}
+    return render(request, template_name, context)
+
+
+#admin plan tag
+@login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_tag_list(request):
+    template_name = "cms/admin-tag/index.html"
+    tags = Tag.objects.all()
+    context = {"tags":tags}
+    return render(request, template_name, context)
+
+
+#admin update tag
+@login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_update_tag(request, id):
+    template_name = "cms/admin-tag/edit.html"
+    tag = get_object_or_404(Tag, id=id)
+    form = TagForm()
+    if request.method == 'POST':
+        form = TagForm(request.POST, instance=tag)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"tag updated successfully")
+            return redirect("admin-tag-list")
+        messages.info(request, f"unable to update tag")
+        return redirect("admin-update-tag", id)
+    else:
+        form = TagForm(instance=tag)
+    context = {"form":form}
+    return render(request, template_name, context)
+
+
+# admin delete tag
+@login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_delete_tag(request, id):
+    template_name = 'cms/admin-tag/delete.html'
+    tag = get_object_or_404(Tag, id=id)
+    if request.method == 'POST':
+        tag.delete()
+        messages.success(request, f"tag deleted successfully")
+        return redirect('admin-tag-list')
+    else:
+        messages.info(request, f"unable to delete tag")
+        return render(request, template_name)
+
+
+#admin plan tag
+@login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_subscription_history(request):
+    template_name = "cms/admin-subscription/index.html"
+    subscriptions = SubscriptionHistory.objects.all()
+    context = {"subscrptions":subscriptions}
+    return render(request, template_name, context)
+
+
+
+#admin delete subscription history
+@login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_delete_tag(request, id):
+    template_name = 'cms/admin-tag/delete.html'
+    subscription = get_object_or_404(SubscriptionHistory, id=id)
+    if request.method == 'POST':
+        subscription.delete()
+        messages.success(request, f"subscription deleted successfully")
+        return redirect('admin-sub-list')
+    else:
+        messages.info(request, f"unable to delete subscription")
+        return render(request, template_name)
+
+
+# normal pages for users views
 def home(request):
     template_name = 'cms/index.html'
     return render(request, template_name)
@@ -463,7 +625,7 @@ def faqs(request):
 
 
 #authentication page
-def Auth(request):
+def unauthorized_page(request):
     template_name = 'cms/auth.html'
     return render(request, template_name)
 

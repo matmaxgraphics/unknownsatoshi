@@ -1,0 +1,34 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+
+
+
+
+{% block content %}
+    <section class="panel-section" style="margin-top: -700px">
+        <div class="panel-content">
+            <div class="page-wrapper admin-wrapper">		
+            <section class="alt-nav">
+                <h4>Delete Tag</h4>
+                <a href="{% url 'admin-tag-list' %}" class="btn">Manage Tag</a>
+            </section> 
+            <div class="content-container">
+                <section class="add-product">
+                    <aside class="create-history">
+                        <div class="fields-wrapper">
+                            <form action="" method="post">
+                            {% csrf_token %}
+                                <div>
+                                    Are You Sure You Want To Delete Tag
+                                </div>
+                                <a href="{% url 'admin-tag-list' %}" class="btn">Cancel</a>
+                                <input style="color: white; font-weight: bold;" class="btn" type="submit">
+                            </form> 
+                        </div>
+                    </aside>
+                </section>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+    

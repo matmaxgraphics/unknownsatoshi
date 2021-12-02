@@ -80,10 +80,3 @@ def create_profile(sender, instance, **kwargs):
         group = Group.objects.get(id=1)
         instance.groups.add(group)
         print("user profile has been created")
-
-    #     # adds general users to user group
-    # elif user.is_active == True and user.is_staff == False and user.is_superuser == False:
-    #     group = Group.objects.get_or_create(name="user")
-    #     if Group.objects.filter(name=group.name).exists():
-    #         instance.groups.add(group)
-    #         print("user profile has been created")

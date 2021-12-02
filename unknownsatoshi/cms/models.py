@@ -7,6 +7,7 @@ from userprolog.models import User
 
 
 
+
 # Create your models here.
 class Tag(models.Model):
     name = models.CharField(max_length=200)
@@ -39,7 +40,6 @@ class Review(models.Model):
         ("Buy", "Buy"),
         ("Sell", "Sell"),
     )
-    #owner = 
     trade = models.ForeignKey(Cms, on_delete=models.CASCADE)
     body = models.TextField(null=True, blank=True)
     value = models.CharField(max_length=200, choices=TRADE_TYPE, default="Buy")
@@ -115,6 +115,7 @@ class Plan(models.Model):
 
 
 class SubscriptionHistory(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     email = models.EmailField(max_length=200, unique=True, blank=False)
     full_name = models.CharField(max_length=200, blank=False)
@@ -131,3 +132,7 @@ class SubscriptionHistory(models.Model):
     def __str__(self):
         return self.user.username
 
+
+class Newsletter(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    email = models.EmailField(max_length=100)

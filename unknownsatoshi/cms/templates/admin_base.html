@@ -50,6 +50,14 @@
     </div>
    
     <ul class="nav-links">
+
+      <div class="item">
+        <a class="sub-btn">Manage Tags<i class="fas fa-angle-right dropdown"></i></a>
+        <div class="sub-menu">
+          <a href="{% url 'admin-tag-list' %}" class="sub-item">Tag List</a>
+          <a href="{% url 'admin-create-tag' %}" class="sub-item">Add Tag</a>
+      </div>
+
       <div class="item">
         <a class="sub-btn">Manage Trade<i class="fas fa-angle-right dropdown"></i></a>
         <div class="sub-menu">
@@ -85,9 +93,21 @@
       <div class="item">
         <a class="sub-btn">Manage Users<i class="fas fa-angle-right dropdown"></i></a>
         <div class="sub-menu">
-          <a href="{% url 'admin-create-user' %}" class="sub-item">Add User</a>
           <a href="{% url 'admin-user-list' %}" class="sub-item">User List</a>
-  
+          <a href="{% url 'admin-create-user' %}" class="sub-item">Add User</a>
+      </div>
+
+      <div class="item">
+        <a class="sub-btn">Manage Plans<i class="fas fa-angle-right dropdown"></i></a>
+        <div class="sub-menu">
+          <a href="{% url 'admin-plan-list' %}" class="sub-item">Plan List</a>
+          <a href="{% url 'admin-create-plan' %}" class="sub-item">Add Plan</a>
+      </div>
+
+      <div class="item">
+        <a class="sub-btn">Manage Subscription<i class="fas fa-angle-right dropdown"></i></a>
+        <div class="sub-menu">
+          <a href="{% url 'admin-sub-list' %}" class="sub-item">Subscription List</a>
       </div>
       
     </ul>
