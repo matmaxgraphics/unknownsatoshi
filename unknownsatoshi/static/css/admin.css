@@ -10,7 +10,7 @@
 }
 
 .edit {
-  color: #45AD43;
+  color: #889c88;
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
@@ -558,6 +558,9 @@ h2 {
       -ms-flex-direction: column;
           flex-direction: column;
   margin-bottom: 36px;
+}
+#editor{
+  width: 100%;
 }
 .add-post .fields-wrapper form .input-field, .add-post .fields-wrapper form textarea {
   margin-top: 8px;

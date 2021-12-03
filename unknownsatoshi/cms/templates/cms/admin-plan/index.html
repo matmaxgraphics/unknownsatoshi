@@ -29,11 +29,11 @@
                 <tbody>
                   {% for plan in plans %}
                     <tr>
-                      <td data-label="Date">{{ plan.title }}</td>
-                      <td data-label="Coin pair">{{ plan.desc }}</td>
-                      <td data-label="Entry">${{ plan.price }}</td>
-                      <td data-label="stop loss">${{ plan.discount_price }}</td>
-                      <td data-label="tp target">${{ plan.discount }}</td>
+                      <td data-label="Title">{{ plan.title }}</td>
+                      <td data-label="Description">{{ plan.desc }}</td>
+                      <td data-label="Price">${{ plan.price }}</td>
+                      <td data-label="Discount Price">${{ plan.discount_price }}</td>
+                      <td data-label="Discount">${{ plan.discount }}</td>
                       <td data-label="Action"><a href="{% url 'admin-update-plan' plan.slug %}" class="edit">Edit</a></td>
                       <td><a style="color: rgb(233, 143, 25);" href="{% url 'admin-delete-plan' plan.slug %}" class="delete">Delete</a></td>		        
                     </tr>
