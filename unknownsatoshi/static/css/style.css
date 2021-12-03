@@ -2754,7 +2754,7 @@ footer .footer-content__item .links a:hover {
   height: auto;
 }
 
-/* #id_email {
+#id_email {
   background-color: #434343;
   color: #fff;
   padding: 10px;
@@ -2762,17 +2762,12 @@ footer .footer-content__item .links a:hover {
   outline: none;
   border: none;
   border-radius: 8px;
-<<<<<<< HEAD
-  font-size: 16px;
-  font-family: "poppins", sans-serif;
-  width: 80% !important;
-} */
-=======
   width: 100%;
   display: block;
   margin-bottom: 24px;
   margin-top: 12px;
 }
+
 .reset-page{
   margin-top: -20em;
 }
@@ -2795,4 +2790,4 @@ footer .footer-content__item .links a:hover {
 }
 
 /*======PASSWORD RESET STYLING====*/
->>>>>>> ada422104be5d7a7cc2225c5511b3595d7680d68
+
