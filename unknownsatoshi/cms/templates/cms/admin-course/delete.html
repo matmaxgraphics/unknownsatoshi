@@ -9,8 +9,8 @@
         <div class="panel-content">
             <div class="page-wrapper admin-wrapper">		
             <section class="alt-nav">
-                <h4>Delete Tag</h4>
-                <a href="{% url 'admin-tag-list' %}" class="btn">Manage Tag</a>
+                <h4>Delete Course</h4>
+                <a href="{% url 'admin-course' %}" class="btn">Manage Course</a>
             </section> 
             <div class="content-container">
                 <section class="add-product">
@@ -19,9 +19,9 @@
                             <form action="" method="post">
                             {% csrf_token %}
                                 <div>
-                                    Are You Sure You Want To Delete Tag
+                                    Are You Sure You Want To Delete
                                 </div>
-                                <a href="{% url 'admin-tag-list' %}" class="btn">Cancel</a>
+                                <a href="{% url 'admin-course' %}" class="btn">Cancel</a>
                                 <input style="color: white; font-weight: bold;" class="btn" type="submit">
                             </form> 
                         </div>

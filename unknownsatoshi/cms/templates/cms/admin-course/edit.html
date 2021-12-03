@@ -1,40 +1,48 @@
 {% extends 'admin_base.html' %}
 {% load static %}
 
-
-
-
-
-{% block content %}
-  
-
-  
-  <section class="panel-section" style="margin-top: -700px;">
     
+{% block content %}
+      
+  <section class="panel-section" style="margin-top:-700px">  
     <div class="panel-content">
-	  <div class="page-wrapper admin-wrapper">		
+	    <div class="page-wrapper admin-wrapper">		
         <section class="alt-nav">
-            <h4>Manage Course</h4>
-            <a href="{% url 'admin-course' %}" class="btn">Update Course</a>
+            <h4>Add Course</h4>
+            <a href="{% url 'admin-course' %}" class="btn">Manage Courses</a>
         </section> 
         <div class="content-container">
             <section class="add-product">
-                <aside class="create-history">
-                    <div class="fields-wrapper">
-                        <form action="" method="post">
-                         {% csrf_token %}
-                            <div>
-                                Are You Sure You Want To Delete
-                            </div>
-                            <input style="color: white; font-weight: bold;" class="btn" type="submit"></input>
-                            <button class="btn" type="submit"><a href="{% url 'admin-course' %}"></a>No</button>
-                        </form> 
-                     </div>
-                </aside>
+                <div class="fields-wrapper">
+                    <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                      <div class="form__field">
+                          <label for="formInput#text">Courses</label>
+                          {{form.courses}}
+                      </div>
+
+                      <div class="form__field">
+                          <label for="formInput#text">Course Link</label>
+                          {{form.course_link}}
+                      </div>
+                      <div>   
+                          {% for field in form %}   
+                              {% if field.field.widget.input_type == "file" %}
+                                  <label for="">{{field.label}}</label>
+                                  <input type="{{field.field.widget.input_type}}" name="{{field.name}}" id="{{field.id}}" value="{{field.value}}" class="input-field" required>
+                              {% endif %}             
+                          {% endfor %}
+                      </div>
+                        <button class="btn" type="submit" name="submit-btn">Save Course</button>
+                    </form>
+                </div>
             </section>
 
         </div>
-	  </div>
+
+      
+      </div>
     </div>
   </section>
   {% endblock content %}

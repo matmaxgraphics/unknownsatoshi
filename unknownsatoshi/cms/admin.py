@@ -5,28 +5,15 @@ from .models import *
 
 @admin.register(Cms)
 class AdminCms(admin.ModelAdmin):
-    list_display = ('title','entry','stoploss','tp_target','tp_achieved','profit','featured_image','created')
-
-
-@admin.register(Tag)
-class AdminTag(admin.ModelAdmin):
-    list_display = ('name', 'created')
-
-
-@admin.register(Review)
-class AdminReview(admin.ModelAdmin):
-    list_display = ('trade', 'body', 'value', 'created')
-
+    list_display = ('title','entry','stoploss','tp_target','tp_achieved','profit','created')
 
 @admin.register(Course)
 class AdminCourse(admin.ModelAdmin):
     list_display = ('courses', 'course_link', 'featured_image')
 
-
 @admin.register(Product)
 class AdminStore(admin.ModelAdmin):
     list_display = ('product_name', 'product_link', 'price', 'featured_image')
-
 
 @admin.register(Blog)
 class AdminBlog(admin.ModelAdmin):

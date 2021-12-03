@@ -95,15 +95,19 @@
 						</div>
                     {% endif%}
             	</nav>
-
+				
 			</div>
-		
+			{% if messages %}
+				{% for message in messages %}
+					<div class="alert alert-{{message.tags}}">
+						{{message}}
+					</div>
+				{% endfor %}		
+			{% endif %}	
 		</header>
         
+		
         {% block content %}{% endblock content %}
-            
-
-
 
 		<section class="newsletter-section">
 			<h2>Newsletter</h2>

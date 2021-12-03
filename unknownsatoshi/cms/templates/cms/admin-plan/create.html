@@ -15,13 +15,36 @@
               <div class="fields-wrapper">
                   <form action="" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
-                      {% for field in form %}
-                        <div class="form__field">
-                            <label for="formInput#text">{{field.label}} </label>
-                            {{field}}
-                        </div>
-                      {% endfor %}
                       
+                        <div class="form__field">
+                            <label for="formInput#text">Title </label>
+                            {{form.title}}
+                        </div>
+
+                        <div class="form__field">
+                            <label for="formInput#text">Slug </label>
+                            {{form.slug}}
+                        </div>
+
+                        <div class="form__field">
+                            <label for="formInput#text">Description</label>
+                            {{form.desc}}
+                        </div>
+
+                        <div class="form__field">
+                            <label for="formInput#text">Price </label>
+                            {{form.price}}
+                        </div>
+
+                        <div class="form__field">
+                            <label for="formInput#text">Discount Price</label>
+                            {{form.discount_price}}
+                        </div>
+                        
+                        <div class="form__field">
+                            <label for="formInput#text">Discount</label>
+                            {{form.discount}}
+                        </div>
                       <button class="btn" type="submit" name="submit-btn">Add Plan</button>
                   </form>
               </div>
@@ -30,6 +53,20 @@
     </div>
   </div>
 </section>
+
+<script>
+    const title_input = document.querySelector("input[name=title]")
+    const slug_input = document.querySelector("input[name=slug]")
+
+    const slugify = (val) => {
+        return val.toString().toLowerCase().trim()
+        .replace(/[\s\W-]+/g,'-')
+    }
+
+    title_input.addEventListener('keyup',(e)=>{
+        slug_input.setAttribute('value', slugify(title_input.value))
+    });
+</script>
 {% endblock content %}
   
 

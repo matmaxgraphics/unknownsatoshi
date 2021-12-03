@@ -21,6 +21,7 @@
               <th scope="col">Post Title</th>
               <th scope="col">Post</th>
               <th scope="col">Author</th>
+              <th scope="col">Featured Image</th>
               <th scope="col" colspan="3">Actions</th>
             </tr>
           </thead>
@@ -30,9 +31,9 @@
               <td data-label="post Title">{{blog.title}}</td>
               <td data-label="post Title">{{blog.post}}</td>
               <td data-label="Author">{{blog.author}}</td>
+              <td data-label="image"><img src="{{blog.featured_image.url}}"></td>
               <td data-label="Action"><a href="{% url 'update-blog' blog.id %}" class="edit">edit</a></td>
-              <td><button class="delete" >
-                  <a style="color: rgb(233, 143, 25);" href="{% url 'delete-blog' blog.id%}" class="edit">Delete</a></button></td>		        
+              <td><a style="color: rgb(233, 143, 25);" href="{% url 'delete-blog' blog.id %}" class="delete">Delete</a></td>		        
             </tr>
           {% endfor %}
            
@@ -42,8 +43,10 @@
         
         {% if blogs.count <= 1 %}
           {{blogs.count}} Post
-        {% else %}
+        {% elif blogs.count > 1 %}
           {{blogs.count}} Posts
+        {% else %}
+          No post has been added.
         {% endif %}
       </section>
 	    </div>

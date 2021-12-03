@@ -7,66 +7,37 @@ from userprolog.models import User
 
 
 
-
-# Create your models here.
-class Tag(models.Model):
-    name = models.CharField(max_length=200)
-    created = models.DateTimeField(auto_now_add=True)
-    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
-
-    def __str__(self):
-        return self.name
-
 class Cms(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     title = models.CharField(max_length=200)
     entry = models.TextField(null=True, blank=True)
     stoploss = models.TextField(null=True, blank=True)
     tp_target = models.IntegerField(default=0, null=True, blank=True)
     tp_achieved = models.IntegerField(default=0, null=True, blank=True)
     profit = models.IntegerField(default=0, null=True, blank=True)
-    tags = models.ManyToManyField(Tag, blank=True)
-    featured_image = models.ImageField(null=True, blank=True, default="default.jpg", upload_to="cms_images/")
     created = models.DateTimeField(auto_now_add=True)
-    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
-    
     class Meta:
         ordering = ('created',)
 
     def __str__(self):
         return self.title
 
-class Review(models.Model):
-    TRADE_TYPE = (
-        ("Buy", "Buy"),
-        ("Sell", "Sell"),
-    )
-    trade = models.ForeignKey(Cms, on_delete=models.CASCADE)
-    body = models.TextField(null=True, blank=True)
-    value = models.CharField(max_length=200, choices=TRADE_TYPE, default="Buy")
-    created = models.DateTimeField(auto_now_add=True)
-    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
-
-    def __str__(self):
-        return self.value
-
 class Course(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     courses = models.TextField(null=True, blank=True)
     course_link = models.TextField(null=True, blank=True)
     featured_image = models.ImageField(null=True, blank=True, default="default.png", upload_to="course_images/")
-    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
 
     def __str__(self):
         return self.courses
         
-
 class Product(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     product_name = models.TextField(null=True, blank=True)
     product_link = models.TextField(null=True, blank=True)
     price = models.TextField(null=True, blank=True)
-    tags = models.ManyToManyField(Tag, blank=True)
     featured_image = models.ImageField(null=True, blank=True, default="default.png", upload_to="product_images/")
-    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
-
+   
     def __str__(self):
         return self.product_name
 
@@ -79,10 +50,8 @@ class Blog(models.Model):
     latest_news = models.BooleanField(default=False)
     latest_articles = models.BooleanField(default=False)
     featured_image = models.ImageField(null=True, blank=True, default="default.png", upload_to="blog_images/")
-    product_image = models.ImageField(default="default.png", )
     premium = models.BooleanField(default=False)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
-    
 
     def __str__(self):
         return self.title
@@ -94,9 +63,7 @@ class Blog(models.Model):
         return reverse("blog-detail", kwargs={"pk": self.pk})
     
 
-
-
-        
+#subscription plan for premium blog views 
 class Plan(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
@@ -105,14 +72,11 @@ class Plan(models.Model):
     discount_price = models.IntegerField(default=0)
     discount= models.IntegerField(default=0)
     created_on = models.DateTimeField(auto_now_add=True)
-
     class Meta:
         ordering = ("created_on",)
 
     def __str__(self):
         return self.title
-
-
 
 class SubscriptionHistory(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
@@ -131,7 +95,6 @@ class SubscriptionHistory(models.Model):
 
     def __str__(self):
         return self.user.username
-
 
 class Newsletter(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)

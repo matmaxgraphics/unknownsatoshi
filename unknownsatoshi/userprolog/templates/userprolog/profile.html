@@ -15,7 +15,8 @@
                         <label for="image">Change Picture</label>    
                         {% for field in form %}   
                             {% if field.field.widget.input_type == "file" %}
-                                <input type="{{field.field.widget.input_type}}" name="image" id="image" class="input-field" accept="image/*" required>
+                                <label for="">{{field.label}}</label>
+                                <input type="{{field.field.widget.input_type}}" name="{{field.name}}" id="{{field.id}}" value="{{field.value}}" class="input-field" required>
                             {% endif %}             
                         {% endfor %}
                     </div>

@@ -3,9 +3,8 @@
 
 
 
-{% block content %}
-  
-  <section class="panel-section" style=margin-top:-700px>
+{% block content %} 		
+  <section class="panel-section" style=margin-top:-700px>	
     <div class="panel-content">
       <div class="page-wrapper admin-wrapper">		
         <section class="alt-nav">
@@ -38,8 +37,8 @@
                       <td data-label="tp target">{{ cm.tp_target }}</td>
                       <td data-label="tp achieved">{{ cm.tp_achieved }}</td>
                       <td data-label="% profit">{{ cm.profit }}</td>
-                      <td data-label="Action"><a href="{% url 'update-trade' cm.id%}" class="edit">Edit</a></td>
-                      <td><button><a style="color: rgb(233, 143, 25);" href="{% url 'delete-trade' cm.id%}" class="edit">Delete</a></button></td>		        
+                      <td data-label="Action"><a href="{% url 'update-trade' cm.id %}" class="edit">Edit</a></td>
+                      <td><a style="color: rgb(233, 143, 25);" href="{% url 'delete-trade' cm.id %}" class="delete">Delete</a></td>		        
                     </tr>
                   {% endfor %} 
                 </tbody>

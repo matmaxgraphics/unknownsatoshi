@@ -21,6 +21,11 @@
                             </main>
 
                             <main>
+                                <label for="postTitle">Slug</label>
+                                {{ form.slug }}
+                            </main>
+
+                            <main>
                                 <div style="margin-bottom:150px;">
                                     <!-- This container will become the editable. -->
                                     <label for="postTitle">Post</label>
@@ -31,18 +36,24 @@
                             </main>
 
                             <main>
-                              <label for="postscategory"> Select The Blog Category To Add:</label>
-                                
-                                <label for="postscategory"> Featured Story {{ form.featured_stories }}</label>
-                                <label for="postscategory"> Latest News {{ form.latest_news }}</label>
-                                <label for="postscategory"> Latest Article {{ form.latest_articles }}</label>
-        
-                            </main>
-                            
-                            <main class="margin-top">
-                                <label for="image">Image</label>                   
-                                {{form.featured_image}}
-                            </main>
+                                <label for="postscategory"> Select The Blog Category To Add:</label>
+                                  
+                                  <label for="postscategory"> Featured Story {{ form.featured_stories }}</label>
+                                  <label for="postscategory"> Latest News {{ form.latest_news }}</label>
+                                  <label for="postscategory"> Latest Article {{ form.latest_articles }}</label>
+                                  <label for="postscategory"> Premium {{ form.premium }}</label>
+                              </main>
+                              
+                              <main class="margin-top">
+                                  <div>
+                                      {% for field in form %}   
+                                          {% if field.field.widget.input_type == "file" %}
+                                              <label for="">{{field.label}}</label>
+                                              <input type="{{field.field.widget.input_type}}" name="{{field.name}}" id="{{field.id}}" value="{{field.value}}" class="input-field" required>
+                                          {% endif %}             
+                                      {% endfor %}
+                                  </div>
+                              </main>
 
                             <button class="btn" type="submit" name="submit-btn">Add Post</button>
                         </form>
@@ -52,5 +63,18 @@
       </div>
     </div>
   </section>
- 
+    <script>
+        const title_input = document.querySelector("input[name=title]")
+        const slug_input = document.querySelector("input[name=slug]")
+
+
+        const slugify = (val) => {
+            return val.toString().toLowerCase().trim()
+            .replace(/[\s\W-]+/g,'-')
+        }
+
+        title_input.addEventListener('keyup',(e)=>{
+            slug_input.setAttribute('value', slugify(title_input.value))
+        });
+    </script>
 {% endblock content %}

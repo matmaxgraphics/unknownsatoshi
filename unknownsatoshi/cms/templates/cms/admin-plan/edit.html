@@ -25,6 +25,11 @@
                                 <label for="">Title</label>
                                 {{form.title}}
                             </div>
+
+                            <div>
+                                <label for="">Title</label>
+                                {{form.slug}}
+                            </div>
               
                             <div>
                                 <label for="">Description</label>                   
@@ -46,7 +51,7 @@
                                 {{ form.discount }}
                             </div>
     
-                            <button class="btn" type="submit" name="submit-btn">Save Plan</button>
+                            <button class="btn" type="submit" name="submit-btn" onClick="myFunction()">Save Plan</button>
                           </form>
                      </div>
                 </aside>
@@ -58,5 +63,18 @@
 	  </div>
     </div>
   </section>
+  <script>
+	function myFunction() {
+
+		var a = document.getElementById("id_title").value;
+
+		var b = a.toLowerCase().replace(/ /g, '-')
+			.replace(/[^\w-]+/g, '');
+
+		document.getElementById("id_slug").value = b;
+
+		document.getElementById("slug-target-span").innerHTML = b;
+	}
+</script>
 
 {% endblock content %}
