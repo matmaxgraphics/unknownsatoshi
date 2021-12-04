@@ -35,7 +35,7 @@ class Product(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     product_name = models.TextField(null=True, blank=True)
     product_link = models.TextField(null=True, blank=True)
-    price = models.TextField(null=True, blank=True)
+    price = models.IntegerField(default=0)
     featured_image = models.ImageField(null=True, blank=True, default="default.png", upload_to="product_images/")
    
     def __str__(self):
@@ -85,7 +85,7 @@ class SubscriptionHistory(models.Model):
     full_name = models.CharField(max_length=200, blank=False)
     phone_no = models.CharField(max_length=11, unique=True, blank=False)
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE, default='monthly plan')
-    amount_paid = models.SmallIntegerField(default=0)
+    amount_paid = models.IntegerField(default=0)
     reference = models.CharField(max_length=200, unique=True, blank=False)
     transaction_id = models.CharField(max_length=200)
     status = models.CharField(max_length=200)

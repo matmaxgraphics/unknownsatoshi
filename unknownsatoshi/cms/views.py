@@ -3,6 +3,7 @@ import random
 import requests
 from .models import *
 from .forms import *
+import time
 from userprolog.models import User
 from django.contrib import messages
 from .payment_helper import get_subscription_details
@@ -15,7 +16,7 @@ from unknownsatoshi.settings import FLW_SANDBOX_PUBLIC_KEY, FLW_SANDBOX_SECRET_K
 
 
 
-
+@unauthenticated_user
 def admin_login(request):
     template_name = "cms/admin-login.html"
     if request.method == 'POST':
@@ -607,28 +608,33 @@ def plan_details(request, slug):
 
     if request.method == "GET":
         user_id = str(user.id)
-        plan_id = str(plan.slug)
+        plan_id= str(plan.slug)
         first_name = user.first_name
         last_name = user.last_name
         amount = plan.discount_price
         email = user.email
-        phone_number = user.phone_no
+        phone_no = user.phone_no
         plan_title = plan.title
         plan_desc = plan.desc
-        return redirect(str(process_payment(user_id, plan_id, first_name, last_name, amount, email, phone_number, plan_title, plan_desc)))
+        return redirect(str(process_payment(user_id=user_id, plan_id=plan_id, first_name=first_name, last_name=last_name, amount=amount, email=email, phone_no=phone_no, plan_title=plan_title, plan_desc=plan_desc)))
     else:    
         context = {"plan":plan, "user":user}
     return render(request, template_name, context)
 
+plan_id_history = ""
+amount_paid = ""
 
 # process plan payment
-def process_payment(request,user_id, plan_id, first_name, last_name, amount, email, phone_number, plan_title, plan_desc):
+def process_payment(user_id, plan_id, first_name, last_name, amount, email, phone_no, plan_title, plan_desc):
+    global plan_id_history
+    global amount_paid
     name = f"{first_name} {last_name}".capitalize()
     auth_token= FLW_SANDBOX_SECRET_KEY
     hed = {'Authorization': 'Bearer ' + auth_token}
 
     data = {
         "tx_ref":''+str(math.floor(1000000 + random.random()*9000000)),
+        "plan_id":plan_id,
         "amount":amount,
         "currency":"USD",
         "redirect_url":"http://localhost:8000/callback",
@@ -639,7 +645,7 @@ def process_payment(request,user_id, plan_id, first_name, last_name, amount, ema
         },
         "customer":{
             "email":email,
-            "phonenumber":phone_number,
+            "phonenumber":phone_no,
             "name":name
         },
         "customizations":{
@@ -654,18 +660,49 @@ def process_payment(request,user_id, plan_id, first_name, last_name, amount, ema
     response=response.json()
     link=response['data']['link']
 
-    # helper function to save subscription history to history table
-    #payment_response(user_id, plan_id, amount, email, name, phone_number)
-    messages.success(request, f"subscription successfull")
+    plan_id_history = data["plan_id"]
+    amount_paid = data["amount"]
+    print("PLAN ID IN process_payment() function is ", plan_id_history)
+    print("AMOUNT IN process_payment() function is ", amount_paid)
     return link
 
 
 # returns subscription's transaction_id, transaction_reference and transaction_status
+@login_required(login_url="user-login")
 @require_http_methods(['GET', 'POST'])
-def payment_response(request, user_id, plan_id, amount, email, name, phone_number):
+def payment_response(request):
+    user = request.user
+    user_id = user.id
+    plan_id = plan_id_history
+    amount = amount_paid
+    full_name = f"{user.first_name} {user.last_name}"
     status=request.GET.get('status', None)
     tx_ref=request.GET.get('tx_ref', None)
     transaction_id = request.GET.get('transaction_id', None)
-
-    #get_subscription_details(user_id, plan_id, amount, email, name, phone_number, tx_ref, transaction_id, status)
+    
+    print("#" * 100,"\n")
+    print("USER ID IN payment_response() FUNCTION IS", user_id)
+    print("FULL NAME is", full_name)
+    print("PLAN ID IS", plan_id)
+    print("AMOUNT IN payment_response() FUNCTION IS", amount)
+    print("STATUS IS", status)
+    print("REFERENCE ID IS", tx_ref)
+    print("TRANSACTION ID IS", transaction_id, "\n")
+    print("#" * 100,"\n")
+    # if SubscriptionHistory.objects.filter(reference=tx_ref).exists():
+    #     pass
+    # else:
+    #     SubscriptionHistory.objects.create(
+    #         user_id=user_id, 
+    #         plan_id=plan_id, 
+    #         amount_paid=amount, 
+    #         email=user.email,
+    #         full_name=full_name,
+    #         phone_no=user.phone_no, 
+    #         reference = tx_ref, 
+    #         transaction_id=transaction_id, 
+    #         status=status,
+    #         active=True
+    #     )
+    time.sleep(3)
     return redirect("home")
