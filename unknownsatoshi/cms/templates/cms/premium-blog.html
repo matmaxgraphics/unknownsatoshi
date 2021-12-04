@@ -1,0 +1,78 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+
+
+{% block content %}    
+	<div class="page-wrapper" style="margin-top: -400px;">
+        <section class="blog-post__section">
+            <main class="article-section">
+                <h2>Latest Articles</h2>
+                
+                <div class="blog-post__container">
+                   {% for blog in latest_article %}
+                    <div class="blog-post__card">
+                        <a href="{{blog.get_absolute_url}}">
+                            <img src="{{blog.featured_image.url }}" alt="demo image">
+                            <div class="text-container">
+                                <h5>{{blog.title}}</h5>
+                                <p>{{blog.snippet}}<a style="color: #EE5717;" href="{% url 'blog-detail' blog.pk%}">..Read More...</a></p>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                    
+            </main>
+            <div class="pagination">
+                <a>Load More<i class="ri-arrow-down-circle-line"></i></a>
+            </div>
+
+
+            <main class="news-section">
+                <h2>Latest News</h2>
+                <div class="blog-post__container">
+                    {% for blog in latest_new %}
+                    <div class="blog-post__card">
+                        <a href="{% url 'blog-detail' blog.pk %}">
+                            <img src="{{blog.featured_image.url }}" alt="demo image">
+                            <div class="text-container">
+                                <h5>{{blog.title}}</h5>
+                                <p>{{blog.snippet}}<a style="color: #EE5717;" href="{% url 'blog-detail' blog.pk %}">..Read More...</a></p>
+                            </div>
+                        </a>
+                    </div>
+
+                    {% endfor %}
+                </div>
+            </main>
+            
+            <div class="pagination">
+                <a>Load More<i class="ri-arrow-down-circle-line"></i></a>
+            </div>
+
+            <main class="stories-section">
+                <h2>Featured Stories</h2>
+                <div class="blog-post__container">
+                    {% for blog in featured_story %}
+                        <div class="blog-post__card">
+                            <a href="#">
+                                <img src="{{blog.featured_image.url }}" alt="demo image">
+                                <div class="text-container">
+                                    <h5>{{blog.title}}</h5>
+                                    <p>{{blog.snippet}}<a style="color: #EE5717;" href="{% url 'blog-detail' blog.pk %}">..Read More...</a> </p>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </main>
+
+            <div class="pagination">
+                <a class="storyPageBtn" role="button">Load More<i class="ri-arrow-down-circle-line"></i></a>
+            </div>
+		</section>
+	</div>
+
+    
+{% endblock content %}
+
