@@ -86,7 +86,7 @@
         </header>
         <section class="reg-wrapper">
             <div class="register-fields">               
-                <form action="{% url 'register' %}" method="post" id="form">
+                <form action="{% url 'register' %}" method="post" id="form" onsubmit="validatePassword()">
                     {% csrf_token %}
 
                     <div>
@@ -114,6 +114,8 @@
                         <input type="email" name="email" id="email" class="input-field" placeholder="Email" required>
                     </div>
 
+                    
+
                     <div>
                         <label for="password1">Password</label>
                         <input type="password" name="password1" id="password1" class="input-field" placeholder="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
@@ -133,9 +135,8 @@
                     <div>
                         <label for="password2">Confirm Password</label>
                         <input type="password" name="password2" id="password2" class="input-field" placeholder="Re-enter password" required>
-                        <small id="matchMsg" style="color: red"></small>
                     </div>
-                    <input type="submit" value="Submit" class="btn" onclick="matchPassword()">
+                    <button class="btn" type="submit" id="submit" name="register-btn">Create Account</button>
                 </form>
                 
                 <p>Already have an account? <a  href="{% url 'user-login' %}">Login now</a></p>
