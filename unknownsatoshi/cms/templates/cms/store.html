@@ -2,86 +2,13 @@
 {% load static %}
 
 
-{% block header_logo %}<!--hint for issues-->
-<header>
-    <div class="navbar__Link navbar__Link-brand">
-        <a href="{% url 'onlinestore' %}" class="index-link">
-            <img src="{% static './images/store-icon.png' %}" class="navbar-logo store-icon" alt="Gokana icon logo">
-        </a>
-    </div>
-</header>
-{% endblock header_logo %}
 
 
 {% block content %}
 <body class="about-page">
 
 	<div class="page-wrapper" style="margin-top: -400px;">		
-
-	<div class="page-wrapper">		
-        <div class="navbar">
-            <div class="navbar__Link navbar__Link-brand">
-                <a href="{% url 'home' %}" class="index-link">
-                <img src="{% static 'images/logo.png' %}" class="navbar-logo" alt="website's logo">
-                </a>
-            </div>
-            
-            <div class="profile-wrapper">
-                <a href="profile.html"><img src="{% static './images/user1.png' %}" class="img-profile"></i></a>
-            </div>
-            <div class="navbar__Link navbar__Link-toggle">
-                <img src=" {% static 'images/hamburger.png' %}" alt="site's hamburger" oncl>
-                <!-- <img src="assets/images/close-hamburger.png" alt="close menu" class="close-menu"> -->
-            </div>
-    
-            <nav class="navbar__Items">
-                <ul>
-                    <li class="navbar__Link">
-						<a class="nav-link" href="{% url 'home' %}">Home</a>
-					</li>
-					<li class="navbar__Link">
-						<a class="nav-link" href="{% url 'about' %}">About</a>
-					</li>
-					<li class="navbar__Link">
-						<a class="nav-link" href="{% url 'contact' %}">Contact us</a>
-					</li>
-					<li class="navbar__Link">
-						<a class="nav-link" href="{% url 'trade-history' %}">Trade History</a>
-					</li>
-					<li class="navbar__Link">
-						<a class="nav-link" href="{% url 'courses' %}">Courses</a>
-					</li>
-					<li class="navbar__Link">
-						<a class="nav-link" href="{% url 'onlinestore' %}">Online Store</a>
-					</li>
-					<li class="navbar__Link">
-						<a class="nav-link" href="{% url 'blog' %}">Blog</a>
-					</li>
-				</ul>
-            </nav>
-			<nav class="navbar__Items navbar__Items--right">
-                {% if request.user.is_authenticated %}
-                    <div class="profile">
-                        <a href="profile.html"><img src="{% static './images/user1.png' %}" class="img-profile"></i></a>
-                    </div>
-                  <div class="navbar__Link">
-                <a class="btn hire-btn"  href="{% url 'logout' %}">Logout</a>
-                </div>
-                    {% else %}
-
-                    <div class="navbar__Link">
-                                    <a class="btn hire-btn"  href="{% url 'user-login' %}">Sign Up</a>
-                                    </div>
-
-                    {% endif%}
-
-                
-            </nav>
-        </div>
-		
-		
-		<br>
-
+	
 
             <section class="merch-store" id="merch">
                 <div class="product-wrapper">
@@ -199,69 +126,9 @@
                 </div>
                 </div>
             </section>
-	</div>
+	    </div>
 
 
-    <footer>
-		<div class="footer-content__container">
-			<section class="footer-content__item">
-				<h4>Contact Us</h4>
-				<div class="contact-options">
-					<img src="{% static 'images/alt-logo.png' %}" alt="logo for unknown satoshi" class="alt-logo">
-					<p>A community focused platform which educates and empowers you with the right crypto knowledge and tools.</p>
-					<p class="iconic-paragraph"><i class="ri-mail-line"></i><a href="mailto:unknown@unknownsatoshi.com">unknown@unknownsatoshi.com</a></p>
-				</div>
-				
-				<div class="social-links">
-					<h4>Connect Socially</h4>
-					<a href="https://t.me/unknown_satoshi"><i class="ri-telegram-line"></i></a>
-					<a href="https://twitter.com/unknown_satoshi?t=neIjfJivVymH9Kg75UjqlA&s=09"><i class="ri-twitter-fill"></i></a>
-					<a href="https://instagram.com/theunknownsatoshi?utm_medium=copy_link"><i class="ri-instagram-line"></i></a>
-					<a href="https://youtube.com/channel/UCzpteHI9OCi6eAzRJyTZjRg"><i class="ri-youtube-line"></i></a>
-				</div>
-			</section>
-
-			<section class="footer-content__item">
-				<h4>Quick Access</h4>
-				<div class="links">
-					<a href="{% url 'home' %}">Home</a>
-					<a href="{% url 'about' %}">About</a>
-					<a href="{% url 'trade-history' %}">Trade Record</a>
-					<a href="{% url 'contact' %}">Contact</a>
-					<a href="{% url 'faqs' %}">FAQs</a>
-					<a href="{% url 'blog' %}">Blog</a>
-				</div>
-			</section>
-
-			<section class="footer-content__item">
-				<h4>Company</h4>
-				<div class="links">
-					<a href="competition.html">Trading Competition</a>
-					<a href="{% url 'courses' %}">Courses</a>
-					<a href="{% url 'onlinestore' %}">Store</a>
-					<a href="privacy.html">Privacy Policy</a>
-					<a href="terms.html">Terms and Conditions</a>
-				</div>
-			</section>
-		</div>
-	</footer>
-	  
-
-
-
-
-
-
-<!--BOOTSTRAP JAVASCRIPT-->
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script> -->
-
-<!--CUSTOM JAVASCRIPT-->
-<script src="assets/js/script.js"></script>
-
-<!--Jquery CDN-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-
-
+  
 </body>
 {% endblock content %}

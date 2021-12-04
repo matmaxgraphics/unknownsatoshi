@@ -1,10 +1,23 @@
 from django.contrib.auth.models import Group
-from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect, get_object_or_404
+
+from .forms import *
 from userprolog.models import User
 from django.contrib import messages
-from .forms import *
 from .decorators import unauthenticated_user
+from .token import account_activation_token
+from unknownsatoshi.settings import DEFAULT_FROM_EMAIL
+
+from cms.mailing_helper import UserRegisterationNotification
+from django.template.loader import render_to_string
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes, force_text, force_bytes
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+
+
+
 
 
 
@@ -35,15 +48,49 @@ def user_register(request):
         else:
             user = User.objects.create(username=username, email=email, first_name=first_name, last_name=last_name, phone_no=phone_no,is_active=True, is_staff=False, is_superuser=False)
             user.set_password(password1)
+            user.is_active = False
             user.save()
-            group = Group.objects.get(id=2)
-            user.groups.add(group)
-            login(request,user)
-            messages.success(request, "Account successfuly created")
-            return redirect("user-login")
+            login(request, user)
+            messages.success(request, f"Account for {user.email} created successfully")
+            if "next" in request.POST:
+                return redirect(request.POST.get("next"))
+            return redirect("home")
+
+            # set up email activation
+            # current_site = get_current_site(request)
+            # subject = "Activate your Account"
+            # message = render_to_string('userprolog/activate_account.html',{
+            #     'user': user,
+            #     'domain': current_site.domain,
+            #     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            #     'token':account_activation_token.make_token(user),
+            # })
+            # send_mail = UserRegisterationNotification(email_subject=subject, email_body=message, sender_email=DEFAULT_FROM_EMAIL, receiver_email=user.email)
+            # send_mail.mail_user()      
+            # messages.success(request,f"Account successfuly created, check your email for account activation link")
+            # return render(request, "userprolog/activation_link_sent.html")
     else:
         return render(request, template_name)
 
+
+#  #activate account       
+# def account_activation(request, uidb64, token):
+#     uid = None
+#     user = None
+#     try:
+#         uid = force_text(urlsafe_base64_decode(uidb64))
+#         user = get_object_or_404(User, pk=uid)
+#     except:
+#         pass
+    
+#     if user is not None and account_activation_token.check_token(user, token):
+#         user.is_active = True
+#         user.save()
+#         login(request, user)
+#         return redirect("activation-success")
+#     else:
+#         template_name = "userprolog/activation_invalid.html"
+#         return render(request, template_name)
 
 # user login
 @unauthenticated_user
@@ -55,8 +102,13 @@ def user_login(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
+            if user.is_active == False:
+                messages.error(request, f"Your account is pending activation")
+                return redirect("user-login")
+
             if "next" in request.POST:
                 return redirect(request.POST.get("next"))
+
             messages.success(request, f"login successful")
             return redirect("home")
         messages.error(request, f"login attempt failed")
@@ -71,11 +123,12 @@ def user_logout(request):
     return redirect('home')
 
 
-#user profile and update     
+#user profile and update 
+@login_required(login_url="user-login")   
 def user_profile(request, id):
     template_name = "userprolog/profile.html"
     user = get_object_or_404(User, id=id)
-    form = UserUpdateForm()
+    form = UserUpdateForm(instance=user)
     if request.method == 'POST':
         form = UserUpdateForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
