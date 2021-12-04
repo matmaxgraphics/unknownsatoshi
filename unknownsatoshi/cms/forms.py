@@ -3,7 +3,7 @@ from django import forms
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
-
+from django.core.validators import MaxLengthValidator
 
 
 
@@ -105,6 +105,7 @@ class ProductUpdateForm(forms.ModelForm):
 class UserForm(UserCreationForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Repeat Password', widget=forms.PasswordInput)
+   
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'phone_no', 'email', 'username', 'password1', 'password2']

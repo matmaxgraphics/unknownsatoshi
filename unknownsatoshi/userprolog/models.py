@@ -1,8 +1,9 @@
 import uuid
 from django.urls import reverse
 from django.db import models
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, Permission
 from django.utils import timezone
+from django.core.validators import MaxLengthValidator
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
@@ -51,7 +52,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=200, unique=True, blank=False)
     first_name = models.CharField(max_length=200, blank=True)
     last_name = models.CharField(max_length=200, blank=True)
-    phone_no = models.CharField(max_length=11, blank=True,)
+    phone_no = models.CharField(max_length=11,validators=[MaxLengthValidator(11)])
     profile_picture = models.ImageField(upload_to="images/profile_image",default="default_user_image.jpeg", blank=True, null=True)
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
@@ -74,9 +75,16 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 @receiver(post_save, sender=User)
-def create_profile(sender, instance, **kwargs):
+def create_profile(sender, created, instance, **kwargs):
     user = instance
-    if  user.is_staff == False and user.is_active == True and user.is_superuser == True:
-        group = Group.objects.get(id=1)
-        instance.groups.add(group)
-        print("user profile has been created")
+    if created and user.is_superuser:
+        admin_group, created = Group.objects.get_or_create(name='admin')
+        permission_list = Permission.objects.all()
+        admin_group.permissions.set(permission_list)
+        admin_group.user_set.add(user)
+        admin_group.save()
+    else:
+        user_group, created = Group.objects.get_or_create(name='user')
+        user_group.user_set.add(user)
+        user_group.save()
+    
