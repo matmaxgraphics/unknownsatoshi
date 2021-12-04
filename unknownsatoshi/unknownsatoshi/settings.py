@@ -204,13 +204,12 @@ LOGGING = {
 
 
 # mailing smtp configuration
-EMAIL_BACKEND = env("EMAIL_BACKEND")
-EMAIL_HOST = env("HOST")
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_HOST_USER = env("HOST_USER")
+EMAIL_HOST_PASSWORD = env("HOST_PASSWORD")
 EMAIL_PORT = 587
 USE_TLS = True
-USER_SSL = False
-EMAIL_HOST_USER = env("USER")
-EMAIL_HOST_PASSWORD = env("PASSWORD")
 DEFAULT_FROM_EMAIL = env("FROM_EMAIL")
 
 
@@ -233,4 +232,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'userprolog.User'
 
 django_heroku.settings(locals())
+
+PASSWORD_RESET_TIMEOUT_DAYS = 1
 

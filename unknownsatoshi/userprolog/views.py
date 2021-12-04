@@ -1,10 +1,21 @@
 from django.contrib.auth.models import Group
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect, get_object_or_404
+
+from .forms import *
 from userprolog.models import User
 from django.contrib import messages
-from .forms import *
 from .decorators import unauthenticated_user
+from .token import account_activation_token
+
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes, force_text, force_bytes
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+
+
+
 
 
 
@@ -35,14 +46,52 @@ def user_register(request):
         else:
             user = User.objects.create(username=username, email=email, first_name=first_name, last_name=last_name, phone_no=phone_no,is_active=True, is_staff=False, is_superuser=False)
             user.set_password(password1)
+            user.save(commit=False)
+            user.is_active = False
             user.save()
             group = Group.objects.get(id=2)
             user.groups.add(group)
-            login(request,user)
-            messages.success(request, "Account successfuly created")
+
+            # set up email activation
+            current_site = get_current_site(request)
+            subject = "Activate your Account"
+            message = render_to_string('userprolog/activate_account.html',{
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token':account_activation_token.make_token(user),
+            })
+            user.email_user(subject=subject, message=message)
+            if user.is_active == True:
+                messages.success(request, "Account successfuly created")
+                login(request,user)
+            messages.success(request,f"Account successfuly created, check your email for account activation link")
             return redirect("user-login")
     else:
         return render(request, template_name)
+
+
+ #activate account       
+def account_activation(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = get_object_or_404(User, pk=uid)
+    except:
+        pass
+    
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        return redirect("activation-success")
+    else:
+        template_name = "userprolog/activation_invalid.html"
+        return render(request, template_name)
+
+
+# activation success page
+def activation_success(request):
+    template_name = "userprolog/activation_successful.html"
+    return render(request, template_name)
 
 
 # user login

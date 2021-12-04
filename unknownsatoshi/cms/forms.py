@@ -23,12 +23,12 @@ class CmsForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['title'].widget.attrs.update({"class": "input-field"})
-        self.fields['entry'].widget.attrs.update({'class': "input-field"})
-        self.fields['stoploss'].widget.attrs.update({'class': "input-field"})
-        self.fields['tp_target'].widget.attrs.update({'class': "input-field"})
-        self.fields['tp_achieved'].widget.attrs.update({'class': "input-field"})
-        self.fields['profit'].widget.attrs.update({'class': "input-field"})
+        self.fields['title'].widget.attrs.update({"class": "input-field", 'placeholder':"title"})
+        self.fields['entry'].widget.attrs.update({'class': "input-field", 'placeholder':"entry"})
+        self.fields['stoploss'].widget.attrs.update({'class': "input-field", 'placeholder':"stop loss"})
+        self.fields['tp_target'].widget.attrs.update({'class': "input-field", 'placeholder':"tp target"})
+        self.fields['tp_achieved'].widget.attrs.update({'class': "input-field", 'placeholder':"tp achieved"})
+        self.fields['profit'].widget.attrs.update({'class': "input-field", 'placeholder':"profit"})
 
         
 class BlogForm(forms.ModelForm):
@@ -44,10 +44,10 @@ class BlogForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields['title'].widget.attrs.update({'class': "input-field"})
-        self.fields['slug'].widget.attrs.update({'class': "input-field"})
-        self.fields['post'].widget.attrs.update({})
-        self.fields['featured_image'].widget.attrs.update({'class': "input-field"})
+        self.fields['title'].widget.attrs.update({'class': "input-field", 'placeholder':"title"})
+        self.fields['slug'].widget.attrs.update({'class': "input-field", 'placeholder':"slug title"})
+        self.fields['post'].widget.attrs.update({'placeholder':"post"})
+        self.fields['featured_image'].widget.attrs.update({'class': "input-field", 'placeholder':"image"})
         self.fields['featured_stories'].widget.attrs.update({})
         self.fields['latest_news'].widget.attrs.update({})
         self.fields['latest_articles'].widget.attrs.update({})
@@ -64,9 +64,9 @@ class CourseForm(forms.ModelForm):
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['courses'].widget.attrs.update({'class':"input-field"})
-        self.fields['course_link'].widget.attrs.update({'class':"input-field"})
-        self.fields['featured_image'].widget.attrs.update({'class':"input-field"})
+        self.fields['courses'].widget.attrs.update({'class':"input-field", 'placeholder':"course"})
+        self.fields['course_link'].widget.attrs.update({'class':"input-field", 'placeholder':"course link"})
+        self.fields['featured_image'].widget.attrs.update({'class':"input-field", 'placeholder':"image"})
 
 class ProductForm(forms.ModelForm):
     product_name = forms.CharField(error_messages={'required':"Product name is required"})
