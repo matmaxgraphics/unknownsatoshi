@@ -203,17 +203,6 @@ LOGGING = {
 }
 
 
-# mailing smtp configuration
-EMAIL_BACKEND = env("EMAIL_BACKEND")
-EMAIL_HOST = env("HOST")
-EMAIL_PORT = 587
-USE_TLS = True
-USER_SSL = False
-EMAIL_HOST_USER = env("USER")
-EMAIL_HOST_PASSWORD = env("PASSWORD")
-DEFAULT_FROM_EMAIL = env("FROM_EMAIL")
-
-
 # flutterwave payment gateway configuration
 #for production
 FLW_PRODUCTION_PUBLIC_KEY = env("FLW_PRODUCTION_PUBLIC_KEY")
@@ -231,6 +220,15 @@ FLW_SANDBOX = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'userprolog.User'
+PASSWORD_RESET_TIMEOUT_DAYS = 1
+
+# mailing smtp configuration
+EMAIL_BACKEND = env("EMAIL_BACKEND")
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT = 587
+USE_TLS = True
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
 
 django_heroku.settings(locals())
-
