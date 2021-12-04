@@ -73,8 +73,13 @@
 						<li class="navbar__Link">
 							<a class="nav-link" href="{% url 'onlinestore' %}">Online Store</a>
 						</li>
-						<li class="navbar__Link">
-							<a class="nav-link" href="{% url 'blog' %}">Blog</a>
+						<li class="navbar__Link dropdown">
+							<a class="nav-link dropbtn">Blog <i class="ri-arrow-down-s-line nav-icon"></i></a>
+							<ul class="dropdown-content">
+								<li><a class="nav-link" href="{% url 'blog' %}">Free Article</a></li>
+								<li><a class="nav-link" href="{% url 'blog' %}">Preminum Article</a></li>
+							</ul>
+							
 						</li>
 					</ul>
 				</nav>
