@@ -81,13 +81,13 @@ def create_trade(request):
     if request.method == 'POST':
         form = CmsForm(request.POST)
         if form.is_valid():
-            trade = form.save()
-            messages.success(request, f"{trade.title} added")
+            form.save()
+            messages.success(request, f"{form.instance.title} added")
             return redirect('admin-history')
         messages.error(request, f"Unable to create trade, please try again")
-        return redirect("admin-history")
+        return redirect("create-trade")
     else:
-        form = CmsForm(request.POST)
+        form = CmsForm()
     context = {'form':form}
     return render(request, template_name, context)
 
@@ -545,7 +545,7 @@ def trade_history(request):
     template_name = 'cms/trade.html'
     cmss = Cms.objects.all()
     context = {'cmss':cmss}
-    return render(request, template_name,context)
+    return render(request, template_name, context)
 
 
 def onlinestore(request):
@@ -706,3 +706,18 @@ def payment_response(request):
     #     )
     time.sleep(3)
     return redirect("home")
+
+
+# def news_letter(request):
+#     template_name = "base2.html"
+#     if request.method == "POST":
+#         email = request.POST.get("email")
+        
+#         if Newsletter.objects.filter(email=email).exists():
+#             messages.error(request, f"The email you provided already exist in our newsletter record")
+#             return redirect("home")
+#         Newsletter.objects.create(email=email)
+#         messages.success(request, "You have successfully been added to our newsletter subscription")
+#         return redirect("home")
+#     else:
+#         return render(request, template_name)
