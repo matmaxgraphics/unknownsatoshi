@@ -1,6 +1,8 @@
 import math
 import random
 import requests
+
+from cms.mailing_helper import UserRegisterationNotification
 from .models import *
 from .forms import *
 import time
@@ -476,8 +478,7 @@ def admin_delete_plan(request, slug):
         messages.success(request, f"Plan deleted successfully")
         return redirect('admin-plan-list')
     else:
-        context = {"plan":plan}
-        return render(request, template_name, context)
+        return render(request, template_name)
 
 
 #admin subscription history
@@ -487,7 +488,7 @@ def admin_delete_plan(request, slug):
 def admin_subscription_history(request):
     template_name = "cms/admin-subscription/index.html"
     subscriptions = SubscriptionHistory.objects.all()
-    context = {"subscrptions":subscriptions}
+    context = {"subscriptions":subscriptions}
     return render(request, template_name, context)
 
 
@@ -504,7 +505,6 @@ def admin_delete_subscription(request, id):
         messages.success(request, f"subscription deleted successfully")
         return redirect('admin-sub-list')
     else:
-        messages.error(request, f"Unable to delete subscription, Try again")
         return render(request, template_name)
 
 
@@ -521,7 +521,21 @@ def about(request):
 
 def contact(request):
     template_name = "cms/contact.html"
-    return render(request, template_name)
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        subject = f"mail from {name}"
+        message = request.POST.get("messages")
+        if name and email and message:
+            print(name, "", email, "", message)
+            send_mail = UserRegisterationNotification(email_subject=subject, email_body=message, sender_email=email, receiver_email="unknown@unknownsatoshi.com")
+            send_mail.mail_admin()
+            messages.success(request, "your email has successfully been sent")
+            return redirect("home")
+        messages.error(request, f"unable to send mail, please try again")
+        return redirect("contact")
+    else:
+        return render(request, template_name)
 
 
 def faq_view(request):
@@ -600,10 +614,14 @@ def plan_list(request):
 
 
 # plan details
+plan_id_history = ""
 @login_required(login_url="user-login")
 def plan_details(request, slug):
+    global plan_id_history
     template_name = "cms/plan_payment.html"
     plan = get_object_or_404(Plan, slug=slug)
+    plan_id_history = plan.id
+    print("MAIN PLAN ID IS", plan_id_history)
     user = request.user
 
     if request.method == "GET":
@@ -621,12 +639,10 @@ def plan_details(request, slug):
         context = {"plan":plan, "user":user}
     return render(request, template_name, context)
 
-plan_id_history = ""
-amount_paid = ""
 
+amount_paid = ""
 # process plan payment
 def process_payment(user_id, plan_id, first_name, last_name, amount, email, phone_no, plan_title, plan_desc):
-    global plan_id_history
     global amount_paid
     name = f"{first_name} {last_name}".capitalize()
     auth_token= FLW_SANDBOX_SECRET_KEY
@@ -676,6 +692,8 @@ def payment_response(request):
     plan_id = plan_id_history
     amount = amount_paid
     full_name = f"{user.first_name} {user.last_name}"
+    email = user.email
+    phone_no = user.phone_no
     status=request.GET.get('status', None)
     tx_ref=request.GET.get('tx_ref', None)
     transaction_id = request.GET.get('transaction_id', None)
@@ -683,41 +701,43 @@ def payment_response(request):
     print("#" * 100,"\n")
     print("USER ID IN payment_response() FUNCTION IS", user_id)
     print("FULL NAME is", full_name)
+    print("EMAIL is", email)
+    print("EMAIL is", phone_no)
     print("PLAN ID IS", plan_id)
     print("AMOUNT IN payment_response() FUNCTION IS", amount)
     print("STATUS IS", status)
     print("REFERENCE ID IS", tx_ref)
     print("TRANSACTION ID IS", transaction_id, "\n")
     print("#" * 100,"\n")
-    # if SubscriptionHistory.objects.filter(reference=tx_ref).exists():
-    #     pass
-    # else:
-    #     SubscriptionHistory.objects.create(
-    #         user_id=user_id, 
-    #         plan_id=plan_id, 
-    #         amount_paid=amount, 
-    #         email=user.email,
-    #         full_name=full_name,
-    #         phone_no=user.phone_no, 
-    #         reference = tx_ref, 
-    #         transaction_id=transaction_id, 
-    #         status=status,
-    #         active=True
-    #     )
+    if SubscriptionHistory.objects.filter(reference=tx_ref).exists():
+        pass
+    else:
+        SubscriptionHistory.objects.create(
+            user_id=user_id, 
+            plan_id=plan_id, 
+            amount_paid=amount, 
+            email=email,
+            full_name=full_name,
+            phone_no=phone_no, 
+            reference = tx_ref, 
+            transaction_id=transaction_id, 
+            status=status,
+            active=True
+        )
     time.sleep(3)
     return redirect("home")
 
 
-# def news_letter(request):
-#     template_name = "base2.html"
-#     if request.method == "POST":
-#         email = request.POST.get("email")
+def newsletter(request):
+    template_name = "base2.html"
+    if request.method == "POST":
+        email = request.POST.get("email")
         
-#         if Newsletter.objects.filter(email=email).exists():
-#             messages.error(request, f"The email you provided already exist in our newsletter record")
-#             return redirect("home")
-#         Newsletter.objects.create(email=email)
-#         messages.success(request, "You have successfully been added to our newsletter subscription")
-#         return redirect("home")
-#     else:
-#         return render(request, template_name)
+        if Newsletter.objects.filter(email=email).exists():
+            messages.success(request, f"The email you provided already exist in our newsletter list.")
+            return redirect("home")
+        Newsletter.objects.create(email=email)
+        messages.success(request, "You have successfully been added to our newsletter subscription.")
+        return redirect("home")
+    else:
+        return render(request, template_name)

@@ -44,7 +44,7 @@
                       <td data-label="% profit">{{ sub.transaction_id }}</td>
                       <td data-label="% profit">{{ sub.status }}</td>
                       <td data-label="% profit">{{ sub.active }}</td>
-                      <td><button><a style="color: rgb(233, 143, 25);" href="{% url 'delete-trade' cm.id%}" class="edit">Delete</a></button></td>		        
+                      <td><a style="color: rgb(233, 143, 25);" href="{% url 'delete-subscription' sub.id %}" class="edit">Delete</a></td>		        
                     </tr>
                   {% endfor %} 
                 </tbody>

@@ -15,7 +15,7 @@ class CmsForm(forms.ModelForm):
     entry = forms.IntegerField(min_value=1, required=True)
     stoploss = forms.IntegerField(min_value=1, required=True)
     tp_target = forms.IntegerField(min_value=1, required=True)
-    tp_achieved = forms.IntegerField(min_value=True, max_value=True, required=True)
+    tp_achieved = forms.IntegerField(min_value=1, required=True)
     profit = forms.IntegerField(min_value=1, required=True)
     class Meta:
         model = Cms
@@ -69,10 +69,10 @@ class CourseForm(forms.ModelForm):
         self.fields['featured_image'].widget.attrs.update({'class':"input-field", 'placeholder':"image"})
 
 class ProductForm(forms.ModelForm):
-    product_name = forms.CharField(error_messages={'required':"Product name is required"})
-    product_link = forms.URLField(error_messages={'required':"Url is required"})
-    price = forms.IntegerField(min_value=1, error_messages={'required':"Product price is required"})
-    featured_image = forms.ImageField(required=True, error_messages={'required':"An image is required"})
+    product_name = forms.CharField(error_messages={'required':"Product name is required",'placeholder':"product name"})
+    product_link = forms.URLField(error_messages={'required':"Url is required", 'placeholder':"product url"})
+    price = forms.IntegerField(min_value=1, error_messages={'required':"Product price is required",'placeholder':"price"})
+    featured_image = forms.ImageField(required=True, error_messages={'required':"An image is required",'placeholder':"featured image"})
     class Meta:
         model = Product
         fields = ['product_name', 'product_link','price', 'featured_image']
@@ -85,10 +85,10 @@ class ProductForm(forms.ModelForm):
         self.fields['featured_image'].widget.attrs.update({'class':"input-field"})
 
 class ProductUpdateForm(forms.ModelForm):
-    product_name = forms.CharField(error_messages={'required':"Product name is required"})
-    product_link = forms.URLField(error_messages={'required':"Url is required"})
-    price = forms.IntegerField(min_value=1, error_messages={'required':"Product price is required"})
-    featured_image = forms.ImageField(required=True, error_messages={'required':"An image is required"})
+    product_name = forms.CharField(error_messages={'required':"Product name is required",'placeholder':"product name"})
+    product_link = forms.URLField(error_messages={'required':"Url is required", 'placeholder':"product link"})
+    price = forms.IntegerField(min_value=1, error_messages={'required':"Product price is required",'placeholder':"price"})
+    featured_image = forms.ImageField(required=True, error_messages={'required':"An image is required",'placeholder':"featured image"})
     class Meta:
         model = Product
         fields = ['product_name', 'product_link','price', 'featured_image']
