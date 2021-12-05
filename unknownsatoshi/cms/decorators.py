@@ -5,6 +5,10 @@ from django.shortcuts import redirect, render
 
 
 def unauthenticated_user(view_func):
+    """
+    if users are authenticated, they should have access to the pages of the 
+    fuctions this decorator is placed on
+    """
     def wrapper_func(request, *args, **kwargs):
         if request.user.is_authenticated:
             return redirect('unauthorized-page')
@@ -23,10 +27,8 @@ def allowed_user(allowed_roles=[]):
 
             if group in allowed_roles:
                 return view_func(request, *args, **kwargs)
-
             else:
                 return redirect("unauthorized-page")
-
         return wrapper_func
     return decorator
 
@@ -40,7 +42,6 @@ def admin_only(view_func):
 
         if group == 'admin':
             return view_func(request, *args, **kwargs)
-
     return wrapper_function
 
     
