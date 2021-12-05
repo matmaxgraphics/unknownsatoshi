@@ -31,7 +31,8 @@
 
             <div class="contact-fields">
                 <h4>Get in touch directly</h4>
-                <form action="contact.html" method="post">
+                <form action="{% url 'contact' %}" method="post">
+                    {% csrf_token %}
                     <div>
                         <label for="name">Name</label>
                         <input type="name" name="name" id="name" class="input-field" placeholder="Input your name" required>
