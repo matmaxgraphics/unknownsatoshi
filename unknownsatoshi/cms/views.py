@@ -622,7 +622,7 @@ def plan_details(request, slug):
 
 
 # process plan payment
-def process_payment(request,user_id, plan_id, first_name, last_name, amount, email, phone_number, plan_title, plan_desc):
+def process_payment(user_id, plan_id, first_name, last_name, amount, email, phone_number, plan_title, plan_desc):
     name = f"{first_name} {last_name}".capitalize()
     auth_token= FLW_SANDBOX_SECRET_KEY
     hed = {'Authorization': 'Bearer ' + auth_token}
@@ -653,19 +653,13 @@ def process_payment(request,user_id, plan_id, first_name, last_name, amount, ema
     response = requests.post(url, json=data, headers=hed)
     response=response.json()
     link=response['data']['link']
-
-    # helper function to save subscription history to history table
-    #payment_response(user_id, plan_id, amount, email, name, phone_number)
-    messages.success(request, f"subscription successfull")
     return link
 
 
 # returns subscription's transaction_id, transaction_reference and transaction_status
 @require_http_methods(['GET', 'POST'])
-def payment_response(request, user_id, plan_id, amount, email, name, phone_number):
+def payment_response(request):
     status=request.GET.get('status', None)
     tx_ref=request.GET.get('tx_ref', None)
     transaction_id = request.GET.get('transaction_id', None)
-
-    #get_subscription_details(user_id, plan_id, amount, email, name, phone_number, tx_ref, transaction_id, status)
     return redirect("home")

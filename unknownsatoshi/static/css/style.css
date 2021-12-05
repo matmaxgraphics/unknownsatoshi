@@ -611,6 +611,7 @@ textarea {
   max-width: 360px;
   border-radius: 8px;
   margin-bottom: 24px;
+  /* display: none; */
 }
 .course-section .course-container__item img {
   -o-object-fit: cover;
@@ -1448,7 +1449,7 @@ footer .footer-content__item .links a:hover {
 }
 .products-container .product-container__item .details-container .btn {
   margin-left: auto;
-  padding: 10px 35px;
+  padding: 15px 25px;
   height: auto;
   text-align: center;
   vertical-align: middle;
