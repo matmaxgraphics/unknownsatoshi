@@ -78,6 +78,7 @@ class Plan(models.Model):
     def __str__(self):
         return self.title
 
+# this saves the subscriptin record
 class SubscriptionHistory(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
