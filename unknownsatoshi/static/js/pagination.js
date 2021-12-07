@@ -24,9 +24,9 @@
 
 /*==PAGINATION SCRIPT FOR COURSE PAGE==*/
 $(".course-container__item").slice(0, 3).show()
-	$(".course-pag").on("click", function(){
-		$(".course-container__item:hidden").slice(0, 3).slideDown()
-		if($(".course-container__item:hidden").length == 0){
-			$(".course-pag").fadeOut('slow')
-		}
+    $(".coursePage").on("click", function(){
+        $(".course-container__item:hidden").slice(0, 3).slideDown()
+        if($(".course-container__item:hidden").length == 0){
+            $(".coursePage").fadeOut('slow')
+        }
 })
