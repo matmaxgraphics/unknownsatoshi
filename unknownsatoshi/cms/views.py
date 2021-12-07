@@ -573,16 +573,33 @@ def onlinestore(request):
 def blog(request):
     template_name = 'cms/blog.html'
     blogs = Blog.objects.all()
-    featured_story =Blog.objects.filter(featured_stories=True)
-    latest_new =Blog.objects.filter(latest_news=True)
-    latest_article =Blog.objects.filter(latest_articles=True)
-    context = {
-        'blogs':blogs,
-        'featured_story':featured_story,
-        'latest_new':latest_new,
-        'latest_article':latest_article,
-    }
-    return render(request, template_name, context)
+    user = request.user
+    if SubscriptionHistory.objects.filter(user=user, active=True).exists():
+        featured_story = Blog.objects.filter(featured_stories=True, premium=True)
+        latest_new = Blog.objects.filter(latest_news=True, premium=True)
+        latest_article = Blog.objects.filter(latest_articles=True, premium=True)
+
+        context = {
+            'blogs':blogs,
+            'featured_story':featured_story,
+            'latest_new':latest_new,
+            'latest_article':latest_article,
+        }
+        return render(request, template_name, context)
+    else:
+        featured_story = Blog.objects.filter(featured_stories=True, premium=False)
+        latest_new = Blog.objects.filter(latest_news=True, premium=False)
+        latest_article =Blog.objects.filter(latest_articles=True, premium=False)
+        
+        context = {
+            'blogs':blogs,
+            'featured_story':featured_story,
+            'latest_new':latest_new,
+            'latest_article':latest_article,
+           
+        }
+        return render(request, template_name, context)
+
 
 
 # blog details
@@ -702,7 +719,7 @@ def payment_response(request):
     print("USER ID IN payment_response() FUNCTION IS", user_id)
     print("FULL NAME is", full_name)
     print("EMAIL is", email)
-    print("EMAIL is", phone_no)
+    print("PHONE NUMBER is", phone_no)
     print("PLAN ID IS", plan_id)
     print("AMOUNT IN payment_response() FUNCTION IS", amount)
     print("STATUS IS", status)
