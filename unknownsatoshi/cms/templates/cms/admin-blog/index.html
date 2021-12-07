@@ -29,7 +29,7 @@
           {% for blog in blogs %}
             <tr>
               <td data-label="post Title">{{blog.title}}</td>
-              <td data-label="post Title">{{blog.post}}</td>
+              <td data-label="post Title">{{blog.post|safe}}</td>
               <td data-label="Author">{{blog.author}}</td>
               <td data-label="image"><img src="{{blog.featured_image.url}}"></td>
               <td data-label="Action"><a href="{% url 'update-blog' blog.id %}" class="edit">edit</a></td>

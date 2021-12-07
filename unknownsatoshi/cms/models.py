@@ -42,6 +42,7 @@ class Product(models.Model):
         return self.product_name
 
 class Blog(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     title = models.CharField(max_length=200)
     slug = models.SlugField(blank=False, null=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=True)
@@ -51,7 +52,9 @@ class Blog(models.Model):
     latest_articles = models.BooleanField(default=False)
     featured_image = models.ImageField(null=True, blank=True, default="default.png", upload_to="blog_images/")
     premium = models.BooleanField(default=False)
-    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+    
 
     def __str__(self):
         return self.title
