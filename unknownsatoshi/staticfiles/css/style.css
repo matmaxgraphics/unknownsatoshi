@@ -133,6 +133,24 @@ textarea {
   display: none;
 }
 
+.alert{
+  padding: 12px;
+  border-radius: 8px;
+  color: #fff;
+  max-width: 400px;
+  text-align: center;
+  margin: auto;
+}
+.alert-error{
+  background-color: rgb(236, 82, 61);
+  padding: 12px;
+  border: 1px solid rgb(253, 30, 1);;
+
+}
+.alert-success{
+  background-color: #45AD43;
+  border: 1px solid #09e705;
+}
 #message {
   display: none;
   color: #C4C4C4;
@@ -245,9 +263,61 @@ textarea {
   transition: 0.3s;
   color: #F8A606;
 }
+/* Dropdown Button */
+.dropbtn {
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  display: flex;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #333;
+  min-width: 160px;
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: #fff;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: 0.3s;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #F8A606;
+  color: #fff !important;
+  transition: 0.3s;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
 
 .navbar__Items--right {
   margin-left: auto;
+}
+.navbar__Items--right .login-link{
+  margin-right: 12px;
+  text-decoration: underline;
+  transition: 0.3s;
+}
+.navbar__Items--right .login-link:hover{
+  color: #F8A606;
+  transition: 0.3s;
 }
 .navbar__Items--right .profile {
   margin-right: 24px;
@@ -260,6 +330,7 @@ textarea {
 .navbar__Items--right .profile .img-profile {
   width: 100%;
   height: auto;
+  border-radius: 30%;
 }
 
 .profile-wrapper {
@@ -310,6 +381,7 @@ textarea {
 
   .navbar__Items--right {
     margin-left: 0;
+    margin-top: 24px;
   }
 
   .navbar__Items--right .hire-btn {
@@ -344,6 +416,7 @@ textarea {
   .profile-wrapper .img-profile {
     width: 100%;
     height: auto;
+    border-radius: 30%;
   }
 
   .navbar__Link-toggle {
@@ -538,6 +611,7 @@ textarea {
   max-width: 360px;
   border-radius: 8px;
   margin-bottom: 24px;
+  /* display: none; */
 }
 .course-section .course-container__item img {
   -o-object-fit: cover;
@@ -905,6 +979,7 @@ footer .footer-content__item .links a:hover {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
+  margin-top: 60px;
 }
 .banner-section .header-group {
   margin: 48px;
@@ -1046,6 +1121,7 @@ footer .footer-content__item .links a:hover {
 /*=========END OF VALUE SECTION STYLING=======*/
 .team-section {
   margin-top: 96px;
+  display: none;
 }
 .team-section h2 {
   text-align: center;
@@ -1269,7 +1345,7 @@ footer .footer-content__item .links a:hover {
     display: block;
     margin-bottom: 48px;
   }
-  table td {
+  .trade-table table td {
     border-bottom: 1px solid #464343;
     display: block;
     text-align: right;
@@ -1373,7 +1449,7 @@ footer .footer-content__item .links a:hover {
 }
 .products-container .product-container__item .details-container .btn {
   margin-left: auto;
-  padding: 10px 35px;
+  padding: 15px 25px;
   height: auto;
   text-align: center;
   vertical-align: middle;
@@ -2606,6 +2682,14 @@ footer .footer-content__item .links a:hover {
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
+
+.user-profile .user-image button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin-top: 12px;
+}
 .user-profile .profile-description {
   width: 50%;
 }
@@ -2720,3 +2804,46 @@ footer .footer-content__item .links a:hover {
     width: 80%;
   }
 }
+
+/* PASSWORD RESET SECTION */
+.reset-page .login-wrapper{
+  height: auto;
+}
+
+#id_email {
+  background-color: #434343;
+  color: #fff;
+  padding: 10px;
+  height: 54px;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  width: 100%;
+  display: block;
+  margin-bottom: 24px;
+  margin-top: 12px;
+}
+
+.reset-page{
+  margin-top: -20em;
+}
+.reset-page h2, .reset-page p{
+  text-align: center;
+  margin-bottom: 24px;
+}
+.reset-page .btn{
+  margin-bottom: 48px;
+}
+.reset-page .sent-message{
+  text-align: center;
+  height: 60vh;
+}
+
+.reset-page .sent-message .sent-icon{
+  font-size: 120px;
+  color: green;
+  margin-bottom: 24px;
+}
+
+/*======PASSWORD RESET STYLING====*/
+

@@ -596,7 +596,6 @@ def blog(request):
             'featured_story':featured_story,
             'latest_new':latest_new,
             'latest_article':latest_article,
-           
         }
         return render(request, template_name, context)
 

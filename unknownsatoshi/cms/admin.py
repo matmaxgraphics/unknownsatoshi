@@ -17,7 +17,7 @@ class AdminStore(admin.ModelAdmin):
 
 @admin.register(Blog)
 class AdminBlog(admin.ModelAdmin):
-    list_display = ('author','title','post','featured_stories','latest_news','latest_articles','featured_image', 'premium')
+    list_display = ('author','title','slug','featured_stories','latest_news','latest_articles', 'premium')
     prepopulated_fields = {"slug": ("title",)}
 
 @admin.register(Plan)
