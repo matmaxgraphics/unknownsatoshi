@@ -10,18 +10,8 @@
             <div class="user-image">
                 <img src="{{user.profile_picture.url}}" alt="user's profile image">
                 <h4>{{user.username}}</h4>
-                <form action="{% url 'user-profile' user.id %}" method="get">
-                    <div>
-                        <label for="image">Change Picture</label>    
-                        {% for field in form %}   
-                            {% if field.field.widget.input_type == "file" %}
-                                <label for="">{{field.label}}</label>
-                                <input type="{{field.field.widget.input_type}}" name="{{field.name}}" id="{{field.id}}" value="{{field.value}}" class="input-field" required>
-                            {% endif %}             
-                        {% endfor %}
-                    </div>
-                    <button class="btn" type="submit" name="save-btn">Upload Picture</button>
-                </form>
+                {% comment %} <form action="{% url 'user-profile' user.id %}" method="get">
+                </form> {% endcomment %}
             </div>
 
             <div class="profile-description">
@@ -59,6 +49,16 @@
                         <div>
                             <label for="first-name">Phone No</label>
                             {{ form.phone_no }}
+                        </div>
+
+                        <div>
+                            <label for="image">Change Picture</label>    
+                            {% for field in form %}   
+                                {% if field.field.widget.input_type == "file" %}
+                                    <label for="">{{field.label}}</label>
+                                    <input type="{{field.field.widget.input_type}}" name="{{field.name}}" id="{{field.id}}" value="{{field.value}}" class="input-field" required>
+                                {% endif %}             
+                            {% endfor %}
                         </div>
                         
                         {% if form.errors %}

@@ -89,7 +89,9 @@ hr {
   height: 54px;
   width: auto;
 }
-
+input[type=submit]{
+  color: #fff;
+}
 .btn:hover {
   background-color: #F8A606;
   -webkit-transition: 0.3s;
@@ -1739,8 +1741,17 @@ footer .footer-content__item .links a:hover {
 }
 .article-wrapper .post-details {
   margin-bottom: 24px;
+  display: flex;
 }
-
+.article-wrapper .post-details span{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 12px;
+}
+.article-wrapper .post-details span i{
+  margin-right: 6px;
+}
 .blog-content_container .blog-banner {
   width: 100%;
   height: 400px;
