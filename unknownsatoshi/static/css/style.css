@@ -1532,6 +1532,46 @@ footer .footer-content__item .links a:hover {
 .blog-post__section .articleCard, .blog-post__section .newsCard, .blog-post__section .storyCard {
   display: none;
 }
+.blog-post__section #articleCard{
+  display: none;
+}
+.blog-post__section #articleCard:nth-child(1) {
+  display: block;
+}
+.blog-post__section #articleCard:nth-child(2) {
+  display: block;
+}
+.blog-post__section #articleCard:nth-child(3) {
+  display: block;
+}
+
+/*---LATEST NEWS CARD SECTION---*/
+.blog-post__section #newsCard{
+  display: none;
+}
+.blog-post__section #newsCard:nth-child(1) {
+  display: block;
+}
+.blog-post__section #newsCard:nth-child(2) {
+  display: block;
+}
+.blog-post__section #newsCard:nth-child(3) {
+  display: block;
+}
+
+/*---FEATURED STORIES CARD SECTION---*/
+.blog-post__section #storyCard{
+  display: none;
+}
+.blog-post__section #storyCard:nth-child(1) {
+  display: block;
+}
+.blog-post__section #storyCard:nth-child(2) {
+  display: block;
+}
+.blog-post__section #storyCard:nth-child(3) {
+  display: block;
+}
 .blog-post__section .blog-post__card {
   max-width: 360px;
   max-width: 360px;

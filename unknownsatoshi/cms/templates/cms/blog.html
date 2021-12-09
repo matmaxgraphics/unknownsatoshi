@@ -11,7 +11,7 @@
                 
                 <div class="blog-post__container">
                    {% for blog in latest_article %}
-                    <div class="blog-post__card">
+                    <div class="blog-post__card" id="articleCard">
                         <a href="{{blog.get_absolute_url}}">
                             <img src="{{blog.featured_image.url }}" alt="demo image">
                             <div class="text-container">
@@ -24,7 +24,7 @@
                     
             </main>
             <div class="pagination">
-                <a>Load More<i class="ri-arrow-down-circle-line"></i></a>
+                <a class="articleBtn">Load More<i class="ri-arrow-down-circle-line"></i></a>
             </div>
 
 
@@ -32,7 +32,7 @@
                 <h2>Latest News</h2>
                 <div class="blog-post__container">
                     {% for blog in latest_new %}
-                    <div class="blog-post__card">
+                    <div class="blog-post__card" id="newsCard">
                         <a href="{% url 'blog-detail' blog.pk %}">
                             <img src="{{blog.featured_image.url }}" alt="demo image">
                             <div class="text-container">
@@ -47,14 +47,14 @@
             </main>
             
             <div class="pagination">
-                <a>Load More<i class="ri-arrow-down-circle-line"></i></a>
+                <a class="newsBtn">Load More<i class="ri-arrow-down-circle-line"></i></a>
             </div>
 
             <main class="stories-section">
                 <h2>Featured Stories</h2>
                 <div class="blog-post__container">
                     {% for blog in featured_story %}
-                        <div class="blog-post__card">
+                        <div class="blog-post__card" id="storyCard">
                             <a href="#">
                                 <img src="{{blog.featured_image.url }}" alt="demo image">
                                 <div class="text-container">
@@ -68,7 +68,7 @@
             </main>
 
             <div class="pagination">
-                <a class="storyPageBtn" role="button">Load More<i class="ri-arrow-down-circle-line"></i></a>
+                <a class="storyBtn" role="button">Load More<i class="ri-arrow-down-circle-line"></i></a>
             </div>
 		</section>
 	</div>
