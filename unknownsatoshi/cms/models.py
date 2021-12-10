@@ -93,8 +93,8 @@ class SubscriptionHistory(models.Model):
     reference = models.CharField(max_length=200, unique=True, blank=False)
     transaction_id = models.CharField(max_length=200)
     status = models.CharField(max_length=200)
-    start_date = models.DateTimeField(auto_now_add=True)
-    expiry_date = models.DateTimeField(auto_now=True)
+    start_date = models.DateField()
+    expiry_date = models.DateField()
     active = models.BooleanField(default=False)
 
     def __str__(self):
