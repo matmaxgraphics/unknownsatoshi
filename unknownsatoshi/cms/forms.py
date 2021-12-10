@@ -1,10 +1,11 @@
+
+from typing_extensions import Required
 from userprolog.models import User
 from django import forms
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
-from django.core.validators import MaxLengthValidator
-
+from .models import ProductCategory
 
 
 
@@ -37,7 +38,7 @@ class BlogForm(forms.ModelForm):
     
     class Meta:
         model = Blog
-        fields = ['title', 'slug', 'post', 'featured_image','featured_stories','latest_news','latest_articles', 'premium']
+        fields = ['title', 'slug', 'post', 'featured_image','featured_stories','latest_news','latest_articles', 'premium', 'home_page']
         exclude = ['author']
     
     
@@ -51,7 +52,9 @@ class BlogForm(forms.ModelForm):
         self.fields['featured_stories'].widget.attrs.update({})
         self.fields['latest_news'].widget.attrs.update({})
         self.fields['latest_articles'].widget.attrs.update({})
+        self.fields['home_page'].widget.attrs.update({})
         self.fields['premium'].widget.attrs.update({})
+        
 
 
 class CourseForm(forms.ModelForm):
@@ -69,36 +72,32 @@ class CourseForm(forms.ModelForm):
         self.fields['featured_image'].widget.attrs.update({'class':"input-field", 'placeholder':"image"})
 
 class ProductForm(forms.ModelForm):
-    product_name = forms.CharField(error_messages={'required':"Product name is required",'placeholder':"product name"})
-    product_link = forms.URLField(error_messages={'required':"Url is required", 'placeholder':"product url"})
-    price = forms.IntegerField(min_value=1, error_messages={'required':"Product price is required",'placeholder':"price"})
-    featured_image = forms.ImageField(required=True, error_messages={'required':"An image is required",'placeholder':"featured image"})
+    
     class Meta:
         model = Product
-        fields = ['product_name', 'product_link','price', 'featured_image']
+        fields = '__all__'
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['product_category'].widget.attrs.update({'class':"input-field"})
         self.fields['product_name'].widget.attrs.update({'class':"input-field"})
         self.fields['product_link'].widget.attrs.update({'class':"input-field"})
         self.fields['price'].widget.attrs.update({'class':"input-field"})
         self.fields['featured_image'].widget.attrs.update({'class':"input-field"})
 
 class ProductUpdateForm(forms.ModelForm):
-    product_name = forms.CharField(error_messages={'required':"Product name is required",'placeholder':"product name"})
-    product_link = forms.URLField(error_messages={'required':"Url is required", 'placeholder':"product link"})
-    price = forms.IntegerField(min_value=1, error_messages={'required':"Product price is required",'placeholder':"price"})
-    featured_image = forms.ImageField(required=True, error_messages={'required':"An image is required",'placeholder':"featured image"})
+  
     class Meta:
         model = Product
-        fields = ['product_name', 'product_link','price', 'featured_image']
+        fields = '__all__'
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['product_name'].widget.attrs.update({'class':"input-field"})
-        self.fields['product_link'].widget.attrs.update({'class':"input-field"})
-        self.fields['price'].widget.attrs.update({'class':"input-field"})
-        self.fields['featured_image'].widget.attrs.update({'class':"input-field"})
+        self.fields['product_category'].widget.attrs.update({'class':"input-field"}, required=True)
+        self.fields['product_name'].widget.attrs.update({'class':"input-field"}, required=True)
+        self.fields['product_link'].widget.attrs.update({'class':"input-field"}, required=True)
+        self.fields['price'].widget.attrs.update({'class':"input-field"}, required=True)
+        self.fields['featured_image'].widget.attrs.update({'class':"input-field"}, required=True)
 
 
 # user creation form for admin and users

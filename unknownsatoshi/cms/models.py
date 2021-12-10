@@ -6,6 +6,12 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from userprolog.models import User
 
 
+class ProductCategory(models.Model):
+    name = models.CharField(max_length=150, blank=True)
+
+    def __str__(self):
+        return self.name
+
 
 class Cms(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
@@ -33,6 +39,7 @@ class Course(models.Model):
         
 class Product(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    product_category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
     product_name = models.TextField(null=True, blank=True)
     product_link = models.TextField(null=True, blank=True)
     price = models.IntegerField(default=0)
@@ -52,6 +59,7 @@ class Blog(models.Model):
     latest_articles = models.BooleanField(default=False)
     featured_image = models.ImageField(null=True, blank=True, default="default.png", upload_to="blog_images/")
     premium = models.BooleanField(default=False)
+    home_page = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     
@@ -60,7 +68,10 @@ class Blog(models.Model):
         return self.title
 
     def snippet(self):
-        return self.post[:150]
+        return self.post[:200]
+
+    def home_snippet(self):
+        return self.post[:200]
 
     def get_absolute_url(self):
         return reverse("blog-detail", kwargs={"pk": self.pk})
@@ -93,8 +104,8 @@ class SubscriptionHistory(models.Model):
     reference = models.CharField(max_length=200, unique=True, blank=False)
     transaction_id = models.CharField(max_length=200)
     status = models.CharField(max_length=200)
-    start_date = models.DateTimeField(auto_now_add=True)
-    expiry_date = models.DateTimeField(auto_now=True)
+    start_date = models.DateField()
+    expiry_date = models.DateField()
     active = models.BooleanField(default=False)
 
     def __str__(self):

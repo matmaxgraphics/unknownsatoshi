@@ -1,5 +1,6 @@
 import math
 import random
+from django.http.response import HttpResponse
 import requests
 
 from cms.mailing_helper import UserRegisterationNotification
@@ -9,6 +10,7 @@ import time
 from userprolog.models import User
 from django.contrib import messages
 from .payment_helper import get_subscription_details
+from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login,logout
 from django.views.decorators.http import require_http_methods
@@ -277,7 +279,6 @@ def admin_blog(request):
     context = {'blogs':blogs}
     return render(request, template_name, context)
 
-
 # admin create blog
 @login_required(login_url='admin-login')
 @allowed_user(allowed_roles=['admin'])
@@ -288,12 +289,12 @@ def create_blog(request):
     if request.method == 'POST':
         form = BlogForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save(commit=False)
-            form.instance.author = request.user
+            instance = form.save(commit=False)
+            instance.author = request.user
             form.save()
-            messages.success(request, f"Blog created successfully")
+            messages.success(request, f"Post created successfully")
             return redirect('admin-blog')
-        messages.error(request, f"Unable to create blo, Try again")
+        messages.error(request, f"Unable to create Post, Try again")
         return redirect("create-blog")
     else:
         form = BlogForm(request.POST, request.FILES)
@@ -511,7 +512,9 @@ def admin_delete_subscription(request, id):
 # normal pages for users views
 def home(request):
     template_name = 'cms/index.html'
-    return render(request, template_name)
+    blogs = Blog.objects.filter(home_page=True)
+    context = {"blogs":blogs}
+    return render(request, template_name, context)
 
 #
 def about(request):
@@ -573,31 +576,24 @@ def onlinestore(request):
 def blog(request):
     template_name = 'cms/blog.html'
     blogs = Blog.objects.all()
-    user = request.user
-    if SubscriptionHistory.objects.filter(user=user, active=True).exists():
-        featured_story = Blog.objects.filter(featured_stories=True, premium=True)
-        latest_new = Blog.objects.filter(latest_news=True, premium=True)
-        latest_article = Blog.objects.filter(latest_articles=True, premium=True)
+    featured_story = Blog.objects.filter(featured_stories=True, premium=False)
+    latest_new = Blog.objects.filter(latest_news=True, premium=False)
+    latest_article =Blog.objects.filter(latest_articles=True, premium=False)
 
-        context = {
-            'blogs':blogs,
-            'featured_story':featured_story,
-            'latest_new':latest_new,
-            'latest_article':latest_article,
-        }
-        return render(request, template_name, context)
-    else:
-        featured_story = Blog.objects.filter(featured_stories=True, premium=False)
-        latest_new = Blog.objects.filter(latest_news=True, premium=False)
-        latest_article =Blog.objects.filter(latest_articles=True, premium=False)
-        
-        context = {
-            'blogs':blogs,
-            'featured_story':featured_story,
-            'latest_new':latest_new,
-            'latest_article':latest_article,
-        }
-        return render(request, template_name, context)
+    premium_featured_story = Blog.objects.filter(featured_stories=True, premium=True)
+    premium_latest_new = Blog.objects.filter(latest_news=True, premium=True)
+    premium_latest_article =Blog.objects.filter(latest_articles=True, premium=True)
+    
+    context = {
+        'blogs':blogs,
+        'featured_story':featured_story,
+        'latest_new':latest_new,
+        'latest_article':latest_article,
+        "premium_featured_story":premium_featured_story,
+        "premium_latest_new":premium_latest_new,
+        "premium_latest_article":premium_latest_article
+    }
+    return render(request, template_name, context)
 
 
 
@@ -605,6 +601,23 @@ def blog(request):
 def blog_detail(request, pk):
     template_name = 'cms/single.html'
     blog = Blog.objects.get(id=pk)
+    context = {'blog': blog}
+    user = request.user
+    premium_user = SubscriptionHistory.objects.filter(user=user, active=True).exists()
+
+    if user.is_authenticated and blog.premium and premium_user:
+        return render(request, template_name, context)
+
+    if user.is_authenticated and blog.premium and not premium_user:
+        return HttpResponse("you do not have an active plan. to subscribe to any of our plan, browse back to the home and click on get started")
+
+    if user.is_authenticated and premium_user and not blog.premium:
+        return render(request, template_name, context)
+
+    if blog.premium and not user.is_authenticated:
+        return HttpResponse("you do not have an active plan. to subscribe to any of our plan, browse back to the home and click on get started")
+    else:
+        blog = Blog.objects.filter(premium = False)
     context = {'blog': blog}
     return render(request, template_name, context)
 
@@ -677,7 +690,7 @@ def process_payment(user_id, plan_id, first_name, last_name, amount, email, phon
         },
         "customer":{
             "email":email,
-            "phonenumber":phone_no,
+            "phonenumber":str(phone_no),
             "name":name
         },
         "customizations":{
