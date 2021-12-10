@@ -288,9 +288,9 @@ def create_blog(request):
     if request.method == 'POST':
         form = BlogForm(request.POST, request.FILES)
         if form.is_valid():
-            instance = form.save(commit=False)
-            instance.author = request.user
-            instance.save()
+            form.save(commit=False)
+            form.instance.author = request.user
+            form.save()
             messages.success(request, f"Blog created successfully")
             return redirect('admin-blog')
         messages.error(request, f"Unable to create blo, Try again")

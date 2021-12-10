@@ -52,8 +52,8 @@ class Blog(models.Model):
     latest_articles = models.BooleanField(default=False)
     featured_image = models.ImageField(null=True, blank=True, default="default.png", upload_to="blog_images/")
     premium = models.BooleanField(default=False)
-    created_on = models.DateTimeField(default=True)
-    updated_on = models.DateTimeField(default=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
     
 
     def __str__(self):
@@ -93,8 +93,8 @@ class SubscriptionHistory(models.Model):
     reference = models.CharField(max_length=200, unique=True, blank=False)
     transaction_id = models.CharField(max_length=200)
     status = models.CharField(max_length=200)
-    start_date = models.DateField()
-    expiry_date = models.DateField()
+    start_date = models.DateTimeField(auto_now_add=True)
+    expiry_date = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=False)
 
     def __str__(self):
