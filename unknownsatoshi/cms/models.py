@@ -52,8 +52,8 @@ class Blog(models.Model):
     latest_articles = models.BooleanField(default=False)
     featured_image = models.ImageField(null=True, blank=True, default="default.png", upload_to="blog_images/")
     premium = models.BooleanField(default=False)
-    created_on = models.DateTimeField(default=True)
-    updated_on = models.DateTimeField(default=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
     
 
     def __str__(self):
