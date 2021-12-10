@@ -42,7 +42,7 @@
                     <h2>NFT Arts</h2>
                     <div class="products-container">
                          {% for product in products %}
-                        <div class="product-container__item">
+                        <div class="product-container__item" id="nftCard">
                             <img src="{{product.featured_image.url}}" alt="picture of merch product">
                             <main>
                                 <div class="details-container">
@@ -58,7 +58,7 @@
                 </div>
 
                 <div class="pagination">
-                    <a>Load More<i class="ri-arrow-down-circle-line"></i></a>
+                    <a class="nftBtn">Load More<i class="ri-arrow-down-circle-line"></i></a>
                 </div>
             </section>
 
