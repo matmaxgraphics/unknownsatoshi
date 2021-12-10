@@ -8,7 +8,6 @@
         <section class="blog-post__section">
             <main class="article-section">
                 <h2>Latest Articles</h2>
-                
                 <div class="blog-post__container">
                    {% for blog in latest_article %}
                     <div class="blog-post__card" id="articleCard">
@@ -20,8 +19,21 @@
                             </div>
                         </a>
                     </div>
-                    {% endfor %}
-                    
+                    {% endfor %}  
+                </div>
+                <div class="blog-post__container">
+                    {% for blog in premium_latest_article %}
+                     <div class="blog-post__card" id="articleCard">
+                         <a href="{{blog.get_absolute_url}}">
+                             <img src="{{blog.featured_image.url }}" alt="demo image">
+                             <div class="text-container">
+                                 <h5>{{blog.title}}</h5>
+                                 <p>{{blog.snippet|safe}}<a style="color: #EE5717;" href="{% url 'blog-detail' blog.pk%}">..Read More...</a></p>
+                             </div>
+                         </a>
+                     </div>
+                     {% endfor %}  
+                 </div>
             </main>
             <div class="pagination">
                 <a class="articleBtn">Load More<i class="ri-arrow-down-circle-line"></i></a>
@@ -41,7 +53,19 @@
                             </div>
                         </a>
                     </div>
-
+                    {% endfor %}
+                </div>
+                <div class="blog-post__container">
+                    {% for blog in premium_latest_new %}
+                    <div class="blog-post__card" id="newsCard">
+                        <a href="{% url 'blog-detail' blog.pk %}">
+                            <img src="{{blog.featured_image.url }}" alt="demo image">
+                            <div class="text-container">
+                                <h5>{{blog.title}}</h5>
+                                <p>{{blog.snippet|safe}}<a style="color: #EE5717;" href="{% url 'blog-detail' blog.pk %}">..Read More...</a></p>
+                            </div>
+                        </a>
+                    </div>
                     {% endfor %}
                 </div>
             </main>
@@ -54,6 +78,20 @@
                 <h2>Featured Stories</h2>
                 <div class="blog-post__container">
                     {% for blog in featured_story %}
+                        <div class="blog-post__card" id="storyCard">
+                            <a href="#">
+                                <img src="{{blog.featured_image.url }}" alt="demo image">
+                                <div class="text-container">
+                                    <h5>{{blog.title}}</h5>
+                                    <p>{{blog.snippet|safe}}<a style="color: #EE5717;" href="{% url 'blog-detail' blog.pk %}">..Read More...</a> </p>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="blog-post__container">
+                    {% for blog in premium_featured_story %}
                         <div class="blog-post__card" id="storyCard">
                             <a href="#">
                                 <img src="{{blog.featured_image.url }}" alt="demo image">
