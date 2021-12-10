@@ -279,7 +279,6 @@ def admin_blog(request):
     context = {'blogs':blogs}
     return render(request, template_name, context)
 
-
 # admin create blog
 @login_required(login_url='admin-login')
 @allowed_user(allowed_roles=['admin'])
@@ -290,12 +289,12 @@ def create_blog(request):
     if request.method == 'POST':
         form = BlogForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save(commit=False)
-            form.instance.author = request.user
+            instance = form.save(commit=False)
+            instance.author = request.user
             form.save()
-            messages.success(request, f"Blog created successfully")
+            messages.success(request, f"Post created successfully")
             return redirect('admin-blog')
-        messages.error(request, f"Unable to create blo, Try again")
+        messages.error(request, f"Unable to create Post, Try again")
         return redirect("create-blog")
     else:
         form = BlogForm(request.POST, request.FILES)
@@ -513,7 +512,9 @@ def admin_delete_subscription(request, id):
 # normal pages for users views
 def home(request):
     template_name = 'cms/index.html'
-    return render(request, template_name)
+    blogs = Blog.objects.filter(home_page=True)
+    context = {"blogs":blogs}
+    return render(request, template_name, context)
 
 #
 def about(request):

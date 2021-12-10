@@ -4,7 +4,7 @@
 
 
 {% block content %}
-	<div class="page-wrapper" style="margin-top: -400px;">
+	<div class="page-wrapper" style="margin-top: -400px;">		
 		<header class="banner-wrapper">		
 			<section class="hero-section">
 				<div class="hero-section__title">
@@ -18,42 +18,27 @@
 				<img src="{% static './images/hero-img.png' %}" class="hero-img" alt="image of cryptocurrency trading signal">
 			</section>
 		</header>
+		
 
 
 		<section class="blog-section">
 			<h2>Blog Post</h2>
 			<h4>Don't know where to start? Check out some of our blog posts to know more about cryptocurrency</h4>
+			
 			<div class="blog-post__container">
+				{% if not user.is_authenticated %}
+				{% for blog in blogs %}
 				<div class="blog-post__card">
-					<a href="#">
-						<img src="{% static './images/img-1.jpg' %}" alt="demo image">
+					<a href="{{blog.get_absolute_url}}">
+						<img src="{{blog.featured_image.url}}" alt="demo image">
 						<div class="text-container">
-							<h5>The hidden mystery behind cryptocurrency</h5>
-							<p>I'm going to hire professional help tomorrow. I can't handle this anymore. She fell over the coffee table and now there is blood in her catheter...</p>
+							<h5>{{blog.title|title}}</h5>
+							<p>{{blog.home_snippet|safe}}</p>
 						</div>
 					</a>
 				</div>
-
-				<div class="blog-post__card">
-					<a href="#">
-						<img src="{% static './images/img-6.jpg' %}" alt="demo image">
-						<div class="text-container">
-							<h5><a href="#">How to grow your crypto currency portfolio</a></h5>
-							<p>I'm going to hire professional help tomorrow. I can't handle this anymore. She fell over the coffee table and now there is blood in her catheter...</p>
-						</div>
-					</a>
-				</div>
-
-				<div class="blog-post__card">
-					<a href="#">
-						<img src="{% static './images/img-2.jpg' %}" alt="demo image">
-						<div class="text-container">
-							<h5><a href="#">The hidden mystery behind cryptocurrency</a></h5>
-							<p>I'm going to hire professional help tomorrow. I can't handle this anymore. She fell over the coffee table and now there is blood in her catheter...</p>
-						</div>
-					</a>
-				</div>
-				
+				{% endfor %}
+				{% endif %}
 			</div>
 		</section>
 
