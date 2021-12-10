@@ -39,15 +39,18 @@
 		
 			<div class="navbar">
 				
-				<div class="navbar__Link navbar__Link-brand">
-					<a href="{% url 'home' %}" class="index-link">
-					<img src="{% static './images/logo.png' %}" class="navbar-logo" alt="website's logo">
-					</a>
-				</div>
+				{% block header_logo %}
+					<div class="navbar__Link navbar__Link-brand">
+						<a href="{% url 'home' %}" class="index-link">
+							<img src="{% static 'images/logo.png' %}" class="navbar-logo" alt="website's logo">
+						</a>
+					</div>
+				{% endblock header_logo %}
 				
 				<div class="profile-wrapper">
-					<a href="{% url 'user-profile' user.id %}"><img src="{% static 'images/user1.png' %}" class="img-profile"></i></a>
+					<a href="{% url 'user-profile' user.id %}"><img src="{{user.profile_picture.url}}" class="img-profile"></i></a>
 				</div>
+				
 				<div class="navbar__Link navbar__Link-toggle">
 					<img src=" {% static 'images/hamburger.png' %}" alt="site's hamburger">
 					<!-- <img src="assets/images/close-hamburger.png" alt="close menu" class="close-menu"> -->
@@ -94,7 +97,7 @@
                     {% else %}
 						<div class="navbar__Link">
 							<a class="login-link"  href="{% url 'user-login' %}">Login</a>
-							or
+							
 							<a class="btn hire-btn"  href="{% url 'register' %}">Sign Up</a>
 						</div>
                     {% endif%}
