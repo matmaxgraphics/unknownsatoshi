@@ -569,7 +569,6 @@ textarea {
   max-width: 360px;
   border-radius: 8px;
   margin-bottom: 24px;
-  display: none;
 }
 .course-section .course-container__item img {
   -o-object-fit: cover;
