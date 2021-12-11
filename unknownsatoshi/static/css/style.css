@@ -363,7 +363,6 @@ textarea {
     padding: 2px;
     width: 48px;
     height: 48px;
-    background-color: #222222;
     -ms-flex-item-align: end;
         align-self: flex-end;
     display: initial;
