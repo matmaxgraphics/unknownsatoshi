@@ -48,14 +48,13 @@ def user_register(request):
         else:
             user = User.objects.create(username=username, email=email, first_name=first_name, last_name=last_name, phone_no=phone_no,is_active=True, is_staff=False, is_superuser=False)
             user.set_password(password1)
-            user.is_active = False
+            user.is_active = True
             user.save()
             login(request, user)
             messages.success(request, f"Account for {user.email} created successfully")
             if "next" in request.POST:
                 return redirect(request.POST.get("next"))
             return redirect("home")
-
             # set up email activation
             # current_site = get_current_site(request)
             # subject = "Activate your Account"
@@ -111,7 +110,7 @@ def user_login(request):
 
             messages.success(request, f"login successful")
             return redirect("home")
-        messages.error(request, f"login attempt failed")
+        messages.error(request, f"login attempt failed, try again")
         return redirect("user-login")
     return render(request, template_name)
 
@@ -132,8 +131,9 @@ def user_profile(request, id):
     if request.method == 'POST':
         form = UserUpdateForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
-            form.is_active = True
-            form.save()
+            instance = form.save(commit=False)
+            instance.is_active = True
+            instance.save()
             messages.success(request, f"User updated successfully")
             return redirect("user-profile", id)
         messages.error(request, f"Unable to update user")

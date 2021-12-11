@@ -567,8 +567,9 @@ def trade_history(request):
 
 def onlinestore(request):
     template_name = 'cms/store.html'
-    products = Product.objects.all()
-    context = {'products':products}
+    merch_products = Product.objects.filter(product_category__name__icontains="merch")
+    nfts_products = Product.objects.filter(product_category__name__icontains="nfts")
+    context = {'merch_products':merch_products, "nfts_products":nfts_products}
     return render(request, template_name, context)
 
 
@@ -602,24 +603,31 @@ def blog_detail(request, pk):
     template_name = 'cms/single.html'
     blog = Blog.objects.get(id=pk)
     context = {'blog': blog}
-    user = request.user
-    premium_user = SubscriptionHistory.objects.filter(user=user, active=True).exists()
 
-    if user.is_authenticated and blog.premium and premium_user:
+
+    if not request.user or not request.user.is_authenticated :
+        context = {'blog': blog}
         return render(request, template_name, context)
-
-    if user.is_authenticated and blog.premium and not premium_user:
-        return HttpResponse("you do not have an active plan. to subscribe to any of our plan, browse back to the home and click on get started")
-
-    if user.is_authenticated and premium_user and not blog.premium:
-        return render(request, template_name, context)
-
-    if blog.premium and not user.is_authenticated:
-        return HttpResponse("you do not have an active plan. to subscribe to any of our plan, browse back to the home and click on get started")
     else:
-        blog = Blog.objects.filter(premium = False)
-    context = {'blog': blog}
-    return render(request, template_name, context)
+        return render(request, "cms/login-prompt.html")
+
+    # user = request.user
+    # premium_user = SubscriptionHistory.objects.filter(user=user, active=True).exists()
+    # if user.is_authenticated and blog.premium and premium_user:
+    #     return render(request, template_name, context)
+
+    # if not request.user.is_authenticated and blog.premium==True:
+    #     return render(request, "cms/login-prompt.html")
+
+    # if user.is_authenticated and blog.premium and not premium_user:
+    #     return render(request, "cms/plan-notify.html")
+
+    # if user.is_authenticated and premium_user and not blog.premium:
+    #     return render(request, template_name, context)
+
+    # else:   
+    #     context = {'blog': blog}
+    #     return render(request, template_name, context)
 
 
 # faq page
