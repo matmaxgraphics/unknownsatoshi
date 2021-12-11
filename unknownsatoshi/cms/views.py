@@ -598,37 +598,40 @@ def blog(request):
 
 
 
-# blog details
+# regular blog details
 def blog_detail(request, pk):
     template_name = 'cms/single.html'
     blog = Blog.objects.get(id=pk)
     context = {'blog': blog}
+    try:
+        if not request.user or not request.user.is_authenticated:
+            return render(request, template_name, context)
 
+        else:
+            return render(request, template_name, context)
+    except:
+        return render(request, "cms/login-prompt.html")
+        
 
-    if not request.user or not request.user.is_authenticated :
-        context = {'blog': blog}
-        return render(request, template_name, context)
-    else:
+#premium blog details
+def premium_blog_detail(request, pk):
+    template_name = 'cms/premium-single.html'
+    blog = Blog.objects.get(id=pk)
+    context = {"blog":blog}
+    try:
+        premium_user = SubscriptionHistory.objects.filter(user=request.user, active=True).exists()
+        if request.user.is_authenticated and blog.premium and premium_user:
+            return render(request, template_name, context)
+
+        if request.user.is_authenticated and premium_user and not blog.premium:
+            return render(request, template_name, context)
+        
+        if request.user.is_authenticated and blog.premium and not premium_user:
+            return render(request, "cms/plan-notify.html")
+    except:
         return render(request, "cms/login-prompt.html")
 
-    # user = request.user
-    # premium_user = SubscriptionHistory.objects.filter(user=user, active=True).exists()
-    # if user.is_authenticated and blog.premium and premium_user:
-    #     return render(request, template_name, context)
-
-    # if not request.user.is_authenticated and blog.premium==True:
-    #     return render(request, "cms/login-prompt.html")
-
-    # if user.is_authenticated and blog.premium and not premium_user:
-    #     return render(request, "cms/plan-notify.html")
-
-    # if user.is_authenticated and premium_user and not blog.premium:
-    #     return render(request, template_name, context)
-
-    # else:   
-    #     context = {'blog': blog}
-    #     return render(request, template_name, context)
-
+    
 
 # faq page
 def faqs(request):

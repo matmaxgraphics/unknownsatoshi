@@ -55,6 +55,7 @@ urlpatterns = [
     path('update-blog/<str:pk>/', views.update_blog, name='update-blog'),
     path('delete-blog/<str:pk>/', views.delete_blog, name='delete-blog'),
     path('blog-detail/<str:pk>/', views.blog_detail, name='blog-detail'),
+    path('premium-blog-detail/<str:pk>/', views.premium_blog_detail, name='premium-blog-detail'),
 
     #admin user section.
     path('admin-create-user/', views.admin_create_user, name="admin-create-user"),
