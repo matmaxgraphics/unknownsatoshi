@@ -606,10 +606,11 @@ def blog_detail(request, pk):
     try:
         if not request.user or not request.user.is_authenticated:
             return render(request, template_name, context)
+
         else:
             return render(request, template_name, context)
     except:
-            return render(request, "cms/login-prompt.html")
+        return render(request, "cms/login-prompt.html")
         
 
 #premium blog details
@@ -626,7 +627,7 @@ def premium_blog_detail(request, pk):
             return render(request, template_name, context)
         
         if request.user.is_authenticated and blog.premium and not premium_user:
-             return render(request, "cms/plan-notify.html")
+            return render(request, "cms/plan-notify.html")
     except:
         return render(request, "cms/login-prompt.html")
 
