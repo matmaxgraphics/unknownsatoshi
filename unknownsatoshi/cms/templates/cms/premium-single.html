@@ -1,34 +1,24 @@
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 {% load static %}
 
 
 
 
 {% block content %}    
-<body>
-	<div class="page-wrapper post-wrapper">	
-        <section class="article-wrapper">
-            <div class="post-details">
-                <span class="iconic-span"><i class="ri-calendar-line"></i>25th, Oct 2021</span>
-                <span class="iconic-span"><i class="ri-user-line"></i>25th, Oct 2021</span>
-            </div>
-            <div class="blog-content_container">
-                <img src="assets/images/img-3.jpg" class="blog-banner" alt="demo image for blog post">
+<div class="page-wrapper post-wrapper" style="margin-top: -380px;">
+    <section class="article-wrapper">
+        <div class="post-details">
+            <span class="iconic-span"><i class="ri-calendar-line"></i>{{blog.created_on|date}}</span>
+            <span class="iconic-span"><i class="ri-user-line"></i>{{blog.updated_on|date}}</span>
+        </div>
+        <div class="blog-content_container">
+            <img src="{{blog.featured_image.url}}" class="blog-banner" alt="demo image for blog post">
 
-                <h1 class="post-title">The hidden mystery behind cryptocurrency</h1>
-                <div class="post-content">
-                    <p>The shoes had been there for as long as anyone could remember. In fact, it was difficult for anyone to come up with a date they had first appeared. 
-                        It had seemed they'd always been there and yet they seemed so out of place. Why nobody had removed them was a question that had been asked time and again, 
-                        but while they all thought it, nobody had ever found the energy to actually do it. So, the shoes remained on the steps, out of place in one sense, but perfectly normal in another</p>
-                    <p>I recently discovered I could make fudge with just chocolate chips, sweetened condensed milk, vanilla extract, and a thick pot on slow heat. I tried it with dark chocolate chunks 
-                        and I tried it with semi-sweet chocolate chips. It's better with both kinds. It comes out pretty bad with just the dark chocolate. The best add-ins are crushed almonds and marshmallows -- 
-                        what you get from that is Rocky Road. It takes about twenty minutes from start to fridge, and then it takes about six months to work off the twenty pounds you gain from eating it. All things in moderation, friends. All things in moderation.</p>
-                        <p>The shoes had been there for as long as anyone could remember. In fact, it was difficult for anyone to come up with a date they had first appeared. 
-                            It had seemed they'd always been there and yet they seemed so out of place. Why nobody had removed them was a question that had been asked time and again, 
-                            but while they all thought it, nobody had ever found the energy to actually do it. So, the shoes remained on the steps, out of place in one sense, but perfectly normal in another</p>
-                        <br>
-                </div>
+            <h1 class="post-title">{{blog.title|title}}</h1>
+            <div class="post-content">
+                <p>{{blog.post|safe}}</p>
             </div>
-        </section>
-	</div>
+        </div>
+    </section>
+</div>
 {% endblock content %}
