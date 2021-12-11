@@ -604,31 +604,31 @@ def blog_detail(request, pk):
     blog = Blog.objects.get(id=pk)
     context = {'blog': blog}
 
-
     if not request.user or not request.user.is_authenticated :
         context = {'blog': blog}
         return render(request, template_name, context)
     else:
         return render(request, "cms/login-prompt.html")
 
-    # user = request.user
-    # premium_user = SubscriptionHistory.objects.filter(user=user, active=True).exists()
-    # if user.is_authenticated and blog.premium and premium_user:
-    #     return render(request, template_name, context)
+   
+def premium_blog_detail(request, pk):
+    template_name = 'cms/premium-single.html'
+    blog = Blog.objects.get(id=pk)
+    user = request.user
+    context = {"blog":blog}
+    premium_user = SubscriptionHistory.objects.filter(user=user, active=True).exists()
 
-    # if not request.user.is_authenticated and blog.premium==True:
-    #     return render(request, "cms/login-prompt.html")
+    if user.is_authenticated and blog.premium and premium_user:
+        return render(request, template_name, context)
 
-    # if user.is_authenticated and blog.premium and not premium_user:
-    #     return render(request, "cms/plan-notify.html")
+    if not request.user.is_authenticated and blog.premium==True:
+        return render(request, "cms/login-prompt.html")
 
-    # if user.is_authenticated and premium_user and not blog.premium:
-    #     return render(request, template_name, context)
+    if user.is_authenticated and blog.premium and not premium_user:
+        return render(request, "cms/plan-notify.html")
 
-    # else:   
-    #     context = {'blog': blog}
-    #     return render(request, template_name, context)
-
+    if user.is_authenticated and premium_user and not blog.premium:
+        return render(request, template_name, context)
 
 # faq page
 def faqs(request):
