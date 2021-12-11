@@ -14,7 +14,7 @@
                 <div class="product-wrapper">
                     <h2>Merch</h2>
                     <div class="products-container">
-                    {% for product in products %}
+                    {% for product in merch_products %}
                         <div class="product-container__item">
                             <img src="{{product.featured_image.url}}" alt="picture of merch product">
                             <main>
@@ -41,7 +41,7 @@
                 <div class="product-wrapper">
                     <h2>NFT Arts</h2>
                     <div class="products-container">
-                         {% for product in products %}
+                         {% for product in nfts_products %}
                         <div class="product-container__item" id="nftCard">
                             <img src="{{product.featured_image.url}}" alt="picture of merch product">
                             <main>

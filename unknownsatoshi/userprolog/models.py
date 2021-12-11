@@ -83,7 +83,7 @@ def create_profile(sender, created, instance, **kwargs):
         admin_group.permissions.set(permission_list)
         admin_group.user_set.add(user)
         admin_group.save()
-    else:
+    elif user.is_superuser == False and user.is_staff == False:
         user_group, created = Group.objects.get_or_create(name='user')
         user_group.user_set.add(user)
         user_group.save()
