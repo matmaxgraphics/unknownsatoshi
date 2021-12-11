@@ -602,6 +602,10 @@ def blog_detail(request, pk):
     template_name = 'cms/single.html'
     blog = Blog.objects.get(id=pk)
     context = {'blog': blog}
+    if not request.user or not request.user.is_authenticated:
+        context = {'blog': blog}
+        return render(request, template_name, context)
+
     user = request.user
     premium_user = SubscriptionHistory.objects.filter(user=user, active=True).exists()
 
