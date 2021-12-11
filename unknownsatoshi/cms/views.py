@@ -616,7 +616,6 @@ def blog_detail(request, pk):
 def premium_blog_detail(request, pk):
     template_name = 'cms/premium-single.html'
     blog = Blog.objects.get(id=pk)
-    
     context = {"blog":blog}
     try:
         premium_user = SubscriptionHistory.objects.filter(user=request.user, active=True).exists()
@@ -628,9 +627,6 @@ def premium_blog_detail(request, pk):
         
         if request.user.is_authenticated and blog.premium and not premium_user:
              return render(request, "cms/plan-notify.html")
-
-        if request.user.is_authenticated and blog.premium and not premium_user:
-            return render(request, "cms/plan-notify.html")
     except:
         return render(request, "cms/login-prompt.html")
 
