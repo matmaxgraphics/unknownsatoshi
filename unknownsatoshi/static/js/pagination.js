@@ -52,11 +52,3 @@ storyButton.addEventListener('click', (e) => {
     }
 })
 
-/*==PAGINATION SCRIPT FOR COURSE PAGE==*/
-$(".course-container__item").slice(0, 3).show()
-    $(".coursePage").on("click", function(){
-        $(".course-container__item:hidden").slice(0, 3).slideDown()
-        if($(".course-container__item:hidden").length == 0){
-            $(".coursePage").fadeOut('slow')
-        }
-})
