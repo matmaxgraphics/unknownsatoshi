@@ -9,8 +9,7 @@ from .forms import *
 import time
 from userprolog.models import User
 from django.contrib import messages
-from .payment_helper import get_subscription_details
-from django.contrib.auth.models import AnonymousUser
+from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login,logout
 from django.views.decorators.http import require_http_methods
@@ -749,23 +748,25 @@ def payment_response(request):
     print("REFERENCE ID IS", tx_ref)
     print("TRANSACTION ID IS", transaction_id, "\n")
     print("#" * 100,"\n")
+
     if SubscriptionHistory.objects.filter(reference=tx_ref).exists():
         pass
     else:
-        SubscriptionHistory.objects.create(
+        subscription = SubscriptionHistory.objects.create(
             user_id=user_id, 
             plan_id=plan_id, 
             amount_paid=amount, 
             email=email,
             full_name=full_name,
-            phone_no=phone_no, 
+            phone_no=int(phone_no), 
             reference = tx_ref, 
-            transaction_id=transaction_id, 
+            transaction_id=transaction_id,
             status=status,
             active=True
         )
-    time.sleep(3)
-    return redirect("home")
+        subscription.save()
+        time.sleep(5)
+        return redirect("home")
 
 
 def newsletter(request):
