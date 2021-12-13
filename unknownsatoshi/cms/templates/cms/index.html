@@ -28,7 +28,7 @@
 			<div class="blog-post__container">
 				{% if not user.is_authenticated %}
 				{% for blog in blogs %}
-				<div class="blog-post__card">
+				<div class="blog-post__card" id="index-blog">
 					<a href="{{blog.get_absolute_url}}">
 						<img src="{{blog.featured_image.url}}" alt="demo image">
 						<div class="text-container">
@@ -170,8 +170,7 @@
 		<section class="trading-section">
 			<div class="description-container">
 				<h2>We Provide you the best trading signal</h2>
-				<p>Focusing on the latest investigations, we can positively say that in the 
-					context of big impact becomes a key factor of The Functionality of Corresponding Property" 
+				<p>Join hundreds already benefitting. Beginner or Pro, Unknown Satoshi Community is the place for you. Crypto signals, market analysis, NFT's and more, all in one place.
 				</p>
 				<a class="btn" href="{% url 'plan-list' %}">Get Started</a>
 			</div>

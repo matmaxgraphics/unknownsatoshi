@@ -499,6 +499,18 @@ textarea {
   margin-bottom: 24px;
   background: #1A1919;
 }
+.blog-section #index-blog{
+  display: none;
+}
+.blog-section #index-blog:nth-child(1){
+  display: block;
+}
+.blog-section #index-blog:nth-child(2){
+  display: block;
+}
+.blog-section #index-blog:nth-child(3){
+  display: block;
+}
 .blog-section .blog-post__card img {
   -o-object-fit: cover;
      object-fit: cover;
@@ -1382,6 +1394,30 @@ footer .footer-content__item .links a:hover {
   border-radius: 8px;
   margin: 12px;
   background-color: #1D1D1D;
+}
+.products-container #merchCard{
+  display: none;
+}
+.products-container #merchCard:nth-child(1) {
+  display: block;
+}
+.products-container #merchCard:nth-child(2) {
+  display: block;
+}
+.products-container #merchCard:nth-child(3) {
+  display: block;
+}
+.products-container #nftCard{
+  display: none;
+}
+.products-container #nftCard:nth-child(1) {
+  display: block;
+}
+.products-container #nftCard:nth-child(2) {
+  display: block;
+}
+.products-container #nftCard:nth-child(3) {
+  display: block;
 }
 .products-container .product-container__item img {
   -o-object-fit: cover;
@@ -2852,6 +2888,13 @@ footer .footer-content__item .links a:hover {
 }
 
 /*======MISCELANEOUS STYLING====*/
+.auth-wrapper{
+  height: 50rem;
+}
+.auth-wrapper .navbar-logo{
+  width: 70px;
+  height: auto;
+}
 .sub-plan{
   padding: 24px;
   margin-top: 68px;

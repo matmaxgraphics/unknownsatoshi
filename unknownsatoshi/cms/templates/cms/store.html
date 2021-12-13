@@ -15,7 +15,7 @@
                     <h2>Merch</h2>
                     <div class="products-container">
                     {% for product in merch_products %}
-                        <div class="product-container__item">
+                        <div class="product-container__item" id="merchCard">
                             <img src="{{product.featured_image.url}}" alt="picture of merch product">
                             <main>
                                 <div class="details-container">
@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="pagination">
-                    <a>Load More<i class="ri-arrow-down-circle-line"></i></a>
+                    <a class="merchBtn">Load More<i class="ri-arrow-down-circle-line"></i></a>
                 </div>
             </section>
 
@@ -71,6 +71,6 @@
 	</div>
 
 
-  
+ 
 </body>
 {% endblock content %}
