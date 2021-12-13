@@ -499,6 +499,18 @@ textarea {
   margin-bottom: 24px;
   background: #1A1919;
 }
+.blog-section #index-blog{
+  display: none;
+}
+.blog-section #index-blog:nth-child(1){
+  display: block;
+}
+.blog-section #index-blog:nth-child(2){
+  display: block;
+}
+.blog-section #index-blog:nth-child(3){
+  display: block;
+}
 .blog-section .blog-post__card img {
   -o-object-fit: cover;
      object-fit: cover;

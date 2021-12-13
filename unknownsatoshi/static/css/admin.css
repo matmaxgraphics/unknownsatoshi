@@ -566,6 +566,10 @@ h2 {
   margin-top: 8px;
   width: 100%;
 }
+#cke_id_post{
+  width: 100% !important;
+}
+
 .add-post .fields-wrapper .ck-content {
   background-color: #434343;
   color: #000;
@@ -576,8 +580,8 @@ h2 {
   background-color: unset;
 }
 .add-post .fields-wrapper .form-body {
-  resize: both;
-  height: 200px;
+  resize: none;
+  height: 100%;
   background-color: #434343;
 }
 .add-post .fields-wrapper input[type=file] {
