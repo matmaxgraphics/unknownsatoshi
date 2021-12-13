@@ -1,17 +1,14 @@
 import math
-import random
-from django.http.response import HttpResponse
-import requests
-
-from cms.mailing_helper import UserRegisterationNotification
-from .models import *
-from .forms import *
 import time
+import random
+import requests
+from .forms import *
+from .models import *
 from userprolog.models import User
 from django.contrib import messages
-from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login,logout
+from cms.mailing_helper import UserRegisterationNotification
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404, render, redirect
 from .decorators import unauthenticated_user, allowed_user, admin_only
@@ -42,14 +39,6 @@ def admin_logout(request):
     logout(request)
     messages.success(request, f"Logout  Successful")
     return redirect("admin-login")
-
-# #admin views for trade history
-# @login_required(login_url='admin-login')
-# @allowed_user(allowed_roles=['admin'])
-# @admin_only
-# def admin_panel(request):
-#     template_name = 'cms/admin-index.html'
-#     return render(request, template_name)
 
 
 # admin history view
@@ -750,7 +739,8 @@ def payment_response(request):
     print("#" * 100,"\n")
 
     if SubscriptionHistory.objects.filter(reference=tx_ref).exists():
-        pass
+        messages.error(request, f"your email {user.email} has an active plan already")
+        return redirect("home")
     else:
         subscription = SubscriptionHistory.objects.create(
             user_id=user_id, 
@@ -758,7 +748,7 @@ def payment_response(request):
             amount_paid=amount, 
             email=email,
             full_name=full_name,
-            phone_no=int(phone_no), 
+            phone_no=phone_no, 
             reference = tx_ref, 
             transaction_id=transaction_id,
             status=status,
