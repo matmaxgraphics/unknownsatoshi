@@ -4,7 +4,8 @@ from .views import *
 
 urlpatterns = [
     path('user-registration', user_register, name='register'),
-    # path('account/activate/<str:uidb64>/<str:token>', account_activation, name="account-activation"),
+    path('account/activate/<str:uidb64>/<str:token>', account_activation, name="account-activation"),
+    path("activation-success", activation_success, name="activation-success"),
     path('login/user', user_login, name='user-login'),
     path('logout', user_logout, name="user-logout"),
     path('user/profile/<str:id>', user_profile, name="user-profile"),
