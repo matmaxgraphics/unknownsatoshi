@@ -14,6 +14,7 @@ from cms.mailing_helper import UserRegisterationNotification
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text, force_bytes
+from django.utils.html import strip_tags
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
 
@@ -48,48 +49,52 @@ def user_register(request):
         else:
             user = User.objects.create(username=username, email=email, first_name=first_name, last_name=last_name, phone_no=phone_no,is_active=True, is_staff=False, is_superuser=False)
             user.set_password(password1)
-            user.is_active = True
+            user.is_active = False
             user.save()
-            login(request, user)
-            messages.success(request, f"Account for {user.email} created successfully")
             if "next" in request.POST:
                 return redirect(request.POST.get("next"))
-            return redirect("home")
+    
             # set up email activation
-            # current_site = get_current_site(request)
-            # subject = "Activate your Account"
-            # message = render_to_string('userprolog/activate_account.html',{
-            #     'user': user,
-            #     'domain': current_site.domain,
-            #     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-            #     'token':account_activation_token.make_token(user),
-            # })
-            # send_mail = UserRegisterationNotification(email_subject=subject, email_body=message, sender_email=DEFAULT_FROM_EMAIL, receiver_email=user.email)
-            # send_mail.mail_user()      
-            # messages.success(request,f"Account successfuly created, check your email for account activation link")
-            # return render(request, "userprolog/activation_link_sent.html")
+            current_site = get_current_site(request)
+            subject = "Activate your Account"
+            html_message = render_to_string('userprolog/activate_account.html',{
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token':account_activation_token.make_token(user),
+            })
+            message = strip_tags(html_message)
+            send_mail = UserRegisterationNotification(email_subject=subject, email_body=message, sender_email=DEFAULT_FROM_EMAIL, receiver_email=user.email)
+            send_mail.mail_user()
+            return render(request, "userprolog/activation_link_sent.html")
     else:
         return render(request, template_name)
 
 
-#  #activate account       
-# def account_activation(request, uidb64, token):
-#     uid = None
-#     user = None
-#     try:
-#         uid = force_text(urlsafe_base64_decode(uidb64))
-#         user = get_object_or_404(User, pk=uid)
-#     except:
-#         pass
+#activate account       
+def account_activation(request, uidb64, token):
+    uid = None
+    user = None
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = get_object_or_404(User, pk=uid)
+    except:
+        pass
     
-#     if user is not None and account_activation_token.check_token(user, token):
-#         user.is_active = True
-#         user.save()
-#         login(request, user)
-#         return redirect("activation-success")
-#     else:
-#         template_name = "userprolog/activation_invalid.html"
-#         return render(request, template_name)
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+        return redirect("activation-success")
+    else:
+        template_name = "userprolog/activation_invalid.html"
+        return render(request, template_name)
+
+
+def activation_success(request):
+    template_name = "userprolog/activation_success.html"
+    return render(request, template_name)
+
 
 # user login
 @unauthenticated_user
