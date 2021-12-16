@@ -2864,6 +2864,7 @@ footer .footer-content__item .links a:hover {
   display: block;
   margin-bottom: 24px;
   margin-top: 12px;
+  max-width: 100%;
 }
 
 .reset-page{
