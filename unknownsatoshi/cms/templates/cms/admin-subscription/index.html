@@ -34,16 +34,16 @@
                 <tbody>
                   {% for sub in subscriptions %}
                     <tr>
-                      <td data-label="Date">{{ sub.user }}</td>
-                      <td data-label="Coin pair">{{ sub.email }}</td>
-                      <td data-label="Entry">{{ sub.full_name }}</td>
-                      <td data-label="stop loss">{{ sub.phone_no }}</td>
-                      <td data-label="tp target">{{ sub.plan }}</td>
-                      <td data-label="tp achieved">{{ sub.amount_paid }}</td>
-                      <td data-label="% profit">{{ sub.reference }}</td>
-                      <td data-label="% profit">{{ sub.transaction_id }}</td>
-                      <td data-label="% profit">{{ sub.status }}</td>
-                      <td data-label="% profit">{{ sub.active }}</td>
+                      <td data-label="User">{{ sub.user }}</td>
+                      <td data-label="Email">{{ sub.email }}</td>
+                      <td data-label="Full Name">{{ sub.full_name }}</td>
+                      <td data-label="Phone No">{{ sub.phone_no }}</td>
+                      <td data-label="Plan">{{ sub.plan }}</td>
+                      <td data-label="Amount Paid">{{ sub.amount_paid }}</td>
+                      <td data-label="Reference">{{ sub.reference }}</td>
+                      <td data-label="Transaction Id">{{ sub.transaction_id }}</td>
+                      <td data-label="Status">{{ sub.status }}</td>
+                      <td data-label="Active">{{ sub.active }}</td>
                       <td><a style="color: rgb(233, 143, 25);" href="{% url 'delete-subscription' sub.id %}" class="edit">Delete</a></td>		        
                     </tr>
                   {% endfor %} 
