@@ -187,7 +187,41 @@
 <!--CUSTOM JAVASCRIPT-->
 <script src="{% static 'js/script.js' %}"></script>
 <script src="{% static 'js/pagination.js' %}"></script>
+<script>
+    const loadmore = document.querySelector('.merchBtn');
+    let currentItems = 3;
+    loadmore.addEventListener('click', (e) => {
+        const elementList = [...document.querySelectorAll('.products-container #merchCard')];
+        for (let i = currentItems; i < currentItems + 3; i++) {
+            if (elementList[i]) {
+                elementList[i].style.display = 'block';
+            }
+        }
+        currentItems += 3;
 
+        // Load more button will be hidden after list fully loaded
+        if (currentItems >= elementList.length) {
+            event.target.style.display = 'none';
+        }
+    })
+
+	const nftButton = document.querySelector('.nftBtn');
+    let nftItems = 3;
+    nftButton.addEventListener('click', (e) => {
+        const nftList = [...document.querySelectorAll('.products-container #nftCard')];
+        for (let i = nftItems; i < nftItems + 3; i++) {
+            if (nftList[i]) {
+                nftList[i].style.display = 'block';
+            }
+        }
+        nftItems += 3;
+
+        // Load more button will be hidden after list fully loaded
+        if (nftItems >= nftList.length) {
+            event.target.style.display = 'none';
+        }
+    })
+</script>
 
 <!--OWL CAROUSEL 2 CDN-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
