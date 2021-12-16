@@ -8,10 +8,8 @@
         <section class="user-profile">
             
             <div class="user-image">
-                <img src="{{user.profile_picture.url}}" alt="user's profile image">
+                <img src="{{ user.profile_picture.url }}" alt="user's profile image">
                 <h4>{{user.username}}</h4>
-                {% comment %} <form action="{% url 'user-profile' user.id %}" method="get">
-                </form> {% endcomment %}
             </div>
 
             <div class="profile-description">
@@ -20,7 +18,6 @@
                     <p><label for="username">Username:</label> {{user.username}}</p>
                     <p><label for="email">Email:</label> {{ user.email }}</p>
                     <p><label for="fullname">Full Name:</label> {{ user.first_name|title }} {{user.last_name|title}}</p>
-                    
                 </div>
                 <div class="profile-fields">
                     <h4>Update Profile</h4>               
@@ -51,8 +48,7 @@
                             {{ form.phone_no }}
                         </div>
 
-                        <div>
-                            <label for="image">Change Picture</label>    
+                        <div>  
                             {% for field in form %}   
                                 {% if field.field.widget.input_type == "file" %}
                                     <label for="">{{field.label}}</label>
@@ -60,12 +56,6 @@
                                 {% endif %}             
                             {% endfor %}
                         </div>
-                        
-                        {% if form.errors %}
-                            <div>
-                                {{ field.errors }}
-                            </div>
-                        {% endif %}
                             
                         <button class="btn" type="submit" name="save-btn">Save Changes</button>
                       </form>

@@ -4,11 +4,19 @@ from django.http import request
 from userprolog.models import User
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.dispatch import receiver
+from django.db.models.signals import post_save, pre_save
 from userprolog.models import User
 from django.contrib import messages
+from datetime import datetime, timedelta
+from django.utils import timezone
 
+
+
+
+today = datetime.now().today()
 class ProductCategory(models.Model):
     name = models.CharField(max_length=150, blank=True)
 
@@ -107,71 +115,20 @@ class SubscriptionHistory(models.Model):
     reference = models.CharField(max_length=200, unique=True, blank=False)
     transaction_id = models.CharField(max_length=200)
     status = models.CharField(max_length=200)
-    start_date = models.DateField()
-    expiry_date = models.DateField()
+    start_date = models.DateField(default=timezone.now())
+    expiry_date = models.DateField(default=None)
     active = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
 
-    # @property
-    # def plan_start_date(self):
-    #     start_date = datetime.now().today()
-    #     return start_date
 
-
-    # @property
-    # def plan_expiry_date(self, slug):
-    #     start_date = datetime.now().date()
-    #     plan = Plan.objects.get(slug=slug)
-    #     plan_id = plan.slug
-
-    #     if plan_id == "monthly-plan":
-    #         expiry_date = start_date + timedelta(days=30)
-    #         return expiry_date
-
-    #     if plan_id == "quarterly-plan":
-    #         expiry_date = start_date + timedelta(days=90)
-    #         return expiry_date
-        
-    #     if plan_id == "half-a-year-plan":
-    #         expiry_date = start_date + timedelta(days=180)
-    #         return expiry_date
-    #     else:
-    #         pass
-  
-    def save(self, *args, **kwargs):
-        self.start_date = datetime.now().today()
-        id = self.kwargs.get('id')
-        plan = get_object_or_404(Plan, id=id)
-        user = get_object_or_404(User, id=id)
-        plan_slug = plan.id
-        
-
-        print("PLAN ID AT THE MODEL IS", plan_slug)
-        print("USER ID IN MODEL IS", user.id)
-        
-        existing_plan = SubscriptionHistory.objects.filter(plan_id=plan.id, active=True, user_id=user.id).exists()
-        if existing_plan:
-            messages.error(request, "you already have an active plan, wait for expiry date before subscribing to a new plan")
-        else:
-            pass
-
-        if plan_slug == "monthly-plan":
-            self.expiry_date = self.start_date + timedelta(days=30)
-            return self.expiry_date
-
-        if plan_slug == "quarterly-plan":
-            self.expiry_date = self.start_date + timedelta(days=90)
-            return self.expiry_date
-        
-        if plan_slug == "half-a-year-plan":
-            self.expiry_date = self.start_date + timedelta(days=180)
-            return self.expiry_date
-        else:
-            pass
-
-        super(self).save(*args, **kwargs)
+# @receiver(pre_save, sender=SubscriptionHistory)
+# def update_activeness(sender, instance, *args, **kwargs):
+#     if instance.expiry_date < today:
+#         instance.active = False
+#     else:
+#         instance.active = True
 
 
 class Newsletter(models.Model):

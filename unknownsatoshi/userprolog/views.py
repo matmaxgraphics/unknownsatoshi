@@ -1,4 +1,6 @@
 from django.contrib.auth.models import Group
+from django.core.mail import send_mail
+from cms.mailing_helper import UserRegisterationNotification
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, get_object_or_404
@@ -47,9 +49,8 @@ def user_register(request):
             messages.error(request, "password do not match")
             return redirect("register")
         else:
-            user = User.objects.create(username=username, email=email, first_name=first_name, last_name=last_name, phone_no=phone_no,is_active=True, is_staff=False, is_superuser=False)
+            user = User.objects.create(username=username, email=email, first_name=first_name, last_name=last_name, phone_no=phone_no,is_active=False, is_staff=False, is_superuser=False)
             user.set_password(password1)
-            user.is_active = False
             user.save()
             if "next" in request.POST:
                 return redirect(request.POST.get("next"))
@@ -73,6 +74,9 @@ def user_register(request):
 
 #activate account       
 def account_activation(request, uidb64, token):
+    admin_user = User.objects.filter(is_superuser=True)
+    subject = "Account Activation Status"
+    message = "Your account has been successfully activate, you can proceed to login if you are already not logged in"
     uid = None
     user = None
     try:
@@ -85,6 +89,10 @@ def account_activation(request, uidb64, token):
         user.is_active = True
         user.save()
         login(request, user)
+        for ad_user in admin_user:
+            send_mail = UserRegisterationNotification(email_subject=subject, email_body=message, sender_email=DEFAULT_FROM_EMAIL, receiver_email=ad_user.email)
+        send_mail.mail_user
+        #send_mail.mail_admin
         return redirect("activation-success")
     else:
         template_name = "userprolog/activation_invalid.html"
