@@ -5,7 +5,6 @@ from django.core.mail import send_mail
 
 
 
-
 # send mail notification to users and admin after successful registeration
 class UserRegisterationNotification():
     def __init__(self, email_subject, email_body, sender_email, receiver_email):
