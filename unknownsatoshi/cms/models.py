@@ -123,12 +123,12 @@ class SubscriptionHistory(models.Model):
         return self.user.username
 
 
-# @receiver(pre_save, sender=SubscriptionHistory)
-# def update_activeness(sender, instance, *args, **kwargs):
-#     if instance.expiry_date < today:
-#         instance.active = False
-#     else:
-#         instance.active = True
+@receiver(pre_save, sender=SubscriptionHistory)
+def update_activeness(sender, instance, *args, **kwargs):
+    if instance.expiry_date < today:
+        instance.active = False
+    else:
+        instance.active = True
 
 
 class Newsletter(models.Model):
