@@ -6,6 +6,7 @@ from .forms import *
 from .models import *
 from userprolog.models import User
 from django.contrib import messages
+#from .models import create_subscription
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login,logout
 from cms.mailing_helper import UserRegisterationNotification
@@ -672,6 +673,7 @@ amount_paid = ""
 # process plan payment
 def process_payment(user_id, plan_id, first_name, last_name, amount, email, phone_no, plan_title, plan_desc):
     global amount_paid
+    amount_paid = amount
     name = f"{first_name} {last_name}".capitalize()
     auth_token= FLW_SANDBOX_SECRET_KEY
     hed = {'Authorization': 'Bearer ' + auth_token}
@@ -703,16 +705,10 @@ def process_payment(user_id, plan_id, first_name, last_name, amount, email, phon
     response = requests.post(url, json=data, headers=hed)
     response=response.json()
     link=response['data']['link']
-
-    plan_id_history = data["plan_id"]
-    amount_paid = data["amount"]
-    print("PLAN ID IN process_payment() function is ", plan_id_history)
-    print("AMOUNT IN process_payment() function is ", amount_paid)
     return link
 
 
 # returns subscription's transaction_id, transaction_reference and transaction_status
-@login_required(login_url="user-login")
 @require_http_methods(['GET', 'POST'])
 def payment_response(request):
     user = request.user
@@ -722,40 +718,78 @@ def payment_response(request):
     full_name = f"{user.first_name} {user.last_name}"
     email = user.email
     phone_no = user.phone_no
-    status=request.GET.get('status', None)
-    tx_ref=request.GET.get('tx_ref', None)
-    transaction_id = request.GET.get('transaction_id', None)
-    
-    print("#" * 100,"\n")
-    print("USER ID IN payment_response() FUNCTION IS", user_id)
-    print("FULL NAME is", full_name)
-    print("EMAIL is", email)
-    print("PHONE NUMBER is", phone_no)
-    print("PLAN ID IS", plan_id)
-    print("AMOUNT IN payment_response() FUNCTION IS", amount)
-    print("STATUS IS", status)
-    print("REFERENCE ID IS", tx_ref)
-    print("TRANSACTION ID IS", transaction_id, "\n")
-    print("#" * 100,"\n")
+    tx_ref = request.GET.get('tx_ref' or None)
+    status = request.GET.get('status' or None)
+    transaction_id = request.GET.get('transaction_id' or None)
 
+    print("USER IS",user)
+    print("USER ID IS", user_id)
+    print("PLAN ID IS",plan_id)
+    print("AMOUNT PAID IS", amount)
+    print("FULL NAME IS", full_name)
+    print("EMAIL IS", email)
+    print("PHONE NUMBER IS", phone_no)
+    print("TREANSACTION REFERENCE NUMBER IS", tx_ref)
+    print("TRANSACTION STATUS IS", status)
+    print("TRANSACTION ID IS", transaction_id)
+    
     if SubscriptionHistory.objects.filter(reference=tx_ref).exists():
-        messages.error(request, f"your email {user.email} has an active plan already")
+        messages.error(request, f"your email {user_id} has an active plan already")
         return redirect("home")
     else:
-        subscription = SubscriptionHistory.objects.create(
+        pass
+    #create_subscription(plan_id=plan_id)
+    if plan_id == 1 :
+        expiry_date = today + timedelta(days=30)
+        SubscriptionHistory.objects.create(
+            user_id=user_id, 
+            plan_id=plan_id, 
+            amount_paid=amount, 
+            email=user.email,
+            full_name=full_name,
+            phone_no=phone_no, 
+            reference = tx_ref, 
+            transaction_id=transaction_id,
+            status=status,
+            exipry_date=expiry_date,
+            active=True
+        )
+        time.sleep(3)
+        return redirect("home")
+    if plan_id == 2:
+        expiry_date = today + timedelta(days=90)
+        SubscriptionHistory.objects.create(
             user_id=user_id, 
             plan_id=plan_id, 
             amount_paid=amount, 
             email=email,
             full_name=full_name,
             phone_no=phone_no, 
-            reference = tx_ref, 
+            reference=tx_ref, 
             transaction_id=transaction_id,
             status=status,
+            expiry_date=expiry_date,
+            active=True,
+        )
+        time.sleep(3)
+        return redirect("home")
+    if plan_id == 3:
+        expiry_date = today + timedelta(days=180)
+        SubscriptionHistory.objects.create(
+            user_id=user_id, 
+            plan_id=plan_id, 
+            amount_paid=amount, 
+            email=email,
+            full_name=full_name,
+            phone_no=phone_no, 
+            reference=tx_ref, 
+            transaction_id=transaction_id,
+            status=status,
+            expiry_date=expiry_date,
             active=True
         )
-        subscription.save()
-        time.sleep(5)
+        time.sleep(3)
+        print("PLAN ID IN PROCESS PAYMENT IS", plan_id)
         return redirect("home")
 
 
