@@ -2930,3 +2930,19 @@ footer .footer-content__item .links a:hover {
   max-width: 800px;
   margin: auto;
 }
+.password-reset{
+  margin-top: 48px;
+}
+#id_new_password1, #id_new_password2{
+  background-color: #434343;
+  color: #fff;
+  padding: 10px;
+  height: 54px;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: "poppins", sans-serif;
+  width: 100%;
+  margin-top: 12px;
+}
