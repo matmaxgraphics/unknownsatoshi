@@ -6,7 +6,7 @@ from .forms import *
 from .models import *
 from userprolog.models import User
 from django.contrib import messages
-#from .models import create_subscription
+from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login,logout
 from cms.mailing_helper import UserRegisterationNotification
@@ -709,6 +709,8 @@ def process_payment(user_id, plan_id, first_name, last_name, amount, email, phon
 
 
 # returns subscription's transaction_id, transaction_reference and transaction_status
+today = date.today()
+@login_required(login_url="user-login")
 @require_http_methods(['GET', 'POST'])
 def payment_response(request):
     user = request.user

@@ -1,22 +1,20 @@
 import uuid
 from django.db import models
-from django.http import request
 from userprolog.models import User
-from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from datetime import date, datetime, timedelta, timezone
+from datetime import date
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.dispatch import receiver
-from django.db.models.signals import post_save, pre_save
+from django.db.models.signals import pre_save
 from userprolog.models import User
-from django.contrib import messages
-from datetime import datetime, timedelta
-from django.utils import timezone
+from unknownsatoshi.settings import DEFAULT_FROM_EMAIL
+from .mailing_helper import UserSubscriptionNotification
 
 
 
 
-today = datetime.now().today()
+
+today = date.today()
 class ProductCategory(models.Model):
     name = models.CharField(max_length=150, blank=True)
 
@@ -115,7 +113,7 @@ class SubscriptionHistory(models.Model):
     reference = models.CharField(max_length=200, unique=True, blank=False)
     transaction_id = models.CharField(max_length=200)
     status = models.CharField(max_length=200)
-    start_date = models.DateField(default=timezone.now())
+    start_date = models.DateField(default=today)
     expiry_date = models.DateField(default=None)
     active = models.BooleanField(default=False)
 
@@ -125,8 +123,14 @@ class SubscriptionHistory(models.Model):
 
 @receiver(pre_save, sender=SubscriptionHistory)
 def update_activeness(sender, instance, *args, **kwargs):
-    if instance.expiry_date < today:
+    if instance.expiry_date == today:
         instance.active = False
+        print("PLAN IS", instance.plan)
+        print("USER EMAIL IS", instance.user.email)
+        subject = "Your plan has expired"
+        message = f"your {instance.plan} has expired, resubscribe to have access to our premium contents"
+        send_mail = UserSubscriptionNotification(email_subject=subject, email_body=message, sender_email=DEFAULT_FROM_EMAIL, receiver_email=instance.user.email)
+        send_mail.mail_user
     else:
         instance.active = True
 
