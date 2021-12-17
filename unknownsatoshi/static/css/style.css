@@ -209,7 +209,7 @@ textarea {
 /*======ALTERNATIVE STYLING======*/
 /*=====NAVIGATION BAR STYLING=====*/
 .banner-wrapper {
-  min-height: 80vh;
+  min-height: 15vh;
 }
 
 .navbar {
@@ -305,6 +305,7 @@ textarea {
     background-color: #0A0909;
     position: fixed;
     width: 100%;
+    top: 0;
   }
   .navbar .profile {
     display: none;
@@ -406,6 +407,7 @@ textarea {
   display: -ms-grid;
   display: grid;
   place-items: center;
+  margin-top: 48px;
 }
 .hero-section .hero-section__title {
   text-align: center;
@@ -2200,13 +2202,10 @@ footer .footer-content__item .links a:hover {
 
 @media (max-width: 905px) {
   .hero-banner {
-    margin-top: 130px;
+    margin-top: 60px;
   }
 }
 @media (max-width: 500px) {
-  .hero-banner {
-    margin-top: 130px;
-  }
   .hero-banner h1 {
     font-weight: 600;
     max-width: 400px;
