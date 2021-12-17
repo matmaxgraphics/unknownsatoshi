@@ -209,7 +209,7 @@ textarea {
 /*======ALTERNATIVE STYLING======*/
 /*=====NAVIGATION BAR STYLING=====*/
 .banner-wrapper {
-  min-height: 15vh;
+  min-height: 80vh;
 }
 
 .navbar {
@@ -284,7 +284,6 @@ textarea {
   padding: 2px;
   width: 48px;
   height: 48px;
-  background-color: #222222;
 }
 .navbar__Items--right .profile .img-profile {
   width: 100%;
@@ -295,12 +294,43 @@ textarea {
 .profile-wrapper {
   display: none;
 }
-.img-profile ul{
+
+/* Hide Dropdown by Default*/
+.dropdown{
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+.dropdown main{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dropdown main .profile-icon{
+  font-size: 24px;
+}
+/* Dropdown Content (Hidden by Default) */
+.profile-dropdown {
   display: none;
   position: absolute;
-  top: 60px;
+  background-color: #1D1D1D;
+  min-width: 200px;
+  z-index: 1;
+  border-radius: 8px;
 }
-.img-profile:hover > ul {
+.profile-dropdown a{
+  padding: 20px;
+  width: 100%;
+  color: #fff;
+  display: block;
+  transition: 0.3s;
+}
+.profile-dropdown a:hover{
+  background-color: #F8A606;
+  transition: 0.3s;
+}
+/* Show the dropdown menu on hover */
+.dropdown:hover .profile-dropdown {
   display: block;
 }
 .navbar__Link-toggle {
@@ -312,7 +342,6 @@ textarea {
     background-color: #0A0909;
     position: fixed;
     width: 100%;
-    top: 0;
   }
   .navbar .profile {
     display: none;
@@ -379,6 +408,9 @@ textarea {
     right: 80px;
     margin-top: 6px;
   }
+  .profile-wrapper .profile-dropdown{
+    min-width: 160px;
+  }
   .profile-wrapper .img-profile {
     width: 100%;
     height: auto;
@@ -414,7 +446,6 @@ textarea {
   display: -ms-grid;
   display: grid;
   place-items: center;
-  margin-top: 48px;
 }
 .hero-section .hero-section__title {
   text-align: center;
@@ -2209,10 +2240,13 @@ footer .footer-content__item .links a:hover {
 
 @media (max-width: 905px) {
   .hero-banner {
-    margin-top: 60px;
+    margin-top: 130px;
   }
 }
 @media (max-width: 500px) {
+  .hero-banner {
+    margin-top: 130px;
+  }
   .hero-banner h1 {
     font-weight: 600;
     max-width: 400px;

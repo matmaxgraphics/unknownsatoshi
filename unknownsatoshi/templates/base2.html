@@ -46,7 +46,15 @@
 				{% endblock header_logo %}
 				
 				<div class="profile-wrapper">
-					<a href="{% url 'user-profile' user.id %}"><img src="{{user.profile_picture.url}}" class="img-profile"></i></a>
+					<div class="dropdown">
+						<main>
+							<img src="{{user.profile_picture.url}}" class="img-profile"><i class="ri-arrow-down-s-line profile-icon"></i>
+						</main>
+						<div class="profile-dropdown">
+							<a href="#" class="profile-dropdown-item">Profile</a>
+							<a href="#" class="profile-dropdown-item">Subscription History</a>
+						</div>
+					</div>
 				</div>
 				<div class="navbar__Link navbar__Link-toggle">
 					<img src=" {% static 'images/hamburger.png' %}" alt="site's hamburger" oncl>
@@ -83,11 +91,15 @@
 					
 					{% if request.user.is_authenticated %}
 						<div class="profile">
-							<a href="{% url 'user-profile' user.id %}"><img src="{{user.profile_picture.url}}" class="img-profile"></i></a>
-							<ul class="profile-dropdown">
-								<li class="profile-dropdown-item">Profile</li>
-								<li class="profile-dropdown-item">Subscription History</li>
-							</ul>
+							<div class="dropdown">
+								<main>
+									<img src="{{user.profile_picture.url}}" class="img-profile"><i class="ri-arrow-down-s-line profile-icon"></i>
+								</main>
+								<div class="profile-dropdown">
+									<a href="#" class="profile-dropdown-item">Profile</a>
+									<a href="#" class="profile-dropdown-item">Subscription History</a>
+								</div>
+							</div>
 						</div>
 						<div class="navbar__Link">
 							<a class="btn hire-btn"  href="{% url 'user-logout' %}">Logout</a>
