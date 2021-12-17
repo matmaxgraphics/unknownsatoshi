@@ -84,6 +84,10 @@
 					{% if request.user.is_authenticated %}
 						<div class="profile">
 							<a href="{% url 'user-profile' user.id %}"><img src="{{user.profile_picture.url}}" class="img-profile"></i></a>
+							<ul class="profile-dropdown">
+								<li class="profile-dropdown-item">Profile</li>
+								<li class="profile-dropdown-item">Subscription History</li>
+							</ul>
 						</div>
 						<div class="navbar__Link">
 							<a class="btn hire-btn"  href="{% url 'user-logout' %}">Logout</a>
