@@ -2238,15 +2238,6 @@ footer .footer-content__item .links a:hover {
   padding: 24px;
 }
 
-@media (max-width: 905px) {
-  .hero-banner {
-    margin-top: 130px;
-  }
-}
-@media (max-width: 500px) {
-  .hero-banner {
-    margin-top: 130px;
-  }
   .hero-banner h1 {
     font-weight: 600;
     max-width: 400px;
