@@ -1,22 +1,20 @@
-from django.contrib.auth.models import Group
-from django.core.mail import send_mail
-from cms.mailing_helper import UserRegisterationNotification
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from cms.mailing_helper import UserRegisterationNotification
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import *
 from userprolog.models import User
 from django.contrib import messages
-from .decorators import unauthenticated_user
+from cms.models import SubscriptionHistory
 from .token import account_activation_token
+from .decorators import unauthenticated_user
 from unknownsatoshi.settings import DEFAULT_FROM_EMAIL
 
-from cms.mailing_helper import UserRegisterationNotification
+from django.utils.html import strip_tags
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text, force_bytes
-from django.utils.html import strip_tags
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
 
@@ -154,4 +152,13 @@ def user_profile(request, id):
     else:
         form = UserUpdateForm(instance=user)
     context = {"form":form, "user":user}
+    return render(request, template_name, context)
+
+
+@login_required(login_url='user-login')
+def user_subscription_list(request):
+    user = request.user
+    subscription = SubscriptionHistory.objects.filter(user=user)
+    template_name = "userprolog/sub-plan.html"
+    context = {"subscription":subscription,"user":user}
     return render(request, template_name, context)
