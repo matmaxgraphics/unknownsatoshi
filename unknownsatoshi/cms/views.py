@@ -495,7 +495,8 @@ def admin_delete_subscription(request, id):
         messages.success(request, f"subscription deleted successfully")
         return redirect('admin-sub-list')
     else:
-        return render(request, template_name)
+        context = {"subscription":subscription}
+        return render(request, template_name, context)
 
 
 # normal pages for users views
@@ -646,6 +647,11 @@ def plan_list(request):
 plan_id_history = ""
 @login_required(login_url="user-login")
 def plan_details(request, slug):
+    user = request.user
+    check_active_sub = SubscriptionHistory.objects.filter(active=True, user=user)
+    if check_active_sub:
+        messages.error(request, "you already have an active plan")
+        return redirect("user-sub-list")
     global plan_id_history
     template_name = "cms/plan_payment.html"
     plan = get_object_or_404(Plan, slug=slug)
@@ -710,7 +716,6 @@ def process_payment(user_id, plan_id, first_name, last_name, amount, email, phon
 
 # returns subscription's transaction_id, transaction_reference and transaction_status
 today = date.today()
-@login_required(login_url="user-login")
 @require_http_methods(['GET', 'POST'])
 def payment_response(request):
     user = request.user
@@ -753,7 +758,7 @@ def payment_response(request):
             reference = tx_ref, 
             transaction_id=transaction_id,
             status=status,
-            exipry_date=expiry_date,
+            expiry_date=expiry_date,
             active=True
         )
         time.sleep(3)
