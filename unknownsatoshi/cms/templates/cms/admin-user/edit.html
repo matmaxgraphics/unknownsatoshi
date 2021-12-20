@@ -19,7 +19,7 @@
             <section class="add-product">
                 <aside class="create-history">
                     <div class="fields-wrapper">
-                        <form action="" method="post">
+                        <form action="{% url 'admin-update-user' user.id %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div>
                                 <label for="email">Email</label>

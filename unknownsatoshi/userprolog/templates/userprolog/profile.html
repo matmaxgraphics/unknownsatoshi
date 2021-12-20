@@ -20,8 +20,8 @@
                     <p><label for="fullname">Full Name:</label> {{ user.first_name|title }} {{user.last_name|title}}</p>
                 </div>
                 <div class="profile-fields">
-                    <h4>Update Profile</h4>               
-                    <form action="{% url 'user-profile' user.pk %}" method="post">
+                    <h4>Update Profile</h4>             
+                    <form action="{% url 'user-profile' user.pk %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div>
                             <label for="email">Email</label>
@@ -29,7 +29,7 @@
                         </div>
           
                         <div>
-                            <label for="image">Username</label>                   
+                            <label for="username">Username</label>                   
                             {{form.username }}
                         </div>
                         
@@ -39,16 +39,16 @@
                         </div>
         
                         <div>
-                            <label for="first-name">Last Name</label>
+                            <label for="last-name">Last Name</label>
                             {{ form.last_name }}
                         </div>
         
                         <div>
-                            <label for="first-name">Phone No</label>
+                            <label for="phone-no">Phone No</label>
                             {{ form.phone_no }}
                         </div>
 
-                        <div>  
+                        <div>
                             {% for field in form %}   
                                 {% if field.field.widget.input_type == "file" %}
                                     <label for="">{{field.label}}</label>
@@ -58,10 +58,8 @@
                         </div>
                             
                         <button class="btn" type="submit" name="save-btn">Save Changes</button>
-                      </form>
-                    
+                    </form>
                 </div>
-
             </div>
         </section>
 	</div>

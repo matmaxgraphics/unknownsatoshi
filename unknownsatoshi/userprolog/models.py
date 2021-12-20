@@ -53,7 +53,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=200, blank=True)
     last_name = models.CharField(max_length=200, blank=True)
     phone_no = models.CharField(max_length=11,validators=[MaxLengthValidator(11)])
-    profile_picture = models.ImageField(upload_to="profile_image",default="default_user_image.jpeg", blank=True, null=True)
+    profile_picture = models.ImageField(null=True, blank=True, default="default_user_image.jpeg", upload_to="profile_image/",)
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
