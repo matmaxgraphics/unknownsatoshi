@@ -307,7 +307,7 @@ def update_blog(request, pk):
         messages.error(request, f"Unable to update post, try again")
         form = BlogForm(request.POST, request.FILES, instance=blog)
     else:
-         form = BlogForm(instance=blog)
+        form = BlogForm(instance=blog)
     context = {'form':form}
     return render(request, template_name, context)
 
@@ -348,7 +348,7 @@ def admin_create_user(request):
         messages.error(request, f"Unable to create user, please try again")
         return redirect("admin-create-user")
     else:
-        form = UserForm(request.POST, request.FILES)
+        form = UserForm()
     context = {'form': form}
     return render(request, template_name, context)
 
@@ -371,7 +371,6 @@ def admin_user_list(request):
 def admin_update_user(request, id):
     template_name = "cms/admin-user/edit.html"
     user = get_object_or_404(User, id=id)
-    form = UserUpdateForm(instance=user)
     if request.method == 'POST':
         form = UserUpdateForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
@@ -382,7 +381,7 @@ def admin_update_user(request, id):
         return redirect("admin-update-user", id)
     else:
         form = UserUpdateForm(instance=user)
-    context = {"form":form}
+    context = {"form":form, "user":user}
     return render(request, template_name, context)
 
 

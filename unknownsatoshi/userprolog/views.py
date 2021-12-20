@@ -138,13 +138,12 @@ def user_logout(request):
 def user_profile(request, id):
     template_name = "userprolog/profile.html"
     user = get_object_or_404(User, id=id)
-    form = UserUpdateForm(instance=user)
     if request.method == 'POST':
         form = UserUpdateForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
-            instance = form.save(commit=False)
-            instance.is_active = True
-            instance.save()
+            update_form = form.save(commit=False)
+            update_form.is_active = True
+            update_form.save()
             messages.success(request, f"User updated successfully")
             return redirect("user-profile", id)
         messages.error(request, f"Unable to update user")
