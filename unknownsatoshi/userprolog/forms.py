@@ -3,6 +3,7 @@ from .models import User
 
 
 class UserUpdateForm(forms.ModelForm):
+    profile_picture = forms.ImageField(required=True, error_messages={'required':"An image is required"})
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'phone_no', 'email', 'username', 'profile_picture', 'is_active', 'is_staff', 'is_superuser']
