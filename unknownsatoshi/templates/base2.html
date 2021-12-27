@@ -129,7 +129,7 @@
 			<h2>Newsletter</h2>
 			<p>Sign up for our weekly newsletter to get the latest news, special offers, market researchs, crypto analysis and more. We promise not to spam your mail</p>
 
-			<form action="{% url 'newsletter' %}" method="post">
+			<form action="{% url 'newsletter' %}" method="post" enctype="multipart/form-data">
 				{% csrf_token %}
 				<input type="email" name="email" id="email" class="input-field" placeholder="Input your email address..." required>
 				<input type="submit" value="Join Newsletter" class="btn text-white">
