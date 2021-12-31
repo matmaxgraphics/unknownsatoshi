@@ -5,11 +5,11 @@
 
 
 {% block content %}
-	<div class="page-wrapper" style="margin-top: -350px;">		
+	<div class="page-wrapper" style="margin-top: -400px;">		
         <section class="article-wrapper">
             <div class="post-details">
                 <span class="iconic-span"><i class="ri-calendar-line"></i> {{blog.created_on|date}}</span>
-                <span class="iconic-span"><i class="ri-user-line"></i> {{ blog.updated_on|date }}</span>
+                
             </div>
             <div class="blog-content_container">
                 <img src="{{blog.featured_image.url}}" class="blog-banner" alt="demo image for blog post">
