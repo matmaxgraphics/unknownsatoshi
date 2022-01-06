@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+import logging
 import environ
 import django_heroku
 
@@ -19,7 +20,12 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 if DEBUG == False:
-    ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+    ALLOWED_HOSTS = [
+        '127.0.0.1', 
+        'localhost', 
+        'https://unknownsatoshi.com', 
+        'http://unknownsatoshi.com',
+    ]
 
 
 LOGIN_URL = 'login'
@@ -53,25 +59,6 @@ INSTALLED_APPS = [
 
 # ck editor configuration
 CKEDITOR_UPLOAD_PATH = "uploads/"
-# CKEDITOR_CONFIGS = {
-#     'awesome_ckeditor': {
-#         'toolbar': 'Basic',
-#     },
-#     'default': {
-#         'toolbar': 'full',
-#         'height': 300,
-#         'width': 300,
-#     },
-#     'default': {
-#         'toolbar': 'Custom',
-#         'toolbar_Custom': [
-#             ['Bold', 'Italic', 'Underline'],
-#             ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-#             ['Link', 'Unlink'],
-#             ['RemoveFormat', 'Source', 'Image', 'Update', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak']
-#         ]
-#     },
-# }
 
 CKEDITOR_CONFIGS = {
     'default': {
@@ -234,6 +221,10 @@ MEDIA_URL = '/images/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# CRONJOBS = [
+#     ('*/1 * * * *', 'cms.management.commands.deactivate_subscription.Command')
+# ]
 
 
 # cloudinary config

@@ -21,6 +21,7 @@ class UserRegisterationNotification():
             recipient_list= [str(self.receiver_email)],
             fail_silently=False,
         )
+        return send_mail
         
     def mail_admin(self):
         send_mail(
@@ -30,6 +31,7 @@ class UserRegisterationNotification():
             recipient_list= [str(self.receiver_email)],
             fail_silently=False,
         )
+        return send_mail
 
 
 # send mail notification to users and admins after successful subscription
@@ -48,6 +50,7 @@ class UserSubscriptionNotification():
             recipient_list= [str(self.receiver_email)],
             fail_silently=False,
         )
+        return send_mail
         
     def mail_admin(self):
         send_mail(
@@ -57,3 +60,4 @@ class UserSubscriptionNotification():
             recipient_list= [str(self.receiver_email)],
             fail_silently=False,
         )
+        return send_mail

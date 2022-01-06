@@ -2,19 +2,18 @@ import uuid
 from django.db import models
 from userprolog.models import User
 from django.urls import reverse
-from datetime import date, datetime
-from ckeditor_uploader.fields import RichTextUploadingField
+from datetime import datetime, timedelta
 from django.dispatch import receiver
-from django.db.models.signals import pre_save, post_save
-from userprolog.models import User
-from unknownsatoshi.settings import DEFAULT_FROM_EMAIL
-from .mailing_helper import UserSubscriptionNotification
+from django.db.models.signals import pre_save
 
+from django.utils import timezone
+from ckeditor_uploader.fields import RichTextUploadingField
+from userprolog.models import User
 
 
 
 today = datetime.now().date()
-#today = date.today()
+
 class ProductCategory(models.Model):
     name = models.CharField(max_length=150, blank=True)
 
@@ -125,10 +124,6 @@ class SubscriptionHistory(models.Model):
 def update_activeness(sender, instance, *args, **kwargs):
     if instance.expiry_date == today:
         instance.active = False
-        # subject = "Your plan has expired"
-        # message = f"your {instance.plan} has expired, resubscribe to have access to our premium contents"
-        # send_mail = UserSubscriptionNotification(email_subject=subject, email_body=message, sender_email=DEFAULT_FROM_EMAIL, receiver_email=instance.user.email)
-        # send_mail.mail_user
     else:
         instance.active = True
     
