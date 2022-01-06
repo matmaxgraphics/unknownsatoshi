@@ -26,6 +26,9 @@
 	<!--Remix Icon CDN-->
 	<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
+	<!--FONT AWESOME CDN-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 	<!--Google font-->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,17 +48,32 @@
 					</div>
 				{% endblock header_logo %}
 				
+				{% if request.user.is_authenticated %}
 				<div class="profile-wrapper">
 					<div class="dropdown">
 						<main>
 							<img src="{{user.profile_picture.url}}" class="img-profile"><i class="ri-arrow-down-s-line profile-icon"></i>
 						</main>
 						<div class="profile-dropdown">
-							<a href="#" class="profile-dropdown-item">Profile</a>
-							<a href="#" class="profile-dropdown-item">Subscription History</a>
+							<a href="{% url 'user-profile' user.id %}" class="profile-dropdown-item">Profile</a>
+							<a href="{% url 'user-sub-list' %}" class="profile-dropdown-item">Subscription History</a>
 						</div>
 					</div>
 				</div>
+				{% else %}
+				<div class="profile-wrapper" style="display: none;">
+					<div class="dropdown">
+						<main>
+							<img src="{{user.profile_picture.url}}" class="img-profile"><i class="ri-arrow-down-s-line profile-icon"></i>
+						</main>
+						<div class="profile-dropdown">
+							<a href="{% url 'user-profile' user.id %}" class="profile-dropdown-item">Profile</a>
+							<a href="{% url 'user-sub-list' %}" class="profile-dropdown-item">Subscription History</a>
+						</div>
+					</div>
+				</div>
+				{% endif%}
+
 				<div class="navbar__Link navbar__Link-toggle">
 					<img src=" {% static 'images/hamburger.png' %}" alt="site's hamburger" oncl>
 					<!-- <img src="assets/images/close-hamburger.png" alt="close menu" class="close-menu"> -->
@@ -203,6 +221,7 @@
 <!--CUSTOM JAVASCRIPT-->
 <script src="{% static 'js/script.js' %}"></script>
 <script src="{% static 'js/pagination.js' %}"></script>
+
 <script>
     const loadmore = document.querySelector('.merchBtn');
     let currentItems = 3;
