@@ -107,7 +107,6 @@ def update_trade(request, pk):
     return render(request, template_name, context)
     
 
-
 # admin delete trade history
 @login_required(login_url='admin-login')
 @allowed_user(allowed_roles=['admin'])
@@ -244,6 +243,7 @@ def update_product(request, id):
     return render(request, template_name, context)
 
 
+# admin can delete products
 @login_required(login_url='admin-login')
 @allowed_user(allowed_roles=['admin'])
 @admin_only
@@ -268,7 +268,8 @@ def admin_blog(request):
     context = {'blogs':blogs}
     return render(request, template_name, context)
 
-# admin create blog
+
+# admin can create posts
 @login_required(login_url='admin-login')
 @allowed_user(allowed_roles=['admin'])
 @admin_only
@@ -481,7 +482,6 @@ def admin_subscription_history(request):
     return render(request, template_name, context)
 
 
-
 #admin delete subscription history
 @login_required(login_url='admin-login')
 @allowed_user(allowed_roles=['admin'])
@@ -505,7 +505,8 @@ def home(request):
     context = {"blogs":blogs}
     return render(request, template_name, context)
 
-#
+
+# about us page
 def about(request):
     template_name = 'cms/about.html'
     return render(request, template_name)
@@ -530,6 +531,7 @@ def contact(request):
         return render(request, template_name)
 
 
+# frequently asked question page
 def faq_view(request):
     template_name = "cms/faqs.html"
     return render(request, template_name)
@@ -547,6 +549,7 @@ def courses(request):
     return render(request, template_name, context)
 
 
+# trade history page
 def trade_history(request):
     template_name = 'cms/trade.html'
     cmss = Cms.objects.all()
@@ -554,6 +557,7 @@ def trade_history(request):
     return render(request, template_name, context)
 
 
+# products list page
 def onlinestore(request):
     template_name = 'cms/store.html'
     merch_products = Product.objects.filter(product_category__name__icontains="merch")
@@ -584,7 +588,6 @@ def blog(request):
         "premium_latest_article":premium_latest_article
     }
     return render(request, template_name, context)
-
 
 
 # regular blog details
@@ -621,7 +624,6 @@ def premium_blog_detail(request, pk):
         return render(request, "cms/login-prompt.html")
 
     
-
 # faq page
 def faqs(request):
     template_name = 'cms/faqs.html'
@@ -744,6 +746,7 @@ def payment_response(request):
         return redirect("home")
     else:
         pass
+
     #create_subscription(plan_id=plan_id)
     if plan_id == 1 :
         expiry_date = today + timedelta(days=30)
@@ -762,6 +765,7 @@ def payment_response(request):
         )
         time.sleep(3)
         return redirect("home")
+        
     if plan_id == 2:
         expiry_date = today + timedelta(days=90)
         SubscriptionHistory.objects.create(
@@ -779,6 +783,7 @@ def payment_response(request):
         )
         time.sleep(3)
         return redirect("home")
+
     if plan_id == 3:
         expiry_date = today + timedelta(days=180)
         SubscriptionHistory.objects.create(
@@ -799,6 +804,7 @@ def payment_response(request):
         return redirect("home")
 
 
+# newsletter subscription page
 def newsletter(request):
     template_name = "base2.html"
     if request.method == "POST":

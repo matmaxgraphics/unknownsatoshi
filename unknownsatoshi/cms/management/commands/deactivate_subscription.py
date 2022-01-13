@@ -1,4 +1,3 @@
-
 from datetime import datetime
 from django.utils import timezone
 from cms.models import SubscriptionHistory
@@ -16,7 +15,7 @@ class Command(BaseCommand):
         today = datetime.now().date()        
         active_subscription = SubscriptionHistory.objects.filter(active=True)
         for instance in active_subscription:
-            if instance.expiry_date == today:
+            if instance.expiry_date <= today:
                 instance.active = False
                 instance.save()
                 self.stdout.write(self.style.SUCCESS(f'{instance.plan} successfully deactivated'))

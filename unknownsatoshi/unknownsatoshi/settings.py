@@ -1,6 +1,5 @@
 from pathlib import Path
 import os
-import logging
 import environ
 import django_heroku
 
@@ -222,10 +221,6 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# CRONJOBS = [
-#     ('*/1 * * * *', 'cms.management.commands.deactivate_subscription.Command')
-# ]
-
 
 # cloudinary config
 CLOUDINARY_STORAGE = {
@@ -284,7 +279,6 @@ EMAIL_HOST = env("EMAIL_HOST")
 EMAIL_PORT = 587
 USE_TLS = True
 USE_SSL = True
-
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")

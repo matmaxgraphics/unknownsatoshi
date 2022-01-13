@@ -127,7 +127,7 @@ def user_login(request):
 
 
 #user log out
-def user_logout(request):
+def logout_user(request):
     logout(request)
     messages.success(request, f"logout successful")
     return redirect('home')
