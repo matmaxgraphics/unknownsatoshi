@@ -13,7 +13,7 @@ from cms.mailing_helper import UserRegisterationNotification
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404, render, redirect
 from .decorators import unauthenticated_user, allowed_user, admin_only
-from unknownsatoshi.settings import FLW_SANDBOX_PUBLIC_KEY, FLW_SANDBOX_SECRET_KEY
+from unknownsatoshi.settings import FLW_PRODUCTION_SECRET_KEY, FLW_SANDBOX_SECRET_KEY
 
 
 
@@ -682,7 +682,7 @@ def process_payment(user_id, plan_id, first_name, last_name, amount, email, phon
     global amount_paid
     amount_paid = amount
     name = f"{first_name} {last_name}".capitalize()
-    auth_token= FLW_SANDBOX_SECRET_KEY
+    auth_token= FLW_PRODUCTION_SECRET_KEY
     hed = {'Authorization': 'Bearer ' + auth_token}
 
     data = {
