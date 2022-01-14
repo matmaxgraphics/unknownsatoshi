@@ -142,6 +142,8 @@ textarea {
   max-width: 400px;
   text-align: center;
   margin: auto;
+  /* position: absolute; */
+  z-index: 9999;
 }
 .alert-error{
   background-color: rgb(236, 82, 61);
