@@ -11,7 +11,7 @@
             <div class="login-fields">               
                Hi {{ user.username }},
                <p>Your account has been successfully created. Please click the link below to activate your account.</p>
-              <a href="http://{{domain}}{% url 'account-activation' uidb64=uid token=token %}">Click here to activate your account</a>
+                http://{{domain}}{% url 'account-activation' uidb64=uid token=token %}
             </div>
         </section>
 	</div>
