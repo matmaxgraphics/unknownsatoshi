@@ -1,9 +1,11 @@
 from django.urls import path
-from django.contrib.auth import views as auth_views
-from . import views
+from .import views
+
+
 
 urlpatterns = [
     # main website views
+    path('page-not-found', views.custom_page_not_found, name="page_not_found"),
     path('', views.home, name='home'),
     path('blog/', views.blog, name='blog'),
     path('faqs/', views.faqs, name='faqs'),
@@ -67,7 +69,7 @@ urlpatterns = [
     path("subscription-history", views.admin_subscription_history, name="admin-sub-list"),
     path("subscription/delete/<str:id>", views.admin_delete_subscription, name="delete-subscription"),
     
-    #subscrition section
+    # subscrition section
     path("subscription/plan-list", views.plan_list, name="plan-list"),
     path("subscription/plan-detail/<str:slug>", views.plan_details, name="plan-detail"),
     path('callback', views.payment_response, name='payment_response'),
