@@ -1,3 +1,4 @@
+from cgitb import html
 import math
 import time
 import random
@@ -14,6 +15,7 @@ from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404, render, redirect
 from .decorators import unauthenticated_user, allowed_user, admin_only
 from unknownsatoshi.settings import FLW_PRODUCTION_SECRET_KEY, FLW_SANDBOX_SECRET_KEY
+from django.http import HttpResponseNotFound
 
 
 
@@ -800,7 +802,6 @@ def payment_response(request):
             active=True
         )
         time.sleep(3)
-        print("PLAN ID IN PROCESS PAYMENT IS", plan_id)
         return redirect("home")
 
 
@@ -818,3 +819,9 @@ def newsletter(request):
         return redirect("home")
     else:
         return render(request, template_name)
+
+
+# error page
+def custom_page_not_found(request, exception):
+    return render(request, "cms/404.html")
+    

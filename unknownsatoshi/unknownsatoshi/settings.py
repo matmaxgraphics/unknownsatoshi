@@ -1,7 +1,6 @@
 from pathlib import Path
 import os
 import environ
-import django_heroku
 
 env = environ.Env()
 environ.Env.read_env()
@@ -10,21 +9,22 @@ environ.Env.read_env()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("SECRET_KEY")
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 if DEBUG == False:
     ALLOWED_HOSTS = [
+        'unknownsatoshi.com', 
+        'www.unknownsatoshi.com', 
+        '159.223.182.140', 
         '127.0.0.1', 
-        'localhost', 
-        'https://unknownsatoshi.com', 
-        'http://unknownsatoshi.com',
+        'localhost',
     ]
+else:
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 LOGIN_URL = 'login'
@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
 
-    #cloudinary modul
+    #cloudinary module
     'cloudinary',
     'cloudinary_storage',
 ]
@@ -217,9 +217,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/images/'
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 
 # cloudinary config
@@ -260,11 +260,13 @@ FLW_PRODUCTION_PUBLIC_KEY = env("FLW_PRODUCTION_PUBLIC_KEY")
 FLW_PRODUCTION_SECRET_KEY = env("FLW_PRODUCTION_SECRET_KEY")
 FLW_PRODUCTION_ENCRYPTION_KEY=env("FLW_PRODUCTION_ENCRYPTION_KEY")
 
+
 #for test
 FLW_SANDBOX_PUBLIC_KEY = env("FLW_SANDBOX_PUBLIC_KEY")
 FLW_SANDBOX_SECRET_KEY = env("FLW_SANDBOX_SECRET_KEY")
 FLW_SANDBOX_ENCRYPTION_KEY=env("FLW_SANDBOX_ENCRYPTION_KEY")
 FLW_SANDBOX = True
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -272,6 +274,7 @@ FLW_SANDBOX = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'userprolog.User'
 PASSWORD_RESET_TIMEOUT_DAYS = 1
+
 
 # mailing smtp configuration
 EMAIL_BACKEND = env("EMAIL_BACKEND")
@@ -282,5 +285,3 @@ USE_SSL = True
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
-
-django_heroku.settings(locals())
