@@ -15,16 +15,8 @@ SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-if DEBUG == False:
-    ALLOWED_HOSTS = [
-        'unknownsatoshi.com', 
-        'www.unknownsatoshi.com', 
-        '159.223.182.140', 
-        '127.0.0.1', 
-        'localhost',
-    ]
-else:
-    ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['unknownsatoshi.com', 'www.unknownsatoshi.com', '159.223.182.140', '127.0.0.1', 'localhost']
+
 
 
 LOGIN_URL = 'login'
@@ -285,3 +277,4 @@ USE_SSL = True
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
+CONTACT_EMAIL = env('CONTACT_EMAIL')
