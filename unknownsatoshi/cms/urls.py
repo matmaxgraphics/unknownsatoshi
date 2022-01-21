@@ -5,7 +5,7 @@ from .import views
 
 urlpatterns = [
     # main website views
-    path('page-not-found', views.custom_page_not_found, name="page_not_found"),
+    path('page-not-found/', views.custom_page_not_found, name="page_not_found"),
     path('', views.home, name='home'),
     path('blog/', views.blog, name='blog'),
     path('faqs/', views.faqs, name='faqs'),

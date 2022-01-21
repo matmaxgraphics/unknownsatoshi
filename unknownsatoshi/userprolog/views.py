@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from cms.mailing_helper import UserRegisterationNotification
+from cms.mailing_helper import UserSubscriptionNotification
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import *
@@ -63,7 +63,7 @@ def user_register(request):
                 'token':account_activation_token.make_token(user),
             })
             message = strip_tags(html_message)
-            send_mail = UserRegisterationNotification(email_subject=subject, email_body=message, sender_email=DEFAULT_FROM_EMAIL, receiver_email=user.email)
+            send_mail = UserSubscriptionNotification(email_subject=subject, email_body=message, sender_email=DEFAULT_FROM_EMAIL, receiver_email=user.email)
             send_mail.mail_user()
             return render(request, "userprolog/activation_link_sent.html")
     else:
@@ -88,7 +88,7 @@ def account_activation(request, uidb64, token):
         user.save()
         login(request, user)
         for ad_user in admin_user:
-            send_mail = UserRegisterationNotification(email_subject=subject, email_body=message, sender_email=DEFAULT_FROM_EMAIL, receiver_email=ad_user.email)
+            send_mail = UserSubscriptionNotification(email_subject=subject, email_body=message, sender_email=DEFAULT_FROM_EMAIL, receiver_email=ad_user.email)
         send_mail.mail_user
         #send_mail.mail_admin
         return redirect("activation-success")
