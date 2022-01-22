@@ -60,6 +60,12 @@ h2, h4, h5 {
   margin-top: 36px;
 }
 
+@media only screen and (max-width: 920px) {
+  .margin-extra{
+    margin-top: 150px;
+  }
+}
+
 p {
   font-size: 16px;
   font-weight: normal;
@@ -211,7 +217,7 @@ textarea {
 /*======ALTERNATIVE STYLING======*/
 /*=====NAVIGATION BAR STYLING=====*/
 .banner-wrapper {
-  min-height: 80vh;
+  max-height: 80vh;
 }
 
 .navbar {
@@ -344,6 +350,8 @@ textarea {
     background-color: #0A0909;
     position: fixed;
     width: 100%;
+    top: 0;
+    z-index: 10000;
   }
   .navbar .profile {
     display: none;
@@ -1011,14 +1019,25 @@ footer .footer-content__item .links a:hover {
     margin: 24px;
   }
 }
+@media only screen and (min-width: 480px) {
+  .banner-section .header-group span{
+    display: none;
+  }
+}
+
 @media only screen and (max-width: 450px) {
   .banner-section h1 {
     font-size: 36px;
+    word-wrap: break-word;
+    max-width: 100%;
+    line-height: 1.2;
+    margin-top: 12px;
   }
   .banner-section .header-group {
     margin: 24px;
   }
 }
+
 .about-page hr {
   display: none;
 }
@@ -1245,7 +1264,7 @@ footer .footer-content__item .links a:hover {
   margin-bottom: 24px;
 }
 .contact-wrapper .contact-fields form {
-  width: 80%;
+  width: 90%;
 }
 .contact-wrapper .contact-fields form div {
   display: -webkit-box;
@@ -2885,7 +2904,12 @@ footer .footer-content__item .links a:hover {
 .reset-page .login-wrapper{
   height: auto;
 }
-
+.flex-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 #id_email {
   background-color: #434343;
   color: #fff;
@@ -2901,9 +2925,6 @@ footer .footer-content__item .links a:hover {
   max-width: 100%;
 }
 
-.reset-page{
-  margin-top: -20em;
-}
 .reset-page h2, .reset-page p{
   text-align: center;
   margin-bottom: 24px;
