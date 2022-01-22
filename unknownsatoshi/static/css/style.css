@@ -525,7 +525,17 @@ textarea {
 /*=====END OF HERO SECTION STYLING=====*/
 /*==========BLOG SECTION STYLING=======*/
 .blog-section {
-  margin-top: 123px;
+  margin-top: 300px;
+}
+@media only screen and (min-width: 840px){
+  .blog-section {
+    margin-top: 400px;
+  }
+}
+@media only screen and (min-width: 110px){
+  .blog-section {
+    margin-top: 600px;
+  }
 }
 .blog-section h2 {
   margin-bottom: 12px;
