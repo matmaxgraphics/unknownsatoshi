@@ -10,12 +10,14 @@ from django.contrib import messages
 from datetime import date, datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login,logout
-from cms.mailing_helper import UserRegisterationNotification
+from cms.mailing_helper import UserRegisterationNotification, UserSubscriptionNotification
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404, render, redirect
 from .decorators import unauthenticated_user, allowed_user, admin_only
 from unknownsatoshi.settings import FLW_PRODUCTION_SECRET_KEY, FLW_SANDBOX_SECRET_KEY
-from django.http import HttpResponseNotFound
+from django.template.loader import render_to_string
+from unknownsatoshi.settings import DEFAULT_FROM_EMAIL, CONTACT_EMAIL
+
 
 
 
@@ -517,17 +519,27 @@ def about(request):
 def contact(request):
     template_name = "cms/contact.html"
     if request.method == "POST":
-        name = request.POST.get("name")
+        fullname = request.POST.get("fullname")
         email = request.POST.get("email")
-        subject = f"mail from {name}"
+        subject = f"mail from {fullname}"
         message = request.POST.get("messages")
-        if name and email and message:
-            print(name, "", email, "", message)
-            send_mail = UserRegisterationNotification(email_subject=subject, email_body=message, sender_email=email, receiver_email="unknown@unknownsatoshi.com")
-            send_mail.mail_admin()
+        body = {
+            "message":message,
+        }
+        message_body = "\n".join(body.values())
+        if subject and email and message and fullname:
+            print(subject, "", email, "", message_body)
+            mail_helper = UserRegisterationNotification(
+                email_subject=subject, 
+                email_body=str(message_body), 
+                sender_email=DEFAULT_FROM_EMAIL,
+                receiver_email=CONTACT_EMAIL,
+                reply_to=email,
+            )
+            mail_helper.mail_user()
             messages.success(request, "your email has successfully been sent")
             return redirect("home")
-        messages.error(request, f"unable to send mail, please try again")
+        messages.error(request, f"something went wrong, please try again")
         return redirect("contact")
     else:
         return render(request, template_name)
@@ -685,6 +697,7 @@ def process_payment(user_id, plan_id, first_name, last_name, amount, email, phon
     amount_paid = amount
     name = f"{first_name} {last_name}".capitalize()
     auth_token= FLW_PRODUCTION_SECRET_KEY
+    #auth_token = FLW_SANDBOX_SECRET_KEY
     hed = {'Authorization': 'Bearer ' + auth_token}
 
     data = {
@@ -719,6 +732,7 @@ def process_payment(user_id, plan_id, first_name, last_name, amount, email, phon
 
 # returns subscription's transaction_id, transaction_reference and transaction_status
 today = datetime.now().date()
+
 @require_http_methods(['GET', 'POST'])
 def payment_response(request):
     user = request.user
@@ -731,17 +745,10 @@ def payment_response(request):
     tx_ref = request.GET.get('tx_ref' or None)
     status = request.GET.get('status' or None)
     transaction_id = request.GET.get('transaction_id' or None)
-
-    print("USER IS",user)
-    print("USER ID IS", user_id)
-    print("PLAN ID IS",plan_id)
-    print("AMOUNT PAID IS", amount)
-    print("FULL NAME IS", full_name)
-    print("EMAIL IS", email)
-    print("PHONE NUMBER IS", phone_no)
-    print("TREANSACTION REFERENCE NUMBER IS", tx_ref)
-    print("TRANSACTION STATUS IS", status)
-    print("TRANSACTION ID IS", transaction_id)
+    print("THIS IS THE USER ", user)
+    print("THIS IS THE FULL NAME", full_name)
+    print("THIS IS THE FIRST NAME", user.first_name)
+    print("THIS IS THE LAST NAME", user.last_name)
     
     if SubscriptionHistory.objects.filter(reference=tx_ref).exists():
         messages.error(request, f"your email {user_id} has an active plan already")
@@ -765,8 +772,18 @@ def payment_response(request):
             expiry_date=expiry_date,
             active=True
         )
-        time.sleep(3)
+        time.sleep(2)
+        subject = f"Plan Subscription Notification"
+        message = f"{email} just subscribed for the monthly plan"
+        send_mail = UserSubscriptionNotification(
+            email_subject=subject,
+            email_body=message,
+            sender_email=DEFAULT_FROM_EMAIL,
+            receiver_email=CONTACT_EMAIL,
+        )
+        send_mail.mail_admin()
         return redirect("home")
+        
         
     if plan_id == 2:
         expiry_date = today + timedelta(days=90)
@@ -783,7 +800,15 @@ def payment_response(request):
             expiry_date=expiry_date,
             active=True,
         )
-        time.sleep(3)
+        subject = f"Plan Subscription Notification"
+        message = f"{email} just subscribed for the quarterly plan"
+        send_mail = UserSubscriptionNotification(
+            email_subject=subject,
+            email_body=message,
+            sender_email=DEFAULT_FROM_EMAIL,
+            receiver_email=CONTACT_EMAIL,
+        )
+        send_mail.mail_admin()
         return redirect("home")
 
     if plan_id == 3:
@@ -801,7 +826,15 @@ def payment_response(request):
             expiry_date=expiry_date,
             active=True
         )
-        time.sleep(3)
+        subject = f"Plan Subscription Notification"
+        message = f"{email} just subscribed for the half a year plan"
+        send_mail = UserSubscriptionNotification(
+            email_subject=subject,
+            email_body=message,
+            sender_email=DEFAULT_FROM_EMAIL,
+            receiver_email=CONTACT_EMAIL,
+        )
+        send_mail.mail_admin()
         return redirect("home")
 
 
@@ -810,11 +843,21 @@ def newsletter(request):
     template_name = "base2.html"
     if request.method == "POST":
         email = request.POST.get("email")
+        subject = f"Nofification for newsletter subscriber"
+        message = f"{email} just subscribed for newsletter"
         
         if Newsletter.objects.filter(email=email).exists():
+            time.sleep(1)
             messages.success(request, f"The email you provided already exist in our newsletter list.")
             return redirect("home")
         Newsletter.objects.create(email=email)
+        send_mail = UserSubscriptionNotification(
+            email_subject=subject,
+            email_body=message,
+            sender_email=DEFAULT_FROM_EMAIL,
+            receiver_email=CONTACT_EMAIL,
+            )
+        send_mail.mail_admin()
         messages.success(request, "You have successfully been added to our newsletter subscription.")
         return redirect("home")
     else:

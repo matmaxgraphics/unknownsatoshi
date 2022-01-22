@@ -4,8 +4,7 @@ from .import views
 
 
 urlpatterns = [
-    # main website views
-    path('page-not-found', views.custom_page_not_found, name="page_not_found"),
+    # main website views   
     path('', views.home, name='home'),
     path('blog/', views.blog, name='blog'),
     path('faqs/', views.faqs, name='faqs'),
@@ -17,7 +16,9 @@ urlpatterns = [
     path("privacy", views.privacy_view, name="privacy"),
     path('trade-history/', views.trade_history, name='trade-history'),
     path('onlinestore/', views.onlinestore, name='onlinestore'),
-    path('unauthorized-page/', views.unauthorized_page, name='unauthorized-page'),
+    path('page-not-found', views.custom_page_not_found, name="page_not_found"),
+    path('unauthorized-page', views.unauthorized_page, name='unauthorized-page'),
+    
     
     # # admin panel
     # path('admin-dashboard/', views.admin_panel, name='adminpanel'),
