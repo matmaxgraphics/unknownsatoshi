@@ -36,15 +36,15 @@ def user_register(request):
         password2 = request.POST.get("password2")
             
         if User.objects.filter(username=username).exists():
-            messages.error(request, "username already exists")
+            messages.error(request, f"username already exists")
             return redirect("register")
 
         elif User.objects.filter(email=email).exists():
-            messages.error(request, "email already exits")
+            messages.error(request, f"email already exits")
             return redirect("register")
 
         elif password1 != password2:
-            messages.error(request, "password do not match")
+            messages.error(request, f"password do not match")
             return redirect("register")
         else:
             user = User.objects.create(username=username, email=email, first_name=first_name, last_name=last_name, phone_no=phone_no,is_active=False, is_staff=False, is_superuser=False)

@@ -14,7 +14,7 @@ SECRET_KEY = env("SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['unknownsatoshi.com', 'www.unknownsatoshi.com', '159.223.182.140', '127.0.0.1', 'localhost']
 
 
@@ -271,7 +271,8 @@ PASSWORD_RESET_TIMEOUT_DAYS = 1
 # mailing smtp configuration
 EMAIL_BACKEND = env("EMAIL_BACKEND")
 EMAIL_HOST = env("EMAIL_HOST")
-EMAIL_PORT = 587
+#EMAIL_PORT = 587
+EMAIL_PORT = 465
 USE_TLS = True
 USE_SSL = True
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
