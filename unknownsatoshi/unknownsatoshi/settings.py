@@ -126,7 +126,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 ROOT_URLCONF = 'unknownsatoshi.urls'
 
 TEMPLATES = [
@@ -271,7 +271,10 @@ PASSWORD_RESET_TIMEOUT_DAYS = 1
 # mailing smtp configuration
 EMAIL_BACKEND = env("EMAIL_BACKEND")
 EMAIL_HOST = env("EMAIL_HOST")
+<<<<<<< HEAD
 #EMAIL_PORT = 587
+=======
+>>>>>>> 2c52348fa5a67dc72ab174f253e1865234cc1e9d
 EMAIL_PORT = 587
 USE_TLS = True
 USE_SSL = True

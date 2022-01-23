@@ -537,7 +537,7 @@ def contact(request):
                 reply_to=email,
             )
             mail_helper.mail_user()
-            messages.success(request, "your email has successfully been sent")
+            messages.success(request, "your message has been sent successfully")
             return redirect("home")
         messages.error(request, f"something went wrong, please try again")
         return redirect("contact")
