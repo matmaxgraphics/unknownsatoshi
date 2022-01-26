@@ -3035,3 +3035,22 @@ footer .footer-content__item .links a:hover {
   text-align: center;
   font-weight: bold;
 }
+@media only screen and(max-width: 460px){
+  .reset-page {
+      margin-bottom: 48px;
+  }
+
+  .reset-page p a {
+      margin-top: 12px;
+  }
+  .reset-page p {
+      text-align: center;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+  }
+}
+
+.alt-nav {
+  margin-top: 72px
+}
