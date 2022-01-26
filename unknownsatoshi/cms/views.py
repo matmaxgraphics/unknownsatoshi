@@ -1,4 +1,3 @@
-from cgitb import html
 import math
 import time
 import random
