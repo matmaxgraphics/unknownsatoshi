@@ -511,6 +511,10 @@ textarea {
   .hero-section .hero-section__title {
     width: 100%;
   }
+
+  .hero-section .hero-section__title h1 {
+    margin-top: 24px;
+  }
 }
 @media (max-width: 330px) {
   .hero-section .hero-section__title h1 {
@@ -2917,6 +2921,7 @@ footer .footer-content__item .links a:hover {
 }
 
 /* PASSWORD RESET SECTION */
+
 .reset-page .login-wrapper{
   height: auto;
 }
@@ -3034,4 +3039,29 @@ footer .footer-content__item .links a:hover {
 #sub-nav h4 {
   text-align: center;
   font-weight: bold;
+}
+
+/*CORRECTIONAL CODES*/
+@media (max-width: 360px) {
+  .hero-section .hero-section__title h1 {
+    margin-top: 24px;
+  }
+}
+
+.reset-page{
+  margin-bottom: 96px;
+}
+@media (max-width: 460px) {
+  .reset-page p{
+    display: flex;
+    flex-direction: column;
+  }
+  .reset-page a.btn {
+      position: relative;
+      top: 24px;
+  }
+}
+
+section.alt-nav{
+  margin-top: 60px;
 }
