@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     
     #local apps
     'cms',
@@ -46,7 +48,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'cloudinary_storage',
 ]
-
+SITE_ID = 1
 
 # ck editor configuration
 CKEDITOR_UPLOAD_PATH = "uploads/"

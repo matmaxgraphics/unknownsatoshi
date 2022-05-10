@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://unknownsatoshi.com/</loc>
+  <lastmod>2022-01-26T09:19:26+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://unknownsatoshi.com/login/user?next=/user/profile/None</loc>
+  <lastmod>2022-01-26T09:19:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://unknownsatoshi.com/login/user?next=/subscription/history/</loc>
+  <lastmod>2022-01-26T09:19:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://unknownsatoshi.com/about/</loc>
+  <lastmod>2022-01-26T09:19:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://unknownsatoshi.com/contact/</loc>
+  <lastmod>2022-01-26T09:19:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://unknownsatoshi.com/trade-history/</loc>
+  <lastmod>2022-01-26T09:19:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://unknownsatoshi.com/courses/</loc>
+  <lastmod>2022-01-26T09:19:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://unknownsatoshi.com/onlinestore/</loc>
+  <lastmod>2022-01-26T09:19:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://unknownsatoshi.com/blog/</loc>
+  <lastmod>2022-01-26T09:19:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://unknownsatoshi.com/login/user</loc>
+  <lastmod>2022-01-26T09:19:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://unknownsatoshi.com/user-registration</loc>
+  <lastmod>2022-01-26T09:19:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://unknownsatoshi.com/subscription/plan-list</loc>
+  <lastmod>2022-01-26T09:19:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://unknownsatoshi.com/faqs/</loc>
+  <lastmod>2022-01-26T09:19:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://unknownsatoshi.com/privacy</loc>
+  <lastmod>2022-01-26T09:19:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://unknownsatoshi.com/reset-password/</loc>
+  <lastmod>2022-01-26T09:19:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://unknownsatoshi.com/login/user?next=/subscription/plan-detail/monthly-plan</loc>
+  <lastmod>2022-01-26T09:19:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://unknownsatoshi.com/login/user?next=/subscription/plan-detail/quarterly-plan</loc>
+  <lastmod>2022-01-26T09:19:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://unknownsatoshi.com/login/user?next=/subscription/plan-detail/half-a-year-plan</loc>
+  <lastmod>2022-01-26T09:19:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://unknownsatoshi.com/faqs/contact</loc>
+  <lastmod>2022-01-26T09:19:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://unknownsatoshi.com/faqs/</loc>
+  <lastmod>2022-01-26T09:19:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://unknownsatoshi.com/faqs/subscription/plan-list</loc>
+  <lastmod>2022-01-26T09:19:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>
