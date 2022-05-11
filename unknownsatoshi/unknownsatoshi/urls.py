@@ -31,8 +31,6 @@ urlpatterns = [
     #apps sitemaps
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
 
-    #captcha
-    path('captcha/', include('captcha.urls')),
 ]
 
 handler404 = 'cms.views.custom_page_not_found'

@@ -1,5 +1,5 @@
+import urllib, json
 from django.conf import settings
-import urllib3, urllib, json
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from cms.mailing_helper import UserSubscriptionNotification
@@ -67,7 +67,6 @@ def user_register(request):
         else:
             user = User.objects.create(username=username, email=email, first_name=first_name, last_name=last_name, phone_no=phone_no,is_active=False, is_staff=False, is_superuser=False)
             user.set_password(password1)
-            user.save()
             if "next" in request.POST:
                 return redirect(request.POST.get("next"))
     
@@ -83,6 +82,7 @@ def user_register(request):
             message = strip_tags(html_message)
             send_mail = UserSubscriptionNotification(email_subject=subject, email_body=message, sender_email=DEFAULT_FROM_EMAIL, receiver_email=user.email)
             send_mail.mail_user()
+            user.save()
             return render(request, "userprolog/activation_link_sent.html")
     else:
         return render(request, template_name)
