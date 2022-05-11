@@ -1,3 +1,5 @@
+from django.conf import settings
+import urllib3, urllib, json
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from cms.mailing_helper import UserSubscriptionNotification
@@ -20,8 +22,6 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
 
 
-
-
 # user registeration
 @unauthenticated_user
 def user_register(request):
@@ -34,6 +34,19 @@ def user_register(request):
         phone_no = request.POST.get("phone_no")
         password1 = request.POST.get("password1")
         password2 = request.POST.get("password2")
+
+        #captcha config
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+        url = 'https://www.google.com/recaptcha/api/siteverify'
+        values = {
+            'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+            'response': recaptcha_response
+        }
+        data = urllib.parse.urlencode(values).encode('utf-8')
+        req = urllib.request.Request(url, data)
+        response = urllib.request.urlopen(req)
+        result = json.load(response)
+        # end of captcha config
             
         if User.objects.filter(username=username).exists():
             messages.error(request, f"username already exists")
@@ -46,6 +59,11 @@ def user_register(request):
         elif password1 != password2:
             messages.error(request, f"password do not match")
             return redirect("register")
+
+        elif not result["success"]:
+            messages.error(request, f"Invalid reCAPTCHA. Please try again.")
+            return redirect("register")
+        
         else:
             user = User.objects.create(username=username, email=email, first_name=first_name, last_name=last_name, phone_no=phone_no,is_active=False, is_staff=False, is_superuser=False)
             user.set_password(password1)

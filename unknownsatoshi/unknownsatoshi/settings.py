@@ -12,10 +12,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("SECRET_KEY")
 
+# GOOGLE CAPTCHA KEY
+GOOGLE_RECAPTCHA_SECRET_KEY = env("GOOGLE_RECAPTCHA_SECRET_KEY")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = ['unknownsatoshi.com', 'www.unknownsatoshi.com', '159.223.182.140', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = [
+    'unknownsatoshi.com',
+    'www.unknownsatoshi.com',
+    '159.223.182.140', '127.0.0.1',
+    'localhost'
+]
 
 
 
@@ -47,6 +55,9 @@ INSTALLED_APPS = [
     #cloudinary module
     'cloudinary',
     'cloudinary_storage',
+
+    #captcha
+    'captcha',
 ]
 SITE_ID = 1
 
@@ -128,7 +139,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 ROOT_URLCONF = 'unknownsatoshi.urls'
 
 TEMPLATES = [
@@ -224,7 +236,7 @@ CLOUDINARY_STORAGE = {
 }
 
 # cloudinary configuration for image uploads
-#DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 # django error logging
@@ -273,7 +285,6 @@ PASSWORD_RESET_TIMEOUT_DAYS = 1
 # mailing smtp configuration
 EMAIL_BACKEND = env("EMAIL_BACKEND")
 EMAIL_HOST = env("EMAIL_HOST")
-#EMAIL_PORT = 587
 EMAIL_PORT = 587
 USE_TLS = True
 USE_SSL = True
