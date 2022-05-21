@@ -1,6 +1,10 @@
 from pathlib import Path
 import os
 import environ
+import django 
+from django.utils.encoding import force_str
+
+django.utils.encoding.force_text = force_str
 
 env = environ.Env()
 environ.Env.read_env()
@@ -17,7 +21,7 @@ GOOGLE_RECAPTCHA_SECRET_KEY = env("GOOGLE_RECAPTCHA_SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = [
     'unknownsatoshi.com',
     'www.unknownsatoshi.com',
