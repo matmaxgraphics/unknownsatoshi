@@ -4,6 +4,8 @@ import environ
 import django 
 from django.utils.encoding import force_str
 
+
+
 django.utils.encoding.force_text = force_str
 
 env = environ.Env()
@@ -25,7 +27,8 @@ DEBUG = False
 ALLOWED_HOSTS = [
     'unknownsatoshi.com',
     'www.unknownsatoshi.com',
-    '159.223.182.140', '127.0.0.1',
+    '159.223.182.140',
+    '127.0.0.1',
     'localhost'
 ]
 
