@@ -20,8 +20,9 @@ class UserRegisterationNotification():
             to=[str(self.receiver_email)],
             reply_to=[self.reply_to,],
         )
-        msg.send()
+        msg.send(fail_silently=True)
         return True
+
     def mail_admin(self):
         msg = EmailMessage(
             subject=self.email_subject,
@@ -30,7 +31,7 @@ class UserRegisterationNotification():
             to=[str(self.receiver_email)],
             reply_to=[self.reply_to,],
         )
-        msg.send()
+        msg.send(fail_silently=True)
         return True
 
 

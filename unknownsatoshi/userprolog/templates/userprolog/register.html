@@ -137,8 +137,9 @@
                         <input type="password" name="password2" id="password2" class="input-field" placeholder="Re-enter password" required>
                     </div>
 
-                    <script src='https://www.google.com/recaptcha/api.js'></script>
-                    <div class="g-recaptcha" data-sitekey="6LflEd8fAAAAAMVsGDJajPqltcoVQmWnHifU0JzU"></div>
+                    <!--GOOGLE RECAPTCHA SITE KEY-->
+                    <div class="g-recaptcha" data-sitekey="6LfL6gkgAAAAAOsOvba1GIjd-ebRoKpaM1DgmGwv"></div>
+                    
                     <button class="btn" type="submit" id="submit" name="register-btn">Create Account</button>
                 </form>
                 
@@ -174,6 +175,10 @@ form ul:not(.errorlist) {
 <!--CUSTOM JAVASCRIPT-->
 <script src="{% static 'js/script.js' %}"></script>
 <script src="{% static 'js/validate.js' %}"></script>
+
+
+<!--GOOGLE RECAPTCHA JS-->
+<script src='https://www.google.com/recaptcha/api.js'></script>
 
 <!--Jquery CDN-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

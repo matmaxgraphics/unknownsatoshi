@@ -67,8 +67,8 @@ def user_register(request):
         else:
             user = User.objects.create(username=username, email=email, first_name=first_name, last_name=last_name, phone_no=phone_no,is_active=False, is_staff=False, is_superuser=False)
             user.set_password(password1)
-            if "next" in request.POST:
-                return redirect(request.POST.get("next"))
+            # if "next" in request.POST:
+            #     return redirect(request.POST.get("next"))
     
             # set up email activation
             current_site = get_current_site(request)
@@ -76,7 +76,7 @@ def user_register(request):
             html_message = render_to_string('userprolog/activate_account.html',{
                 'user': user,
                 'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'uid': urlsafe_base64_encode(force_bytes(user.id)),
                 'token':account_activation_token.make_token(user),
             })
             message = strip_tags(html_message)
@@ -97,7 +97,7 @@ def account_activation(request, uidb64, token):
     user = None
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
-        user = get_object_or_404(User, pk=uid)
+        user = get_object_or_404(User, id=uid)
     except:
         pass
     

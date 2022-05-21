@@ -4,6 +4,8 @@ import environ
 import django 
 from django.utils.encoding import force_str
 
+
+
 django.utils.encoding.force_text = force_str
 
 env = environ.Env()
@@ -25,7 +27,8 @@ DEBUG = False
 ALLOWED_HOSTS = [
     'unknownsatoshi.com',
     'www.unknownsatoshi.com',
-    '159.223.182.140', '127.0.0.1',
+    '159.223.182.140',
+    '127.0.0.1',
     'localhost'
 ]
 
@@ -288,7 +291,7 @@ EMAIL_BACKEND = env("EMAIL_BACKEND")
 EMAIL_HOST = env("EMAIL_HOST")
 EMAIL_PORT = 587
 USE_TLS = True
-USE_SSL = True
+#USE_SSL = True
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")

@@ -527,7 +527,6 @@ def contact(request):
         }
         message_body = "\n".join(body.values())
         if subject and email and message and fullname:
-            print(subject, "", email, "", message_body)
             mail_helper = UserRegisterationNotification(
                 email_subject=subject, 
                 email_body=str(message_body), 
@@ -670,7 +669,6 @@ def plan_details(request, slug):
     template_name = "cms/plan_payment.html"
     plan = get_object_or_404(Plan, slug=slug)
     plan_id_history = plan.id
-    print("MAIN PLAN ID IS", plan_id_history)
     user = request.user
 
     if request.method == "GET":
@@ -744,10 +742,6 @@ def payment_response(request):
     tx_ref = request.GET.get('tx_ref' or None)
     status = request.GET.get('status' or None)
     transaction_id = request.GET.get('transaction_id' or None)
-    print("THIS IS THE USER ", user)
-    print("THIS IS THE FULL NAME", full_name)
-    print("THIS IS THE FIRST NAME", user.first_name)
-    print("THIS IS THE LAST NAME", user.last_name)
     
     if SubscriptionHistory.objects.filter(reference=tx_ref).exists():
         messages.error(request, f"your email {user_id} has an active plan already")
@@ -755,7 +749,6 @@ def payment_response(request):
     else:
         pass
 
-    #create_subscription(plan_id=plan_id)
     if plan_id == 1 :
         expiry_date = today + timedelta(days=30)
         SubscriptionHistory.objects.create(
@@ -849,6 +842,7 @@ def newsletter(request):
             time.sleep(1)
             messages.success(request, f"The email you provided already exist in our newsletter list.")
             return redirect("home")
+            
         Newsletter.objects.create(email=email)
         send_mail = UserSubscriptionNotification(
             email_subject=subject,
