@@ -350,6 +350,46 @@ img{
   display: none;
 }
 
+
+/*--DROPDOWN STYLING FOR EXCHANGE REVIEW LINK--*/
+#dropdown-link{
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+#dropdown-link .dropdown-button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#dropdown-link .dropdown-button i{
+  margin-left: 6px;
+}
+.dropdown-contents{
+  display: none;
+  position: absolute;
+  background-color: #1D1D1D;
+  min-width: 200px;
+  z-index: 1;
+  border-radius: 8px;
+}
+.dropdown-contents a{
+  padding: 20px;
+  width: 100%;
+  color: #fff;
+  display: block;
+  transition: 0.3s;
+}
+.dropdown-contents a:hover{
+  color: #fff !important;
+  background-color: #F8A606;
+  transition: 0.3s;
+}
+#dropdown-link:hover .dropdown-contents{
+  display: block;
+}
+/*--END OF DROPDOWN STYLING FOR EXCHANGE REVIEW LINK--*/
+
 @media only screen and (max-width: 1024px) {
   .navbar {
     background-color: #0A0909;
