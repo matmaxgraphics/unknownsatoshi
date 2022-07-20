@@ -1654,6 +1654,7 @@ footer .footer-content__item .links a:hover {
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
+  gap: 24px;
 }
 .blog-post__section .articleCard, .blog-post__section .newsCard, .blog-post__section .storyCard {
   display: none;
