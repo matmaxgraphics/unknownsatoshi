@@ -214,6 +214,11 @@ textarea {
   margin-left: 6px;
 }
 
+img{
+  object-fit: cover;
+  object-position: center;
+}
+
 /*======ALTERNATIVE STYLING======*/
 /*=====NAVIGATION BAR STYLING=====*/
 /* .banner-wrapper {
@@ -344,6 +349,46 @@ textarea {
 .navbar__Link-toggle {
   display: none;
 }
+
+
+/*--DROPDOWN STYLING FOR EXCHANGE REVIEW LINK--*/
+#dropdown-link{
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+#dropdown-link .dropdown-button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#dropdown-link .dropdown-button i{
+  margin-left: 6px;
+}
+.dropdown-contents{
+  display: none;
+  position: absolute;
+  background-color: #1D1D1D;
+  min-width: 200px;
+  z-index: 1;
+  border-radius: 8px;
+}
+.dropdown-contents a{
+  padding: 20px;
+  width: 100%;
+  color: #fff;
+  display: block;
+  transition: 0.3s;
+}
+.dropdown-contents a:hover{
+  color: #fff !important;
+  background-color: #F8A606;
+  transition: 0.3s;
+}
+#dropdown-link:hover .dropdown-contents{
+  display: block;
+}
+/*--END OF DROPDOWN STYLING FOR EXCHANGE REVIEW LINK--*/
 
 @media only screen and (max-width: 1024px) {
   .navbar {
@@ -556,7 +601,6 @@ textarea {
   margin-bottom: 48px;
 }
 .blog-section .blog-post__container {
-  display: -ms-grid;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
   gap: 0.7rem;
@@ -565,9 +609,17 @@ textarea {
 .blog-section .blog-post__card {
   max-width: 360px;
   max-width: 360px;
+  height: 500px;
   border-radius: 8px;
   margin-bottom: 24px;
   background: #1A1919;
+}
+.blog-section .blog-btn__container {
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  margin-top: 24px;
+  margin-bottom: 60px;
 }
 .blog-section #index-blog{
   display: none;
@@ -1638,11 +1690,11 @@ footer .footer-content__item .links a:hover {
   text-align: center;
 }
 .blog-post__section .blog-post__container {
-  display: -ms-grid;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-  gap: 0.7rem;
-  place-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
 }
 .blog-post__section .articleCard, .blog-post__section .newsCard, .blog-post__section .storyCard {
   display: none;
@@ -1690,6 +1742,7 @@ footer .footer-content__item .links a:hover {
 .blog-post__section .blog-post__card {
   max-width: 360px;
   max-width: 360px;
+  height: 500px;
   border-radius: 8px;
   margin-bottom: 24px;
   background: #1A1919;
