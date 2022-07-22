@@ -87,7 +87,7 @@ class Blog(models.Model):
         return self.post[:200]
 
     def get_absolute_url(self):
-        return reverse("blog-detail", kwargs={"pk": self.pk})
+        return reverse("blog-detail", kwargs={"slug": self.slug})
     
 
 #subscription plan for premium blog views 

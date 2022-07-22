@@ -49,16 +49,14 @@ urlpatterns = [
     path('create-course', views.create_course, name='create-course'),
     path('update-course/<str:id>', views.update_course, name='update-course'),
     path('delete-course/<str:pk>', views.delete_course, name='delete-course'),
-
-    
     
     # admin blog section
     path('create-blog', views.create_blog, name='create-blog'),
     path('admin-blog', views.admin_blog, name='admin-blog'),
     path('update-blog/<str:pk>', views.update_blog, name='update-blog'),
     path('delete-blog/<str:pk>', views.delete_blog, name='delete-blog'),
-    path('blog-detail/<str:pk>', views.blog_detail, name='blog-detail'),
-    path('premium-blog-detail/<str:pk>', views.premium_blog_detail, name='premium-blog-detail'),
+    path('article/<str:slug>/', views.blog_detail, name='blog-detail'),
+    path('premium-article/<str:slug>', views.premium_blog_detail, name='premium-blog-detail'),
 
     #admin user section.
     path('admin-create-user', views.admin_create_user, name="admin-create-user"),

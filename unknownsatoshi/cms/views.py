@@ -603,9 +603,9 @@ def blog(request):
 
 
 # regular blog details
-def blog_detail(request, pk):
+def blog_detail(request, slug):
     template_name = 'cms/single.html'
-    blog = Blog.objects.get(id=pk)
+    blog = Blog.objects.get(slug=slug)
     context = {'blog': blog}
     try:
         if not request.user or not request.user.is_authenticated:
@@ -618,9 +618,9 @@ def blog_detail(request, pk):
         
 
 #premium blog details
-def premium_blog_detail(request, pk):
+def premium_blog_detail(request, slug):
     template_name = 'cms/premium-single.html'
-    blog = Blog.objects.get(id=pk)
+    blog = Blog.objects.get(slug=slug)
     context = {"blog":blog}
     try:
         premium_user = SubscriptionHistory.objects.filter(user=request.user, active=True).exists()
