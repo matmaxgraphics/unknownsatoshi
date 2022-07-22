@@ -16,7 +16,7 @@
                             <img src="{{blog.featured_image.url }}" alt="demo image">
                             <div class="text-container">
                                 <h5>{{blog.title}}</h5>
-                                <p>{{blog.snippet}}<a style="color: #EE5717;" href="{% url 'blog-detail' blog.pk%}">..Read More...</a></p>
+                                <p>{{blog.snippet}}<a style="color: #EE5717;" href="{% url 'blog-detail' blog.pk %}">..Read More...</a></p>
                             </div>
                         </a>
                     </div>
@@ -33,7 +33,7 @@
                 <div class="blog-post__container">
                     {% for blog in latest_new %}
                     <div class="blog-post__card">
-                        <a href="{% url 'blog-detail' blog.pk %}">
+                        <a href="{% url 'blog-detail' blog.slug %}">
                             <img src="{{blog.featured_image.url }}" alt="demo image">
                             <div class="text-container">
                                 <h5>{{blog.title}}</h5>
