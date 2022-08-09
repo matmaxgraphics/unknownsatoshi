@@ -3,11 +3,11 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>UnknownSatoshi | All-in-One Community to Learn, Sell and Buy Cryptocurrency</title>
+	<title>{% block title %}UnknownSatoshi | All-in-One Community to Learn, Sell and Buy Cryptocurrency{% endblock title %}</title>
 
 	<!--SEO Control-->
 	<meta charset="utf-8" />
-    <meta name="description" content="Unknown Satoshi is a community focused platform which educates and empowers you with the right crypto knowledge and tools.">
+    <meta name="description" content="{% block meta %} Unknown Satoshi is a community focused platform which educates and empowers you with the right crypto knowledge and tools.{% endblock meta %}">
     <link rel="icon" href=" {% static 'images/favicon.png' %}">
 
     <!--Viewport Control-->

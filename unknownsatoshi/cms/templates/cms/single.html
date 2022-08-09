@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
+<title>{% block title %}UnknownSatoshi | {{blog.title}}{% endblock title %}</title>
+<meta name="description" content="{% block meta %} {{blog.meta_snippet}} {% endblock meta %}">
+
 
 
 
@@ -18,7 +21,6 @@
                 <h1 class="post-title">{{blog.title}}</h1>
                 <div class="post-content">
                     <p>{{blog.post|safe}}</p>
-                    
                 </div>
             </div>
         </section>
