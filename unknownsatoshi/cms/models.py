@@ -83,8 +83,8 @@ class Blog(models.Model):
     def snippet(self):
         return self.post[:200]
 
-    def home_snippet(self):
-        return self.post[:200]
+    def meta_snippet(self):
+        return self.post[:50]
 
     def get_absolute_url(self):
         return reverse("blog-detail", kwargs={"slug": self.slug})

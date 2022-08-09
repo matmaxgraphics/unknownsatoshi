@@ -1,6 +1,8 @@
 {% extends 'base2.html' %}
 {% load static %}
 
+<title>{% block title %}UnknownSatoshi | {{blog.title}}{% endblock title %}</title>
+<meta name="description" content="{% block meta %} {{blog.meta_snippet}} {% endblock meta %}">
 
 
 
