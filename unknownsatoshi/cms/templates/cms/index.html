@@ -8,8 +8,8 @@
 		<header class="banner-wrapper">		
 			<section class="hero-section">
 				<div class="hero-section__title">
-				<h1>Welcome to Unknown Satoshi</h1>
-				<p>A community focused platform which educates and empowers you with the right crypto knowledge and tools.</p>
+					<h1>Welcome to Unknown Satoshi</h1>
+					<p>A community focused platform which educates and empowers you with the right crypto knowledge and tools.</p>
 				</div>
 				<br>
 				<a class="btn" href="https://discord.gg/zFGTdZYsQ4">Join Community</a>
@@ -29,11 +29,11 @@
 				
 				{% for blog in blogs %}
 				<div class="blog-post__card" id="index-blog">
-					<a href="{{blog.get_absolute_url}}">
-						<img src="{{blog.featured_image.url}}" alt="demo image">
+					<a href="{{ blog.get_absolute_url }}">
+						<img src="{{ blog.featured_image.url }}" alt="demo image">
 						<div class="text-container">
-							<h5>{{blog.title|title}}</h5>
-							<p>{{blog.home_snippet|safe}}</p>
+							<h5>{{ blog.title|title }}</h5>
+							<p>{{ blog.snippet|safe }}<a style="color: #EE5717;" href="{% url 'blog-detail' blog.slug %}">..Read More...</a></p>
 						</div>
 					</a>
 				</div>
