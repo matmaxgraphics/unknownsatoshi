@@ -29,11 +29,11 @@
 				
 				{% for blog in blogs %}
 				<div class="blog-post__card" id="index-blog">
-					<a href="{{blog.get_absolute_url}}">
-						<img src="{{blog.featured_image.url}}" alt="demo image">
+					<a href="{{ blog.get_absolute_url }}">
+						<img src="{{ blog.featured_image.url }}" alt="demo image">
 						<div class="text-container">
-							<h5>{{blog.title|title}}</h5>
-							<p>{{blog.home_snippet|safe}}</p>
+							<h5>{{ blog.title|title }}</h5>
+							<p>{{ blog.snippet|safe }}<a style="color: #EE5717;" href="{% url 'blog-detail' blog.slug %}">..Read More...</a></p>
 						</div>
 					</a>
 				</div>
