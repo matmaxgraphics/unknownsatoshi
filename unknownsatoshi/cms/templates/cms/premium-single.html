@@ -7,11 +7,12 @@
 
 
 {% block content %}    
-<div class="page-wrapper post-wrapper margin-extra">
+<div class="page-wrapper margin-extra single-wrapper">
     <section class="article-wrapper">
         <div class="post-details">
-            <span class="iconic-span"><i class="ri-calendar-line"></i>{{blog.created_on|date}}</span>
-            <span class="iconic-span"><i class="ri-user-line"></i>{{blog.updated_on|date}}</span>
+            <span class="iconic-span"><i class="ri-calendar-line"></i> {{blog.created_on|date}}</span>
+			<span class="iconic-span"><i class="ri-user-line"></i> {{blog.author}}</span>
+			<span class="iconic-span icon-bg-dark"><i class="ri-eye-line"></i> 120 views</span>
         </div>
         <div class="blog-content_container">
             <img src="{{blog.featured_image.url}}" class="blog-banner" alt="demo image for blog post">
@@ -21,6 +22,124 @@
                 <p>{{blog.post|safe}}</p>
             </div>
         </div>
+
+        <aside class="reviews-section article-details">
+			<ul>
+				<li class="iconic-span icon-bg-dark like-btn"><i class="ri-heart-line"></i> <span
+						class="action-number__like">32</span></li>
+				<li class="iconic-span icon-bg-dark"><i class="ri-message-2-line"></i> <span
+						class="action-number__comment">10</span></li>
+				<li class="iconic-span icon-bg-dark"><i class="ri-share-line"></i></li>
+			</ul>
+			<!-- <div class="action" onclick="actionToggle()">
+				<span class="iconic-span icon-bg-dark"><i class="ri-share-line"></i></span>
+				<ul>
+					<li><i class="ri-facebook-circle-fill"></i> share on Facebook</li>
+					<li><i class="ri-twitter-fill"></i> share on Twitter</li>
+					<li><i class="ri-instagram-line"></i> share on Instagram</li>
+					<li><i class="ri-linkedin-fill"></i> share on LinkedIn</li>
+					<li><i class="ri-link"></i>Copy sharing link</li>
+				</ul>
+			</div> -->
+		</aside>
     </section>
+
+    <section class="comment-section">
+		<form action="single.html" method="get">
+			<div>
+				<label for="comment">Add a Comment</label>
+				<textarea name="comment" placeholder="Your message here..." required></textarea>
+			</div>
+			<button class="btn" type="submit" name="submit-btn">Publish Comment</button>
+		</form>
+
+		<main class="comments-wrapper">
+			<h4>Comments</h4>
+			<div class="comment-container">
+				<div class="profile-container">
+					<img src="{% static 'images/img-5.jpg' %}" alt="profile-image"><span>Alvin Chipmunk</span>
+				</div>
+				<p>Barbara had been waiting at the table for twenty minutes. it had been twenty long and
+					excruciating minutes. A few minutes later comes the boss fuming for an unknown reason.</p>
+			</div>
+
+			<div class="comment-container">
+				<div class="profile-container">
+					<img src="{% static 'images/img-5.jpg' %}" alt="profile-image"><span>John Doe</span>
+				</div>
+				<p>Barbara had been waiting at the table for twenty minutes. it had been twenty long and
+					excruciating minutes.</p>
+			</div>
+
+			<div class="comment-container">
+				<div class="profile-container">
+					<img src="{% static 'images/img-5.jpg' %}" alt="profile-image"><span>Yemi Osinbanjo</span>
+				</div>
+				<p>Barbara had been waiting at the table for twenty minutes. it had been twenty long and
+					excruciating minutes.</p>
+			</div>
+		</main>
+	</section>
+
+	<section class="blog-post__section">
+		<main class="stories-section related-posts">
+			<h2>Related Articles</h2>
+			<div class="blog-post__container">
+				<div class="blog-post__card">
+					<a href="#">
+						<img src="{% static 'images/img-1.jpg' %}" alt="demo image">
+						<div class="text-container">
+							<h5>The hidden mystery behind cryptocurrency</h5>
+							<p>I'm going to hire professional help tomorrow. I can't handle this anymore. She fell
+								over the coffee table and now there is blood in her catheter...</p>
+						</div>
+					</a>
+				</div>
+
+				<div class="blog-post__card">
+					<a href="#">
+						<img src="{% static 'images/img-6.jpg' %}" alt="demo image">
+						<div class="text-container">
+							<h5><a href="#">How to grow your crypto currency portfolio</a></h5>
+							<p>I'm going to hire professional help tomorrow. I can't handle this anymore. She fell
+								over the coffee table and now there is blood in her catheter...</p>
+						</div>
+					</a>
+				</div>
+
+				<div class="blog-post__card">
+					<a href="#">
+						<img src="{% static 'images/img-5.jpg' %}" alt="demo image">
+						<div class="text-container">
+							<h5><a href="#">The hidden mystery behind cryptocurrency</a></h5>
+							<p>I'm going to hire professional help tomorrow. I can't handle this anymore. She fell
+								over the coffee table and now there is blood in her catheter...</p>
+						</div>
+					</a>
+				</div>
+
+			</div>
+		</main>
+	</section>
+
+    <section class="newsletter-section">
+		<h2>Newsletter</h2>
+		<p>Sign up for our weekly newsletter to get the latest news, special offers, market researchs, crypto analysis
+			and more. We promise not to spam your mail</p>
+
+		<form action="index.html" method="post">
+			<input type="email" name="email" id="email" class="input-field" placeholder="Input your email address..."
+				required>
+			<a class="btn" role="button" href="#">Join Newsletter</a>
+		</form>
+	</section>
+
+
+	<section class="join-community">
+		<h2>Become part of a global community of elite crypto traders</h2>
+		<p>Don't miss the life changing opportunity crypto has to offer. Get access to latest informations, crypto
+			signals and Market analysis</p>
+		<a class="btn" href="https://discord.gg/zFGTdZYsQ4">Join Community</a>
+	</section>
 </div>
 {% endblock content %}
