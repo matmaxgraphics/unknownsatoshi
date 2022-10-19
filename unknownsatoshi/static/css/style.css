@@ -2104,6 +2104,59 @@ footer .footer-content__item .links a:hover {
   transition: 0.3s all;
 }
 
+.share-btn {
+  position: relative;
+}
+
+.social-sharing {
+  position: absolute;
+  -webkit-transform: translate(2%, -65%);
+  transform: translate(2%, -65%);
+}
+
+.hidden {
+  display: none;
+}
+
+.social-sharing__wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  background-color: #333;
+  border-radius: 8px;
+  padding: 12px;
+  width: 100%;
+}
+.social-sharing__wrapper span {
+  margin-bottom: 6px;
+}
+.social-sharing__wrapper a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 6px;
+  transition: 0.3s;
+}
+.social-sharing__wrapper a:hover {
+  color: #f8a606;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.social-sharing__wrapper i {
+  margin-right: 6px;
+  font-size: 18px;
+}
+
 .comment-section {
   width: 90%;
   margin: auto;

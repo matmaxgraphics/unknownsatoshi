@@ -20,3 +20,15 @@ likeBtn.addEventListener('click', function(){
   likeIcon.classList.toggle("ri-heart-line");
   likeIcon.classList.add("ri-heart-fill");
 })
+
+
+/*======share button function========*/
+const shareBtn = document.querySelector(".share-btn");
+const socialLinks = document.querySelector('.social-sharing');
+
+socialLinks.classList.add('hidden');
+
+shareBtn.addEventListener("click", function () {
+  // console.log("button clicked");
+  socialLinks.classList.toggle("hidden");
+});
