@@ -6,6 +6,7 @@ from .forms import *
 from .models import *
 from userprolog.models import User
 from django.contrib import messages
+from django.http import HttpResponseRedirect, JsonResponse
 from datetime import date, datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login,logout
@@ -16,6 +17,7 @@ from .decorators import unauthenticated_user, allowed_user, admin_only
 from unknownsatoshi.settings import FLW_PRODUCTION_SECRET_KEY, FLW_SANDBOX_SECRET_KEY
 from django.template.loader import render_to_string
 from unknownsatoshi.settings import DEFAULT_FROM_EMAIL, CONTACT_EMAIL
+import json
 
 
 
@@ -42,7 +44,7 @@ def admin_login(request):
 def admin_logout(request):
     logout(request)
     messages.success(request, f"Logout  Successful")
-    return redirect("admin-login")
+    return redirect("home")
 
 
 # admin history view
@@ -606,23 +608,64 @@ def blog(request):
 def blog_detail(request, slug):
     template_name = 'cms/single.html'
     blog = Blog.objects.get(slug=slug)
-    context = {'blog': blog}
+    msg = False
+    form = CommentForm()
+    
+    if request.user.is_authenticated:
+        user = request.user
+
+        if blog.likes.filter(id=user.id).exists():
+            msg = True
+    context = {'blog': blog, 'msg':msg, 'form':form}
+
     try:
+        if request.method == 'POST':
+            form = CommentForm(request.POST)
+            comment = form.save(commit=False)
+            comment.blog = blog
+            comment.owner = request.user
+            comment.save()
+
+
+            messages.success(request, 'Your review was successfully submitted!')
+            return redirect('blog-detail', slug=blog.slug)
+    
         if not request.user or not request.user.is_authenticated:
+            
             return render(request, template_name, context)
 
         else:
             return render(request, template_name, context)
     except:
-        return render(request, "cms/login-prompt.html")
-        
+        return render(request, "cms/login-prompt.html", context)
+   
+#blog comments
+     
 
 #premium blog details
 def premium_blog_detail(request, slug):
     template_name = 'cms/premium-single.html'
     blog = Blog.objects.get(slug=slug)
-    context = {"blog":blog}
+    msg = False
+    form = CommentForm()
+
+    if request.user.is_authenticated:
+        user = request.user
+
+        if blog.likes.filter(id=user.id).exists():
+            msg = True
+    context = {"blog":blog, "msg": msg, "form":form}
     try:
+        if request.method == 'POST':
+            form = CommentForm(request.POST)
+            comment = form.save(commit=False)
+            comment.blog = blog
+            comment.owner = request.user
+            comment.save()
+
+
+            messages.success(request, 'Your review was successfully submitted!')
+            return redirect('premium-blog-detail', slug=blog.slug)
         premium_user = SubscriptionHistory.objects.filter(user=request.user, active=True).exists()
         if request.user.is_authenticated and blog.premium and premium_user:
             return render(request, template_name, context)
@@ -860,4 +903,30 @@ def newsletter(request):
 # error page
 def custom_page_not_found(request, exception):
     return render(request, "cms/404.html")
+
+def like_post(request):
+    data = json.loads(request.body)
+    id = data["id"]
+    blog = Blog.objects.get(id=id)
+    checker = None
+    
+    if request.user.is_authenticated:
+        
+        if blog.likes.filter(id=request.user.id).exists():
+            blog.likes.remove(request.user)
+            checker = 0
+            
+            
+        else:
+            blog.likes.add(request.user)
+            checker = 1
+    
+    likes = blog.likes.count()
+    
+    info = {
+        "check": checker,
+        "num_of_likes": likes
+    }
+    
+    return JsonResponse(info, safe=False)
     

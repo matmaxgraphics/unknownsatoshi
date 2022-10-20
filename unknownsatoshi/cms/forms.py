@@ -178,3 +178,20 @@ class SubscriptionHistoryForm(forms.ModelForm):
         self.fields['transaction_id'].widget.attrs.update({'class':"input-field"})
         self.fields['status'].widget.attrs.update({'class':"input-field"})
         self.fields['active'].widget.attrs.update({'class':"input-field"})
+        
+        
+#comment form
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['body']
+
+        labels = {
+            'body': 'Add a comment with your vote'
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(CommentForm, self).__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'input'})

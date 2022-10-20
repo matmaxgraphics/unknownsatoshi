@@ -37,3 +37,5 @@ class AdminSubscriptionHistory(admin.ModelAdmin):
 @admin.register(Newsletter)
 class AdminNesletter(admin.ModelAdmin):
     list_display = ('email',)
+
+admin.site.register(Comment)

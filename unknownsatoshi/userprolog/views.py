@@ -148,7 +148,7 @@ def user_login(request):
 def logout_user(request):
     logout(request)
     messages.success(request, f"logout successful")
-    return redirect('home')
+    return redirect('user-login')
 
 
 #user profile and update 

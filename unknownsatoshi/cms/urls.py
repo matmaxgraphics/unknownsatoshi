@@ -18,6 +18,7 @@ urlpatterns = [
     path('onlinestore', views.onlinestore, name='onlinestore'),
     path('page-not-found', views.custom_page_not_found, name="page_not_found"),
     path('unauthorized-page', views.unauthorized_page, name='unauthorized-page'),
+    path('like_post', views.like_post, name="like"),
     
     
     # # admin panel

@@ -70,6 +70,8 @@ class Blog(models.Model):
     featured_image = models.ImageField(null=True, blank=True, default="default.png", upload_to="blog_images/")
     premium = models.BooleanField(default=False)
     home_page = models.BooleanField(default=False)
+    #like model field
+    likes = models.ManyToManyField(User, related_name="likes")
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -85,10 +87,28 @@ class Blog(models.Model):
 
     def meta_snippet(self):
         return self.post[:50]
+    
+    @property
+    def commenters(self):
+        queryset = self.comment_set.all()
+        return queryset
 
     def get_absolute_url(self):
         return reverse("blog-detail", kwargs={"slug": self.slug})
     
+#comment model
+class Comment(models.Model):
+    owner= models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    blog= models.ForeignKey(Blog, on_delete=models.CASCADE)
+    body = models.TextField(null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True,editable=False)
+    
+    class Meta:
+        ordering = ['-created']
+    
+    def __str__(self):
+        return str(self.blog)
 
 #subscription plan for premium blog views 
 class Plan(models.Model):

@@ -7,6 +7,11 @@
 
 
 {% block content %}    
+<style>
+	i{
+		font-size: 22px;
+	}
+</style>
 <div class="page-wrapper margin-extra single-wrapper">
     <section class="article-wrapper">
         <div class="post-details">
@@ -25,10 +30,18 @@
 
         <aside class="reviews-section article-details">
 			<ul>
-				<li class="iconic-span icon-bg-dark like-btn"><i class="ri-heart-line"></i> <span
-						class="action-number__like">32</span></li>
+				<li class="iconic-span icon-bg-dark like-btn">
+					{% if msg %}
+						<i id="ilike" class="ri-heart-fill"></i>
+					{% else %}
+						<i id="ilike" class="ri-heart-line"></i>
+					{% endif %}
+
+					<span id="num"
+				class="action-number__like">{{blog.likes.count}}</span></li>
+					
 				<li class="iconic-span icon-bg-dark"><i class="ri-message-2-line"></i> <span
-						class="action-number__comment">10</span></li>
+						class="action-number__comment">{{blog.comment_set.all.count}}</span></li>
 				<li class="iconic-span icon-bg-dark"><i class="ri-share-line"></i></li>
 			</ul>
 			<!-- <div class="action" onclick="actionToggle()">
@@ -45,39 +58,30 @@
     </section>
 
     <section class="comment-section">
-		<form action="single.html" method="get">
+		<form action="{% url 'premium-blog-detail' slug=blog.slug %}" method="POST">
+			{% csrf_token %}
+			{% for field in form %}
 			<div>
-				<label for="comment">Add a Comment</label>
-				<textarea name="comment" placeholder="Your message here..." required></textarea>
+				<label for="comment">{{field.label}}</label>
+				{{field}}
 			</div>
+			{% endfor %}
 			<button class="btn" type="submit" name="submit-btn">Publish Comment</button>
 		</form>
 
 		<main class="comments-wrapper">
 			<h4>Comments</h4>
+			{% for comment in blog.comment_set.all %}
+				
 			<div class="comment-container">
 				<div class="profile-container">
-					<img src="{% static 'images/img-5.jpg' %}" alt="profile-image"><span>Alvin Chipmunk</span>
+					<img src="{% static 'images/profile_image/5.png' %}" alt="profile-image"><span>{{comment.owner|title}}</span>
 				</div>
-				<p>Barbara had been waiting at the table for twenty minutes. it had been twenty long and
-					excruciating minutes. A few minutes later comes the boss fuming for an unknown reason.</p>
+				<p>{{comment.body}}</p>
 			</div>
-
-			<div class="comment-container">
-				<div class="profile-container">
-					<img src="{% static 'images/img-5.jpg' %}" alt="profile-image"><span>John Doe</span>
-				</div>
-				<p>Barbara had been waiting at the table for twenty minutes. it had been twenty long and
-					excruciating minutes.</p>
-			</div>
-
-			<div class="comment-container">
-				<div class="profile-container">
-					<img src="{% static 'images/img-5.jpg' %}" alt="profile-image"><span>Yemi Osinbanjo</span>
-				</div>
-				<p>Barbara had been waiting at the table for twenty minutes. it had been twenty long and
-					excruciating minutes.</p>
-			</div>
+			{% empty %}
+				<p>No comments on this blog yet</p>
+			{% endfor %}
 		</main>
 	</section>
 
@@ -142,4 +146,68 @@
 		<a class="btn" href="https://discord.gg/zFGTdZYsQ4">Join Community</a>
 	</section>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+	function getCookie(name) {
+		let cookieValue = null;
+		if (document.cookie && document.cookie !== '') {
+			const cookies = document.cookie.split(';');
+			for (let i = 0; i < cookies.length; i++) {
+				const cookie = cookies[i].trim();
+				// Does this cookie string begin with the name we want?
+				if (cookie.substring(0, name.length + 1) === (name + '=')) {
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					break;
+				}
+			}
+		}
+		return cookieValue;
+	}
+	const csrftoken = getCookie('csrftoken');
+
+	let btn = document.getElementById("ilike")
+	let num_of_likes = document.getElementById("num")
+	let blog_id = "{{blog.id}}"
+
+	btn.addEventListener("click", likePost)
+
+	function likePost(e){
+		let url = "{% url 'like' %}"
+		const data = {id:blog_id}
+	
+		fetch(url, {
+		  method: 'POST',
+		  headers: {"Content-Type": "application/json",
+		  'X-CSRFToken': csrftoken
+		},
+		  body : JSON.stringify(data)
+		})
+		.then(res => res.json())
+		.then(data => {
+		  console.log(data)
+	
+		  if(data["check"] == 1){
+			btn.classList.remove("ri-heart-line")
+			btn.classList.add('ri-heart-fill')
+		  }
+	
+		  else if(data["check"] == 0){
+			btn.classList.add("ri-heart-line")
+			btn.classList.remove('ri-heart-fill')
+		  }
+	
+		  else{
+			alert("you need to login")
+		  }
+	
+		  num_of_likes.innerHTML = data["num_of_likes"]
+	
+	
+	
+		})
+	
+	
+	  }
+</script>
 {% endblock content %}
