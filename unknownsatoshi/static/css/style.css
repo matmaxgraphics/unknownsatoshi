@@ -2328,6 +2328,31 @@ footer .footer-content__item .links a:hover {
   -ms-flex-direction: column;
   flex-direction: column;
 }
+/*.pricing-section .plan-wrapper .plan-box {
+  width: 100%;
+  background-color: #1A1A1A;
+  border-radius: 8px;
+  padding: 24px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.pricing-section .plan-wrapper .plan-box h4 {
+  margin-bottom: 24px;
+}
+.pricing-section .plan-wrapper .plan-box .renewal {
+  margin-top: 24px;
+}*/
 .restriction-box .subscription-box .plan-box h4 {
   margin-bottom: 6px;
 }
@@ -2593,7 +2618,7 @@ footer .footer-content__item .links a:hover {
   border-radius: 8px 8px 0 0;
 }
 .pricing-section .plan-wrapper .popular-box main {
-  padding: 24px;
+  padding-bottom: 24px;
 }
 
 @media (max-width: 500px) {
