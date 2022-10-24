@@ -33,10 +33,10 @@ shareBtn.addEventListener("click", function () {
 });
 
 /*======THE SCRIPT THAT CONTROLS THE MODAL WINDOW ON THE SINGLE BLOG POST PAGE====*/
-const modal = document.querySelector(".modal-window");
+/*const modal = document.querySelector(".modal-window");
 const closeModal = document.querySelector(".close-modal");
 const overlayBackdrop = document.querySelector(".overlay");
-const openModal = document.querySelector(".like-btn");
+// const openModal = document.querySelector(".like-btn");
 
 const hideModal = function () {
   modal.classList.add("hidden");
@@ -49,4 +49,4 @@ openModal.addEventListener("click", function () {
 });
 
 closeModal.addEventListener("click", hideModal);
-overlayBackdrop.addEventListener("click", hideModal);
+overlayBackdrop.addEventListener("click", hideModal);*/
