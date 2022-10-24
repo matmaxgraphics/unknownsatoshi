@@ -28,6 +28,7 @@ ALLOWED_HOSTS = [
     'unknownsatoshi.com',
     'www.unknownsatoshi.com',
     '159.223.182.140',
+    '192.168.226.108',
     '127.0.0.1',
     'localhost'
 ]

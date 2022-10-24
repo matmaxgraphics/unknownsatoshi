@@ -6,58 +6,68 @@
 
 
 
-{% block content %}    
+{% block content %}
 <style>
-	i{
+	i {
 		font-size: 22px;
 	}
 </style>
 <div class="page-wrapper margin-extra single-wrapper">
-    <section class="article-wrapper">
-        <div class="post-details">
-            <span class="iconic-span"><i class="ri-calendar-line"></i> {{blog.created_on|date}}</span>
+	<section class="article-wrapper">
+		<div class="post-details">
+			<span class="iconic-span"><i class="ri-calendar-line"></i> {{blog.created_on|date}}</span>
 			<span class="iconic-span"><i class="ri-user-line"></i> {{blog.author}}</span>
 			<span class="iconic-span icon-bg-dark"><i class="ri-eye-line"></i> 120 views</span>
-        </div>
-        <div class="blog-content_container">
-            <img src="{{blog.featured_image.url}}" class="blog-banner" alt="demo image for blog post">
+		</div>
+		<div class="blog-content_container">
+			<img src="{{blog.featured_image.url}}" class="blog-banner" alt="demo image for blog post">
 
-            <h1 class="post-title">{{blog.title|title}}</h1>
-            <div class="post-content">
-                <p>{{blog.post|safe}}</p>
-            </div>
-        </div>
+			<h1 class="post-title">{{blog.title|title}}</h1>
+			<div class="post-content">
+				<p>{{blog.post|safe}}</p>
+			</div>
+		</div>
 
-        <aside class="reviews-section article-details">
+		<aside class="reviews-section article-details">
 			<ul>
 				<li class="iconic-span icon-bg-dark like-btn">
 					{% if msg %}
-						<i id="ilike" class="ri-heart-fill"></i>
+					<i id="ilike" class="ri-heart-fill"></i>
 					{% else %}
-						<i id="ilike" class="ri-heart-line"></i>
+					<i id="ilike" class="ri-heart-line"></i>
 					{% endif %}
 
-					<span id="num"
-				class="action-number__like">{{blog.likes.count}}</span></li>
-					
+					<span id="num" class="action-number__like">{{blog.likes.count}}</span>
+				</li>
+
 				<li class="iconic-span icon-bg-dark"><i class="ri-message-2-line"></i> <span
 						class="action-number__comment">{{blog.comment_set.all.count}}</span></li>
-				<li class="iconic-span icon-bg-dark"><i class="ri-share-line"></i></li>
+				<li class="iconic-span icon-bg-dark share-btn"><i class="ri-share-line"></i></li>
+				<article class="social-sharing">
+					<div class="social-sharing__wrapper">
+						<span class="bold">share Article</span>
+						<span><a href=""><i class="ri-facebook-circle-fill"></i>Facebook</a></span>
+						<span><a href=""><i class="ri-twitter-fill"></i>Twitter</a></span>
+						<span><a href=""><i class="ri-instagram-line"></i>Instagram</a></span>
+						<span><a href=""><i class="ri-linkedin-fill"></i>WhatsApp</a></span>
+						<span><a href=""><i class="ri-link"></i>Copy sharing link</a></span>
+					</div>
+				</article>
 			</ul>
-			<!-- <div class="action" onclick="actionToggle()">
-				<span class="iconic-span icon-bg-dark"><i class="ri-share-line"></i></span>
-				<ul>
-					<li><i class="ri-facebook-circle-fill"></i> share on Facebook</li>
-					<li><i class="ri-twitter-fill"></i> share on Twitter</li>
-					<li><i class="ri-instagram-line"></i> share on Instagram</li>
-					<li><i class="ri-linkedin-fill"></i> share on LinkedIn</li>
-					<li><i class="ri-link"></i>Copy sharing link</li>
-				</ul>
-			</div> -->
 		</aside>
-    </section>
+		<!-- THE MODAL WINDOW THAT SHOWS WHEN A USER IS NOT LOGGED IN AND TRYS TO LIKE A POST -->
+		<article class="modal-window hidden">
+			<div class="modal-container">
+				<button class="close-modal">&times;</button>
+				<p class="description">Please login to continue this action</p>
+				<a class="btn login-btn" href="login.html">Login</a>
+				<p>Don't have an account? <a href="register.html">Create an account</a></p>
+			</div>
+		</article>
+		<div class="overlay hidden"></div>
+	</section>
 
-    <section class="comment-section">
+	<section class="comment-section">
 		<form action="{% url 'premium-blog-detail' slug=blog.slug %}" method="POST">
 			{% csrf_token %}
 			{% for field in form %}
@@ -72,15 +82,16 @@
 		<main class="comments-wrapper">
 			<h4>Comments</h4>
 			{% for comment in blog.comment_set.all %}
-				
+
 			<div class="comment-container">
 				<div class="profile-container">
-					<img src="{% static 'images/profile_image/5.png' %}" alt="profile-image"><span>{{comment.owner|title}}</span>
+					<img src="{% static 'images/profile_image/5.png' %}"
+						alt="profile-image"><span>{{comment.owner|title}}</span>
 				</div>
 				<p>{{comment.body}}</p>
 			</div>
 			{% empty %}
-				<p>No comments on this blog yet</p>
+			<p>No comments on this blog yet</p>
 			{% endfor %}
 		</main>
 	</section>
@@ -126,7 +137,7 @@
 		</main>
 	</section>
 
-    <section class="newsletter-section">
+	<section class="newsletter-section">
 		<h2>Newsletter</h2>
 		<p>Sign up for our weekly newsletter to get the latest news, special offers, market researchs, crypto analysis
 			and more. We promise not to spam your mail</p>
@@ -172,42 +183,43 @@
 
 	btn.addEventListener("click", likePost)
 
-	function likePost(e){
+	function likePost(e) {
 		let url = "{% url 'like' %}"
-		const data = {id:blog_id}
-	
+		const data = { id: blog_id }
+
 		fetch(url, {
-		  method: 'POST',
-		  headers: {"Content-Type": "application/json",
-		  'X-CSRFToken': csrftoken
-		},
-		  body : JSON.stringify(data)
+			method: 'POST',
+			headers: {
+				"Content-Type": "application/json",
+				'X-CSRFToken': csrftoken
+			},
+			body: JSON.stringify(data)
 		})
-		.then(res => res.json())
-		.then(data => {
-		  console.log(data)
-	
-		  if(data["check"] == 1){
-			btn.classList.remove("ri-heart-line")
-			btn.classList.add('ri-heart-fill')
-		  }
-	
-		  else if(data["check"] == 0){
-			btn.classList.add("ri-heart-line")
-			btn.classList.remove('ri-heart-fill')
-		  }
-	
-		  else{
-			alert("you need to login")
-		  }
-	
-		  num_of_likes.innerHTML = data["num_of_likes"]
-	
-	
-	
-		})
-	
-	
-	  }
+			.then(res => res.json())
+			.then(data => {
+				console.log(data)
+
+				if (data["check"] == 1) {
+					btn.classList.remove("ri-heart-line")
+					btn.classList.add('ri-heart-fill')
+				}
+
+				else if (data["check"] == 0) {
+					btn.classList.add("ri-heart-line")
+					btn.classList.remove('ri-heart-fill')
+				}
+
+				else {
+					alert("you need to login")
+				}
+
+				num_of_likes.innerHTML = data["num_of_likes"]
+
+
+
+			})
+
+
+	}
 </script>
 {% endblock content %}
