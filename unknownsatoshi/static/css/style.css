@@ -2094,6 +2094,8 @@ footer .footer-content__item .links a:hover {
 
 .ri-heart-line {
   color: #fff !important;
+  -webkit-transition: 0.3s all;
+  transition: 0.3s all;
 }
 
 .ri-heart-fill {
@@ -2101,7 +2103,9 @@ footer .footer-content__item .links a:hover {
   -webkit-transition: 0.3s all;
   transition: 0.3s all;
 }
-
+#ilike{
+  font-size: 20px;
+}
 .share-btn {
   position: relative;
 }
