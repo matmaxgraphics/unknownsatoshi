@@ -16,6 +16,8 @@
                             <img src="{{ blog.featured_image.url }}" alt="demo image">
                             <div class="text-container">
                                 <h5>{{ blog.title|title }}</h5>
+        
+                                
                                 <p>{{ blog.snippet|safe }}<a style="color: #EE5717;" href="{% url 'blog-detail' blog.slug %}">..Read More...</a></p>
                             </div>
                         </a>

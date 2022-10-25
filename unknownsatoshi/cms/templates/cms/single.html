@@ -1,24 +1,24 @@
 {% extends 'base.html' %}
+{% load social_share %}
 {% load static %}
-
+{% load hitcount_tags %}
 <title>{% block title %}UnknownSatoshi | {{blog.title}}{% endblock title %}</title>
 <meta name="description" content="{% block meta %} {{blog.meta_snippet|safe}} {% endblock meta %}">
 
 
 
 {% block content %}
-<style>
-	i{
-		font-size: 22px;
-	}
-</style>
 
 <div class="page-wrapper margin-extra single-wrapper">
 	<section class="article-wrapper">
 		<div class="post-details article-details">
 			<span class="iconic-span"><i class="ri-calendar-line"></i> {{blog.created_on|date}}</span>
 			<span class="iconic-span"><i class="ri-user-line"></i> {{blog.author}}</span>
-			<span class="iconic-span icon-bg-dark"><i class="ri-eye-line"></i> 120 views</span>
+          
+			<span class="iconic-span icon-bg-dark"><i class="ri-eye-line"></i>{{view_count}} view{{view_count|pluralize:"s"}}</span>
+		
+
+			
 		</div>
 		<div class="blog-content_container">
 			<img src="{{blog.featured_image.url}}" class="blog-banner" alt="demo image for blog post">
@@ -53,11 +53,11 @@
 				<article class="social-sharing">
 					<div class="social-sharing__wrapper">
 						<span class="bold">share Article</span>
-						<span><a href=""><i class="ri-facebook-circle-fill"></i>Facebook</a></span>
-						<span><a href=""><i class="ri-twitter-fill"></i>Twitter</a></span>
-						<span><a href=""><i class="ri-instagram-line"></i>Instagram</a></span>
-						<span><a href=""><i class="ri-linkedin-fill"></i>WhatsApp</a></span>
-						<span><a href=""><i class="ri-link"></i>Copy sharing link</a></span>
+						<span><a href=""><i class="ri-facebook-circle-fill"></i>{% post_to_facebook "Check out{{blog.title}}" object_or_url "Facebook" %}</a></span>
+						<span><a href=""><i class="ri-twitter-fill"></i>{% post_to_twitter "Check out{{blog.title}}" object_or_url "Twitter" %}</a></span>
+						<span><a href="">{% post_to_linkedin object_or_url "Linkedin" %}</a></span>
+						<span><a href=""><i class="ri-whatsapp-fill"></i>{% post_to_whatsapp "Check out{{blog.title}}" object_or_url "Whatsapp" %}</a></span>
+						<span><a href=""><i class="ri-link"></i>{% copy_to_clipboard object_or_url %}</a></span>
 					</div>
 				</article>
 			</ul>
@@ -65,16 +65,20 @@
 	</section>
 
 	<section class="comment-section">
-		<form action="{% url 'blog-detail' slug=blog.slug %}" method="POST">
-			{% csrf_token %}
-			{% for field in form %}
-			<div>
-				<label for="comment">{{field.label}}</label>
-				{{field}}
-			</div>
-			{% endfor %}
-			<button class="btn" type="submit" name="submit-btn">Publish Comment</button>
-		</form>
+		{% if request.user.is_anonymous %}
+		    <h4 style="background-color: #ee5717; padding: 8px 18px; border-radius: 6px; width: 400px; text-align: center; font-size: 20px; font-weight: 500;">Please login to comment</h4>
+			{% else %}
+			<form action="{% url 'blog-detail' slug=blog.slug %}" method="POST">
+				{% csrf_token %}
+				{% for field in form %}
+				<div>
+					<label for="comment">{{field.label}}</label>
+					{{field}}
+				</div>
+				{% endfor %}
+				<button class="btn" type="submit" name="submit-btn">Publish Comment</button>
+			</form>
+		{% endif %}
 
 		<main class="comments-wrapper">
 			<h4>Comments</h4>

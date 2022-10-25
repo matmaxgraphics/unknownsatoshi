@@ -13,12 +13,14 @@ from django.contrib.auth import authenticate, login,logout
 from cms.mailing_helper import UserRegisterationNotification, UserSubscriptionNotification
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404, render, redirect
+from django.db.models import Q
 from .decorators import unauthenticated_user, allowed_user, admin_only
 from unknownsatoshi.settings import FLW_PRODUCTION_SECRET_KEY, FLW_SANDBOX_SECRET_KEY
 from django.template.loader import render_to_string
 from unknownsatoshi.settings import DEFAULT_FROM_EMAIL, CONTACT_EMAIL
 import json
 
+from hitcount.views import HitCountDetailView
 
 
 
@@ -611,12 +613,20 @@ def blog_detail(request, slug):
     msg = False
     form = CommentForm()
     
+    #views blog count
+    ip=request.META['REMOTE_ADDR']
+    if not ViewCount.objects.filter(blog=blog, session=request.session.session_key):
+        view=ViewCount(blog=blog, ip_address=ip, session=request.session.session_key)
+        
+        view.save()
+    blog_views=ViewCount.objects.filter(blog=blog).count()
+    
     if request.user.is_authenticated:
         user = request.user
 
         if blog.likes.filter(id=user.id).exists():
             msg = True
-    context = {'blog': blog, 'msg':msg, 'form':form}
+    context = {'blog': blog, 'msg':msg, 'form':form, "view_count":blog_views,}
 
     try:
         if request.method == 'POST':
@@ -641,20 +651,28 @@ def blog_detail(request, slug):
    
 #blog comments
      
-
 #premium blog details
 def premium_blog_detail(request, slug):
     template_name = 'cms/premium-single.html'
     blog = Blog.objects.get(slug=slug)
     msg = False
     form = CommentForm()
+    
+    #premium view blog count
+    
+    ip=request.META['REMOTE_ADDR']
+    if not ViewCount.objects.filter(blog=blog, session=request.session.session_key):
+        view=ViewCount(blog=blog, ip_address=ip, session=request.session.session_key)
+        
+        view.save()
+    blog_views=ViewCount.objects.filter(blog=blog).count()
 
     if request.user.is_authenticated:
         user = request.user
 
         if blog.likes.filter(id=user.id).exists():
             msg = True
-    context = {"blog":blog, "msg": msg, "form":form}
+    context = {"blog":blog, "msg": msg, "form":form, "blog_views":blog_views}
     try:
         if request.method == 'POST':
             form = CommentForm(request.POST)

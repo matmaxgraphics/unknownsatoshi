@@ -187,7 +187,7 @@ class CommentForm(forms.ModelForm):
         fields = ['body']
 
         labels = {
-            'body': 'Add a comment with your vote'
+            'body': 'Add a comment'
         }
 
     def __init__(self, *args, **kwargs):

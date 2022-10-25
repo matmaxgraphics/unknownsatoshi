@@ -1,4 +1,5 @@
 {% extends 'base2.html' %}
+{% load social_share %}
 {% load static %}
 
 <title>{% block title %}UnknownSatoshi | {{blog.title}}{% endblock title %}</title>
@@ -17,7 +18,7 @@
         <div class="post-details">
             <span class="iconic-span"><i class="ri-calendar-line"></i> {{blog.created_on|date}}</span>
 			<span class="iconic-span"><i class="ri-user-line"></i> {{blog.author}}</span>
-			<span class="iconic-span icon-bg-dark"><i class="ri-eye-line"></i> 120 views</span>
+			<span class="iconic-span icon-bg-dark"><i class="ri-eye-line"></i>{{blog_views}} views</span>
         </div>
         <div class="blog-content_container">
             <img src="{{blog.featured_image.url}}" class="blog-banner" alt="demo image for blog post">
@@ -43,6 +44,7 @@
 				<li class="iconic-span icon-bg-dark"><i class="ri-message-2-line"></i> <span
 						class="action-number__comment">{{blog.comment_set.all.count}}</span></li>
 				<li class="iconic-span icon-bg-dark"><i class="ri-share-line"></i></li>
+				
 			</ul>
 			<!-- <div class="action" onclick="actionToggle()">
 				<span class="iconic-span icon-bg-dark"><i class="ri-share-line"></i></span>

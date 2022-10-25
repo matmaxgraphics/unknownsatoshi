@@ -27,6 +27,7 @@ urlpatterns = [
 
     # ckeditor
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    
 
     #apps sitemaps
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),

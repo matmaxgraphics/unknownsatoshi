@@ -50,7 +50,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.sitemaps',
+    'django_social_share',
     
+    #hitcount
+    'hitcount',
     #local apps
     'cms',
     'userprolog',
@@ -62,6 +65,8 @@ INSTALLED_APPS = [
     #cloudinary module
     'cloudinary',
     'cloudinary_storage',
+    
+    
 ]
 SITE_ID = 1
 

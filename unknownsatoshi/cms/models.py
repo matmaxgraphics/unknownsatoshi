@@ -5,6 +5,7 @@ from django.urls import reverse
 from datetime import datetime
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
+
 from ckeditor_uploader.fields import RichTextUploadingField
 from userprolog.models import User
 
@@ -70,6 +71,7 @@ class Blog(models.Model):
     featured_image = models.ImageField(null=True, blank=True, default="default.png", upload_to="blog_images/")
     premium = models.BooleanField(default=False)
     home_page = models.BooleanField(default=False)
+    
     #like model field
     likes = models.ManyToManyField(User, related_name="likes")
     created_on = models.DateTimeField(auto_now_add=True)
@@ -95,6 +97,15 @@ class Blog(models.Model):
 
     def get_absolute_url(self):
         return reverse("blog-detail", kwargs={"slug": self.slug})
+    
+#views count models
+class ViewCount(models.Model):
+    blog=models.ForeignKey(Blog, related_name="view_count", on_delete=models.CASCADE)
+    ip_address=models.CharField(max_length=50)
+    session=models.CharField(max_length=50, null= True)
+
+    def __str__(self):
+        return str(self.ip_address)
     
 #comment model
 class Comment(models.Model):
