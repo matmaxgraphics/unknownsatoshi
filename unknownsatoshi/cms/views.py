@@ -610,6 +610,8 @@ def blog(request):
 def blog_detail(request, slug):
     template_name = 'cms/single.html'
     blog = Blog.objects.get(slug=slug)
+    blogs = Blog.objects.all()
+    latest_article =Blog.objects.filter(latest_articles=True, premium=False)
     msg = False
     form = CommentForm()
     
@@ -626,7 +628,7 @@ def blog_detail(request, slug):
 
         if blog.likes.filter(id=user.id).exists():
             msg = True
-    context = {'blog': blog, 'msg':msg, 'form':form, "view_count":blog_views,}
+    context = {'blog': blog, 'msg':msg, 'form':form, "view_count":blog_views,'blogs':blogs,'latest_article':latest_article,}
 
     try:
         if request.method == 'POST':
@@ -655,6 +657,11 @@ def blog_detail(request, slug):
 def premium_blog_detail(request, slug):
     template_name = 'cms/premium-single.html'
     blog = Blog.objects.get(slug=slug)
+    blogs = Blog.objects.all()
+    
+    premium_featured_story = Blog.objects.filter(featured_stories=True, premium=True)
+    premium_latest_new = Blog.objects.filter(latest_news=True, premium=True)
+    premium_latest_article =Blog.objects.filter(latest_articles=True, premium=True)
     msg = False
     form = CommentForm()
     
@@ -672,7 +679,10 @@ def premium_blog_detail(request, slug):
 
         if blog.likes.filter(id=user.id).exists():
             msg = True
-    context = {"blog":blog, "msg": msg, "form":form, "blog_views":blog_views}
+    context = {"blog":blog, "msg": msg, "form":form, "blog_views":blog_views,'blogs':blogs,
+        "premium_featured_story":premium_featured_story,
+        "premium_latest_new":premium_latest_new,
+        "premium_latest_article":premium_latest_article}
     try:
         if request.method == 'POST':
             form = CommentForm(request.POST)

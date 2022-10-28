@@ -12,11 +12,11 @@ from .models import ProductCategory
 
 class CmsForm(forms.ModelForm):
     title = forms.CharField(required=True)
-    entry = forms.IntegerField(min_value=1, required=True)
-    stoploss = forms.IntegerField(min_value=1, required=True)
-    tp_target = forms.IntegerField(min_value=1, required=True)
-    tp_achieved = forms.IntegerField(min_value=1, required=True)
-    profit = forms.IntegerField(min_value=1, required=True)
+    entry = forms.CharField(max_length=500, required=True)
+    stoploss = forms.CharField(max_length=500, required=True)
+    tp_target = forms.CharField(max_length=500, required=True)
+    tp_achieved = forms.CharField(max_length=500, required=True)
+    profit = forms.CharField(max_length=500, required=True)
     class Meta:
         model = Cms
         fields = ['title', 'entry', 'stoploss', 'tp_target', 'tp_achieved', 'profit']
@@ -96,7 +96,7 @@ class ProductUpdateForm(forms.ModelForm):
         self.fields['product_name'].widget.attrs.update({'class':"input-field"}, required=True)
         self.fields['product_link'].widget.attrs.update({'class':"input-field"}, required=True)
         self.fields['price'].widget.attrs.update({'class':"input-field"}, required=True)
-        self.fields['featured_image'].widget.attrs.update({'class':"input-field"}, required=True)
+        self.fields['featured_image'].widget.attrs.update({'class':"input-field"})
 
 
 # user creation form for admin and users

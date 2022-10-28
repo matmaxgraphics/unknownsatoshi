@@ -113,41 +113,25 @@
 		<main class="stories-section related-posts">
 			<h2>Related Articles</h2>
 			<div class="blog-post__container">
-				<div class="blog-post__card">
-					<a href="#">
-						<img src="{% static 'images/img-1.jpg' %}" alt="demo image">
-						<div class="text-container">
-							<h5>The hidden mystery behind cryptocurrency</h5>
-							<p>I'm going to hire professional help tomorrow. I can't handle this anymore. She fell
-								over the coffee table and now there is blood in her catheter...</p>
-						</div>
-					</a>
-				</div>
-
-				<div class="blog-post__card">
-					<a href="#">
-						<img src="{% static 'images/img-6.jpg' %}" alt="demo image">
-						<div class="text-container">
-							<h5><a href="#">How to grow your crypto currency portfolio</a></h5>
-							<p>I'm going to hire professional help tomorrow. I can't handle this anymore. She fell
-								over the coffee table and now there is blood in her catheter...</p>
-						</div>
-					</a>
-				</div>
-
-				<div class="blog-post__card">
-					<a href="#">
-						<img src="{% static 'images/img-5.jpg' %}" alt="demo image">
-						<div class="text-container">
-							<h5><a href="#">The hidden mystery behind cryptocurrency</a></h5>
-							<p>I'm going to hire professional help tomorrow. I can't handle this anymore. She fell
-								over the coffee table and now there is blood in her catheter...</p>
-						</div>
-					</a>
-				</div>
+				{% for blog in latest_article %}
+                    <div class="blog-post__card" id="articleCard">
+                        <a href="{{ blog.get_absolute_url }}">
+                            <img src="{{ blog.featured_image.url }}" alt="demo image">
+                            <div class="text-container">
+                                <h5>{{ blog.title|title }}</h5>
+        
+                                
+                                <p>{{ blog.snippet|safe }}<a style="color: #EE5717;" href="{% url 'blog-detail' blog.slug %}">..Read More...</a></p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}  
 
 			</div>
 		</main>
+		<div class="pagination">
+			<a href="{% url 'blog' %}">See more<i class="ri-arrow-down-circle-line"></i></a>
+		</div>
 	</section>
 
 	<section class="newsletter-section">

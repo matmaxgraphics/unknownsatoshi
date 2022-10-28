@@ -23,11 +23,11 @@ class ProductCategory(models.Model):
 class Cms(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     title = models.CharField(max_length=200)
-    entry = models.TextField(null=True, blank=True)
-    stoploss = models.TextField(null=True, blank=True)
-    tp_target = models.IntegerField(default=0, null=True, blank=True)
-    tp_achieved = models.IntegerField(default=0, null=True, blank=True)
-    profit = models.IntegerField(default=0, null=True, blank=True)
+    entry = models.CharField(max_length=200,null=True, blank=True)
+    stoploss = models.CharField(max_length=200,null=True, blank=True)
+    tp_target = models.CharField(max_length=200,default=0, null=True, blank=True)
+    tp_achieved = models.CharField(max_length=200,default=0, null=True, blank=True)
+    profit = models.CharField(max_length=200,default=0, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
