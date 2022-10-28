@@ -387,7 +387,7 @@ img {
 }
 /*--END OF DROPDOWN STYLING FOR EXCHANGE REVIEW LINK--*/
 
-@media only screen and (max-width: 1280px) {
+@media only screen and (max-width: 1024px) {
   .navbar {
     background-color: #0a0909;
     position: fixed;
@@ -2045,6 +2045,7 @@ footer .footer-content__item .links a:hover {
   -ms-flex-align: center;
   align-items: center;
 }
+
 .article-wrapper .article-details .icon-bg-dark {
   padding: 12px;
   border-radius: 12px;
@@ -2052,6 +2053,7 @@ footer .footer-content__item .links a:hover {
   background-color: #333;
   cursor: pointer;
 }
+
 
 .blog-content_container .blog-banner {
   width: 100%;
@@ -2149,7 +2151,7 @@ footer .footer-content__item .links a:hover {
 .social-sharing__wrapper span {
   margin-bottom: 6px;
 }
-.social-sharing__wrapper a {
+.social-sharing__wrapper .sharing-link {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

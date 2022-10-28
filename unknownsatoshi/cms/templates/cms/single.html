@@ -15,7 +15,7 @@
 			<span class="iconic-span"><i class="ri-calendar-line"></i> {{blog.created_on|date}}</span>
 			<span class="iconic-span"><i class="ri-user-line"></i> {{blog.author}}</span>
           
-			<span class="iconic-span icon-bg-dark"><i class="ri-eye-line"></i>{{view_count}} view{{view_count|pluralize:"s"}}</span>
+			<span class="iconic-span"><i class="ri-eye-line"></i>{{view_count}} view{{view_count|pluralize:"s"}}</span>
 		
 
 			
@@ -53,11 +53,11 @@
 				<article class="social-sharing">
 					<div class="social-sharing__wrapper">
 						<span class="bold">share Article</span>
-						<span><a href=""><i class="ri-facebook-circle-fill"></i>{% post_to_facebook "Check out{{blog.title}}" object_or_url "Facebook" %}</a></span>
-						<span><a href=""><i class="ri-twitter-fill"></i>{% post_to_twitter "Check out{{blog.title}}" object_or_url "Twitter" %}</a></span>
-						<span><a href="">{% post_to_linkedin object_or_url "Linkedin" %}</a></span>
-						<span><a href=""><i class="ri-whatsapp-fill"></i>{% post_to_whatsapp "Check out{{blog.title}}" object_or_url "Whatsapp" %}</a></span>
-						<span><a href=""><i class="ri-link"></i>{% copy_to_clipboard object_or_url %}</a></span>
+						<span><a href="" class="sharing-link">{% post_to_facebook "Check out{{blog.title}}" object_or_url "Facebook" %}</a></span>
+						<span><a href="" class="sharing-link">{% post_to_twitter "Check out{{blog.title}}" object_or_url "Twitter" %}</a></span>
+						<span><a href="" class="sharing-link">{% post_to_linkedin object_or_url "Linkedin" %}</a></span>
+						<span><a href="" class="sharing-link">{% post_to_whatsapp "Check out{{blog.title}}" object_or_url "Whatsapp" %}</a></span>
+						<span><a href="" class="sharing-link">{% copy_to_clipboard object_or_url %}</a></span>
 					</div>
 				</article>
 
