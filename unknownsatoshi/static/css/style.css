@@ -2241,6 +2241,14 @@ footer .footer-content__item .links a:hover {
   font-size: 18px;
   font-weight: 600;
 }
+.text-link{
+  text-decoration: underline;
+  transition: 0.3s all;
+}
+.text-link:hover{
+  color: #f8a606;
+  transition: 0.3s all;
+}
 .modal-window {
   background-color: #1a1a1a;
   width: 40%;
