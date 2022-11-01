@@ -69,7 +69,7 @@
 			<div class="modal-container">
 				<button class="close-modal">&times;</button>
 				<p class="description">Please login to continue this action</p>
-				<a class="btn login-btn" href="{% url 'user-login' %}">Login</a>
+				<a class="btn login-btn" href="{% url 'user-login' %}?next={{request.path}}">Login</a>
 				<p>Don't have an account? <a href="{% url 'register' %}">Create an account</a></p>
 			</div>
 		</article>
@@ -78,7 +78,7 @@
 
 	<section class="comment-section">
 		{% if request.user.is_anonymous %}
-		    <h4>Please <a href="{% url 'user-login' %}" class="text-link">login to comment</a></h4>
+		    <h4>Please <a style="text-decoration:underline;" href="{% url 'user-login' %}?next={{request.path}}">Please login to leave a review</a></h4>
 			{% else %}
 			<form action="{% url 'blog-detail' slug=blog.slug %}" method="POST">
 				{% csrf_token %}
