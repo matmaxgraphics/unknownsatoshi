@@ -20,7 +20,7 @@ from django.template.loader import render_to_string
 from unknownsatoshi.settings import DEFAULT_FROM_EMAIL, CONTACT_EMAIL
 import json
 
-from hitcount.views import HitCountDetailView
+# from hitcount.views import HitCountDetailView
 
 
 

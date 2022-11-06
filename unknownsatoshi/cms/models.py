@@ -5,9 +5,7 @@ from django.urls import reverse
 from datetime import datetime
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
-
 from ckeditor_uploader.fields import RichTextUploadingField
-from userprolog.models import User
 
 
 
@@ -97,7 +95,8 @@ class Blog(models.Model):
 
     def get_absolute_url(self):
         return reverse("blog-detail", kwargs={"slug": self.slug})
-    
+
+
 #views count models
 class ViewCount(models.Model):
     blog=models.ForeignKey(Blog, related_name="view_count", on_delete=models.CASCADE)
@@ -106,7 +105,8 @@ class ViewCount(models.Model):
 
     def __str__(self):
         return str(self.ip_address)
-    
+
+
 #comment model
 class Comment(models.Model):
     owner= models.ForeignKey(User, on_delete=models.CASCADE, null=True)
