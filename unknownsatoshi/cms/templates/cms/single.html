@@ -49,11 +49,11 @@
 				<article class="social-sharing">
 					<div class="social-sharing__wrapper">
 						<span class="bold">share Article</span>
-						<span><a href="" class="sharing-link">{% post_to_facebook "Check out{{blog.title}}" object_or_url "Facebook" %}</a></span>
-						<span><a href="" class="sharing-link">{% post_to_twitter "Check out{{blog.title}}" object_or_url "Twitter" %}</a></span>
-						<span><a href="" class="sharing-link">{% post_to_linkedin object_or_url "Linkedin" %}</a></span>
-						<span><a href="" class="sharing-link">{% post_to_whatsapp "Check out{{blog.title}}" object_or_url "Whatsapp" %}</a></span>
-						<span><a href="" class="sharing-link">{% copy_to_clipboard object_or_url %}</a></span>
+						<span class="sharing-link"><i class="ri-facebook-circle-fill"></i> {% post_to_facebook "Check out{{blog.title}}" object_or_url "Facebook" %}</span>
+						<span class="sharing-link"><i class="ri-twitter-fill"></i> {% post_to_twitter "Check out{{blog.title}}" object_or_url "Twitter" %}</span>
+						<span class="sharing-link">{% post_to_linkedin object_or_url "Linkedin" %}</span>
+						<span class="sharing-link"><i class="ri-whatsapp-line"></i> {% post_to_whatsapp "Check out{{blog.title}}" object_or_url "Whatsapp" %}</span>
+						<span class="sharing-link"><i class="ri-link"></i> {% copy_to_clipboard object_or_url %}</span>
 					</div>
 				</article>
 
@@ -74,7 +74,7 @@
 
 	<section class="comment-section">
 		{% if request.user.is_anonymous %}
-		    <h4>Please <a style="text-decoration:underline;" href="{% url 'user-login' %}?next={{request.path}}">Please login to leave a review</a></h4>
+		    <h4>Please <a style="text-decoration:underline;" href="{% url 'user-login' %}?next={{request.path}}">login to leave a review</a></h4>
 			{% else %}
 			<form action="{% url 'blog-detail' slug=blog.slug %}" method="POST">
 				{% csrf_token %}
