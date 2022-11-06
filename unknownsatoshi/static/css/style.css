@@ -658,7 +658,7 @@ img {
   color: inherit;
 }
 
-@media (max-width: 600px){
+@media (max-width: 600px) {
   .blog-section .blog-post__card {
     height: 500px;
   }
@@ -1823,7 +1823,7 @@ footer .footer-content__item .links a:hover {
   text-align: center;
 }
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 600px) {
   .blog-post__section .blog-post__card {
     height: 500px;
   }
@@ -2054,7 +2054,6 @@ footer .footer-content__item .links a:hover {
   cursor: pointer;
 }
 
-
 .blog-content_container .blog-banner {
   width: 100%;
   height: 400px;
@@ -2087,7 +2086,7 @@ footer .footer-content__item .links a:hover {
   object-fit: cover;
   -o-object-position: center;
   object-position: center;
-  margin: 24px 0 0 0;
+  margin: 24px 0;
 }
 .blog-content_container .post-content figure figcaption {
   text-align: center;
@@ -2115,7 +2114,7 @@ footer .footer-content__item .links a:hover {
   -webkit-transition: 0.3s all;
   transition: 0.3s all;
 }
-#ilike{
+#ilike {
   font-size: 20px;
 }
 .share-btn {
@@ -2126,6 +2125,11 @@ footer .footer-content__item .links a:hover {
   position: absolute;
   -webkit-transform: translate(2%, -65%);
   transform: translate(2%, -65%);
+}
+.social-sharing .copy-this button {
+  background: none;
+  font-size: 16px;
+  border: 0px;
 }
 
 .hidden {
@@ -2241,11 +2245,11 @@ footer .footer-content__item .links a:hover {
   font-size: 18px;
   font-weight: 600;
 }
-.text-link{
+.text-link {
   text-decoration: underline;
   transition: 0.3s all;
 }
-.text-link:hover{
+.text-link:hover {
   color: #f8a606;
   transition: 0.3s all;
 }
@@ -3007,12 +3011,12 @@ footer .footer-content__item .links a:hover {
   color: #aaaaaa;
   -ms-flex-item-align: end;
   align-self: flex-end;
-  margin-top: -20%;
   margin-bottom: 15%;
   font-size: 24px;
   font-weight: 500;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  padding: 6px;
 }
 .dialogue-box .close:hover,
 .dialogue-box .close:focus {
