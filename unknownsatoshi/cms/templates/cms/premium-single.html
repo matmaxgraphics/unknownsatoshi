@@ -8,6 +8,11 @@
 
 
 {% block content %}
+<style>
+	.copy{
+		cursor: pointer;
+	}
+</style>
 <div class="page-wrapper margin-extra single-wrapper">
 	<section class="article-wrapper">
 		<div class="post-details">
@@ -42,13 +47,15 @@
 						<article class="social-sharing">
 							<div class="social-sharing__wrapper">
 								<span class="bold">share Article</span>
-								<span><a href="" class="sharing-link">{% post_to_facebook "Check out{{blog.title}}" object_or_url "Facebook" %}</a></span>
-								<span><a href="" class="sharing-link">{% post_to_twitter "Check out{{blog.title}}" object_or_url "Twitter" %}</a></span>
-								<span><a href="" class="sharing-link">{% post_to_linkedin object_or_url "Linkedin" %}</a></span>
-								<span><a href="" class="sharing-link">{% post_to_whatsapp "Check out{{blog.title}}" object_or_url "Whatsapp" %}</a></span>
-								<span><a href="" class="sharing-link">{% copy_to_clipboard object_or_url %}</a></span>
+								<span class="sharing-link"><i class="ri-facebook-circle-fill"></i>{% post_to_facebook object_or_url "Post to Facebook!" %}</span>
+								<span class="sharing-link"><i class="ri-twitter-fill"></i> {% post_to_twitter "Check out{{blog.title}}" object_or_url "Twitter" %}</span>
+								<span class="sharing-link">{% post_to_linkedin object_or_url "Linkedin" %}</span>
+								<span class="sharing-link"><i class="ri-whatsapp-line"></i>{% post_to_whatsapp object_or_url "Share via WhatsApp" %}</span>
+								<span class="sharing-link copy"><i class="ri-link copy"></i>{% copy_to_clipboard object_or_url "Copy to clipboard!" %}</span>
+								
 							</div>
 						</article>
+		
 			</ul>
 		</aside>
 		<!-- THE MODAL WINDOW THAT SHOWS WHEN A USER IS NOT LOGGED IN AND TRYS TO LIKE A POST -->
@@ -135,6 +142,7 @@
 		<a class="btn" href="https://discord.gg/zFGTdZYsQ4">Join Community</a>
 	</section>
 </div>
+{% add_copy_script %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
