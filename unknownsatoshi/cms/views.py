@@ -728,7 +728,7 @@ def plan_list(request):
 
 
 # plan details
-plan_id_history = ""
+plan_detail = ""
 @login_required(login_url="user-login")
 def plan_details(request, slug):
     user = request.user
@@ -736,25 +736,23 @@ def plan_details(request, slug):
     if check_active_sub:
         messages.error(request, "you already have an active plan")
         return redirect("user-sub-list")
-    global plan_id_history
     template_name = "cms/plan_payment.html"
-    plan = get_object_or_404(Plan, slug=slug)
-    plan_id_history = plan.id
-    user = request.user
+    global plan_detail
+    plan_detail = get_object_or_404(FirstTimePlan, slug=slug)
 
     if request.method == "GET":
         user_id = str(user.id)
-        plan_id= str(plan.slug)
+        plan_id= str(plan_detail.slug)
         first_name = user.first_name
         last_name = user.last_name
-        amount = plan.discount_price
+        amount = plan_detail.discount_price
         email = user.email
         phone_no = user.phone_no
-        plan_title = plan.title
-        plan_desc = plan.desc
+        plan_title = plan_detail.title
+        plan_desc = plan_detail.desc
         return redirect(str(process_payment(user_id=user_id, plan_id=plan_id, first_name=first_name, last_name=last_name, amount=amount, email=email, phone_no=phone_no, plan_title=plan_title, plan_desc=plan_desc)))
     else:    
-        context = {"plan":plan, "user":user}
+        context = {"plan":plan_detail, "user":user}
     return render(request, template_name, context)
 
 
@@ -766,33 +764,33 @@ def process_payment(user_id, plan_id, first_name, last_name, amount, email, phon
     name = f"{first_name} {last_name}".capitalize()
     auth_token= FLW_PRODUCTION_SECRET_KEY
     #auth_token = FLW_SANDBOX_SECRET_KEY
-    hed = {'Authorization': 'Bearer ' + auth_token}
+    header = {'Authorization': 'Bearer ' + auth_token}
 
     data = {
         "tx_ref":''+str(math.floor(1000000 + random.random()*9000000)),
         "plan_id":plan_id,
-        "amount":amount,
+        "amount": amount,
         "currency":"USD",
-        "redirect_url":"http://localhost:8000/callback",
-        "payment_options":"card",
+        "redirect_url": "http://localhost:8000/callback",
+        "payment_options": "card",
         "meta":{
-            "consumer_id":user_id,
-            "consumer_mac":"92a3-912ba-1192a"
+            "consumer_id": user_id,
+            "consumer_mac": "92a3-912ba-1192a"
         },
         "customer":{
-            "email":email,
-            "phonenumber":str(phone_no),
-            "name":name
+            "email": email,
+            "phonenumber": str(phone_no),
+            "name": name
         },
         "customizations":{
-            "title":plan_title,
-            "description":plan_desc,
-            "logo":"https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg"
+            "title": plan_title,
+            "description": plan_desc,
+            "logo": "https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg"
         }
     }
 
     url = ' https://api.flutterwave.com/v3/payments'
-    response = requests.post(url, json=data, headers=hed)
+    response = requests.post(url, json=data, headers=header)
     response=response.json()
     link=response['data']['link']
     return link
@@ -805,7 +803,7 @@ today = datetime.now().date()
 def payment_response(request):
     user = request.user
     user_id = user.id
-    plan_id = plan_id_history
+    plan_id = plan_detail.slug
     amount = amount_paid
     full_name = f"{user.first_name} {user.last_name}"
     email = user.email
@@ -819,86 +817,101 @@ def payment_response(request):
         return redirect("home")
     else:
         pass
+    expiry_date = today + timedelta(days=plan_detail.duration_in_days)
+    print(f"plan{plan_detail.title}\nexpiry {expiry_date}")
+    subscription = FirstTimeSubscriptionHistory.objects.create(
+        user_id=user_id, 
+        plan_id=plan_id, 
+        amount_paid=amount, 
+        email=user.email,
+        full_name=full_name,
+        phone_no=phone_no, 
+        reference = tx_ref, 
+        transaction_id=transaction_id,
+        status=status,
+        expiry_date=expiry_date,
+        active=True
+    )
 
-    if plan_id == 1 :
-        expiry_date = today + timedelta(days=30)
-        SubscriptionHistory.objects.create(
-            user_id=user_id, 
-            plan_id=plan_id, 
-            amount_paid=amount, 
-            email=user.email,
-            full_name=full_name,
-            phone_no=phone_no, 
-            reference = tx_ref, 
-            transaction_id=transaction_id,
-            status=status,
-            expiry_date=expiry_date,
-            active=True
-        )
-        time.sleep(2)
-        subject = f"Plan Subscription Notification"
-        message = f"{email} just subscribed for the monthly plan"
-        send_mail = UserSubscriptionNotification(
-            email_subject=subject,
-            email_body=message,
-            sender_email=DEFAULT_FROM_EMAIL,
-            receiver_email=CONTACT_EMAIL,
-        )
-        send_mail.mail_admin()
-        return redirect("home")
+    # if plan_id == 1 :
+    #     expiry_date = today + timedelta(days=30)
+    #     subscription = SubscriptionHistory.objects.create(
+    #         user_id=user_id, 
+    #         plan_id=plan_id, 
+    #         amount_paid=amount, 
+    #         email=user.email,
+    #         full_name=full_name,
+    #         phone_no=phone_no, 
+    #         reference = tx_ref, 
+    #         transaction_id=transaction_id,
+    #         status=status,
+    #         expiry_date=expiry_date,
+    #         active=True
+    #     )
+    #     time.sleep(2)
+    #     subject = f"Plan Subscription Notification"
+    #     message = f"{email} just subscribed for the monthly plan {subscription.plan}"
+    #     send_mail = UserSubscriptionNotification(
+    #         email_subject=subject,
+    #         email_body=message,
+    #         sender_email=DEFAULT_FROM_EMAIL,
+    #         receiver_email=CONTACT_EMAIL,
+    #     )
+    #     send_mail.mail_admin()
+    #     return redirect("home")
         
         
-    if plan_id == 2:
-        expiry_date = today + timedelta(days=90)
-        SubscriptionHistory.objects.create(
-            user_id=user_id, 
-            plan_id=plan_id, 
-            amount_paid=amount, 
-            email=email,
-            full_name=full_name,
-            phone_no=phone_no, 
-            reference=tx_ref, 
-            transaction_id=transaction_id,
-            status=status,
-            expiry_date=expiry_date,
-            active=True,
-        )
-        subject = f"Plan Subscription Notification"
-        message = f"{email} just subscribed for the quarterly plan"
-        send_mail = UserSubscriptionNotification(
-            email_subject=subject,
-            email_body=message,
-            sender_email=DEFAULT_FROM_EMAIL,
-            receiver_email=CONTACT_EMAIL,
-        )
-        send_mail.mail_admin()
-        return redirect("home")
+    # if plan_id == 2:
+    #     expiry_date = today + timedelta(days=90)
+    #     subscription = SubscriptionHistory.objects.create(
+    #         user_id=user_id, 
+    #         plan_id=plan_id, 
+    #         amount_paid=amount, 
+    #         email=email,
+    #         full_name=full_name,
+    #         phone_no=phone_no, 
+    #         reference=tx_ref, 
+    #         transaction_id=transaction_id,
+    #         status=status,
+    #         expiry_date=expiry_date,
+    #         active=True,
+    #     )
+    #     subject = f"Plan Subscription Notification"
+    #     message = f"{email} just subscribed for the {subscription.plan}"
+    #     send_mail = UserSubscriptionNotification(
+    #         email_subject=subject,
+    #         email_body=message,
+    #         sender_email=DEFAULT_FROM_EMAIL,
+    #         receiver_email=CONTACT_EMAIL,
+    #     )
+    #     send_mail.mail_admin()
+    #     return redirect("home")
 
-    if plan_id == 3:
-        expiry_date = today + timedelta(days=180)
-        SubscriptionHistory.objects.create(
-            user_id=user_id, 
-            plan_id=plan_id, 
-            amount_paid=amount, 
-            email=email,
-            full_name=full_name,
-            phone_no=phone_no, 
-            reference=tx_ref, 
-            transaction_id=transaction_id,
-            status=status,
-            expiry_date=expiry_date,
-            active=True
-        )
-        subject = f"Plan Subscription Notification"
-        message = f"{email} just subscribed for the half a year plan"
-        send_mail = UserSubscriptionNotification(
-            email_subject=subject,
-            email_body=message,
-            sender_email=DEFAULT_FROM_EMAIL,
-            receiver_email=CONTACT_EMAIL,
-        )
-        send_mail.mail_admin()
-        return redirect("home")
+    # if plan_id == 3:
+    #     expiry_date = today + timedelta(days=180)
+    #     subscription = SubscriptionHistory.objects.create(
+    #         user_id=user_id, 
+    #         plan_id=plan_id, 
+    #         amount_paid=amount, 
+    #         email=email,
+    #         full_name=full_name,
+    #         phone_no=phone_no, 
+    #         reference=tx_ref, 
+    #         transaction_id=transaction_id,
+    #         status=status,
+    #         expiry_date=expiry_date,
+    #         active=True
+    #     )
+    subject = f"Plan Subscription Notification"
+    message = f"{email} just subscribed for the {subscription.plan}"
+    send_mail = UserSubscriptionNotification(
+        email_subject=subject,
+        email_body=message,
+        sender_email=DEFAULT_FROM_EMAIL,
+        receiver_email=CONTACT_EMAIL,
+    )
+    send_mail.mail_admin()
+    return redirect("home")
 
 
 # newsletter subscription page
@@ -942,9 +955,7 @@ def like_post(request):
         
         if blog.likes.filter(id=request.user.id).exists():
             blog.likes.remove(request.user)
-            checker = 0
-            
-            
+            checker = 0  
         else:
             blog.likes.add(request.user)
             checker = 1

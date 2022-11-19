@@ -1,13 +1,26 @@
 import uuid
+import decimal
 from django.db import models
+from cms import plans_helper
 from userprolog.models import User
 from django.urls import reverse
 from datetime import datetime
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
+from django.template.defaultfilters import slugify
+from django.core.exceptions import ValidationError
+
 from ckeditor_uploader.fields import RichTextUploadingField
 
 
+
+def validate_existing_plan(value):
+    if FirstTimePlan.objects.filter(title=value).exists():
+        raise ValidationError(f"{value} already exist on the table")
+
+    if Plan.objects.filter(title=value).exists():
+        raise ValidationError(f"{value} already exist on the table")
+    return value
 
 today = datetime.now().date()
 
@@ -123,19 +136,40 @@ class Comment(models.Model):
 
 #subscription plan for premium blog views 
 class Plan(models.Model):
-    title = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True)
+    title = models.CharField(max_length=90, choices=plans_helper.main_plans, validators=[validate_existing_plan])
+    slug = models.SlugField(unique=True, null=True, blank=True)
     desc = models.TextField()
-    price = models.IntegerField(default=0)
-    discount_price = models.IntegerField(default=0)
-    discount= models.IntegerField(default=0)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    discount_price = models.DecimalField(max_digits=10, decimal_places=2)
+    discount_percentage = models.IntegerField(default=0)
+    duration_in_days = models.IntegerField(null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     
     class Meta:
         ordering = ("created_on",)
 
     def __str__(self):
-        return self.title
+        return f"{self.duration_in_days} days {self.title}"
+
+    def discount(self):
+        discount_price = decimal.Decimal(self.discount_percentage / 100) * decimal.Decimal(self.price)
+        return round(discount_price, 2)
+
+    def save(self, *args, **kwargs) -> None:
+        if not self.slug:
+            self.slug = slugify(self.title)
+
+        discount_price = decimal.Decimal(self.discount_percentage / 100) * decimal.Decimal(self.price)
+        self.discount_price = self.price - discount_price
+        if self.title == "monthly plan":
+            self.duration_in_days = 30
+        elif self.title == "quarterly plan":
+            self.duration_in_days = 90
+        elif self.title == "half a year plan":
+            self.duration_in_days = 180
+        else:
+            None
+        return super().save(*args, **kwargs)
 
 
 # this saves the subscriptin record
@@ -146,7 +180,7 @@ class SubscriptionHistory(models.Model):
     full_name = models.CharField(max_length=200, blank=False)
     phone_no = models.CharField(max_length=11, unique=False, blank=False)
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE, default='monthly plan')
-    amount_paid = models.IntegerField(default=0)
+    amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
     reference = models.CharField(max_length=200, unique=True, blank=False)
     transaction_id = models.CharField(max_length=200)
     status = models.CharField(max_length=200)
@@ -172,3 +206,68 @@ class Newsletter(models.Model):
 
     def __str__(self):
         return self.email
+
+
+# First time subscription plan
+class FirstTimePlan(models.Model):
+    title = models.CharField(max_length=90, choices=plans_helper.first_time_plans, validators=[validate_existing_plan])
+    slug = models.SlugField(unique=True, null=True, blank=True)
+    desc = models.TextField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    discount_price = models.DecimalField(max_digits=10, decimal_places=2)
+    discount_percentage = models.IntegerField(default=0)
+    duration_in_days = models.IntegerField(null=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ("created_on",)
+
+    def __str__(self):
+        return f"{self.duration_in_days} days {self.title}"
+
+    def discount(self):
+        discount_price = decimal.Decimal(self.discount_percentage / 100) * decimal.Decimal(self.price)
+        return round(discount_price, 2)
+        
+    def save(self, *args, **kwargs) -> None:
+        if not self.slug:
+            self.slug = slugify(self.title)
+        discount_price = decimal.Decimal(self.discount_percentage / 100) * decimal.Decimal(self.price)
+        self.discount_price = self.price - discount_price
+        if self.title == "monthly plan":
+            self.duration_in_days = 30
+        elif self.title == "quarterly plan":
+            self.duration_in_days = 90
+        elif self.title == "half a year plan":
+            self.duration_in_days = 180
+        else:
+            None
+        return super().save(*args, **kwargs)
+
+
+# This saves the subscriptin record for first time subscripbers with discount
+class FirstTimeSubscriptionHistory(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    email = models.EmailField(max_length=200, unique=False, blank=False)
+    full_name = models.CharField(max_length=200, blank=False)
+    phone_no = models.CharField(max_length=11, unique=False, blank=False)
+    plan = models.ForeignKey(Plan, on_delete=models.CASCADE, default='monthly plan')
+    amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
+    reference = models.CharField(max_length=200, unique=True, blank=False)
+    transaction_id = models.CharField(max_length=200)
+    status = models.CharField(max_length=200)
+    start_date = models.DateField(default=today)
+    expiry_date = models.DateField(default=None)
+    active = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username
+
+
+@receiver(pre_save, sender=FirstTimeSubscriptionHistory)
+def update_activeness(sender, instance, *args, **kwargs):
+    if instance.expiry_date <= today:
+        instance.active = False
+    else:
+        instance.active = True

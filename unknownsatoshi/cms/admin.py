@@ -32,14 +32,26 @@ class AdminBlog(admin.ModelAdmin):
 
 @admin.register(Plan)
 class AdminPlan(admin.ModelAdmin):
-    list_display = ('title', 'desc', 'discount_price', 'price', 'discount', 'created_on')
-    prepopulated_fields = {"slug": ("title",)}
+    list_display = ('title', 'desc', 'price', 'discount_percentage', 'discount_price', 'duration_in_days', 'created_on')
+    readonly_fields = ('slug', 'duration_in_days', 'discount_price')
 
 
 @admin.register(SubscriptionHistory)
 class AdminSubscriptionHistory(admin.ModelAdmin):
     list_display = ('email', 'user', 'full_name', 'phone_no', 'plan', 'amount_paid', 'reference', 'transaction_id', 'status', 'start_date', 'expiry_date', 'active')
+    readonly_fields = ('plan','amount_paid', 'reference', 'transaction_id', 'status')
 
+
+@admin.register(FirstTimePlan)
+class AdminPlan(admin.ModelAdmin):
+    list_display = ('title', 'slug', 'desc', 'price', 'discount_percentage', 'discount_price', 'duration_in_days', 'created_on')
+    readonly_fields = ('slug', 'discount_price','duration_in_days')
+
+
+@admin.register(FirstTimeSubscriptionHistory)
+class AdminSubscriptionHistory(admin.ModelAdmin):
+    list_display = ('email', 'user', 'full_name', 'phone_no', 'plan', 'amount_paid', 'reference', 'transaction_id', 'status', 'start_date', 'expiry_date', 'active')
+    readonly_fields = ('plan','amount_paid', 'reference', 'transaction_id', 'status')
 
 @admin.register(Newsletter)
 class AdminNesletter(admin.ModelAdmin):
