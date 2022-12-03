@@ -161,12 +161,17 @@ class Plan(models.Model):
 
         discount_price = decimal.Decimal(self.discount_percentage / 100) * decimal.Decimal(self.price)
         self.discount_price = self.price - discount_price
-        if self.title == "monthly plan":
+
+        if self.title == "weekly plan":
+            self.duration_in_days = 7
+        elif self.title == "monthly plan":
             self.duration_in_days = 30
         elif self.title == "quarterly plan":
             self.duration_in_days = 90
         elif self.title == "half a year plan":
             self.duration_in_days = 180
+        elif self.title == "a year plan":
+            self.duration_in_days = 365
         else:
             None
         return super().save(*args, **kwargs)
@@ -234,14 +239,19 @@ class FirstTimePlan(models.Model):
             self.slug = slugify(self.title)
         discount_price = decimal.Decimal(self.discount_percentage / 100) * decimal.Decimal(self.price)
         self.discount_price = self.price - discount_price
-        if self.title == "monthly plan":
+        
+        if self.title == "weekly plan":
+            self.duration_in_days = 7
+        elif self.title == "monthly plan":
             self.duration_in_days = 30
         elif self.title == "quarterly plan":
             self.duration_in_days = 90
         elif self.title == "half a year plan":
             self.duration_in_days = 180
+        elif self.title == "a year plan":
+            self.duration_in_days = 365
         else:
-            None
+            True
         return super().save(*args, **kwargs)
 
 

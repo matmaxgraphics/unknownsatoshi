@@ -728,32 +728,56 @@ def plan_list(request):
 
 
 # plan details
-plan_detail = ""
+plan_detail = None
+main_plan_detail = None
 @login_required(login_url="user-login")
 def plan_details(request, slug):
-    user = request.user
-    check_active_sub = SubscriptionHistory.objects.filter(active=True, user=user)
-    if check_active_sub:
-        messages.error(request, "you already have an active plan")
-        return redirect("user-sub-list")
     template_name = "cms/plan_payment.html"
-    global plan_detail
-    plan_detail = get_object_or_404(FirstTimePlan, slug=slug)
+    user = request.user
+    global first_time_sub_detail, main_plan_detail
+    first_time_sub_detail = get_object_or_404(FirstTimePlan, slug=slug)
+    
+    if FirstTimeSubscriptionHistory.objects.filter(user=user, active=True).exists():
+        messages.info(request, f"you already have an active plan")
+        return redirect("home")
 
-    if request.method == "GET":
-        user_id = str(user.id)
-        plan_id= str(plan_detail.slug)
-        first_name = user.first_name
-        last_name = user.last_name
-        amount = plan_detail.discount_price
-        email = user.email
-        phone_no = user.phone_no
-        plan_title = plan_detail.title
-        plan_desc = plan_detail.desc
-        return redirect(str(process_payment(user_id=user_id, plan_id=plan_id, first_name=first_name, last_name=last_name, amount=amount, email=email, phone_no=phone_no, plan_title=plan_title, plan_desc=plan_desc)))
-    else:    
-        context = {"plan":plan_detail, "user":user}
-    return render(request, template_name, context)
+    first_time_sub = FirstTimeSubscriptionHistory.objects.filter(user=user).exists()
+    if not first_time_sub:
+        messages.info(request,f"You have a discount on your first time subscription so you pay ${first_time_sub_detail.discount_price}")
+        if request.method == "GET":
+            user_id = str(user.id)
+            plan_id= str(first_time_sub_detail.slug)
+            first_name = user.first_name
+            last_name = user.last_name
+            amount = first_time_sub_detail.discount_price
+            email = user.email
+            phone_no = user.phone_no
+            plan_title = first_time_sub_detail.title
+            plan_desc = first_time_sub_detail.desc
+            return redirect(str(process_payment(user_id=user_id, plan_id=plan_id, first_name=first_name, last_name=last_name, amount=amount, email=email, phone_no=phone_no, plan_title=plan_title, plan_desc=plan_desc)))
+    
+    elif(first_time_sub and FirstTimeSubscriptionHistory.objects.filter(user=user, active=False).exists()):
+        
+        if SubscriptionHistory.objects.filter(user=user, active=True).exists():
+            messages.info(request, f"you already have an active plan")
+            return redirect("home")
+
+        main_plan_detail = get_object_or_404(Plan, slug=slug)
+        if request.method == "GET":
+            user_id = str(user.id)
+            plan_id= str(main_plan_detail.slug)
+            first_name = user.first_name
+            last_name = user.last_name
+            amount = main_plan_detail.discount_price
+            email = user.email
+            phone_no = user.phone_no
+            plan_title = main_plan_detail.title
+            plan_desc = main_plan_detail.desc
+            return redirect(str(process_payment(user_id=user_id, plan_id=plan_id, first_name=first_name, last_name=last_name, amount=amount, email=email, phone_no=phone_no, plan_title=plan_title, plan_desc=plan_desc)))
+        else:   
+            context = {"plan":plan_detail, "user":user}
+        return render(request, template_name, context)
+
 
 
 amount_paid = ""
@@ -762,8 +786,8 @@ def process_payment(user_id, plan_id, first_name, last_name, amount, email, phon
     global amount_paid
     amount_paid = amount
     name = f"{first_name} {last_name}".capitalize()
-    auth_token= FLW_PRODUCTION_SECRET_KEY
-    #auth_token = FLW_SANDBOX_SECRET_KEY
+    # auth_token= FLW_PRODUCTION_SECRET_KEY
+    auth_token = FLW_SANDBOX_SECRET_KEY
     header = {'Authorization': 'Bearer ' + auth_token}
 
     data = {
@@ -802,108 +826,58 @@ today = datetime.now().date()
 @require_http_methods(['GET', 'POST'])
 def payment_response(request):
     user = request.user
-    user_id = user.id
-    plan_id = plan_detail.slug
     amount = amount_paid
     full_name = f"{user.first_name} {user.last_name}"
-    email = user.email
     phone_no = user.phone_no
     tx_ref = request.GET.get('tx_ref' or None)
     status = request.GET.get('status' or None)
     transaction_id = request.GET.get('transaction_id' or None)
     
+    # checks if user has active plan on main subscription table
     if SubscriptionHistory.objects.filter(reference=tx_ref).exists():
-        messages.error(request, f"your email {user_id} has an active plan already")
+        messages.error(request, f"your email {user.email} has an active plan already")
         return redirect("home")
-    else:
-        pass
+
+    # checks if user has active plan on first time subscription table
+    elif FirstTimeSubscriptionHistory.objects.filter(reference=tx_ref).exists():
+        messages.error(request, f"your email {user.email} has an active plan already")
+        return redirect("home")
     expiry_date = today + timedelta(days=plan_detail.duration_in_days)
     print(f"plan{plan_detail.title}\nexpiry {expiry_date}")
-    subscription = FirstTimeSubscriptionHistory.objects.create(
-        user_id=user_id, 
-        plan_id=plan_id, 
-        amount_paid=amount, 
-        email=user.email,
-        full_name=full_name,
-        phone_no=phone_no, 
-        reference = tx_ref, 
-        transaction_id=transaction_id,
-        status=status,
-        expiry_date=expiry_date,
-        active=True
-    )
-
-    # if plan_id == 1 :
-    #     expiry_date = today + timedelta(days=30)
-    #     subscription = SubscriptionHistory.objects.create(
-    #         user_id=user_id, 
-    #         plan_id=plan_id, 
-    #         amount_paid=amount, 
-    #         email=user.email,
-    #         full_name=full_name,
-    #         phone_no=phone_no, 
-    #         reference = tx_ref, 
-    #         transaction_id=transaction_id,
-    #         status=status,
-    #         expiry_date=expiry_date,
-    #         active=True
-    #     )
-    #     time.sleep(2)
-    #     subject = f"Plan Subscription Notification"
-    #     message = f"{email} just subscribed for the monthly plan {subscription.plan}"
-    #     send_mail = UserSubscriptionNotification(
-    #         email_subject=subject,
-    #         email_body=message,
-    #         sender_email=DEFAULT_FROM_EMAIL,
-    #         receiver_email=CONTACT_EMAIL,
-    #     )
-    #     send_mail.mail_admin()
-    #     return redirect("home")
-        
-        
-    # if plan_id == 2:
-    #     expiry_date = today + timedelta(days=90)
-    #     subscription = SubscriptionHistory.objects.create(
-    #         user_id=user_id, 
-    #         plan_id=plan_id, 
-    #         amount_paid=amount, 
-    #         email=email,
-    #         full_name=full_name,
-    #         phone_no=phone_no, 
-    #         reference=tx_ref, 
-    #         transaction_id=transaction_id,
-    #         status=status,
-    #         expiry_date=expiry_date,
-    #         active=True,
-    #     )
-    #     subject = f"Plan Subscription Notification"
-    #     message = f"{email} just subscribed for the {subscription.plan}"
-    #     send_mail = UserSubscriptionNotification(
-    #         email_subject=subject,
-    #         email_body=message,
-    #         sender_email=DEFAULT_FROM_EMAIL,
-    #         receiver_email=CONTACT_EMAIL,
-    #     )
-    #     send_mail.mail_admin()
-    #     return redirect("home")
-
-    # if plan_id == 3:
-    #     expiry_date = today + timedelta(days=180)
-    #     subscription = SubscriptionHistory.objects.create(
-    #         user_id=user_id, 
-    #         plan_id=plan_id, 
-    #         amount_paid=amount, 
-    #         email=email,
-    #         full_name=full_name,
-    #         phone_no=phone_no, 
-    #         reference=tx_ref, 
-    #         transaction_id=transaction_id,
-    #         status=status,
-    #         expiry_date=expiry_date,
-    #         active=True
-    #     )
+    
+    
+    # checks if user already exist on the first time subscriber table
+    first_time_subscriber = FirstTimeSubscriptionHistory.objects.filter(user=user)
+    if not first_time_subscriber.exists():
+        subscription = FirstTimeSubscriptionHistory.objects.create(
+            user=user,
+            email=user.email,
+            full_name=full_name,
+            phone_no=phone_no,
+            plan=plan_detail.slug, 
+            amount_paid=amount,
+            reference = tx_ref, 
+            transaction_id=transaction_id,
+            status=status,
+            expiry_date=expiry_date,
+            active=True
+        )
+    
+    subscription = SubscriptionHistory.objects.create(
+            user=user, 
+            email=user.email,
+            full_name=full_name,
+            phone_no=phone_no,
+            plan=plan_detail.title, 
+            amount_paid=amount,
+            reference = tx_ref, 
+            transaction_id=transaction_id,
+            status=status,
+            expiry_date=expiry_date,
+            active=True
+        )
     subject = f"Plan Subscription Notification"
-    message = f"{email} just subscribed for the {subscription.plan}"
+    message = f"{user.email} just subscribed for the {subscription.plan}"
     send_mail = UserSubscriptionNotification(
         email_subject=subject,
         email_body=message,
