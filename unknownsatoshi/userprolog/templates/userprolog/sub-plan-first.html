@@ -12,7 +12,7 @@
                 <div class="content-container" style="margin-bottom: 100px;">
                   <section class="trade-table">
                       <table>
-                        {% if subscription %}
+                        {% if first_Subscription %}
                         <section class="alt-nav" id="sub-nav">
                           <h4>Manage Subscription History</h4>
                         </section>
@@ -30,7 +30,7 @@
                           </tr>
                         </thead>
                           
-                          {% for sub in subscription %}
+                          {% for sub in first_Subscription %}
                             <tbody>
                                 <tr>
                                   

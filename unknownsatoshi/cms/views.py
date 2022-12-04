@@ -1,6 +1,7 @@
 import math
 import time
 import random
+import decimal
 import requests
 from .forms import *
 from .models import *
@@ -691,7 +692,6 @@ def premium_blog_detail(request, slug):
             comment.owner = request.user
             comment.save()
 
-
             messages.success(request, 'Your review was successfully submitted!')
             return redirect('premium-blog-detail', slug=blog.slug)
         premium_user = SubscriptionHistory.objects.filter(user=request.user, active=True).exists()
@@ -728,25 +728,26 @@ def plan_list(request):
 
 
 # plan details
-plan_detail = None
+first_time_sub_detail = None
 main_plan_detail = None
 @login_required(login_url="user-login")
 def plan_details(request, slug):
     template_name = "cms/plan_payment.html"
     user = request.user
     global first_time_sub_detail, main_plan_detail
-    first_time_sub_detail = get_object_or_404(FirstTimePlan, slug=slug)
     
     if FirstTimeSubscriptionHistory.objects.filter(user=user, active=True).exists():
-        messages.info(request, f"you already have an active plan")
-        return redirect("home")
+        messages.error(request, f"you already have an active plan")
+        return redirect("user-first-sub")
 
+    first_time_sub_detail = get_object_or_404(FirstTimePlan, slug=slug)
+    print(f"PLAN = {first_time_sub_detail}: {first_time_sub_detail.discount_price}")
     first_time_sub = FirstTimeSubscriptionHistory.objects.filter(user=user).exists()
     if not first_time_sub:
-        messages.info(request,f"You have a discount on your first time subscription so you pay ${first_time_sub_detail.discount_price}")
+        messages.success(request,f"You have a discount on your first time subscription so you pay ${first_time_sub_detail.discount_price}")
         if request.method == "GET":
             user_id = str(user.id)
-            plan_id= str(first_time_sub_detail.slug)
+            plan_id= str(first_time_sub_detail)
             first_name = user.first_name
             last_name = user.last_name
             amount = first_time_sub_detail.discount_price
@@ -754,18 +755,18 @@ def plan_details(request, slug):
             phone_no = user.phone_no
             plan_title = first_time_sub_detail.title
             plan_desc = first_time_sub_detail.desc
-            return redirect(str(process_payment(user_id=user_id, plan_id=plan_id, first_name=first_name, last_name=last_name, amount=amount, email=email, phone_no=phone_no, plan_title=plan_title, plan_desc=plan_desc)))
-    
+            return redirect(str(process_payment(request,user_id=user_id, plan_id=plan_id, first_name=first_name, last_name=last_name, amount=float(amount), email=email, phone_no=phone_no, plan_title=plan_title, plan_desc=plan_desc)))
     elif(first_time_sub and FirstTimeSubscriptionHistory.objects.filter(user=user, active=False).exists()):
         
+        # checks if user has active plan on main subscription table
         if SubscriptionHistory.objects.filter(user=user, active=True).exists():
-            messages.info(request, f"you already have an active plan")
-            return redirect("home")
+            messages.error(request, f"you already have an active plan")
+            return redirect("user-sub-list")
 
         main_plan_detail = get_object_or_404(Plan, slug=slug)
         if request.method == "GET":
             user_id = str(user.id)
-            plan_id= str(main_plan_detail.slug)
+            plan_id= str(main_plan_detail)
             first_name = user.first_name
             last_name = user.last_name
             amount = main_plan_detail.discount_price
@@ -773,16 +774,17 @@ def plan_details(request, slug):
             phone_no = user.phone_no
             plan_title = main_plan_detail.title
             plan_desc = main_plan_detail.desc
-            return redirect(str(process_payment(user_id=user_id, plan_id=plan_id, first_name=first_name, last_name=last_name, amount=amount, email=email, phone_no=phone_no, plan_title=plan_title, plan_desc=plan_desc)))
+            return redirect(str(process_payment(request, user_id=user_id, plan_id=plan_id, first_name=first_name, last_name=last_name, amount=float(amount), email=email, phone_no=phone_no, plan_title=plan_title, plan_desc=plan_desc)))
         else:   
-            context = {"plan":plan_detail, "user":user}
+            context = {"plan":main_plan_detail, "user":user}
         return render(request, template_name, context)
 
 
 
 amount_paid = ""
 # process plan payment
-def process_payment(user_id, plan_id, first_name, last_name, amount, email, phone_no, plan_title, plan_desc):
+@login_required(login_url="user-login")
+def process_payment(request, user_id, plan_id, first_name, last_name, amount, email, phone_no, plan_title, plan_desc):
     global amount_paid
     amount_paid = amount
     name = f"{first_name} {last_name}".capitalize()
@@ -824,6 +826,7 @@ def process_payment(user_id, plan_id, first_name, last_name, amount, email, phon
 today = datetime.now().date()
 
 @require_http_methods(['GET', 'POST'])
+@login_required(login_url="user-login")
 def payment_response(request):
     user = request.user
     amount = amount_paid
@@ -836,14 +839,14 @@ def payment_response(request):
     # checks if user has active plan on main subscription table
     if SubscriptionHistory.objects.filter(reference=tx_ref).exists():
         messages.error(request, f"your email {user.email} has an active plan already")
-        return redirect("home")
+        return redirect("user-sub-list")
 
     # checks if user has active plan on first time subscription table
     elif FirstTimeSubscriptionHistory.objects.filter(reference=tx_ref).exists():
         messages.error(request, f"your email {user.email} has an active plan already")
-        return redirect("home")
-    expiry_date = today + timedelta(days=plan_detail.duration_in_days)
-    print(f"plan{plan_detail.title}\nexpiry {expiry_date}")
+        return redirect("user-first-sub")
+    expiry_date = today + timedelta(days=first_time_sub_detail.duration_in_days)
+    print(f"PLAN {first_time_sub_detail.title}\nEXPIRY {expiry_date}")
     
     
     # checks if user already exist on the first time subscriber table
@@ -854,7 +857,7 @@ def payment_response(request):
             email=user.email,
             full_name=full_name,
             phone_no=phone_no,
-            plan=plan_detail.slug, 
+            plan=first_time_sub_detail, 
             amount_paid=amount,
             reference = tx_ref, 
             transaction_id=transaction_id,
@@ -864,28 +867,32 @@ def payment_response(request):
         )
     
     subscription = SubscriptionHistory.objects.create(
-            user=user, 
-            email=user.email,
-            full_name=full_name,
-            phone_no=phone_no,
-            plan=plan_detail.title, 
-            amount_paid=amount,
-            reference = tx_ref, 
-            transaction_id=transaction_id,
-            status=status,
-            expiry_date=expiry_date,
-            active=True
-        )
+        user=user, 
+        email=user.email,
+        full_name=full_name,
+        phone_no=phone_no,
+        plan=main_plan_detail, 
+        amount_paid=amount,
+        reference = tx_ref, 
+        transaction_id=transaction_id,
+        status=status,
+        expiry_date=expiry_date,
+        active=True
+    )
     subject = f"Plan Subscription Notification"
     message = f"{user.email} just subscribed for the {subscription.plan}"
-    send_mail = UserSubscriptionNotification(
+    try:
+        send_mail = UserSubscriptionNotification(
         email_subject=subject,
         email_body=message,
         sender_email=DEFAULT_FROM_EMAIL,
         receiver_email=CONTACT_EMAIL,
     )
-    send_mail.mail_admin()
-    return redirect("home")
+        send_mail.mail_admin()
+    except:
+        messages.error(f"could not connect to smtp, redirecting to home page")
+    finally:
+        return redirect("home")
 
 
 # newsletter subscription page
@@ -919,6 +926,7 @@ def newsletter(request):
 def custom_page_not_found(request, exception):
     return render(request, "cms/404.html")
 
+
 def like_post(request):
     data = json.loads(request.body)
     id = data["id"]
@@ -926,7 +934,7 @@ def like_post(request):
     checker = None
     
     if request.user.is_authenticated:
-        
+
         if blog.likes.filter(id=request.user.id).exists():
             blog.likes.remove(request.user)
             checker = 0  

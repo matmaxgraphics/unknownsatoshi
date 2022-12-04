@@ -215,7 +215,7 @@ class Newsletter(models.Model):
 
 # First time subscription plan
 class FirstTimePlan(models.Model):
-    title = models.CharField(max_length=90, choices=plans_helper.first_time_plans, validators=[validate_existing_plan])
+    title = models.CharField(max_length=90, choices=plans_helper.first_time_plans)
     slug = models.SlugField(unique=True, null=True, blank=True)
     desc = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -262,7 +262,7 @@ class FirstTimeSubscriptionHistory(models.Model):
     email = models.EmailField(max_length=200, unique=False, blank=False)
     full_name = models.CharField(max_length=200, blank=False)
     phone_no = models.CharField(max_length=11, unique=False, blank=False)
-    plan = models.ForeignKey(Plan, on_delete=models.CASCADE, default='monthly plan')
+    plan = models.ForeignKey(FirstTimePlan, on_delete=models.CASCADE, default='monthly plan')
     amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
     reference = models.CharField(max_length=200, unique=True, blank=False)
     transaction_id = models.CharField(max_length=200)

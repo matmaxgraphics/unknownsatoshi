@@ -10,6 +10,7 @@ urlpatterns = [
     path('logout', logout_user, name="user-logout"),
     path('user/profile/<str:id>', user_profile, name="user-profile"),
     path('subscription/history/', user_subscription_list, name="user-sub-list"),
+    path('first/subscription/history/', user_first_subscription_list, name="user-first-sub"),
 
     #password reset
     path('reset-password/', 

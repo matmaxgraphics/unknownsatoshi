@@ -51,7 +51,7 @@ class AdminPlan(admin.ModelAdmin):
 @admin.register(FirstTimeSubscriptionHistory)
 class AdminSubscriptionHistory(admin.ModelAdmin):
     list_display = ('email', 'user', 'full_name', 'phone_no', 'plan', 'amount_paid', 'reference', 'transaction_id', 'status', 'start_date', 'expiry_date', 'active')
-    readonly_fields = ('plan','amount_paid', 'reference', 'transaction_id', 'status')
+    readonly_fields = ('amount_paid', 'reference', 'transaction_id', 'status')
 
 @admin.register(Newsletter)
 class AdminNesletter(admin.ModelAdmin):
