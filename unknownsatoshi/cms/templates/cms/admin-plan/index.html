@@ -21,19 +21,21 @@
                     <th scope="col">Title</th>
                     <th scope="col">Description</th>
                     <th scope="col">Price</th>
+                    <th scope="col">Discount Percentage</th>
                     <th scope="col">Discount Price</th>
-                    <th scope="col">Discount</th>
-                    <th scope="col" colspan="2">Action</th>
+                    <th scope="col">Duration in Days</th>
+                    <th scope="col" colspan="3">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {% for plan in plans %}
                     <tr>
-                      <td data-label="Title">{{ plan.title }}</td>
-                      <td data-label="Description">{{ plan.desc }}</td>
-                      <td data-label="Price">${{ plan.price }}</td>
-                      <td data-label="Discount Price">${{ plan.discount_price }}</td>
-                      <td data-label="Discount">${{ plan.discount }}</td>
+                      <td data-label="S/N">{{plan.title}}</td>
+                      <td data-label="Product Name">{{plan.desc}}</td>
+                      <td data-label="Product Name">${{plan.price}}</td>
+                      <td data-label="Price">%{{ plan.discount_percentage}}</td>
+                      <td data-label="Price">${{ plan.discount_price}}</td>
+                      <td data-label="Price">{{ plan.duration_in_days}}</td>
                       <td data-label="Action"><a href="{% url 'admin-update-plan' plan.slug %}" class="edit">Edit</a></td>
                       <td><a style="color: rgb(233, 143, 25);" href="{% url 'admin-delete-plan' plan.slug %}" class="delete">Delete</a></td>		        
                     </tr>

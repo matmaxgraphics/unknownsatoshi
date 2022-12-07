@@ -1,0 +1,58 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+  
+  <section class="panel-section" style=margin-top:-700px>
+    <div class="panel-content">
+      <div class="page-wrapper admin-wrapper">		
+        <section class="alt-nav">
+            <h4>Manage First Time Subscription</h4>
+            <a href="{% url 'first_time_subscription_list' %}" class="btn">View first Time Subscription</a>
+        </section>
+  
+        <div class="content-container">
+          <section class="trade-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">User</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Phone No</th>
+                    <th scope="col">Plan</th>
+                    <th scope="col">Amount Paid</th>
+                    <th scope="col">Reference</th>
+                    <th scope="col">Transaction Id</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Active</th>
+                    <th scope="col" colspan="2">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for first_sub in first_time_sub %}
+                    <tr>
+                      <td data-label="User">{{ first_sub.user }}</td>
+                      <td data-label="Email">{{ first_sub.email }}</td>
+                      <td data-label="Full Name">{{ first_sub.full_name }}</td>
+                      <td data-label="Phone No">{{ first_sub.phone_no }}</td>
+                      <td data-label="Plan">{{ first_sub.plan }}</td>
+                      <td data-label="Amount Paid">{{ first_sub.amount_paid }}</td>
+                      <td data-label="Reference">{{ first_sub.reference }}</td>
+                      <td data-label="Transaction Id">{{ first_sub.transaction_id }}</td>
+                      <td data-label="Status">{{ first_sub.status }}</td>
+                      <td data-label="Active">{{ first_sub.active }}</td>
+                      <td><a style="color: rgb(233, 143, 25);" href="{% url 'delete_first_time_subscription' first_sub.id %}" class="delete">Delete</a></td>		        
+                    </tr>
+                  {% endfor %} 
+                </tbody>
+              </table>
+          </section>
+        </div>
+      </div>
+    </div>
+
+  </section>
+{% endblock content %}

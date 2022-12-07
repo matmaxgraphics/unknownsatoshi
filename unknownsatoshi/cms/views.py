@@ -410,6 +410,75 @@ def admin_delete_user(request, id):
         return render(request, template_name, context)
 
 
+# admin create first time plan
+@login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_create_first_time_plan(request):
+    template_name = 'cms/admin-plan-first/create.html'
+    form = FirstTimePlanForm()
+    if request.method == 'POST':
+        form = FirstTimePlanForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"First Time Plan created successfully")
+            return redirect('admin-product')
+        messages.error(request, f"Unable to create first time plan, Try again")
+        return redirect("create_first_time_plan")
+    else:
+        form = FirstTimePlanForm(request.POST)
+    context = {'form':form}
+    return render(request, template_name, context)
+
+
+#admin views for first time plan list
+@login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_first_time_plan_list(request):
+    template_name = 'cms/admin-plan-first/index.html'
+    first_time_plans = FirstTimePlan.objects.all()
+    context = {"first_time_plans": first_time_plans}
+    return render(request, template_name, context)
+
+
+# admin update first time plan
+@login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_update_first_time_plan(request, slug):
+    template_name = 'cms/admin-plan-first/edit.html'
+    first_time_plan = get_object_or_404(FirstTimePlan, slug=slug)
+    form = FirstTimePlanUpdateForm(instance=first_time_plan)
+    if request.method == 'POST':
+        form = FirstTimePlanUpdateForm(request.POST, instance=first_time_plan)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"First time plan updated successfully")
+            return redirect('first_time_plan_list')
+        messages.error(request, f"Unable to update first time plan, Try again")
+        return redirect("update_first_time_plan", slug)
+    else:
+        form = FirstTimePlanUpdateForm(instance=first_time_plan)
+    context = {'form': form}
+    return render(request, template_name, context)
+
+
+# admin can delete first time plan
+@login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_delete_first_time_plan(request, slug):
+    template_name = 'cms/admin-plan-first/delete.html'
+    first_time_plan = get_object_or_404(FirstTimePlan, slug=slug)
+    if request.method == 'POST':
+        first_time_plan.delete()
+        messages.success(request, f"product successfully deleted")
+        return redirect('first_time_plan_list')
+    context = {'first_time_plan': first_time_plan}
+    return render(request, template_name, context)
+
+
 # admin create plan
 @login_required(login_url='admin-login')
 @allowed_user(allowed_roles=['admin'])
@@ -477,6 +546,34 @@ def admin_delete_plan(request, slug):
         return redirect('admin-plan-list')
     else:
         return render(request, template_name)
+
+
+
+#admin first time  subscription history
+login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_first_time_subscription_list(request):
+    template_name = "cms/admin-first-time-subscription/index.html"
+    first_time_subscriptions = FirstTimeSubscriptionHistory.objects.all()
+    context = {"first_time_sub": first_time_subscriptions}
+    return render(request, template_name, context)
+
+
+#admin delete first time subscription subscription history
+@login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_delete_first_time_subscription(request, id):
+    template_name = 'cms/admin-first-time-subscription/delete.html'
+    first_subscription = get_object_or_404(FirstTimeSubscriptionHistory, id=id)
+    if request.method == 'POST':
+        first_subscription.delete()
+        messages.success(request, f"subscription deleted successfully")
+        return redirect("first_time_subscription_list", id)
+    else:
+        context = {"first_subscription":first_subscription}
+        return render(request, template_name, context)
 
 
 #admin subscription history
