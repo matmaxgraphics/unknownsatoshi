@@ -90,10 +90,23 @@
       </div>
 
       <div class="item">
+        <a class="sub-btn">Manage First Time Plan<i class="fas fa-angle-right dropdown"></i></a>
+        <div class="sub-menu">
+          <a href="{% url 'first_time_plan_list' %}" class="sub-item">First Time Plan List</a>
+          <a href="{% url 'create_first_time_plan' %}" class="sub-item">Add First Time Plan</a>
+      </div>
+
+      <div class="item">
         <a class="sub-btn">Manage Plans<i class="fas fa-angle-right dropdown"></i></a>
         <div class="sub-menu">
           <a href="{% url 'admin-plan-list' %}" class="sub-item">Plan List</a>
           <a href="{% url 'admin-create-plan' %}" class="sub-item">Add Plan</a>
+      </div>
+
+      <div class="item">
+        <a class="sub-btn">Manage First Time Subscription<i class="fas fa-angle-right dropdown"></i></a>
+        <div class="sub-menu">
+          <a href="{% url 'first_time_subscription_list' %}" class="sub-item">First Time Subscription List</a>
       </div>
 
       <div class="item">
@@ -110,6 +123,7 @@
       <div class="sidebar-button">
         <img src="{% static 'images/hamburger.png' %}" class='bx bx-menu sidebarBtn'></i>
       </div>
+      
       <div style="max-width: 350px;">
           {% if messages %}
             {% for message in messages %}
@@ -118,7 +132,8 @@
               </div>
             {% endfor %}		
           {% endif %}	
-      </div>	
+      </div>
+
       <div class="search-box">
         <form action="" method="get">
           <input type="search" placeholder="Search...">

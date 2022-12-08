@@ -140,13 +140,43 @@ class UserUpdateForm(forms.ModelForm):
         self.fields['is_superuser'].widget.attrs.update({'class':"input"})
 
 
-class PlanForm(forms.ModelForm):
-    title = forms.CharField(required=True)
-    desc = forms.CharField(required=True)
-    price = forms.IntegerField(min_value=1, required=True)
-    discount_price = forms.IntegerField(min_value=1, required=True)
-    discount = forms.IntegerField(min_value=1, required=True)
+class FirstTimePlanForm(forms.ModelForm):
+    
+    class Meta:
+        model = FirstTimePlan
+        fields = '__all__'
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['title'].widget.attrs.update({'class':"input-field"})
+        self.fields['desc'].widget.attrs.update({'class':"input-field"})
+        self.fields['price'].widget.attrs.update({'class':"input-field"})
+        self.fields['discount_percentage'].widget.attrs.update({'class':"input-field"})
+        self.fields['discount_price'].widget.attrs.update({'class':"input-field"})
+        self.fields['duration_in_days'].widget.attrs.update({'class':"input-field"})
+        self.fields['discount_price'].disabled=True
+        self.fields['duration_in_days'].disabled=True
 
+
+class FirstTimePlanUpdateForm(forms.ModelForm):
+  
+    class Meta:
+        model = FirstTimePlan
+        fields = '__all__'
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['title'].widget.attrs.update({'class':"input-field"}, required=True)
+        self.fields['desc'].widget.attrs.update({'class':"input-field"}, required=True)
+        self.fields['price'].widget.attrs.update({'class':"input-field"}, required=True)
+        self.fields['discount_percentage'].widget.attrs.update({'class':"input-field"}, required=True)
+        self.fields['discount_price'].widget.attrs.update({'class':"input-field"}, required=True)
+        self.fields['duration_in_days'].widget.attrs.update({'class':"input-field"}, required=True)
+        self.fields['discount_price'].disabled=True
+        self.fields['duration_in_days'].disabled=True
+
+
+class PlanForm(forms.ModelForm):
     class Meta:
         model = Plan
         fields = '__all__'
@@ -154,11 +184,14 @@ class PlanForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['title'].widget.attrs.update({'class':"input-field"})
-        self.fields['slug'].widget.attrs.update({'class':"input-field"})
         self.fields['desc'].widget.attrs.update({'class':"input-field"})
         self.fields['price'].widget.attrs.update({'class':"input-field"})
+        self.fields['discount_percentage'].widget.attrs.update({'class':"input-field"})
         self.fields['discount_price'].widget.attrs.update({'class':"input-field"})
-        self.fields['discount'].widget.attrs.update({'class':"input-field"})
+        self.fields['duration_in_days'].widget.attrs.update({'class':"input-field"})
+        self.fields['discount_price'].disabled=True
+        self.fields['duration_in_days'].disabled=True
+
 
 
 class SubscriptionHistoryForm(forms.ModelForm):

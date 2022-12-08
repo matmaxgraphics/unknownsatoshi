@@ -27,13 +27,10 @@ urlpatterns = [
 
     # ckeditor
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    
 
     #apps sitemaps
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
-
 ]
 
 handler404 = 'cms.views.custom_page_not_found'
-
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
