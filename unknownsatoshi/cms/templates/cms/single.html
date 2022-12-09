@@ -8,6 +8,11 @@
 
 
 {% block content %}
+<style>
+	.copy{
+		cursor: pointer;
+	}
+</style>
 
 <div class="page-wrapper margin-extra single-wrapper">
 	<section class="article-wrapper">
@@ -43,10 +48,6 @@
 					<span id="num" class="action-number__like">{{blog.likes.count}}</span>
 				</li>
 
-
-
-
-
 				<li class="iconic-span icon-bg-dark"><i class="ri-message-2-line"></i> <span
 						class="action-number__comment">{{blog.comment_set.all.count}}</span></li>
 				<li class="iconic-span icon-bg-dark share-btn"><i class="ri-share-line"></i></li>
@@ -57,7 +58,7 @@
 						<span class="sharing-link"><i class="ri-twitter-fill"></i> {% post_to_twitter "Check out{{blog.title}}" object_or_url "Twitter" %}</span>
 						<span class="sharing-link">{% post_to_linkedin object_or_url "Linkedin" %}</span>
 						<span class="sharing-link"><i class="ri-whatsapp-line"></i>{% post_to_whatsapp object_or_url "Share via WhatsApp" %}</span>
-						<span class="sharing-link"><i class="ri-link"></i>{% copy_to_clipboard object_or_url "Copy to clipboard!" %}</span>
+						<span class="sharing-link copy"><i class="ri-link copy"></i>{% copy_to_clipboard object_or_url "Copy to clipboard!" %}</span>
 						
 					</div>
 				</article>

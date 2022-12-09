@@ -1,6 +1,7 @@
 import math
 import time
 import random
+import decimal
 import requests
 from .forms import *
 from .models import *
@@ -20,7 +21,7 @@ from django.template.loader import render_to_string
 from unknownsatoshi.settings import DEFAULT_FROM_EMAIL, CONTACT_EMAIL
 import json
 
-from hitcount.views import HitCountDetailView
+# from hitcount.views import HitCountDetailView
 
 
 
@@ -409,6 +410,75 @@ def admin_delete_user(request, id):
         return render(request, template_name, context)
 
 
+# admin create first time plan
+@login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_create_first_time_plan(request):
+    template_name = 'cms/admin-plan-first/create.html'
+    form = FirstTimePlanForm()
+    if request.method == 'POST':
+        form = FirstTimePlanForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"First Time Plan created successfully")
+            return redirect('admin-product')
+        messages.error(request, f"Unable to create first time plan, Try again")
+        return redirect("create_first_time_plan")
+    else:
+        form = FirstTimePlanForm(request.POST)
+    context = {'form':form}
+    return render(request, template_name, context)
+
+
+#admin views for first time plan list
+@login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_first_time_plan_list(request):
+    template_name = 'cms/admin-plan-first/index.html'
+    first_time_plans = FirstTimePlan.objects.all()
+    context = {"first_time_plans": first_time_plans}
+    return render(request, template_name, context)
+
+
+# admin update first time plan
+@login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_update_first_time_plan(request, slug):
+    template_name = 'cms/admin-plan-first/edit.html'
+    first_time_plan = get_object_or_404(FirstTimePlan, slug=slug)
+    form = FirstTimePlanUpdateForm(instance=first_time_plan)
+    if request.method == 'POST':
+        form = FirstTimePlanUpdateForm(request.POST, instance=first_time_plan)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"First time plan updated successfully")
+            return redirect('first_time_plan_list')
+        messages.error(request, f"Unable to update first time plan, Try again")
+        return redirect("update_first_time_plan", slug)
+    else:
+        form = FirstTimePlanUpdateForm(instance=first_time_plan)
+    context = {'form': form}
+    return render(request, template_name, context)
+
+
+# admin can delete first time plan
+@login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_delete_first_time_plan(request, slug):
+    template_name = 'cms/admin-plan-first/delete.html'
+    first_time_plan = get_object_or_404(FirstTimePlan, slug=slug)
+    if request.method == 'POST':
+        first_time_plan.delete()
+        messages.success(request, f"product successfully deleted")
+        return redirect('first_time_plan_list')
+    context = {'first_time_plan': first_time_plan}
+    return render(request, template_name, context)
+
+
 # admin create plan
 @login_required(login_url='admin-login')
 @allowed_user(allowed_roles=['admin'])
@@ -476,6 +546,34 @@ def admin_delete_plan(request, slug):
         return redirect('admin-plan-list')
     else:
         return render(request, template_name)
+
+
+
+#admin first time  subscription history
+login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_first_time_subscription_list(request):
+    template_name = "cms/admin-first-time-subscription/index.html"
+    first_time_subscriptions = FirstTimeSubscriptionHistory.objects.all()
+    context = {"first_time_sub": first_time_subscriptions}
+    return render(request, template_name, context)
+
+
+#admin delete first time subscription subscription history
+@login_required(login_url='admin-login')
+@allowed_user(allowed_roles=['admin'])
+@admin_only
+def admin_delete_first_time_subscription(request, id):
+    template_name = 'cms/admin-first-time-subscription/delete.html'
+    first_subscription = get_object_or_404(FirstTimeSubscriptionHistory, id=id)
+    if request.method == 'POST':
+        first_subscription.delete()
+        messages.success(request, f"subscription deleted successfully")
+        return redirect("first_time_subscription_list", id)
+    else:
+        context = {"first_subscription":first_subscription}
+        return render(request, template_name, context)
 
 
 #admin subscription history
@@ -691,7 +789,6 @@ def premium_blog_detail(request, slug):
             comment.owner = request.user
             comment.save()
 
-
             messages.success(request, 'Your review was successfully submitted!')
             return redirect('premium-blog-detail', slug=blog.slug)
         premium_user = SubscriptionHistory.objects.filter(user=request.user, active=True).exists()
@@ -728,71 +825,95 @@ def plan_list(request):
 
 
 # plan details
-plan_id_history = ""
+first_time_sub_detail = None
+main_plan_detail = None
 @login_required(login_url="user-login")
 def plan_details(request, slug):
-    user = request.user
-    check_active_sub = SubscriptionHistory.objects.filter(active=True, user=user)
-    if check_active_sub:
-        messages.error(request, "you already have an active plan")
-        return redirect("user-sub-list")
-    global plan_id_history
     template_name = "cms/plan_payment.html"
-    plan = get_object_or_404(Plan, slug=slug)
-    plan_id_history = plan.id
     user = request.user
+    global first_time_sub_detail, main_plan_detail
+    
+    if FirstTimeSubscriptionHistory.objects.filter(user=user, active=True).exists():
+        messages.error(request, f"you already have an active plan")
+        return redirect("user-first-sub")
 
-    if request.method == "GET":
-        user_id = str(user.id)
-        plan_id= str(plan.slug)
-        first_name = user.first_name
-        last_name = user.last_name
-        amount = plan.discount_price
-        email = user.email
-        phone_no = user.phone_no
-        plan_title = plan.title
-        plan_desc = plan.desc
-        return redirect(str(process_payment(user_id=user_id, plan_id=plan_id, first_name=first_name, last_name=last_name, amount=amount, email=email, phone_no=phone_no, plan_title=plan_title, plan_desc=plan_desc)))
-    else:    
-        context = {"plan":plan, "user":user}
-    return render(request, template_name, context)
+    first_time_sub_detail = get_object_or_404(FirstTimePlan, slug=slug)
+    print(f"PLAN = {first_time_sub_detail}: {first_time_sub_detail.discount_price}")
+    first_time_sub = FirstTimeSubscriptionHistory.objects.filter(user=user).exists()
+    if not first_time_sub:
+        messages.success(request,f"You have a discount on your first time subscription so you pay ${first_time_sub_detail.discount_price}")
+        if request.method == "GET":
+            user_id = str(user.id)
+            plan_id= str(first_time_sub_detail)
+            first_name = user.first_name
+            last_name = user.last_name
+            amount = first_time_sub_detail.discount_price
+            email = user.email
+            phone_no = user.phone_no
+            plan_title = first_time_sub_detail.title
+            plan_desc = first_time_sub_detail.desc
+            return redirect(str(process_payment(request,user_id=user_id, plan_id=plan_id, first_name=first_name, last_name=last_name, amount=float(amount), email=email, phone_no=phone_no, plan_title=plan_title, plan_desc=plan_desc)))
+    elif(first_time_sub and FirstTimeSubscriptionHistory.objects.filter(user=user, active=False).exists()):
+        
+        # checks if user has active plan on main subscription table
+        if SubscriptionHistory.objects.filter(user=user, active=True).exists():
+            messages.error(request, f"you already have an active plan")
+            return redirect("user-sub-list")
+
+        main_plan_detail = get_object_or_404(Plan, slug=slug)
+        if request.method == "GET":
+            user_id = str(user.id)
+            plan_id= str(main_plan_detail)
+            first_name = user.first_name
+            last_name = user.last_name
+            amount = main_plan_detail.discount_price
+            email = user.email
+            phone_no = user.phone_no
+            plan_title = main_plan_detail.title
+            plan_desc = main_plan_detail.desc
+            return redirect(str(process_payment(request, user_id=user_id, plan_id=plan_id, first_name=first_name, last_name=last_name, amount=float(amount), email=email, phone_no=phone_no, plan_title=plan_title, plan_desc=plan_desc)))
+        else:   
+            context = {"plan":main_plan_detail, "user":user}
+        return render(request, template_name, context)
+
 
 
 amount_paid = ""
 # process plan payment
-def process_payment(user_id, plan_id, first_name, last_name, amount, email, phone_no, plan_title, plan_desc):
+@login_required(login_url="user-login")
+def process_payment(request, user_id, plan_id, first_name, last_name, amount, email, phone_no, plan_title, plan_desc):
     global amount_paid
     amount_paid = amount
     name = f"{first_name} {last_name}".capitalize()
-    auth_token= FLW_PRODUCTION_SECRET_KEY
-    #auth_token = FLW_SANDBOX_SECRET_KEY
-    hed = {'Authorization': 'Bearer ' + auth_token}
+    # auth_token= FLW_PRODUCTION_SECRET_KEY
+    auth_token = FLW_SANDBOX_SECRET_KEY
+    header = {'Authorization': 'Bearer ' + auth_token}
 
     data = {
         "tx_ref":''+str(math.floor(1000000 + random.random()*9000000)),
         "plan_id":plan_id,
-        "amount":amount,
+        "amount": amount,
         "currency":"USD",
-        "redirect_url":"http://localhost:8000/callback",
-        "payment_options":"card",
+        "redirect_url": "http://localhost:8000/callback",
+        "payment_options": "card",
         "meta":{
-            "consumer_id":user_id,
-            "consumer_mac":"92a3-912ba-1192a"
+            "consumer_id": user_id,
+            "consumer_mac": "92a3-912ba-1192a"
         },
         "customer":{
-            "email":email,
-            "phonenumber":str(phone_no),
-            "name":name
+            "email": email,
+            "phonenumber": str(phone_no),
+            "name": name
         },
         "customizations":{
-            "title":plan_title,
-            "description":plan_desc,
-            "logo":"https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg"
+            "title": plan_title,
+            "description": plan_desc,
+            "logo": "https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg"
         }
     }
 
     url = ' https://api.flutterwave.com/v3/payments'
-    response = requests.post(url, json=data, headers=hed)
+    response = requests.post(url, json=data, headers=header)
     response=response.json()
     link=response['data']['link']
     return link
@@ -802,102 +923,72 @@ def process_payment(user_id, plan_id, first_name, last_name, amount, email, phon
 today = datetime.now().date()
 
 @require_http_methods(['GET', 'POST'])
+@login_required(login_url="user-login")
 def payment_response(request):
     user = request.user
-    user_id = user.id
-    plan_id = plan_id_history
     amount = amount_paid
     full_name = f"{user.first_name} {user.last_name}"
-    email = user.email
     phone_no = user.phone_no
     tx_ref = request.GET.get('tx_ref' or None)
     status = request.GET.get('status' or None)
     transaction_id = request.GET.get('transaction_id' or None)
     
+    # checks if user has active plan on main subscription table
     if SubscriptionHistory.objects.filter(reference=tx_ref).exists():
-        messages.error(request, f"your email {user_id} has an active plan already")
-        return redirect("home")
-    else:
-        pass
+        messages.error(request, f"your email {user.email} has an active plan already")
+        return redirect("user-sub-list")
 
-    if plan_id == 1 :
-        expiry_date = today + timedelta(days=30)
-        SubscriptionHistory.objects.create(
-            user_id=user_id, 
-            plan_id=plan_id, 
-            amount_paid=amount, 
+    # checks if user has active plan on first time subscription table
+    elif FirstTimeSubscriptionHistory.objects.filter(reference=tx_ref).exists():
+        messages.error(request, f"your email {user.email} has an active plan already")
+        return redirect("user-first-sub")
+    expiry_date = today + timedelta(days=first_time_sub_detail.duration_in_days)
+    print(f"PLAN {first_time_sub_detail.title}\nEXPIRY {expiry_date}")
+    
+    
+    # checks if user already exist on the first time subscriber table
+    first_time_subscriber = FirstTimeSubscriptionHistory.objects.filter(user=user)
+    if not first_time_subscriber.exists():
+        subscription = FirstTimeSubscriptionHistory.objects.create(
+            user=user,
             email=user.email,
             full_name=full_name,
-            phone_no=phone_no, 
+            phone_no=phone_no,
+            plan=first_time_sub_detail, 
+            amount_paid=amount,
             reference = tx_ref, 
             transaction_id=transaction_id,
             status=status,
             expiry_date=expiry_date,
             active=True
         )
-        time.sleep(2)
-        subject = f"Plan Subscription Notification"
-        message = f"{email} just subscribed for the monthly plan"
+    
+    subscription = SubscriptionHistory.objects.create(
+        user=user, 
+        email=user.email,
+        full_name=full_name,
+        phone_no=phone_no,
+        plan=main_plan_detail, 
+        amount_paid=amount,
+        reference = tx_ref, 
+        transaction_id=transaction_id,
+        status=status,
+        expiry_date=expiry_date,
+        active=True
+    )
+    subject = f"Plan Subscription Notification"
+    message = f"{user.email} just subscribed for the {subscription.plan}"
+    try:
         send_mail = UserSubscriptionNotification(
-            email_subject=subject,
-            email_body=message,
-            sender_email=DEFAULT_FROM_EMAIL,
-            receiver_email=CONTACT_EMAIL,
-        )
+        email_subject=subject,
+        email_body=message,
+        sender_email=DEFAULT_FROM_EMAIL,
+        receiver_email=CONTACT_EMAIL,
+    )
         send_mail.mail_admin()
-        return redirect("home")
-        
-        
-    if plan_id == 2:
-        expiry_date = today + timedelta(days=90)
-        SubscriptionHistory.objects.create(
-            user_id=user_id, 
-            plan_id=plan_id, 
-            amount_paid=amount, 
-            email=email,
-            full_name=full_name,
-            phone_no=phone_no, 
-            reference=tx_ref, 
-            transaction_id=transaction_id,
-            status=status,
-            expiry_date=expiry_date,
-            active=True,
-        )
-        subject = f"Plan Subscription Notification"
-        message = f"{email} just subscribed for the quarterly plan"
-        send_mail = UserSubscriptionNotification(
-            email_subject=subject,
-            email_body=message,
-            sender_email=DEFAULT_FROM_EMAIL,
-            receiver_email=CONTACT_EMAIL,
-        )
-        send_mail.mail_admin()
-        return redirect("home")
-
-    if plan_id == 3:
-        expiry_date = today + timedelta(days=180)
-        SubscriptionHistory.objects.create(
-            user_id=user_id, 
-            plan_id=plan_id, 
-            amount_paid=amount, 
-            email=email,
-            full_name=full_name,
-            phone_no=phone_no, 
-            reference=tx_ref, 
-            transaction_id=transaction_id,
-            status=status,
-            expiry_date=expiry_date,
-            active=True
-        )
-        subject = f"Plan Subscription Notification"
-        message = f"{email} just subscribed for the half a year plan"
-        send_mail = UserSubscriptionNotification(
-            email_subject=subject,
-            email_body=message,
-            sender_email=DEFAULT_FROM_EMAIL,
-            receiver_email=CONTACT_EMAIL,
-        )
-        send_mail.mail_admin()
+    except:
+        messages.error(f"could not connect to smtp, redirecting to home page")
+    finally:
         return redirect("home")
 
 
@@ -932,6 +1023,7 @@ def newsletter(request):
 def custom_page_not_found(request, exception):
     return render(request, "cms/404.html")
 
+
 def like_post(request):
     data = json.loads(request.body)
     id = data["id"]
@@ -939,12 +1031,10 @@ def like_post(request):
     checker = None
     
     if request.user.is_authenticated:
-        
+
         if blog.likes.filter(id=request.user.id).exists():
             blog.likes.remove(request.user)
-            checker = 0
-            
-            
+            checker = 0  
         else:
             blog.likes.add(request.user)
             checker = 1

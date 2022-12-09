@@ -79,17 +79,19 @@
 
                     <li class="navbar__Link">
                         <a class="nav-link" href="{% url 'about' %}">About</a>
-                    </li>
-                                    
+                    </li>            
                 </ul>
             </nav>
-            
         </div>
+        {% if messages %}
+				{% for message in messages %}
+					<div class="alert alert-{{message.tags}}">
+						{{message}}
+					</div>
+				{% endfor %}		
+			{% endif %}	
 		
 		<br>
-       
-    
-
         <section class="pricing-section">
             <div class="pricing-header">
                 <h2>Fair prices to fit your pride</h2>
@@ -97,8 +99,6 @@
             </div>
 
             <div class="payment-option">
-                
-              
                 <!-- Tab panes -->
                 <div class="tab-content" style="max-width: 600px;">
                   <div class="tab-pane active" id="card">

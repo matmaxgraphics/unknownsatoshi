@@ -65,6 +65,10 @@ urlpatterns = [
     path('user-update/<str:id>', views.admin_update_user, name="admin-update-user"),
     path('delete-user/<str:id>', views.admin_delete_user, name="admin-delete-user"),
 
+    # admin first time subscription section
+    path("first-time-subscription-history", views.admin_first_time_subscription_list, name="first_time_subscription_list"),
+    path("first-time-subscription/delete/<str:id>", views.admin_delete_first_time_subscription, name="delete_first_time_subscription"),
+
     # admin subscription section
     path("subscription-history", views.admin_subscription_history, name="admin-sub-list"),
     path("subscription/delete/<str:id>", views.admin_delete_subscription, name="delete-subscription"),
@@ -73,6 +77,12 @@ urlpatterns = [
     path("subscription/plan-list", views.plan_list, name="plan-list"),
     path("subscription/plan-detail/<str:slug>", views.plan_details, name="plan-detail"),
     path('callback', views.payment_response, name='payment_response'),
+
+    # admin first time plan section
+    path('add-first-time-plan', views.admin_create_first_time_plan, name="create_first_time_plan"),
+    path('first-time-plan-lists', views.admin_first_time_plan_list, name="first_time_plan_list"),
+    path('update-first-time-plan/<str:slug>', views.admin_update_first_time_plan, name="update_first_time_plan"),
+    path('delete-first-time-plan/<str:slug>', views.admin_delete_first_time_plan, name="delete_first_time_plan"),
 
     # plan section
     path("add-plan", views.admin_create_plan, name="admin-create-plan"),

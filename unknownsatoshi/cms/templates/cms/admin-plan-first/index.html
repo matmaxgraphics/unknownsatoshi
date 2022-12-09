@@ -1,0 +1,49 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+  <section class="panel-section" style=margin-top:-700px>
+    <div class="panel-content">  
+      <div class="page-wrapper admin-wrapper">		
+          <section class="alt-nav">
+              <h4>Manage First Time Plan</h4>
+              <a href="{% url 'create_first_time_plan' %}" class="btn">Add First Time Plan</a>
+          </section>
+
+        <section class="trade-table store-table">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Discount Percentage</th>
+                <th scope="col">Discount Price</th>
+                <th scope="col">Duration in Days</th>
+                <th scope="col" colspan="3">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for first_plan in first_time_plans %}
+              <tr>
+                <td data-label="S/N">{{first_plan.title}}</td>
+                <td data-label="Product Name">{{first_plan.desc}}</td>
+                <td data-label="Product Name">${{first_plan.price}}</td>
+                <td data-label="Price">%{{ first_plan.discount_percentage}}</td>
+                <td data-label="Price">${{ first_plan.discount_price}}</td>
+                <td data-label="Price">{{ first_plan.duration_in_days}}</td>
+                <td data-label="Action"><a href="{% url 'update_first_time_plan' first_plan.slug %}" class="edit">edit</a></td>
+                <td><a style="color: rgb(233, 143, 25);" href="{% url 'delete_first_time_plan' first_plan.slug %}" class="delete">Delete</a></td>
+              </tr>
+            {% endfor %}
+              
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </div>
+  </section>
+{% endblock content %}
+  

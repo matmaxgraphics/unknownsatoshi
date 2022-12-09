@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from userprolog.models import User
 from django.contrib import messages
-from cms.models import SubscriptionHistory
+from cms.models import SubscriptionHistory, FirstTimeSubscriptionHistory
 from .token import account_activation_token
 from .decorators import unauthenticated_user
 from unknownsatoshi.settings import DEFAULT_FROM_EMAIL
@@ -177,5 +177,20 @@ def user_subscription_list(request):
     user = request.user
     subscription = SubscriptionHistory.objects.filter(user=user)
     template_name = "userprolog/sub-plan.html"
-    context = {"subscription":subscription,"user":user}
+    context = {
+        "user":user,
+        "subscription":subscription,
+    }
+    return render(request, template_name, context)
+
+
+@login_required(login_url='user-login')
+def user_first_subscription_list(request):
+    user = request.user
+    first_time_subscription = FirstTimeSubscriptionHistory.objects.filter(user=user)
+    template_name = "userprolog/sub-plan-first.html"
+    context = {
+        "user":user,
+        "first_Subscription": first_time_subscription
+    }
     return render(request, template_name, context)
