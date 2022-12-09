@@ -53,11 +53,12 @@
 				<article class="social-sharing">
 					<div class="social-sharing__wrapper">
 						<span class="bold">share Article</span>
-						<span class="sharing-link"><i class="ri-facebook-circle-fill"></i> {% post_to_facebook "Check out{{blog.title}}" object_or_url "Facebook" %}</span>
+						<span class="sharing-link"><i class="ri-facebook-circle-fill"></i>{% post_to_facebook object_or_url "Post to Facebook!" %}</span>
 						<span class="sharing-link"><i class="ri-twitter-fill"></i> {% post_to_twitter "Check out{{blog.title}}" object_or_url "Twitter" %}</span>
 						<span class="sharing-link">{% post_to_linkedin object_or_url "Linkedin" %}</span>
-						<span class="sharing-link"><i class="ri-whatsapp-line"></i> {% post_to_whatsapp "Check out{{blog.title}}" object_or_url "Whatsapp" %}</span>
-						<span class="sharing-link"><i class="ri-link"></i> {% copy_to_clipboard object_or_url %}</span>
+						<span class="sharing-link"><i class="ri-whatsapp-line"></i>{% post_to_whatsapp object_or_url "Share via WhatsApp" %}</span>
+						<span class="sharing-link"><i class="ri-link"></i>{% copy_to_clipboard object_or_url "Copy to clipboard!" %}</span>
+						
 					</div>
 				</article>
 
@@ -98,7 +99,7 @@
 
 			<div class="comment-container">
 				<div class="profile-container">
-					<img src="{% static 'images/profile_image/5.png' %}"
+					<img src="{{ comment.owner.user.profile_picture.url }}"
 						alt="profile-image"><span>{{comment.owner|title}}</span>
 				</div>
 				<p>{{comment.body|capfirst}}</p>
@@ -154,6 +155,7 @@
 		<a class="btn" href="https://discord.gg/zFGTdZYsQ4">Join Community</a>
 	</section>
 </div>
+{% add_copy_script %}
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -211,12 +213,12 @@
 			.then(data => {
 				console.log(data)
 
-				if (data["check"] == 1) {
+				if (data["check"] === 1) {
 					btn.classList.remove("ri-heart-line")
 					btn.classList.add('ri-heart-fill')
 				}
 
-				else if (data["check"] == 0) {
+				else if (data["check"] === 0) {
 					btn.classList.add("ri-heart-line")
 					btn.classList.remove('ri-heart-fill')
 				}
