@@ -1,3 +1,4 @@
+from smtplib import SMTPException
 import urllib, json
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -81,6 +82,11 @@ def user_register(request):
             })
             message = strip_tags(html_message)
             send_mail = UserSubscriptionNotification(email_subject=subject, email_body=message, sender_email=DEFAULT_FROM_EMAIL, receiver_email=user.email)
+            # try:
+            #     send_mail.mail_user()
+            # except SMTPException as e:
+            #     messages.error(request, f"unable to connect to smtp: {e}")
+            
             send_mail.mail_user()
             user.save()
             return render(request, "userprolog/activation_link_sent.html")

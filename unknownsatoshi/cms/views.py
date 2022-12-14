@@ -420,10 +420,14 @@ def admin_create_first_time_plan(request):
     if request.method == 'POST':
         form = FirstTimePlanForm(request.POST)
         if form.is_valid():
+            form_title = form.cleaned_data['title']
+            if FirstTimePlan.objects.filter(title=form_title).exists():
+                messages.error(request, f"{form_title} already exist")
+                return redirect("create_first_time_plan")
             form.save()
-            messages.success(request, f"First Time Plan created successfully")
-            return redirect('admin-product')
-        messages.error(request, f"Unable to create first time plan, Try again")
+            messages.success(request, f"{form_title} created successfully")
+            return redirect('first_time_plan_list')
+        messages.error(request, f"Unable to create {form_title}, Try again")
         return redirect("create_first_time_plan")
     else:
         form = FirstTimePlanForm(request.POST)
@@ -489,10 +493,14 @@ def admin_create_plan(request):
     if request.method == 'POST':
         form = PlanForm(request.POST)
         if form.is_valid():
+            form_title = form.cleaned_data['title']
+            if Plan.objects.filter(title=form_title).exists():
+                messages.error(request, f"{form_title} already exist")
+                return redirect("admin-create-plan")
             form.save()
             messages.success(request, f"Plan created successfully")
             return redirect('admin-plan-list')
-        messages.error(request, f"Unable to create plan")
+        messages.error(request, f"Unable to create {form_title}")
         return redirect("admin-create-plan")
     else:
         form = PlanForm(request.POST)
@@ -570,7 +578,7 @@ def admin_delete_first_time_subscription(request, id):
     if request.method == 'POST':
         first_subscription.delete()
         messages.success(request, f"subscription deleted successfully")
-        return redirect("first_time_subscription_list", id)
+        return redirect("first_time_subscription_list")
     else:
         context = {"first_subscription":first_subscription}
         return render(request, template_name, context)
@@ -832,6 +840,7 @@ def plan_details(request, slug):
     template_name = "cms/plan_payment.html"
     user = request.user
     global first_time_sub_detail, main_plan_detail
+    main_plan_detail = get_object_or_404(Plan, slug=slug)
     
     if FirstTimeSubscriptionHistory.objects.filter(user=user, active=True).exists():
         messages.error(request, f"you already have an active plan")
@@ -860,7 +869,7 @@ def plan_details(request, slug):
             messages.error(request, f"you already have an active plan")
             return redirect("user-sub-list")
 
-        main_plan_detail = get_object_or_404(Plan, slug=slug)
+        # main_plan_detail = get_object_or_404(Plan, slug=slug)
         if request.method == "GET":
             user_id = str(user.id)
             plan_id= str(main_plan_detail)
@@ -875,7 +884,6 @@ def plan_details(request, slug):
         else:   
             context = {"plan":main_plan_detail, "user":user}
         return render(request, template_name, context)
-
 
 
 amount_paid = ""
@@ -964,13 +972,13 @@ def payment_response(request):
         )
     
     subscription = SubscriptionHistory.objects.create(
-        user=user, 
+        user=user,
         email=user.email,
         full_name=full_name,
         phone_no=phone_no,
         plan=main_plan_detail, 
         amount_paid=amount,
-        reference = tx_ref, 
+        reference = tx_ref,
         transaction_id=transaction_id,
         status=status,
         expiry_date=expiry_date,
@@ -1047,4 +1055,3 @@ def like_post(request):
     }
     
     return JsonResponse(info, safe=False)
-    
