@@ -214,12 +214,12 @@
 			.then(data => {
 				console.log(data)
 
-				if (data["check"] == 1) {
+				if (data["check"] === 1) {
 					btn.classList.remove("ri-heart-line")
 					btn.classList.add('ri-heart-fill')
 				}
 
-				else if (data["check"] == 0) {
+				else if (data["check"] === 0) {
 					btn.classList.add("ri-heart-line")
 					btn.classList.remove('ri-heart-fill')
 				}

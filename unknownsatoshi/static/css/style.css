@@ -2011,6 +2011,7 @@ footer .footer-content__item .links a:hover {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  flex-flow: row wrap;
 }
 .article-wrapper .article-details span {
   display: -webkit-box;
@@ -2048,7 +2049,7 @@ footer .footer-content__item .links a:hover {
 
 .article-wrapper .article-details .icon-bg-dark {
   padding: 12px;
-  border-radius: 12px;
+  border-radius: 8px;
   gap: 6px;
   background-color: #333;
   cursor: pointer;
@@ -2119,6 +2120,7 @@ footer .footer-content__item .links a:hover {
 }
 .share-btn {
   position: relative;
+  font-size: 20px;
 }
 
 .social-sharing {
