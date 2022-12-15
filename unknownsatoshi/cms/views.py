@@ -605,7 +605,7 @@ def admin_delete_subscription(request, id):
     if request.method == 'POST':
         subscription.delete()
         messages.success(request, f"subscription deleted successfully")
-        return redirect('admin-sub-list')
+        return redirect('admin_sub_list')
     else:
         context = {"subscription":subscription}
         return render(request, template_name, context)
@@ -839,16 +839,15 @@ main_plan_detail = None
 def plan_details(request, slug):
     template_name = "cms/plan_payment.html"
     user = request.user
-    global first_time_sub_detail, main_plan_detail
-    main_plan_detail = get_object_or_404(Plan, slug=slug)
+    global first_time_sub_detail
     
     if FirstTimeSubscriptionHistory.objects.filter(user=user, active=True).exists():
         messages.error(request, f"you already have an active plan")
         return redirect("user-first-sub")
 
     first_time_sub_detail = get_object_or_404(FirstTimePlan, slug=slug)
-    print(f"PLAN = {first_time_sub_detail}: {first_time_sub_detail.discount_price}")
     first_time_sub = FirstTimeSubscriptionHistory.objects.filter(user=user).exists()
+
     if not first_time_sub:
         messages.success(request,f"You have a discount on your first time subscription so you pay ${first_time_sub_detail.discount_price}")
         if request.method == "GET":
@@ -862,14 +861,16 @@ def plan_details(request, slug):
             plan_title = first_time_sub_detail.title
             plan_desc = first_time_sub_detail.desc
             return redirect(str(process_payment(request,user_id=user_id, plan_id=plan_id, first_name=first_name, last_name=last_name, amount=float(amount), email=email, phone_no=phone_no, plan_title=plan_title, plan_desc=plan_desc)))
+
     elif(first_time_sub and FirstTimeSubscriptionHistory.objects.filter(user=user, active=False).exists()):
-        
+        global main_plan_detail
+        main_plan_detail = get_object_or_404(Plan, slug=slug)
+
         # checks if user has active plan on main subscription table
         if SubscriptionHistory.objects.filter(user=user, active=True).exists():
             messages.error(request, f"you already have an active plan")
             return redirect("user-sub-list")
 
-        # main_plan_detail = get_object_or_404(Plan, slug=slug)
         if request.method == "GET":
             user_id = str(user.id)
             plan_id= str(main_plan_detail)
@@ -946,15 +947,14 @@ def payment_response(request):
         messages.error(request, f"your email {user.email} has an active plan already")
         return redirect("user-sub-list")
 
-    # checks if user has active plan on first time subscription table
+    # checks if user has active plan on first time subscription table.
     elif FirstTimeSubscriptionHistory.objects.filter(reference=tx_ref).exists():
         messages.error(request, f"your email {user.email} has an active plan already")
         return redirect("user-first-sub")
+
     expiry_date = today + timedelta(days=first_time_sub_detail.duration_in_days)
-    print(f"PLAN {first_time_sub_detail.title}\nEXPIRY {expiry_date}")
     
-    
-    # checks if user already exist on the first time subscriber table
+    # checks if user already exist on the first time subscriber table.
     first_time_subscriber = FirstTimeSubscriptionHistory.objects.filter(user=user)
     if not first_time_subscriber.exists():
         subscription = FirstTimeSubscriptionHistory.objects.create(
@@ -971,7 +971,8 @@ def payment_response(request):
             active=True
         )
     
-    subscription = SubscriptionHistory.objects.create(
+    try:
+        subscription = SubscriptionHistory.objects.create(
         user=user,
         email=user.email,
         full_name=full_name,
@@ -983,21 +984,24 @@ def payment_response(request):
         status=status,
         expiry_date=expiry_date,
         active=True
-    )
-    subject = f"Plan Subscription Notification"
-    message = f"{user.email} just subscribed for the {subscription.plan}"
-    try:
-        send_mail = UserSubscriptionNotification(
-        email_subject=subject,
-        email_body=message,
-        sender_email=DEFAULT_FROM_EMAIL,
-        receiver_email=CONTACT_EMAIL,
-    )
-        send_mail.mail_admin()
+        )
     except:
-        messages.error(f"could not connect to smtp, redirecting to home page")
+        return True
     finally:
-        return redirect("home")
+        subject = f"Plan Subscription Notification"
+        message = f"{user.email} just subscribed for the {subscription.plan}"
+        try:
+            send_mail = UserSubscriptionNotification(
+            email_subject=subject,
+            email_body=message,
+            sender_email=DEFAULT_FROM_EMAIL,
+            receiver_email=CONTACT_EMAIL,
+            )
+            send_mail.mail_admin()
+        except:
+            messages.error(f"could not connect to smtp, redirecting to order history")
+        finally:
+            return redirect("user-first-sub")
 
 
 # newsletter subscription page

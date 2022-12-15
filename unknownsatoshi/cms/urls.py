@@ -70,8 +70,8 @@ urlpatterns = [
     path("first-time-subscription/delete/<str:id>", views.admin_delete_first_time_subscription, name="delete_first_time_subscription"),
 
     # admin subscription section
-    path("subscription-history", views.admin_subscription_history, name="admin-sub-list"),
-    path("subscription/delete/<str:id>", views.admin_delete_subscription, name="delete-subscription"),
+    path("subscription-history", views.admin_subscription_history, name="admin_sub_list"),
+    path("subscription/delete/<str:id>", views.admin_delete_subscription, name="delete_subscription"),
     
     # subscrition section
     path("subscription/plan-list", views.plan_list, name="plan-list"),
