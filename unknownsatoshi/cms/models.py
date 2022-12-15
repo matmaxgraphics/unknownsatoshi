@@ -136,8 +136,8 @@ class Comment(models.Model):
 
 #subscription plan for premium blog views 
 class Plan(models.Model):
-    title = models.CharField(max_length=90, choices=plans_helper.main_plans, validators=[validate_existing_plan])
-    slug = models.SlugField(unique=True, null=True, blank=True)
+    title = models.CharField(max_length=90, choices=plans_helper.main_plans)
+    slug = models.SlugField(unique=False, null=True, blank=True)
     desc = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     discount_price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -173,7 +173,7 @@ class Plan(models.Model):
         elif self.title == "a year plan":
             self.duration_in_days = 365
         else:
-            None
+            True
         return super().save(*args, **kwargs)
 
 
@@ -216,7 +216,7 @@ class Newsletter(models.Model):
 # First time subscription plan
 class FirstTimePlan(models.Model):
     title = models.CharField(max_length=90, choices=plans_helper.first_time_plans)
-    slug = models.SlugField(unique=True, null=True, blank=True)
+    slug = models.SlugField(unique=False, null=True, blank=True)
     desc = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     discount_price = models.DecimalField(max_digits=10, decimal_places=2)

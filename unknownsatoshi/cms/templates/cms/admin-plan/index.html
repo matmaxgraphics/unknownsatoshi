@@ -33,7 +33,7 @@
                       <td data-label="S/N">{{plan.title}}</td>
                       <td data-label="Product Name">{{plan.desc}}</td>
                       <td data-label="Product Name">${{plan.price}}</td>
-                      <td data-label="Price">%{{ plan.discount_percentage}}</td>
+                      <td data-label="Price">{{ plan.discount_percentage}}%</td>
                       <td data-label="Price">${{ plan.discount_price}}</td>
                       <td data-label="Price">{{ plan.duration_in_days}}</td>
                       <td data-label="Action"><a href="{% url 'admin-update-plan' plan.slug %}" class="edit">Edit</a></td>

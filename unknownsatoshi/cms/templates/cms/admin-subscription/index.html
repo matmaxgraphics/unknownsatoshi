@@ -10,7 +10,7 @@
       <div class="page-wrapper admin-wrapper">		
         <section class="alt-nav">
             <h4>Manage Subscription History</h4>
-            <a href="{% url 'admin-sub-list' %}" class="btn">View Subscription</a>
+            <a href="{% url 'admin_sub_list' %}" class="btn">View Subscription</a>
         </section>
   
         <div class="content-container">
@@ -39,12 +39,12 @@
                       <td data-label="Full Name">{{ sub.full_name }}</td>
                       <td data-label="Phone No">{{ sub.phone_no }}</td>
                       <td data-label="Plan">{{ sub.plan }}</td>
-                      <td data-label="Amount Paid">{{ sub.amount_paid }}</td>
+                      <td data-label="Amount Paid">${{ sub.amount_paid }}</td>
                       <td data-label="Reference">{{ sub.reference }}</td>
                       <td data-label="Transaction Id">{{ sub.transaction_id }}</td>
                       <td data-label="Status">{{ sub.status }}</td>
                       <td data-label="Active">{{ sub.active }}</td>
-                      <td><a style="color: rgb(233, 143, 25);" href="{% url 'delete-subscription' sub.id %}" class="edit">Delete</a></td>		        
+                      <td><a style="color: rgb(233, 143, 25);" href="{% url 'delete_subscription' sub.id %}" class="edit">Delete</a></td>		        
                     </tr>
                   {% endfor %} 
                 </tbody>
