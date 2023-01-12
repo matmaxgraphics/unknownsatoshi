@@ -14,7 +14,7 @@
                       <table>
                         {% if first_Subscription %}
                         <section class="alt-nav" id="sub-nav">
-                          <h4>Manage Subscription History</h4>
+                          <h4>Manage First Subscription History</h4>
                         </section>
                         <thead>
                           <tr>
@@ -36,7 +36,7 @@
                                   
                                   <td data-label="Email">{{ user.email }}</td>
                                   <td data-label="Plan">{{ sub.plan }}</td>
-                                  <td data-label="Amount Paid">${{sub.plan.price}}</td>
+                                  <td data-label="Amount Paid">${{sub.amount_paid}}</td>
                                   <td data-label="Reference">{{sub.reference}}</td>
                                   <td data-label="Transaction Id">{{sub.transaction_id}}</td>
                                   <td data-label="Status">{{sub.status}}</td>

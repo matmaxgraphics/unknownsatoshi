@@ -4,8 +4,6 @@ from django import forms
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
-from .models import ProductCategory
-
 
 
         
@@ -52,8 +50,7 @@ class BlogForm(forms.ModelForm):
         self.fields['latest_news'].widget.attrs.update({})
         self.fields['latest_articles'].widget.attrs.update({})
         self.fields['home_page'].widget.attrs.update({})
-        self.fields['premium'].widget.attrs.update({})
-        
+        self.fields['premium'].widget.attrs.update({})        
 
 
 class CourseForm(forms.ModelForm):
@@ -141,10 +138,13 @@ class UserUpdateForm(forms.ModelForm):
 
 
 class FirstTimePlanForm(forms.ModelForm):
-    
+    discount_price = forms.DecimalField(required=False)
+    duration_in_days = forms.IntegerField(required=False)
+
     class Meta:
         model = FirstTimePlan
         fields = '__all__'
+        excluded = ('slug',)
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -159,28 +159,15 @@ class FirstTimePlanForm(forms.ModelForm):
 
 
 class FirstTimePlanUpdateForm(forms.ModelForm):
-  
+    title = forms.CharField(max_length=70)
+    discount_price = forms.DecimalField(required=False)
+    duration_in_days = forms.IntegerField(required=False)
+    
     class Meta:
         model = FirstTimePlan
         fields = '__all__'
+        excluded = ('slug',)
     
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['title'].widget.attrs.update({'class':"input-field"}, required=True)
-        self.fields['desc'].widget.attrs.update({'class':"input-field"}, required=True)
-        self.fields['price'].widget.attrs.update({'class':"input-field"}, required=True)
-        self.fields['discount_percentage'].widget.attrs.update({'class':"input-field"}, required=True)
-        self.fields['discount_price'].widget.attrs.update({'class':"input-field"}, required=True)
-        self.fields['duration_in_days'].widget.attrs.update({'class':"input-field"}, required=True)
-        self.fields['discount_price'].disabled=True
-        self.fields['duration_in_days'].disabled=True
-
-
-class PlanForm(forms.ModelForm):
-    class Meta:
-        model = Plan
-        fields = '__all__'
-        
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['title'].widget.attrs.update({'class':"input-field"})
@@ -193,6 +180,26 @@ class PlanForm(forms.ModelForm):
         self.fields['duration_in_days'].disabled=True
 
 
+class PlanForm(forms.ModelForm):
+    discount_price = forms.DecimalField(required=False)
+    duration_in_days = forms.IntegerField(required=False)
+    
+    class Meta:
+        model = Plan
+        fields = '__all__'
+        excluded = ('slug',)
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['title'].widget.attrs.update({'class':"input-field"})
+        self.fields['desc'].widget.attrs.update({'class':"input-field"})
+        self.fields['price'].widget.attrs.update({'class':"input-field"})
+        self.fields['discount_percentage'].widget.attrs.update({'class':"input-field"})
+        self.fields['discount_price'].widget.attrs.update({'class':"input-field"})
+        self.fields['duration_in_days'].widget.attrs.update({'class':"input-field"})
+        self.fields['discount_price'].disabled=True
+        self.fields['duration_in_days'].disabled=True
+    
 
 class SubscriptionHistoryForm(forms.ModelForm):
     class Meta:
