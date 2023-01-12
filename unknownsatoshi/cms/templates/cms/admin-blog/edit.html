@@ -37,24 +37,18 @@
 
                             <main>
                                 <label for="postscategory"> Select The Blog Category To Add:</label>
-                                  
-                                  <label for="postscategory"> Coin Research {{ form.featured_stories }}</label>
-                                  <label for="postscategory"> Latest Articles {{ form.latest_news }}</label>
-                                  <label for="postscategory"> Technical Analysis {{ form.latest_articles }}</label>
-                                  <label for="postscategory"> Premium {{ form.premium }}</label>
-                                  <label for="postscategory"> homepage {{ form.home_page }}</label>
-                              </main>
-                              
-                              <main class="margin-top">
-                                  <div>
-                                      {% for field in form %}   
-                                          {% if field.field.widget.input_type == "file" %}
-                                              <label for="">{{field.label}}</label>
-                                              <input type="{{field.field.widget.input_type}}" name="{{field.name}}" id="{{field.id}}" value="{{field.value}}" class="input-field" required>
-                                          {% endif %}             
-                                      {% endfor %}
-                                  </div>
-                              </main>
+                                <label for="postscategory"> Coin Research {{ form.featured_stories }}</label>
+                                <label for="postscategory"> Latest Articles {{ form.latest_news }}</label>
+                                <label for="postscategory"> Technical Analysis {{ form.latest_articles }}</label>
+                                <label for="postscategory"> Premium {{ form.premium }}</label>
+                                <label for="postscategory"> homepage {{ form.home_page }}</label>
+                            </main>
+                            <main class="margin-top">
+                                <div>
+                                    <label for="image">{{form.featured_image.label}}</label>                   
+                                    {{form.featured_image }}
+                                </div>
+                            </main>
 
                             <button class="btn" type="submit" name="submit-btn">Save Post</button>
                         </form>

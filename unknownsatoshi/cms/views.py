@@ -47,7 +47,7 @@ def admin_login(request):
 def admin_logout(request):
     logout(request)
     messages.success(request, f"Logout  Successful")
-    return redirect("home")
+    return redirect("admin-login")
 
 
 # admin history view
