@@ -32,6 +32,7 @@ class CmsForm(forms.ModelForm):
 class BlogForm(forms.ModelForm):
     title = forms.CharField(required=True)
     post = forms.CharField(widget=CKEditorUploadingWidget(), required=True)
+    featured_image = forms.ImageField(required=False, error_messages={'required':"An image is required"})
     
     class Meta:
         model = Blog
@@ -56,10 +57,10 @@ class BlogForm(forms.ModelForm):
 class CourseForm(forms.ModelForm):
     courses = forms.CharField(required=True)
     course_link = forms.URLField(error_messages={'required':"Website link to product"})
-    featured_image = forms.ImageField(required=True, error_messages={'required':"An image is required"})
+    featured_image = forms.ImageField(required=False, error_messages={'required':"An image is required"})
     class Meta:
         model = Course
-        fields = ['courses', 'course_link', 'featured_image', ]
+        fields = ['courses', 'course_link']
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -120,6 +121,7 @@ class UserForm(UserCreationForm):
 # user update form for admin
 class UserUpdateForm(forms.ModelForm):
     profile_picture = forms.ImageField(required=False, error_messages={'required':"An image is required"})
+    
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'phone_no', 'email', 'username', 'profile_picture','is_active', 'is_staff', 'is_superuser']
