@@ -15,25 +15,23 @@
             <section class="add-product">
                 <div class="fields-wrapper">
                     <form action="" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
+                        {% csrf_token %}
                     
-                      <div class="form__field">
-                          <label for="formInput#text">Courses</label>
-                          {{form.courses}}
-                      </div>
+                        <div class="form__field">
+                            <label for="formInput#text">Courses</label>
+                            {{form.courses}}
+                        </div>
 
-                      <div class="form__field">
-                          <label for="formInput#text">Course Link</label>
-                          {{form.course_link}}
-                      </div>
-                      <div>   
-                          {% for field in form %}   
-                              {% if field.field.widget.input_type == "file" %}
-                                  <label for="">{{field.label}}</label>
-                                  <input type="{{field.field.widget.input_type}}" name="{{field.name}}" id="{{field.id}}" value="{{field.value}}" class="input-field" required>
-                              {% endif %}             
-                          {% endfor %}
-                      </div>
+                        <div class="form__field">
+                            <label for="formInput#text">Course Link</label>
+                            {{form.course_link}}
+                        </div>
+
+                        <div>
+                            <label for="image">{{form.featured_image.label}}</label>                   
+                            {{form.featured_image }}
+                        </div>
+
                         <button class="btn" type="submit" name="submit-btn">Save Course</button>
                     </form>
                 </div>

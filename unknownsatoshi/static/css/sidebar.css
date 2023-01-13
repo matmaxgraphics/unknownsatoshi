@@ -46,6 +46,11 @@
     display: block;
     padding: 5px 30px;
     line-height: 60px;
+    display: flex;
+    align-items: center;
+}
+.sidebar .nav-links .item a.line-height-exception{
+  line-height: 1.7;
 }
 
 .sidebar .nav-links .item a:hover{

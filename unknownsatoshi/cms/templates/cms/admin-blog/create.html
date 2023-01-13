@@ -50,7 +50,7 @@
                                       {% for field in form %}   
                                           {% if field.field.widget.input_type == "file" %}
                                               <label for="">{{field.label}}</label>
-                                              <input type="{{field.field.widget.input_type}}" name="{{field.name}}" id="{{field.id}}" value="{{field.value}}" class="input-field" required>
+                                              <input type="{{field.field.widget.input_type}}" name="{{field.name}}" id="{{field.id}}" value="{{field.value}}" class="input-field">
                                           {% endif %}             
                                       {% endfor %}
                                   </div>

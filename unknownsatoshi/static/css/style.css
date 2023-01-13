@@ -708,6 +708,7 @@ img {
   max-width: 360px;
   border-radius: 8px;
   margin-bottom: 24px;
+  background-color: #1a1919;
 }
 .course-section .course-container__item img {
   -o-object-fit: cover;
@@ -723,6 +724,7 @@ img {
 }
 .course-section .course-container__item h5 {
   margin-bottom: 12px;
+  padding: 0 6px;
 }
 .course-section .course-container__item img {
   -webkit-transition: 0.3s;

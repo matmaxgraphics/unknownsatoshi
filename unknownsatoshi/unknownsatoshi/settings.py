@@ -23,7 +23,7 @@ GOOGLE_RECAPTCHA_SECRET_KEY = env("GOOGLE_RECAPTCHA_SECRET_KEY")
 
 
 # SECURITY WARNING: don't run wissth debug turned on in production!
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = [
     'unknownsatoshi.com',
     'www.unknownsatoshi.com',
@@ -246,7 +246,7 @@ CLOUDINARY_STORAGE = {
 }
 
 # cloudinary configuration for image uploads
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+#DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 # django error logging
