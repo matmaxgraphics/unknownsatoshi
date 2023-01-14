@@ -1,11 +1,10 @@
 import uuid
-from django.urls import reverse
 from django.db import models
-from django.contrib.auth.models import Group, Permission
-from django.utils import timezone
-from django.core.validators import MaxLengthValidator
-from django.db.models.signals import post_save
+from django.urls import reverse
 from django.dispatch import receiver
+from django.db.models.signals import post_save
+from django.core.validators import MaxLengthValidator
+from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 

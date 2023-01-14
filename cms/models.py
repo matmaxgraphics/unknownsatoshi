@@ -9,7 +9,6 @@ from django.dispatch import receiver
 from django.db.models.signals import pre_save
 from django.template.defaultfilters import slugify
 from django.core.exceptions import ValidationError
-
 from ckeditor_uploader.fields import RichTextUploadingField
 
 
