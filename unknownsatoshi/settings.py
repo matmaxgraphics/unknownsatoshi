@@ -246,7 +246,7 @@ CLOUDINARY_STORAGE = {
 }
 
 # cloudinary configuration for image uploads
-#DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 # django error logging
