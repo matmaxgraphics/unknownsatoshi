@@ -498,7 +498,7 @@ def admin_create_plan(request):
                 messages.error(request, f"{form_title} already exist")
                 return redirect("admin-create-plan")
             form.save()
-            messages.success(request, f"Plan created successfully")
+            messages.success(request, f"{form_title} Plan created successfully")
             return redirect('admin-plan-list')
         messages.error(request, f"Unable to create {form_title}")
         return redirect("admin-create-plan")
@@ -1013,7 +1013,6 @@ def newsletter(request):
         message = f"{email} just subscribed for newsletter"
         
         if Newsletter.objects.filter(email=email).exists():
-            time.sleep(1)
             messages.success(request, f"The email you provided already exist in our newsletter list.")
             return redirect("home")
             
@@ -1024,9 +1023,13 @@ def newsletter(request):
             sender_email=DEFAULT_FROM_EMAIL,
             receiver_email=CONTACT_EMAIL,
             )
-        send_mail.mail_admin()
-        messages.success(request, "You have successfully been added to our newsletter subscription.")
-        return redirect("home")
+        try:
+            send_mail.mail_admin()
+        except Exception as e:
+            messages.info(request, f"{e.message}: unable to connect to smtp")
+        finally:
+            messages.success(request, "You have successfully been added to our newsletter subscription.")
+            return redirect("home")
     else:
         return render(request, template_name)
 
