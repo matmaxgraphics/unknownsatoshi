@@ -157,6 +157,8 @@ textarea {
 .alert-success {
   background-color: #45ad43;
   border: 1px solid #09e705;
+  position: relative;
+  z-index: 99999999999;
 }
 #message {
   display: none;
@@ -723,8 +725,11 @@ img {
   text-decoration: none;
 }
 .course-section .course-container__item h5 {
-  margin-bottom: 12px;
-  padding: 0 6px;
+  margin: 12px 0;
+  padding: 0 8px;
+}
+.course-section .course-container__item p{
+  padding: 0 8px 8px;
 }
 .course-section .course-container__item img {
   -webkit-transition: 0.3s;
