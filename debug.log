@@ -780,3 +780,23 @@ Watching for file changes with StatReloader
 Watching for file changes with StatReloader
 /home/baytech/Desktop/unknownsatoshi/userprolog/models.py changed, reloading.
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 18909
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/pagination.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/hero-img.png HTTP/1.1" 200 197583
+"GET /static/images/img-5.jpg HTTP/1.1" 200 25448
+"GET /static/images/img-3.jpg HTTP/1.1" 200 76774
+"GET /static/images/history.png HTTP/1.1" 200 590263
+"GET /static/images/signal.png HTTP/1.1" 200 397355
+"GET /static/images/alt-logo.png HTTP/1.1" 304 0
+"GET /static/images/img-6.jpg HTTP/1.1" 200 40616
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /article/why-do-we-use-it/ HTTP/1.1" 200 23429
+"GET /static/js/tab.js HTTP/1.1" 200 707
+"GET /static/js/jquery.min.js HTTP/1.1" 200 89663
+"GET /user/profile/860cee2b-3464-4b8a-ae1d-cad69bf02eeb HTTP/1.1" 200 11560
+"GET / HTTP/1.1" 200 18909
