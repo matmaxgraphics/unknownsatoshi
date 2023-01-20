@@ -1,5 +1,7 @@
 from django import forms
 from .models import User
+from django.contrib.auth.forms import PasswordResetForm
+
 
 
 class UserUpdateForm(forms.ModelForm):
@@ -19,3 +21,11 @@ class UserUpdateForm(forms.ModelForm):
         self.fields['is_active'].widget.attrs.update({'class':"input"})
         self.fields['is_staff'].widget.attrs.update({'class':"input"})
         self.fields['is_superuser'].widget.attrs.update({'class':"input"})
+
+
+class MyPasswordResetForm(PasswordResetForm):
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if not User.objects.filter(email=email).exists():
+            raise forms.ValidationError("This email is not registered.")
+        return email
