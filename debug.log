@@ -1,0 +1,127 @@
+Watching for file changes with StatReloader
+"POST /reset-password/ HTTP/1.1" 200 8094
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/js/jquery.min.js HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/pagination.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/js/tab.js HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/alt-logo.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"POST /reset-password/ HTTP/1.1" 200 8094
+"POST /reset-password/ HTTP/1.1" 200 8088
+"POST /reset-password/ HTTP/1.1" 302 0
+"GET /reset-password-sent/ HTTP/1.1" 200 7423
+code 400, message Bad request version ('W\x92³þnê\x08OI\x05[M?\x03W\x00')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+code 400, message Bad request version ('êê\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93::\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+"GET /login/user HTTP/1.1" 200 5182
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/js/validate.js HTTP/1.1" 200 2612
+"GET /reset-password/ HTTP/1.1" 200 7996
+"GET /static/images/alt-logo.png HTTP/1.1" 304 0
+"GET /static/js/jquery.min.js HTTP/1.1" 304 0
+"GET /static/js/pagination.js HTTP/1.1" 304 0
+"GET /static/js/tab.js HTTP/1.1" 304 0
+"POST /reset-password/ HTTP/1.1" 302 0
+"GET /reset-password-sent/ HTTP/1.1" 200 7423
+/home/baytech/Desktop/unknownsatoshi/unknownsatoshi/settings.py changed, reloading.
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 18313
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/js/pagination.js HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/hero-img.png HTTP/1.1" 200 197583
+"GET /static/images/alt-logo.png HTTP/1.1" 304 0
+"GET /static/images/img-5.jpg HTTP/1.1" 200 25448
+"GET /static/images/img-6.jpg HTTP/1.1" 200 40616
+"GET /static/images/img-3.jpg HTTP/1.1" 200 76774
+"GET /static/images/signal.png HTTP/1.1" 200 397355
+"GET /static/images/history.png HTTP/1.1" 200 590263
+"GET /login/user HTTP/1.1" 200 5182
+"GET /static/js/validate.js HTTP/1.1" 304 0
+"GET /reset-password/ HTTP/1.1" 200 7996
+"GET /static/js/jquery.min.js HTTP/1.1" 304 0
+"GET /static/js/tab.js HTTP/1.1" 304 0
+"POST /reset-password/ HTTP/1.1" 302 0
+"GET /reset-password-sent/ HTTP/1.1" 200 7423
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/js/jquery.min.js HTTP/1.1" 304 0
+"GET /static/js/tab.js HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/js/pagination.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/alt-logo.png HTTP/1.1" 304 0
+"GET /login/user HTTP/1.1" 200 5182
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/validate.js HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /login/user HTTP/1.1" 200 5182
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /reset-password/ HTTP/1.1" 200 7996
+"GET /static/js/jquery.min.js HTTP/1.1" 304 0
+"GET /static/js/pagination.js HTTP/1.1" 304 0
+"GET /static/images/alt-logo.png HTTP/1.1" 304 0
+"GET /static/js/tab.js HTTP/1.1" 304 0
+"POST /reset-password/ HTTP/1.1" 302 0
+"GET /reset-password-sent/ HTTP/1.1" 200 7423
+"GET /login/user HTTP/1.1" 200 5182
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/js/validate.js HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /reset-password/ HTTP/1.1" 200 7996
+"GET /static/js/pagination.js HTTP/1.1" 304 0
+"GET /static/js/jquery.min.js HTTP/1.1" 304 0
+"GET /static/images/alt-logo.png HTTP/1.1" 304 0
+"GET /static/js/tab.js HTTP/1.1" 304 0
+"POST /reset-password/ HTTP/1.1" 302 0
+"GET /reset-password-sent/ HTTP/1.1" 200 7423
+"GET /login/user HTTP/1.1" 200 5182
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/validate.js HTTP/1.1" 304 0
+"GET /reset-password/ HTTP/1.1" 200 7996
+"GET /static/js/jquery.min.js HTTP/1.1" 304 0
+"GET /static/images/alt-logo.png HTTP/1.1" 304 0
+"GET /static/js/pagination.js HTTP/1.1" 304 0
+"GET /static/js/tab.js HTTP/1.1" 304 0
+"POST /reset-password/ HTTP/1.1" 302 0
+"GET /reset-password-sent/ HTTP/1.1" 200 7423
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 18313
+"GET /static/css/style.css HTTP/1.1" 200 70137
+"GET /static/images/hamburger.png HTTP/1.1" 200 1005
+"GET /static/js/script.js HTTP/1.1" 200 1047
+"GET /static/js/pagination.js HTTP/1.1" 200 1842
+"GET /static/images/logo.png HTTP/1.1" 200 40580
+"GET /static/images/img-3.jpg HTTP/1.1" 200 76774
+"GET /static/images/img-6.jpg HTTP/1.1" 200 40616
+"GET /static/images/img-5.jpg HTTP/1.1" 200 25448
+"GET /static/images/hero-img.png HTTP/1.1" 200 197583
+"GET /static/images/alt-logo.png HTTP/1.1" 200 48395
+"GET /static/images/history.png HTTP/1.1" 200 590263
+"GET /static/images/signal.png HTTP/1.1" 200 397355
+"GET /static/images/favicon.png HTTP/1.1" 200 4769
+"GET /login/user HTTP/1.1" 200 5182
+"GET /static/js/validate.js HTTP/1.1" 200 2612
+"GET /reset-password/ HTTP/1.1" 200 7996
+"GET /static/js/tab.js HTTP/1.1" 200 707
+"GET /static/js/jquery.min.js HTTP/1.1" 200 89663
+"POST /reset-password/ HTTP/1.1" 200 8087
