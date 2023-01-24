@@ -73,9 +73,6 @@ INSTALLED_APPS = [
 
 SITE_ID = 1
 
-# ck editor configuration
-CKEDITOR_UPLOAD_PATH = "uploads/"
-
 CKEDITOR_CONFIGS = {
     'default': {
         'skin': 'moono',
@@ -235,9 +232,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-
 # default static file renderer
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/images/'
@@ -245,6 +242,10 @@ MEDIA_URL = '/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+
+# ck editor configuration
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 
 # cloudinary config
