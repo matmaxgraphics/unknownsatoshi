@@ -217,7 +217,11 @@ img {
   object-fit: cover;
   object-position: center;
 }
-
+ul.errorlist {
+  list-style: none;
+  transform: translateY(-20px);
+  color: #ff4343;
+}
 /*======ALTERNATIVE STYLING======*/
 /*=====NAVIGATION BAR STYLING=====*/
 /* .banner-wrapper {
@@ -728,7 +732,7 @@ img {
   margin: 12px 0;
   padding: 0 8px;
 }
-.course-section .course-container__item p{
+.course-section .course-container__item p {
   padding: 0 8px 8px;
 }
 .course-section .course-container__item img {
