@@ -72,12 +72,14 @@
         </div>
         
         {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{message.tags}}">
-                    {{message}}
-                </div> 
-            {% endfor %}
-        {% endif %}
+                <div class="">
+                    {% for message in messages %}
+                        <div class="alert {{message.tags}}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>    
+            {% endif %}
             
         
         <header>
@@ -152,20 +154,56 @@
 
 <style type="text/css">
     
-form .helptext {
-    font-size: 12px;
-    color: #ccc;
-}
+    form .helptext {
+        font-size: 12px;
+        color: #ccc;
+    }
 
-form .field{
-    background-color: red;
-}
+    form .field{
+        background-color: red;
+    }
 
-form ul:not(.errorlist) {
-    display: none;
-}
+    form ul:not(.errorlist) {
+        display: none;
+    }
 
 </style>
+
+
+<style>
+
+            .alert{
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .success{
+                border-radius: 10px;
+                width: 50%;
+                padding: 10px 40px;
+                text-align: center;
+                background-color: green;
+                color: white;
+            }
+
+            .danger{
+                border-radius: 10px;
+                width: 50%;
+                padding: 10px 40px;
+                text-align: center;
+                background-color: #ee5717;
+                color: white;
+            }
+
+            .warning{
+                border-radius: 10px;
+                width: 50%;
+                padding: 10px 40px;
+                text-align: center;
+                background-color: rgba(255, 255, 0, 0.568);
+                color: white;
+            }
+        </style>
 
 
 

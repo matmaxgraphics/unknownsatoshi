@@ -1,4 +1,3 @@
-from smtplib import SMTPException
 import urllib, json
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -133,18 +132,18 @@ def user_login(request):
     if request.method == 'POST':
         username = request.POST.get("username")
         password = request.POST.get("password")
+        if not User.objects.filter(username=username).exists():
+            messages.error(request, f"user with {username} does not exist")
+
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            if user.is_active == False:
-                messages.error(request, f"Your account is pending activation")
-                return redirect("user-login")
-
             if "next" in request.POST:
                 return redirect(request.POST.get("next"))
 
             messages.success(request, f"login successful")
             return redirect("home")
+
         messages.error(request, f"login attempt failed, try again")
         return redirect("user-login")
     return render(request, template_name)
@@ -170,7 +169,7 @@ def user_profile(request, id):
             update_form.save()
             messages.success(request, f"User updated successfully")
             return redirect("user-profile", id)
-        messages.error(request, f"Unable to update user")
+        messages.error(request, f"Unable to update profile, try again")
         return redirect("user-profile", id)
     else:
         form = UserUpdateForm(instance=user)
