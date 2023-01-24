@@ -44,10 +44,14 @@
                                 <label for="postscategory"> homepage {{ form.home_page }}</label>
                             </main>
                             <main class="margin-top">
-                                <div>
-                                    <label for="image">{{form.featured_image.label}}</label>                   
-                                    {{form.featured_image }}
-                                </div>
+                                <img src="{{ form.featured_image.url }}" alt="">
+                                {% for field in form %}   
+                                    {% if field.field.widget.input_type == "file" %}
+                                        <label for="">{{field.label}}</label>
+                                        <input type="{{field.field.widget.input_type}}" name="{{field.name}}" id="{{field.id}}" value="{{field.value}}" class="input-field">
+                                    {% endif %}             
+                                {% endfor %}
+                                
                             </main>
 
                             <button class="btn" type="submit" name="submit-btn">Save Post</button>
