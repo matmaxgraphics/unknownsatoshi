@@ -25,26 +25,42 @@
             </tr>
           </thead>
           <tbody>
-          {% for blog in blogs %}
-            <tr>
-              <td data-label="post Title">{{blog.title}}</td>
-              <td data-label="Author">{{blog.author}}</td>
-              <td data-label="image"><img src="{{blog.featured_image.url}}"></td>
-              <td data-label="Action"><a href="{% url 'update-blog' blog.id %}" class="edit">edit</a></td>
-              <td><a style="color: rgb(233, 143, 25);" href="{% url 'delete-blog' blog.id %}" class="delete">Delete</a></td>		        
-            </tr>
-          {% endfor %}
-           
+            {% for blog in blogs %}
+              <tr>
+                <td data-label="post Title">{{blog.title}}</td>
+                <td data-label="Author">{{blog.author}}</td>
+                <td data-label="image"><img src="{{blog.featured_image.url}}"></td>
+                <td data-label="Action"><a href="{% url 'update-blog' blog.id %}" class="edit">edit</a></td>
+                <td><a style="color: rgb(233, 143, 25);" href="{% url 'delete-blog' blog.id %}" class="delete">Delete</a></td>		        
+              </tr>
+            {% endfor %}
           </tbody>
-         
         </table>
         
-        {% if blogs.count <= 1 %}
-          {{blogs.count}} Post
-        {% elif blogs.count > 1 %}
-          {{blogs.count}} Posts
+        <div class="blog-paginator">
+          {% if blogs.has_previous %}
+              <a href="?page=1" class="">first</a>
+              <span class="text-primary">
+                  Page {{ blogs.number }} of {{ blogs.paginator.num_pages }}.
+              </span>
+              <a href="?page={{ blogs.previous_page_number }}" class="">previous</a>
+          {% endif %}
+  
+          {% if blogs.has_next %}
+              <a href="?page={{ blogs.next_page_number }}" class="">Next</a>
+              <span class="text-primary">
+                  Page {{ blogs.number }} of {{ blogs.paginator.num_pages }}.
+              </span>
+              <a href="?page={{ blogs.paginator.num_pages }}" class="">Last</a>
+          {% endif %}
+        </div>
+        
+        {% if blog_count <= 1 %}
+            {{blog_count}} Course
+        {% elif blog_count > 1 %}
+            {{blog_count}} Courses
         {% else %}
-          No post has been added.
+          No blogs has been added
         {% endif %}
       </section>
 	    </div>

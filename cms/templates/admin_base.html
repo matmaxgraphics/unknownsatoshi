@@ -10,16 +10,16 @@
   <!--SEO Control-->
   <meta charset="utf-8" />
   <meta name="description" content=" ">
-  <link rel="icon" href="{% static 'images/favicon.png' %}">
+  <link rel="icon" href="{% static './images/favicon.png' %}">
   <meta name="robots" content="no-index,nofollow">
 
   <!--Viewport Control-->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!--Custom Stylesheet-->
-  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
-  <link rel="stylesheet" type="text/css" href="{% static 'css/admin.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static './css/style.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static './css/admin.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static './css/sidebar.css' %}">
 
 
   <!--Bootstrap CDN-->
@@ -135,11 +135,11 @@
 
       <div style="max-width: 350px;">
         {% if messages %}
-        {% for message in messages %}
-        <div class="alert alert-{{message.tags}}">
-          {{message}}
-        </div>
-        {% endfor %}
+          {% for message in messages %}
+            <div class="alert alert-{{message.tags}}">
+              {{message}}
+            </div>
+          {% endfor %}
         {% endif %}
       </div>
 
