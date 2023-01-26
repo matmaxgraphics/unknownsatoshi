@@ -61,7 +61,7 @@ class CourseForm(forms.ModelForm):
     
     class Meta:
         model = Course
-        fields = ['courses', 'course_link']
+        fields = "__all__"
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

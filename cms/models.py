@@ -23,6 +23,7 @@ def validate_existing_plan(value):
 
 today = datetime.now().date()
 
+
 class ProductCategory(models.Model):
     name = models.CharField(max_length=150, blank=True)
 

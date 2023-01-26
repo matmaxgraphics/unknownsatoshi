@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "GET /create-blog HTTP/1.1" 200 14708
 "GET /static/css/sidebar.css HTTP/1.1" 304 0
 "GET /static/css/style.css HTTP/1.1" 304 0
@@ -2198,3 +2199,5 @@ Watching for file changes with StatReloader
 "GET /static/images/logo.png HTTP/1.1" 304 0
 "GET /static/images/hamburger.png HTTP/1.1" 304 0
 "GET /static/images/favicon.png HTTP/1.1" 304 0
+=======
+>>>>>>> 55516151be489b9b4bee9a03f4b580313545dfe2
