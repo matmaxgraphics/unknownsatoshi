@@ -3,6 +3,7 @@ import os
 import environ
 import django 
 from django.utils.encoding import force_str
+from django.contrib.messages import constants as messages
 
 
 
@@ -22,7 +23,7 @@ SECRET_KEY = env("SECRET_KEY")
 GOOGLE_RECAPTCHA_SECRET_KEY = env("GOOGLE_RECAPTCHA_SECRET_KEY")
 
 
-# SECURITY WARNING: don't run wissth debug turned on in production!
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 ALLOWED_HOSTS = [
     'unknownsatoshi.com',
@@ -35,9 +36,9 @@ ALLOWED_HOSTS = [
 
 
 
-LOGIN_URL = 'login'
+LOGIN_URL = 'user-login'
 LOGIN_REDIRECT_URL = 'blog'
-LOGOUT_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'user-login'
 
 
 # Application definition
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
     
     #hitcount
     'hitcount',
+
     #local apps
     'cms',
     'userprolog',
@@ -65,14 +67,11 @@ INSTALLED_APPS = [
 
     #cloudinary module
     'cloudinary',
-    'cloudinary_storage',
-    
-    
+    'cloudinary_storage', 
 ]
-SITE_ID = 1
 
-# ck editor configuration
-CKEDITOR_UPLOAD_PATH = "uploads/"
+
+SITE_ID = 1
 
 CKEDITOR_CONFIGS = {
     'default': {
@@ -150,7 +149,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 ROOT_URLCONF = 'unknownsatoshi.urls'
 
 TEMPLATES = [
@@ -193,6 +192,9 @@ DATABASES = {
 #     }
 # }
 
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -230,12 +232,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+# default static file renderer
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
 STATIC_URL = '/static/'
 MEDIA_URL = '/images/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+
+# ck editor configuration
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 
 # cloudinary config

@@ -1,5 +1,26 @@
 from django import forms
 from .models import User
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm, PasswordResetForm
+
+
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = get_user_model()
+        fields = ('email',)
+
+    def __init__(self, *args, **kwargs):
+        super(CustomUserCreationForm, self).__init__(*args, **kwargs)
+
+
+class CustomUserChangeForm(UserChangeForm):
+    class Meta:
+        model = get_user_model()
+        fields = ('email',)
+
+    def __init__(self, *args, **kwargs):
+        super(CustomUserChangeForm, self).__init__(*args, **kwargs)
 
 
 class UserUpdateForm(forms.ModelForm):
@@ -19,3 +40,11 @@ class UserUpdateForm(forms.ModelForm):
         self.fields['is_active'].widget.attrs.update({'class':"input"})
         self.fields['is_staff'].widget.attrs.update({'class':"input"})
         self.fields['is_superuser'].widget.attrs.update({'class':"input"})
+
+
+class MyPasswordResetForm(PasswordResetForm):
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if not User.objects.filter(email=email).exists():
+            raise forms.ValidationError("This email is not registered.")
+        return email

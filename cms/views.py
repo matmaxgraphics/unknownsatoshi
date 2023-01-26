@@ -1,25 +1,22 @@
 import math
-import time
 import random
-import decimal
 import requests
 from .forms import *
 from .models import *
 from userprolog.models import User
 from django.contrib import messages
-from django.http import HttpResponseRedirect, JsonResponse
-from datetime import date, datetime, timedelta
+from django.http import JsonResponse
+from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login,logout
 from cms.mailing_helper import UserRegisterationNotification, UserSubscriptionNotification
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404, render, redirect
-from django.db.models import Q
 from .decorators import unauthenticated_user, allowed_user, admin_only
 from unknownsatoshi.settings import FLW_PRODUCTION_SECRET_KEY, FLW_SANDBOX_SECRET_KEY
-from django.template.loader import render_to_string
 from unknownsatoshi.settings import DEFAULT_FROM_EMAIL, CONTACT_EMAIL
 import json
+from django.core.paginator import Paginator
 
 # from hitcount.views import HitCountDetailView
 
@@ -47,7 +44,7 @@ def admin_login(request):
 def admin_logout(request):
     logout(request)
     messages.success(request, f"Logout  Successful")
-    return redirect("admin-login")
+    return redirect("home")
 
 
 # admin history view
@@ -177,7 +174,7 @@ def create_course(request):
             messages.success(request, f"Course created successfully")
             return redirect('admin-course')
         messages.error(request, f"Unable to create course, Try again")
-        return redirect("reate-course")
+        return redirect("create-course")
     context = {'form':form}
     return render(request, template_name, context)
 
@@ -272,8 +269,15 @@ def delete_product(request, id):
 @admin_only
 def admin_blog(request):
     template_name = 'cms/admin-blog/index.html'
-    blogs = Blog.objects.all()
-    context = {'blogs':blogs}
+    blog_list = Blog.objects.all()
+    blog_count = Blog.objects.all().count()
+
+    #paginate blog lists 10 per page
+    paginator = Paginator(blog_list, 10)
+    page = request.GET.get("page")
+    blogs = paginator.get_page(page)
+
+    context = {'blogs':blogs, "blog_count": blog_count}
     return render(request, template_name, context)
 
 
@@ -314,7 +318,7 @@ def update_blog(request, pk):
             messages.success(request, f"Post updated successfully")
             return redirect('admin-blog')
         messages.error(request, f"Unable to update post, try again")
-        form = BlogForm(request.POST, request.FILES, instance=blog)
+        return redirect("update-blog", pk)
     else:
         form = BlogForm(instance=blog)
     context = {'form':form}
@@ -799,14 +803,21 @@ def premium_blog_detail(request, slug):
 
             messages.success(request, 'Your review was successfully submitted!')
             return redirect('premium-blog-detail', slug=blog.slug)
-        premium_user = SubscriptionHistory.objects.filter(user=request.user, active=True).exists()
-        if request.user.is_authenticated and blog.premium and premium_user:
+        
+        """
+            Checks if a user is authenticated, has subscribed and exist on either the
+            first time subscription table or main subscription table for premium
+            blog access.
+        """
+        premium_user_first = FirstTimeSubscriptionHistory.objects.filter(user=request.user, active=True).exists()
+        premium_user_main = SubscriptionHistory.objects.filter(user=request.user, active=True).exists()
+        if (request.user.is_authenticated and blog.premium and premium_user_first) or (request.user.is_authenticated and blog.premium and premium_user_main):
             return render(request, template_name, context)
 
-        if request.user.is_authenticated and premium_user and not blog.premium:
+        if (request.user.is_authenticated and premium_user_first and not blog.premium) or (request.user.is_authenticated and premium_user_main and not blog.premium):
             return render(request, template_name, context)
         
-        if request.user.is_authenticated and blog.premium and not premium_user:
+        if (request.user.is_authenticated and blog.premium and not premium_user_first) or (request.user.is_authenticated and blog.premium and not premium_user_main):
             return render(request, "cms/plan-notify.html")
     except:
         return render(request, "cms/login-prompt.html")
@@ -828,7 +839,8 @@ def unauthorized_page(request):
 def plan_list(request):
     template_name = "cms/subscription.html"
     plans = Plan.objects.all()
-    context = {"plans":plans}
+    first_time_plans = FirstTimePlan.objects.all()
+    context = {"plans":plans, "first_time_plans": first_time_plans}
     return render(request, template_name, context)
 
 
@@ -841,11 +853,14 @@ def plan_details(request, slug):
     user = request.user
     global first_time_sub_detail
     
+    # checks if user has an active first time subscription
     if FirstTimeSubscriptionHistory.objects.filter(user=user, active=True).exists():
         messages.error(request, f"you already have an active plan")
         return redirect("user-first-sub")
 
     first_time_sub_detail = get_object_or_404(FirstTimePlan, slug=slug)
+
+    # checks if user has subscribed for any first time subscription
     first_time_sub = FirstTimeSubscriptionHistory.objects.filter(user=user).exists()
 
     if not first_time_sub:
@@ -920,7 +935,6 @@ def process_payment(request, user_id, plan_id, first_name, last_name, amount, em
             "logo": "https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg"
         }
     }
-
     url = ' https://api.flutterwave.com/v3/payments'
     response = requests.post(url, json=data, headers=header)
     response=response.json()
@@ -942,15 +956,15 @@ def payment_response(request):
     status = request.GET.get('status' or None)
     transaction_id = request.GET.get('transaction_id' or None)
     
-    # checks if user has active plan on main subscription table
-    if SubscriptionHistory.objects.filter(reference=tx_ref).exists():
-        messages.error(request, f"your email {user.email} has an active plan already")
-        return redirect("user-sub-list")
+    # # checks if user has active plan on main subscription table
+    # if SubscriptionHistory.objects.filter(reference=tx_ref).exists():
+    #     messages.error(request, f"your email {user.email} has an active plan already")
+    #     return redirect("user-sub-list")
 
-    # checks if user has active plan on first time subscription table.
-    elif FirstTimeSubscriptionHistory.objects.filter(reference=tx_ref).exists():
-        messages.error(request, f"your email {user.email} has an active plan already")
-        return redirect("user-first-sub")
+    # # checks if user has active plan on first time subscription table.
+    # elif FirstTimeSubscriptionHistory.objects.filter(reference=tx_ref).exists():
+    #     messages.error(request, f"your email {user.email} has an active plan already")
+    #     return redirect("user-first-sub")
 
     expiry_date = today + timedelta(days=first_time_sub_detail.duration_in_days)
     
@@ -999,7 +1013,7 @@ def payment_response(request):
             )
             send_mail.mail_admin()
         except:
-            messages.error(f"could not connect to smtp, redirecting to order history")
+            messages.error(f"Could not connect to smtp, redirecting to order history")
         finally:
             return redirect("user-first-sub")
 

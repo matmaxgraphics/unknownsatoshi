@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /home/baytech/Desktop/satoshi-backend/unknownsatoshi/cms/views.py changed, reloading.
 Watching for file changes with StatReloader
 /home/baytech/Desktop/satoshi-backend/unknownsatoshi/cms/views.py changed, reloading.
@@ -5908,3 +5909,5 @@ Traceback (most recent call last):
   File "/root/unknownsatoshi/venv/lib/python3.9/site-packages/django/db/models/query.py", line 435, in get
     raise self.model.DoesNotExist(
 cms.models.Blog.DoesNotExist: Blog matching query does not exist.
+=======
+>>>>>>> 55516151be489b9b4bee9a03f4b580313545dfe2

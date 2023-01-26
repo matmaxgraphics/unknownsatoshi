@@ -3,47 +3,41 @@
 
     
 {% block content %}
-      
-  <section class="panel-section" style="margin-top:-700px">  
-    <div class="panel-content">
-	    <div class="page-wrapper admin-wrapper">		
-        <section class="alt-nav">
-            <h4>Add Course</h4>
-            <a href="{% url 'admin-course' %}" class="btn">Manage Courses</a>
-        </section> 
-        <div class="content-container">
-            <section class="add-product">
-                <div class="fields-wrapper">
-                    <form action="" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    
-                      <div class="form__field">
-                          <label for="formInput#text">Course Name</label>
-                          {{form.courses}}
-                      </div>
+    <section class="panel-section" style="margin-top:-700px">  
+        <div class="panel-content">
+            <div class="page-wrapper admin-wrapper">
 
-                      <div class="form__field">
-                          <label for="formInput#text">Course Link</label>
-                          {{form.course_link}}
-                      </div>
-                      <div>   
-                          {% for field in form %}   
-                              {% if field.field.widget.input_type == "file" %}
-                                  <label for="">{{field.label}}</label>
-                                  <input type="{{field.field.widget.input_type}}" name="{{field.name}}" id="{{field.id}}" value="{{field.value}}" class="input-field">
-                              {% endif %}             
-                          {% endfor %}
-                      </div>
-                    
-                        <button class="btn" type="submit" name="submit-btn">Add Course</button>
-                    </form>
+                <section class="alt-nav">
+                    <h4>Add Course</h4>
+                    <a href="{% url 'admin-course' %}" class="btn">Manage Courses</a>
+                </section>
+
+                <div class="content-container">
+                    <section class="add-product">
+                        <div class="fields-wrapper">
+                            <form action="" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form__field">
+                                    <label for="formInput#text">Course Name</label>
+                                    {{form.courses}}
+                                </div>
+
+                                <div class="form__field">
+                                    <label for="formInput#text">Course Link</label>
+                                    {{form.course_link}}
+                                </div>
+
+                                <div>   
+                                    <label for="{{ form.featured_image.label }}">{{form.featured_image.label}}</label>
+                                    {{ form.featured_image }}
+                                </div>
+                                
+                                <button class="btn" type="submit" name="submit-btn">Add Course</button>
+                            </form>
+                        </div>
+                    </section>
                 </div>
-            </section>
-
+            </div>
         </div>
-
-      
-      </div>
-    </div>
-  </section>
-  {% endblock content %}
+    </section>
+{% endblock content %}

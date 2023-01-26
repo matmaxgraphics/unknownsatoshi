@@ -15,6 +15,7 @@ class CmsForm(forms.ModelForm):
     tp_target = forms.CharField(max_length=500, required=True)
     tp_achieved = forms.CharField(max_length=500, required=True)
     profit = forms.CharField(max_length=500, required=True)
+    
     class Meta:
         model = Cms
         fields = ['title', 'entry', 'stoploss', 'tp_target', 'tp_achieved', 'profit']
@@ -39,7 +40,6 @@ class BlogForm(forms.ModelForm):
         fields = ['title', 'slug', 'post', 'featured_image','featured_stories','latest_news','latest_articles', 'premium', 'home_page']
         exclude = ['author']
     
-    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -58,18 +58,21 @@ class CourseForm(forms.ModelForm):
     courses = forms.CharField(required=True)
     course_link = forms.URLField(error_messages={'required':"Website link to product"})
     featured_image = forms.ImageField(required=False, error_messages={'required':"An image is required"})
+    
     class Meta:
         model = Course
-        fields = ['courses', 'course_link']
+        fields = "__all__"
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['courses'].widget.attrs.update({'class':"input-field", 'placeholder':"course"})
         self.fields['course_link'].widget.attrs.update({'class':"input-field", 'placeholder':"course link"})
-        self.fields['featured_image'].widget.attrs.update({'class':"input-field", 'placeholder':"image"})
+        self.fields['featured_image'].widget.attrs.update({'class':"input-field"})
+
 
 class ProductForm(forms.ModelForm):
-    
+    featured_image = forms.ImageField(required=False, error_messages={'required':"An image is required"})
+
     class Meta:
         model = Product
         fields = '__all__'
@@ -82,8 +85,10 @@ class ProductForm(forms.ModelForm):
         self.fields['price'].widget.attrs.update({'class':"input-field"})
         self.fields['featured_image'].widget.attrs.update({'class':"input-field"})
 
+
 class ProductUpdateForm(forms.ModelForm):
-  
+    featured_image = forms.ImageField(required=False, error_messages={'required':"An image is required"})
+    
     class Meta:
         model = Product
         fields = '__all__'

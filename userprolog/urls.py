@@ -14,7 +14,7 @@ urlpatterns = [
 
     #password reset
     path('reset-password/', 
-        auth_views.PasswordResetView.as_view(template_name = "userprolog/reset_password.html"), 
+        auth_views.PasswordResetView.as_view(template_name = "userprolog/reset_password.html", form_class=MyPasswordResetForm), 
         name ='reset_password'),
     
     path('reset-password-sent/', 
