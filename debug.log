@@ -1,0 +1,264 @@
+"GET / HTTP/1.1" 200 18897
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/pagination.js HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/hero-img.png HTTP/1.1" 304 0
+"GET /static/images/img-3.jpg HTTP/1.1" 304 0
+"GET /static/images/img-5.jpg HTTP/1.1" 304 0
+"GET /static/images/img-6.jpg HTTP/1.1" 304 0
+"GET /static/images/signal.png HTTP/1.1" 304 0
+"GET /static/images/history.png HTTP/1.1" 304 0
+"GET /static/images/alt-logo.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /logout HTTP/1.1" 302 0
+"GET / HTTP/1.1" 200 18405
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/js/pagination.js HTTP/1.1" 200 478
+"GET /static/images/hero-img.png HTTP/1.1" 200 197583
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/images/img-3.jpg HTTP/1.1" 200 76774
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/img-6.jpg HTTP/1.1" 200 40616
+"GET /static/images/img-5.jpg HTTP/1.1" 200 25448
+"GET /static/images/history.png HTTP/1.1" 200 590263
+"GET /static/images/signal.png HTTP/1.1" 200 397355
+"GET /static/images/alt-logo.png HTTP/1.1" 200 48395
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 18313
+"GET /static/images/hamburger.png HTTP/1.1" 200 1005
+"GET /static/js/script.js HTTP/1.1" 200 408
+"GET /static/css/style.css HTTP/1.1" 200 10024
+"GET /static/js/pagination.js HTTP/1.1" 200 478
+"GET /static/images/logo.png HTTP/1.1" 200 40580
+"GET /static/images/hero-img.png HTTP/1.1" 200 197583
+"GET /static/images/img-3.jpg HTTP/1.1" 200 76774
+"GET /static/images/img-5.jpg HTTP/1.1" 200 25448
+"GET /static/images/img-6.jpg HTTP/1.1" 200 40616
+"GET /static/images/alt-logo.png HTTP/1.1" 200 48395
+"GET /static/images/history.png HTTP/1.1" 200 590263
+"GET /static/images/signal.png HTTP/1.1" 200 397355
+"GET /static/images/favicon.png HTTP/1.1" 200 4769
+"GET /login/user HTTP/1.1" 200 6543
+"GET /static/js/validate.js HTTP/1.1" 200 712
+"POST /login/user HTTP/1.1" 302 0
+"GET / HTTP/1.1" 200 18987
+"GET / HTTP/1.1" 200 18897
+"GET /blog HTTP/1.1" 200 19681
+"GET /premium-article/premium-post HTTP/1.1" 200 19345
+"GET /static/images/profile_image/5.png HTTP/1.1" 200 758238
+"POST /like_post HTTP/1.1" 200 31
+"POST /like_post HTTP/1.1" 200 31
+"GET /premium-article/another-premium-post HTTP/1.1" 200 19618
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/js/pagination.js HTTP/1.1" 304 0
+"GET /static/images/profile_image/5.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/alt-logo.png HTTP/1.1" 304 0
+"GET /premium-article/another-premium-post HTTP/1.1" 200 19618
+"GET /subscription/history/ HTTP/1.1" 200 10219
+"GET /static/js/jquery.min.js HTTP/1.1" 200 30954
+"GET /static/js/tab.js HTTP/1.1" 200 345
+"GET /first/subscription/history/ HTTP/1.1" 200 10221
+Watching for file changes with StatReloader
+"GET /first/subscription/history/ HTTP/1.1" 200 10221
+"GET /static/css/style.css HTTP/1.1" 200 10024
+"GET /static/js/tab.js HTTP/1.1" 200 345
+"GET /static/images/hamburger.png HTTP/1.1" 200 1005
+"GET /static/js/script.js HTTP/1.1" 200 408
+"GET /static/js/pagination.js HTTP/1.1" 200 478
+"GET /static/images/logo.png HTTP/1.1" 200 40580
+"GET /static/js/jquery.min.js HTTP/1.1" 200 30954
+"GET /static/images/alt-logo.png HTTP/1.1" 200 48395
+"GET /static/images/favicon.png HTTP/1.1" 200 4769
+"GET /logout HTTP/1.1" 302 0
+"GET / HTTP/1.1" 200 18405
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/js/pagination.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/images/img-3.jpg HTTP/1.1" 200 76774
+"GET /static/images/img-5.jpg HTTP/1.1" 200 25448
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/img-6.jpg HTTP/1.1" 200 40616
+"GET /static/images/hero-img.png HTTP/1.1" 200 197583
+"GET /static/images/history.png HTTP/1.1" 200 590263
+"GET /static/images/signal.png HTTP/1.1" 200 397355
+"GET /static/images/alt-logo.png HTTP/1.1" 304 0
+"GET /blog HTTP/1.1" 200 19097
+"GET /blog HTTP/1.1" 200 19097
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/images/alt-logo.png HTTP/1.1" 304 0
+"GET /static/js/pagination.js HTTP/1.1" 304 0
+"GET /blog HTTP/1.1" 200 19097
+"GET /premium-article/premium-post HTTP/1.1" 200 2050
+"GET /static/css/admin.css HTTP/1.1" 200 2321
+"GET /assets/js/script.js HTTP/1.1" 200 2358
+"GET /static/images/login.png HTTP/1.1" 200 175173
+"GET /login/user HTTP/1.1" 200 6543
+"GET /static/js/validate.js HTTP/1.1" 200 712
+"POST /login/user HTTP/1.1" 302 0
+"GET / HTTP/1.1" 200 18987
+"GET /static/images/hero-img.png HTTP/1.1" 304 0
+"GET /static/images/img-3.jpg HTTP/1.1" 304 0
+"GET /static/images/img-5.jpg HTTP/1.1" 304 0
+"GET /static/images/history.png HTTP/1.1" 304 0
+"GET /static/images/signal.png HTTP/1.1" 304 0
+"GET /static/images/img-6.jpg HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 18897
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /logout HTTP/1.1" 302 0
+"GET / HTTP/1.1" 200 18405
+"GET / HTTP/1.1" 200 18313
+"GET /blog HTTP/1.1" 200 19097
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/js/pagination.js HTTP/1.1" 304 0
+"GET /static/images/alt-logo.png HTTP/1.1" 304 0
+"GET /premium-article/premium-post HTTP/1.1" 200 2050
+"GET /static/css/admin.css HTTP/1.1" 304 0
+"GET /static/images/login.png HTTP/1.1" 304 0
+"GET /assets/js/script.js HTTP/1.1" 200 2358
+"GET /premium-article/premium-post HTTP/1.1" 200 2106
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/admin.css HTTP/1.1" 304 0
+"GET /assets/js/script.js HTTP/1.1" 200 2358
+"GET /static/images/login.png HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /blog HTTP/1.1" 200 19097
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/pagination.js HTTP/1.1" 304 0
+"GET /static/images/alt-logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /premium-article/premium-post HTTP/1.1" 200 2122
+"GET /static/css/admin.css HTTP/1.1" 304 0
+"GET /static/images/login.png HTTP/1.1" 304 0
+"GET /assets/js/script.js HTTP/1.1" 200 2358
+"GET /login/user HTTP/1.1" 200 6543
+"GET /static/js/validate.js HTTP/1.1" 304 0
+"POST /login/user HTTP/1.1" 302 0
+"GET / HTTP/1.1" 200 18987
+"GET /static/images/hero-img.png HTTP/1.1" 304 0
+"GET /static/images/img-3.jpg HTTP/1.1" 304 0
+"GET /static/images/img-5.jpg HTTP/1.1" 304 0
+"GET /static/images/img-6.jpg HTTP/1.1" 304 0
+"GET /static/images/history.png HTTP/1.1" 304 0
+"GET /static/images/signal.png HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 18897
+/home/baytech/Desktop/unknownsatoshi/cms/views.py changed, reloading.
+Watching for file changes with StatReloader
+/home/baytech/Desktop/unknownsatoshi/cms/views.py changed, reloading.
+Watching for file changes with StatReloader
+/home/baytech/Desktop/unknownsatoshi/cms/views.py changed, reloading.
+Watching for file changes with StatReloader
+/home/baytech/Desktop/unknownsatoshi/cms/views.py changed, reloading.
+Watching for file changes with StatReloader
+/home/baytech/Desktop/unknownsatoshi/cms/views.py changed, reloading.
+Watching for file changes with StatReloader
+/home/baytech/Desktop/unknownsatoshi/cms/views.py changed, reloading.
+Watching for file changes with StatReloader
+/home/baytech/Desktop/unknownsatoshi/cms/views.py changed, reloading.
+Watching for file changes with StatReloader
+/home/baytech/Desktop/unknownsatoshi/cms/views.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /logout HTTP/1.1" 302 0
+"GET / HTTP/1.1" 200 18405
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/pagination.js HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/img-5.jpg HTTP/1.1" 304 0
+"GET /static/images/hero-img.png HTTP/1.1" 304 0
+"GET /static/images/signal.png HTTP/1.1" 304 0
+"GET /static/images/alt-logo.png HTTP/1.1" 304 0
+"GET /static/images/img-3.jpg HTTP/1.1" 304 0
+"GET /static/images/img-6.jpg HTTP/1.1" 304 0
+"GET /static/images/history.png HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 18313
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /login/user HTTP/1.1" 200 6543
+"GET /static/js/validate.js HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 18313
+"GET /blog HTTP/1.1" 200 19097
+Internal Server Error: /premium-article/premium-post
+Traceback (most recent call last):
+  File "/home/baytech/Desktop/unknownsatoshi/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/baytech/Desktop/unknownsatoshi/venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/baytech/Desktop/unknownsatoshi/venv/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 23, in _wrapped_view
+    resolved_login_url = resolve_url(login_url or settings.LOGIN_URL)
+  File "/home/baytech/Desktop/unknownsatoshi/venv/lib/python3.10/site-packages/django/shortcuts.py", line 130, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "/home/baytech/Desktop/unknownsatoshi/venv/lib/python3.10/site-packages/django/urls/base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/home/baytech/Desktop/unknownsatoshi/venv/lib/python3.10/site-packages/django/urls/resolvers.py", line 694, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'user_login' not found. 'user_login' is not a valid view function or pattern name.
+"GET /premium-article/premium-post HTTP/1.1" 500 145
+"GET /favicon.ico HTTP/1.1" 200 2358
+Internal Server Error: /premium-article/premium-post
+Traceback (most recent call last):
+  File "/home/baytech/Desktop/unknownsatoshi/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/baytech/Desktop/unknownsatoshi/venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/baytech/Desktop/unknownsatoshi/venv/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 23, in _wrapped_view
+    resolved_login_url = resolve_url(login_url or settings.LOGIN_URL)
+  File "/home/baytech/Desktop/unknownsatoshi/venv/lib/python3.10/site-packages/django/shortcuts.py", line 130, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "/home/baytech/Desktop/unknownsatoshi/venv/lib/python3.10/site-packages/django/urls/base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "/home/baytech/Desktop/unknownsatoshi/venv/lib/python3.10/site-packages/django/urls/resolvers.py", line 694, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'user_login' not found. 'user_login' is not a valid view function or pattern name.
+"GET /premium-article/premium-post HTTP/1.1" 500 145
+"GET /favicon.ico HTTP/1.1" 200 2358
+/home/baytech/Desktop/unknownsatoshi/cms/views.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /premium-article/premium-post HTTP/1.1" 302 0
+"GET /login/user?next=/premium-article/premium-post HTTP/1.1" 200 6668
+"POST /login/user HTTP/1.1" 302 0
+"GET /premium-article/premium-post HTTP/1.1" 200 19345
+"GET /static/images/profile_image/5.png HTTP/1.1" 200 758238
+"GET /premium-article/premium-post HTTP/1.1" 200 19345
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/pagination.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/alt-logo.png HTTP/1.1" 304 0
+"GET /static/images/profile_image/5.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /logout HTTP/1.1" 302 0
+"GET / HTTP/1.1" 200 18405
+"GET /static/images/hero-img.png HTTP/1.1" 304 0
+"GET /static/images/img-3.jpg HTTP/1.1" 304 0
+"GET /static/images/img-5.jpg HTTP/1.1" 304 0
+"GET /static/images/img-6.jpg HTTP/1.1" 304 0
+"GET /static/images/signal.png HTTP/1.1" 304 0
+"GET /static/images/history.png HTTP/1.1" 304 0
+"GET /blog HTTP/1.1" 200 19097
+"GET /premium-article/premium-post HTTP/1.1" 302 0
+"GET /login/user?next=/premium-article/premium-post HTTP/1.1" 200 6668
+"GET /static/js/validate.js HTTP/1.1" 304 0
+"POST /login/user HTTP/1.1" 302 0
+"GET /premium-article/premium-post HTTP/1.1" 200 2271
+"GET /static/css/admin.css HTTP/1.1" 304 0
+"GET /static/images/folder.png HTTP/1.1" 200 161294
+"GET /assets/js/script.js HTTP/1.1" 200 2358

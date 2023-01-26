@@ -764,6 +764,8 @@ def blog_detail(request, slug):
 #blog comments
      
 #premium blog details
+
+@login_required(login_url="user-login")
 def premium_blog_detail(request, slug):
     template_name = 'cms/premium-single.html'
     blog = Blog.objects.get(slug=slug)
