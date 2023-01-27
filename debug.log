@@ -8538,3 +8538,407 @@ cms.models.Blog.DoesNotExist: Blog matching query does not exist.
 >>>>>>> 9b547e3c044172ae26b873f78dc514f95f48be9c
 =======
 >>>>>>> 9b547e3c044172ae26b873f78dc514f95f48be9c
+Watching for file changes with StatReloader
+"GET /admin-blog?page=1 HTTP/1.1" 200 13214
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/admin.css HTTP/1.1" 304 0
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/modal.js HTTP/1.1" 304 0
+"GET /static/js/sidebar.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /admin-blog?page=2 HTTP/1.1" 200 8930
+"GET /admin-blog?page=1 HTTP/1.1" 200 13214
+"GET /admin-blog?page=1 HTTP/1.1" 200 13181
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/admin.css HTTP/1.1" 304 0
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/modal.js HTTP/1.1" 304 0
+"GET /static/js/sidebar.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /admin-blog?page=2 HTTP/1.1" 200 8902
+"GET /admin-blog?page=1 HTTP/1.1" 200 13181
+"GET /admin-blog?page=2 HTTP/1.1" 200 8902
+"GET /admin-blog?page=1 HTTP/1.1" 200 13181
+"GET /admin-blog?page=2 HTTP/1.1" 200 8902
+"GET /admin-blog?page=1 HTTP/1.1" 200 13181
+"GET /admin-blog?page=1 HTTP/1.1" 200 13209
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/admin.css HTTP/1.1" 304 0
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/modal.js HTTP/1.1" 304 0
+"GET /static/js/sidebar.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /admin-blog?page=1 HTTP/1.1" 200 13209
+"GET /admin-blog?page=1 HTTP/1.1" 200 13181
+"GET /admin-blog?page=2 HTTP/1.1" 200 8927
+"GET /admin-blog?page=2 HTTP/1.1" 200 8902
+"GET /admin-blog?page=1 HTTP/1.1" 200 13181
+"GET /admin-blog?page=1 HTTP/1.1" 200 13177
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/admin.css HTTP/1.1" 304 0
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/modal.js HTTP/1.1" 304 0
+"GET /static/js/sidebar.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /admin-blog?page=1 HTTP/1.1" 200 13186
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/admin.css HTTP/1.1" 304 0
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/sidebar.js HTTP/1.1" 304 0
+"GET /static/js/modal.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /admin-blog?page=2 HTTP/1.1" 200 8911
+"GET /admin-blog?page=2 HTTP/1.1" 200 8909
+"GET /admin-blog?page=1 HTTP/1.1" 200 13184
+Internal Server Error: /admin-blog
+Traceback (most recent call last):
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\cms\decorators.py", line 29, in wrapper_func
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\cms\decorators.py", line 44, in wrapper_function
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\cms\views.py", line 281, in admin_blog
+    return render(request, template_name, context)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\backends\django.py", line 62, in render
+    return self.template.render(context)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\defaulttags.py", line 322, in render
+    return nodelist.render(context)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\base.py", line 1064, in render
+    output = self.filter_expression.resolve(context)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\base.py", line 715, in resolve
+    obj = self.var.resolve(context)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\base.py", line 847, in resolve
+    value = self._resolve_lookup(context)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\template\base.py", line 914, in _resolve_lookup
+    current = current()
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\core\paginator.py", line 204, in previous_page_number
+    return self.paginator.validate_number(self.number - 1)
+  File "C:\Users\USER\Desktop\Website Projects\unknownsatoshi\venv\lib\site-packages\django\core\paginator.py", line 52, in validate_number
+    raise EmptyPage(_("That page number is less than 1"))
+django.core.paginator.EmptyPage: That page number is less than 1
+"GET /admin-blog?page=1 HTTP/1.1" 500 145
+"GET /favicon.ico HTTP/1.1" 200 2358
+"GET /admin-blog?page=1 HTTP/1.1" 200 13184
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/admin.css HTTP/1.1" 304 0
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/modal.js HTTP/1.1" 304 0
+"GET /static/js/sidebar.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /admin-blog?page=2 HTTP/1.1" 200 8909
+"GET /admin-blog?page=1 HTTP/1.1" 200 13184
+"GET /admin-blog?page=1 HTTP/1.1" 200 13184
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/admin.css HTTP/1.1" 304 0
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/modal.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/js/sidebar.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /admin-blog?page=1 HTTP/1.1" 200 13184
+"GET /static/css/style.css HTTP/1.1" 200 73858
+"GET /static/css/admin.css HTTP/1.1" 200 14216
+"GET /static/css/sidebar.css HTTP/1.1" 200 3836
+"GET /static/js/modal.js HTTP/1.1" 200 325
+"GET /static/js/script.js HTTP/1.1" 200 1080
+"GET /static/js/sidebar.js HTTP/1.1" 200 582
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 200 1526
+"GET /static/images/logo.png HTTP/1.1" 200 40580
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 200 756028
+"GET /static/images/hamburger.png HTTP/1.1" 200 1005
+"GET /static/images/favicon.png HTTP/1.1" 200 4769
+"GET /admin-blog?page=1 HTTP/1.1" 200 13192
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/admin.css HTTP/1.1" 304 0
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/modal.js HTTP/1.1" 304 0
+"GET /static/js/sidebar.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /admin-blog?page=1 HTTP/1.1" 200 13192
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/admin.css HTTP/1.1" 304 0
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/modal.js HTTP/1.1" 304 0
+"GET /static/js/sidebar.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /admin-blog?page=2 HTTP/1.1" 200 8917
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /admin-blog?page=2 HTTP/1.1" 200 8945
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/admin.css HTTP/1.1" 304 0
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/modal.js HTTP/1.1" 304 0
+"GET /static/js/sidebar.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /admin-blog?page=1 HTTP/1.1" 200 13225
+Watching for file changes with StatReloader
+"GET /admin-blog?page=1 HTTP/1.1" 200 13225
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/admin.css HTTP/1.1" 200 14665
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/modal.js HTTP/1.1" 304 0
+"GET /static/js/sidebar.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /admin-blog?page=1 HTTP/1.1" 200 13225
+"GET /admin-blog?page=1 HTTP/1.1" 200 13225
+"GET /static/css/admin.css HTTP/1.1" 200 14665
+"GET /static/css/style.css HTTP/1.1" 200 73858
+"GET /static/css/sidebar.css HTTP/1.1" 200 3836
+"GET /static/js/script.js HTTP/1.1" 200 1080
+"GET /static/js/modal.js HTTP/1.1" 200 325
+"GET /static/js/sidebar.js HTTP/1.1" 200 582
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 200 1526
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 200 756028
+"GET /static/images/logo.png HTTP/1.1" 200 40580
+"GET /static/images/hamburger.png HTTP/1.1" 200 1005
+"GET /static/images/favicon.png HTTP/1.1" 200 4769
+"GET /admin-blog?page=1 HTTP/1.1" 200 13225
+"GET /static/css/style.css HTTP/1.1" 200 73858
+"GET /static/css/admin.css HTTP/1.1" 200 14665
+"GET /static/css/sidebar.css HTTP/1.1" 200 3836
+"GET /static/js/script.js HTTP/1.1" 200 1080
+"GET /static/js/modal.js HTTP/1.1" 200 325
+"GET /static/js/sidebar.js HTTP/1.1" 200 582
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 200 1526
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 200 756028
+"GET /static/images/hamburger.png HTTP/1.1" 200 1005
+"GET /static/images/logo.png HTTP/1.1" 200 40580
+"GET /static/images/favicon.png HTTP/1.1" 200 4769
+Watching for file changes with StatReloader
+"GET /admin-blog?page=1 HTTP/1.1" 200 13225
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/css/admin.css HTTP/1.1" 200 14665
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/modal.js HTTP/1.1" 304 0
+"GET /static/js/sidebar.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+Watching for file changes with StatReloader
+"GET /admin-blog?page=1 HTTP/1.1" 200 13234
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/admin.css HTTP/1.1" 200 14792
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/modal.js HTTP/1.1" 304 0
+"GET /static/js/sidebar.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /admin-blog?page=2 HTTP/1.1" 200 8954
+"GET /admin-blog?page=2 HTTP/1.1" 200 8949
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/css/admin.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/modal.js HTTP/1.1" 304 0
+"GET /static/js/sidebar.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /admin-blog?page=1 HTTP/1.1" 200 13234
+"GET /admin-blog?page=1 HTTP/1.1" 200 13233
+"GET /admin-blog?page=2 HTTP/1.1" 200 8948
+"GET /admin-blog?page=1 HTTP/1.1" 200 13233
+"GET /admin-blog?page=2 HTTP/1.1" 200 8948
+"GET /admin-blog?page=1 HTTP/1.1" 200 13233
+"GET /static/css/admin.css HTTP/1.1" 304 0
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/js/modal.js HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/sidebar.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /admin-blog?page=2 HTTP/1.1" 200 8948
+Watching for file changes with StatReloader
+"GET /admin-blog?page=2 HTTP/1.1" 200 8939
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/admin.css HTTP/1.1" 304 0
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/modal.js HTTP/1.1" 304 0
+"GET /static/js/sidebar.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /admin-blog?page=1 HTTP/1.1" 200 13224
+"GET /admin-blog?page=2 HTTP/1.1" 200 8939
+"GET /admin-blog?page=2 HTTP/1.1" 200 9025
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/admin.css HTTP/1.1" 304 0
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/modal.js HTTP/1.1" 304 0
+"GET /static/js/sidebar.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+Watching for file changes with StatReloader
+"GET /admin-blog?page=2 HTTP/1.1" 200 9035
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/css/admin.css HTTP/1.1" 200 14992
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/modal.js HTTP/1.1" 304 0
+"GET /static/js/sidebar.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+Watching for file changes with StatReloader
+"GET /admin-blog?page=2 HTTP/1.1" 200 9035
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/css/admin.css HTTP/1.1" 200 14801
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/modal.js HTTP/1.1" 304 0
+"GET /static/js/sidebar.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /admin-blog?page=1 HTTP/1.1" 200 13309
+"GET /admin-blog?page=1 HTTP/1.1" 200 13309
+Watching for file changes with StatReloader
+"GET /admin-blog?page=1 HTTP/1.1" 200 13309
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/admin.css HTTP/1.1" 200 14822
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/modal.js HTTP/1.1" 304 0
+"GET /static/js/sidebar.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /admin-blog?page=2 HTTP/1.1" 200 9035
+"GET /admin-blog?page=1 HTTP/1.1" 200 13309
+"GET /admin-blog?page=2 HTTP/1.1" 200 9035
+"GET /admin-blog?page=1 HTTP/1.1" 200 13309
+Watching for file changes with StatReloader
+"GET /admin-blog?page=1 HTTP/1.1" 200 13318
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/css/admin.css HTTP/1.1" 200 14912
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/modal.js HTTP/1.1" 304 0
+"GET /static/js/sidebar.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /static/images/favicon.png HTTP/1.1" 304 0
+"GET /admin-blog?page=2 HTTP/1.1" 200 9035
+"GET /admin-blog?page=1 HTTP/1.1" 200 13318

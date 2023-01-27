@@ -38,27 +38,29 @@
         </table>
         
         <div class="blog-paginator">
-          {% if blogs.has_previous %}
-              <a href="?page=1" class="">first</a>
-              <span class="text-primary">
-                  Page {{ blogs.number }} of {{ blogs.paginator.num_pages }}.
-              </span>
-              <a href="?page={{ blogs.previous_page_number }}" class="">previous</a>
-          {% endif %}
-  
-          {% if blogs.has_next %}
-              <a href="?page={{ blogs.next_page_number }}" class="">Next</a>
-              <span class="text-primary">
-                  Page {{ blogs.number }} of {{ blogs.paginator.num_pages }}.
-              </span>
-              <a href="?page={{ blogs.paginator.num_pages }}" class="">Last</a>
-          {% endif %}
+          <article class="pagination-wrapper">
+            {% if blogs.has_previous %}
+                <a href="?page=1" class="first-page">first</a>
+                <span class="text-primary">
+                    {{ blogs.number }} of {{ blogs.paginator.num_pages }}
+                </span>
+                <a href="?page={{ blogs.previous_page_number }}" class="prev-btn"><i class="ri-arrow-left-s-line nav-icon"></i></a>
+            {% endif %}
+    
+            {% if blogs.has_next %}
+                <a href="?page={{ blogs.next_page_number }}" class="next-btn"><i class="ri-arrow-right-s-line nav-icon"></i></a>
+                <span class="text-primary">
+                    {{ blogs.number }} of {{ blogs.paginator.num_pages }}
+                </span>
+                <a href="?page={{ blogs.paginator.num_pages }}" class="last-page">Last</a>
+            {% endif %}
+          </article>
         </div>
         
         {% if blog_count <= 1 %}
             {{blog_count}} Course
         {% elif blog_count > 1 %}
-            {{blog_count}} Courses
+            {{blog_count}} Posts
         {% else %}
           No blogs has been added
         {% endif %}
