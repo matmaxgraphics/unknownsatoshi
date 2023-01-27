@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 "GET /create-blog HTTP/1.1" 200 14708
 "GET /static/css/sidebar.css HTTP/1.1" 304 0
 "GET /static/css/style.css HTTP/1.1" 304 0
@@ -512,17 +513,23 @@ Watching for file changes with StatReloader
 "GET /static/js/pagination.js HTTP/1.1" 304 0
 "GET /static/images/logo.png HTTP/1.1" 304 0
 =======
+=======
+>>>>>>> 9b547e3c044172ae26b873f78dc514f95f48be9c
 "GET / HTTP/1.1" 200 18897
 "GET /static/images/logo.png HTTP/1.1" 304 0
 "GET /static/css/style.css HTTP/1.1" 304 0
 "GET /static/js/script.js HTTP/1.1" 304 0
 "GET /static/js/pagination.js HTTP/1.1" 304 0
+<<<<<<< HEAD
+>>>>>>> 9b547e3c044172ae26b873f78dc514f95f48be9c
+=======
 >>>>>>> 9b547e3c044172ae26b873f78dc514f95f48be9c
 "GET /static/images/hamburger.png HTTP/1.1" 304 0
 "GET /static/images/hero-img.png HTTP/1.1" 304 0
 "GET /static/images/img-3.jpg HTTP/1.1" 304 0
 "GET /static/images/img-5.jpg HTTP/1.1" 304 0
 "GET /static/images/img-6.jpg HTTP/1.1" 304 0
+<<<<<<< HEAD
 <<<<<<< HEAD
 "GET /static/images/history.png HTTP/1.1" 304 0
 "GET /static/images/signal.png HTTP/1.1" 304 0
@@ -538,6 +545,8 @@ Watching for file changes with StatReloader
 "GET /static/images/logo.png HTTP/1.1" 304 0
 "GET /login/user HTTP/1.1" 200 6543
 =======
+=======
+>>>>>>> 9b547e3c044172ae26b873f78dc514f95f48be9c
 "GET /static/images/signal.png HTTP/1.1" 304 0
 "GET /static/images/history.png HTTP/1.1" 304 0
 "GET /static/images/alt-logo.png HTTP/1.1" 304 0
@@ -635,11 +644,15 @@ Watching for file changes with StatReloader
 "GET /static/images/login.png HTTP/1.1" 200 175173
 "GET /login/user HTTP/1.1" 200 6543
 "GET /static/js/validate.js HTTP/1.1" 200 712
+<<<<<<< HEAD
+>>>>>>> 9b547e3c044172ae26b873f78dc514f95f48be9c
+=======
 >>>>>>> 9b547e3c044172ae26b873f78dc514f95f48be9c
 "POST /login/user HTTP/1.1" 302 0
 "GET / HTTP/1.1" 200 18987
 "GET /static/images/hero-img.png HTTP/1.1" 304 0
 "GET /static/images/img-3.jpg HTTP/1.1" 304 0
+<<<<<<< HEAD
 <<<<<<< HEAD
 "GET /static/js/pagination.js HTTP/1.1" 304 0
 "GET /static/images/img-5.jpg HTTP/1.1" 304 0
@@ -1454,6 +1467,8 @@ Watching for file changes with StatReloader
 "GET /static/%20ckeditor/ckeditor/ckeditor.js HTTP/1.1" 200 2358
 "GET /static/%20ckeditor/ckeditor-init.js HTTP/1.1" 200 2358
 =======
+=======
+>>>>>>> 9b547e3c044172ae26b873f78dc514f95f48be9c
 "GET /static/images/img-5.jpg HTTP/1.1" 304 0
 "GET /static/images/history.png HTTP/1.1" 304 0
 "GET /static/images/signal.png HTTP/1.1" 304 0
@@ -1522,6 +1537,9 @@ Watching for file changes with StatReloader
 "GET /static/images/logo.png HTTP/1.1" 304 0
 "GET /static/%20ckeditor/ckeditor-init.js HTTP/1.1" 200 2358
 "GET /static/images/hamburger.png HTTP/1.1" 304 0
+<<<<<<< HEAD
+>>>>>>> 9b547e3c044172ae26b873f78dc514f95f48be9c
+=======
 >>>>>>> 9b547e3c044172ae26b873f78dc514f95f48be9c
 "GET /first-time-plan-lists HTTP/1.1" 200 6871
 "GET /static/%20ckeditor/ckeditor-init.js HTTP/1.1" 200 2358
@@ -1530,6 +1548,7 @@ Watching for file changes with StatReloader
 "GET /static/%20ckeditor/ckeditor-init.js HTTP/1.1" 200 2358
 "GET /static/%20ckeditor/ckeditor/ckeditor.js HTTP/1.1" 200 2358
 "POST /add-first-time-plan HTTP/1.1" 302 0
+<<<<<<< HEAD
 <<<<<<< HEAD
 "GET /first-time-plan-lists HTTP/1.1" 200 7610
 "GET /static/css/style.css HTTP/1.1" 304 0
@@ -1618,6 +1637,8 @@ Watching for file changes with StatReloader
 "POST /add-plan HTTP/1.1" 302 0
 "GET /plan-lists HTTP/1.1" 200 9084
 =======
+=======
+>>>>>>> 9b547e3c044172ae26b873f78dc514f95f48be9c
 "GET /first-time-plan-lists HTTP/1.1" 200 7618
 "GET /static/%20ckeditor/ckeditor-init.js HTTP/1.1" 200 2358
 "GET /static/%20ckeditor/ckeditor/ckeditor.js HTTP/1.1" 200 2358
@@ -1784,12 +1805,16 @@ Watching for file changes with StatReloader
 "GET /static/%20ckeditor/ckeditor-init.js HTTP/1.1" 200 2358
 "GET /static/%20ckeditor/ckeditor/ckeditor.js HTTP/1.1" 200 2358
 "GET /first-time-plan-lists HTTP/1.1" 200 6871
+<<<<<<< HEAD
+>>>>>>> 9b547e3c044172ae26b873f78dc514f95f48be9c
+=======
 >>>>>>> 9b547e3c044172ae26b873f78dc514f95f48be9c
 "GET /static/css/sidebar.css HTTP/1.1" 304 0
 "GET /static/css/style.css HTTP/1.1" 304 0
 "GET /static/css/admin.css HTTP/1.1" 304 0
 "GET /static/js/script.js HTTP/1.1" 304 0
 "GET /static/js/modal.js HTTP/1.1" 304 0
+<<<<<<< HEAD
 <<<<<<< HEAD
 "GET /static/images/logo.png HTTP/1.1" 304 0
 "GET /static/%20ckeditor/ckeditor-init.js HTTP/1.1" 200 2358
@@ -2689,6 +2714,8 @@ Watching for file changes with StatReloader
 "GET /static/images/alt-logo.png HTTP/1.1" 304 0
 "GET /static/css/style.css HTTP/1.1" 200 73858
 =======
+=======
+>>>>>>> 9b547e3c044172ae26b873f78dc514f95f48be9c
 "GET /static/js/sidebar.js HTTP/1.1" 304 0
 "GET /static/%20ckeditor/ckeditor-init.js HTTP/1.1" 200 2358
 "GET /static/images/hamburger.png HTTP/1.1" 304 0
@@ -8507,4 +8534,7 @@ cms.models.Blog.DoesNotExist: Blog matching query does not exist.
 =======
 >>>>>>> 55516151be489b9b4bee9a03f4b580313545dfe2
 >>>>>>> 7ae4b70b467e59ccf8dbfc8975f37bafa563f9ed
+<<<<<<< HEAD
+>>>>>>> 9b547e3c044172ae26b873f78dc514f95f48be9c
+=======
 >>>>>>> 9b547e3c044172ae26b873f78dc514f95f48be9c
