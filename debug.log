@@ -8984,3 +8984,104 @@ Watching for file changes with StatReloader
 - Broken pipe from ('127.0.0.1', 50449)
 - Broken pipe from ('127.0.0.1', 50453)
 "GET /blog HTTP/1.1" 200 19063
+Watching for file changes with StatReloader
+"GET /article/another-post-to-test-things-out/ HTTP/1.1" 200 21393
+"GET /static/css/style.css HTTP/1.1" 200 73858
+"GET /static/js/pagination.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/js/jquery.min.js HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/images/alt-logo.png HTTP/1.1" 304 0
+"GET /static/js/tab.js HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /admin-login HTTP/1.1" 200 2722
+"GET /static/css/admin.css HTTP/1.1" 200 14912
+"POST /admin-login HTTP/1.1" 302 0
+"GET /admin-history HTTP/1.1" 200 8708
+"GET /static/css/sidebar.css HTTP/1.1" 200 3836
+"GET /static/js/modal.js HTTP/1.1" 200 325
+"GET /static/js/sidebar.js HTTP/1.1" 200 582
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 200 1526
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 200 756028
+"GET /static/images/hamburger.png HTTP/1.1" 200 1005
+"GET /admin-blog HTTP/1.1" 200 13318
+- Broken pipe from ('127.0.0.1', 50716)
+"GET /update-blog/fea27ffd-11c2-4460-b630-908556822d7c HTTP/1.1" 200 14749
+- Broken pipe from ('127.0.0.1', 50718)
+"GET /static/ckeditor/ckeditor/config.js?t=M6K9 HTTP/1.1" 200 336
+"GET /static/ckeditor/ckeditor/skins/moono/skin.js?t=M6K9 HTTP/1.1" 200 2358
+"GET /static/ckeditor/ckeditor/skins/moono/editor_gecko.css?t=M6K9 HTTP/1.1" 200 43136
+"GET /static/ckeditor/ckeditor/lang/en.js?t=M6K9 HTTP/1.1" 200 17503
+"GET /static/ckeditor/ckeditor/styles.js?t=M6K9 HTTP/1.1" 200 5577
+"GET /static/ckeditor/ckeditor/plugins/autolink/plugin.js?t=M6K9 HTTP/1.1" 200 584
+"GET /static/ckeditor/ckeditor/plugins/embedsemantic/plugin.js?t=M6K9 HTTP/1.1" 200 1460
+"GET /static/ckeditor/ckeditor/plugins/autoembed/plugin.js?t=M6K9 HTTP/1.1" 200 2334
+"GET /static/ckeditor/ckeditor/plugins/autogrow/plugin.js?t=M6K9 HTTP/1.1" 200 1912
+"GET /static/ckeditor/ckeditor/plugins/embedbase/plugin.js?t=M6K9 HTTP/1.1" 200 3405
+"GET /static/ckeditor/ckeditor/plugins/scayt/dialogs/dialog.css?t=M6K9 HTTP/1.1" 200 419
+"GET /static/ckeditor/ckeditor/plugins/tableselection/styles/tableselection.css?t=M6K9 HTTP/1.1" 200 1145
+"GET /static/ckeditor/ckeditor/plugins/embedbase/lang/en.js?t=M6K9 HTTP/1.1" 200 470
+"GET /static/ckeditor/ckeditor/plugins/autoembed/lang/en.js?t=M6K9 HTTP/1.1" 200 164
+"GET /static/ckeditor/ckeditor/plugins/dialog/styles/dialog.css?t=M6K9 HTTP/1.1" 200 249
+"GET /static/ckeditor/ckeditor/plugins/copyformatting/styles/copyformatting.css?t=M6K9 HTTP/1.1" 200 1511
+"GET /static/ckeditor/ckeditor/skins/moono/icons.png?t=b47abaf HTTP/1.1" 200 20634
+"GET /static/ckeditor/ckeditor/contents.css?t=M6K9 HTTP/1.1" 200 3092
+"GET /static/ckeditor/ckeditor/skins/moono/dialog.css?t=M6K9 HTTP/1.1" 200 13430
+"GET /static/ckeditor/ckeditor/plugins/link/dialogs/link.js?t=M6K9 HTTP/1.1" 200 13234
+"GET /static/ckeditor/ckeditor/skins/moono/images/close.png HTTP/1.1" 200 468
+"POST /update-blog/fea27ffd-11c2-4460-b630-908556822d7c HTTP/1.1" 302 0
+"GET /admin-blog HTTP/1.1" 200 13454
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/css/style.css HTTP/1.1" 200 73858
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 18903
+"GET /static/js/pagination.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 200 40580
+"GET /static/images/alt-logo.png HTTP/1.1" 200 48395
+"GET /static/images/img-6.jpg HTTP/1.1" 200 40616
+"GET /static/images/hero-img.png HTTP/1.1" 200 197583
+"GET /static/images/img-3.jpg HTTP/1.1" 200 76774
+"GET /static/images/img-5.jpg HTTP/1.1" 200 25448
+"GET /static/images/history.png HTTP/1.1" 304 0
+"GET /static/images/signal.png HTTP/1.1" 304 0
+- Broken pipe from ('127.0.0.1', 50715)
+"GET /blog HTTP/1.1" 200 19647
+"GET /article/another-post-to-test-things-out/ HTTP/1.1" 200 22404
+"GET /static/js/jquery.min.js HTTP/1.1" 304 0
+"GET /static/js/tab.js HTTP/1.1" 304 0
+"GET /article/another-post-to-test-things-out/ HTTP/1.1" 200 22404
+- Broken pipe from ('127.0.0.1', 50728)
+"GET /static/js/pagination.js HTTP/1.1" 200 1896
+"GET /article/another-post-to-test-things-out/ HTTP/1.1" 200 21426
+"GET /article/another-post-to-test-things-out/ HTTP/1.1" 200 22404
+"GET /static/css/style.css HTTP/1.1" 304 0
+"GET /static/js/jquery.min.js HTTP/1.1" 304 0
+"GET /static/js/tab.js HTTP/1.1" 304 0
+"GET /static/js/pagination.js HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/hamburger.png HTTP/1.1" 200 1005
+"GET /static/images/alt-logo.png HTTP/1.1" 200 48395
+Watching for file changes with StatReloader
+"GET /article/another-post-to-test-things-out/ HTTP/1.1" 200 22404
+"GET /static/js/jquery.min.js HTTP/1.1" 304 0
+"GET /static/js/script.js HTTP/1.1" 304 0
+"GET /static/js/tab.js HTTP/1.1" 304 0
+"GET /static/js/pagination.js HTTP/1.1" 304 0
+"GET /static/css/style.css HTTP/1.1" 200 73901
+"GET /static/images/hamburger.png HTTP/1.1" 304 0
+"GET /static/images/logo.png HTTP/1.1" 304 0
+"GET /static/images/alt-logo.png HTTP/1.1" 304 0
+"GET /article/another-post-to-test-things-out/ HTTP/1.1" 200 22404
+Watching for file changes with StatReloader
+"GET /article/another-post-to-test-things-out/ HTTP/1.1" 200 22404
+"GET /article/another-post-to-test-things-out/ HTTP/1.1" 200 22404
+"GET /static/js/pagination.js HTTP/1.1" 200 1896
+"GET /static/js/script.js HTTP/1.1" 200 1080
+"GET /static/js/tab.js HTTP/1.1" 200 707
+"GET /static/js/jquery.min.js HTTP/1.1" 200 89664
+"GET /static/css/style.css HTTP/1.1" 200 73932
+"GET /static/images/logo.png HTTP/1.1" 200 40580
+"GET /static/images/hamburger.png HTTP/1.1" 200 1005
+"GET /static/images/alt-logo.png HTTP/1.1" 200 48395
+"GET /static/images/favicon.png HTTP/1.1" 200 4769

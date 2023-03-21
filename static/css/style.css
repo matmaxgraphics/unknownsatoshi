@@ -21,6 +21,12 @@ body {
 .page-wrapper {
   padding: 0 24px;
 }
+
+@media (max-width: 550px){
+  .page-wrapper {
+    padding: 0 12px;
+  }
+}
 h1 {
   font-size: clamp(2.5em, 3.5em, 4em);
 }
@@ -549,8 +555,8 @@ ul.errorlist {
     margin: 100px 0 20px 0px;
   }
 
-  .hero-img {
-    min-width: 90%;
+  .hero-section .hero-img {
+    min-width: 100%;
   }
 }
 @media (max-width: 360px) {
@@ -805,6 +811,9 @@ ul.errorlist {
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
+    width: 100%;
+  }
+  .history-section .description-container h2 {
     width: 100%;
   }
   .history-section .description-container,
@@ -1998,8 +2007,9 @@ footer .footer-content__item .links a:hover {
 .post-wrapper .post-content {
   margin-bottom: 100px;
 }
-.post-wrapper .post-content a{
-  color: rgb(18, 109, 212) !important;
+.post-content p a {
+  color: #126dd4;
+  text-decoration: underline;
 }
 
 .article-wrapper {
