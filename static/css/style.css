@@ -1998,6 +1998,9 @@ footer .footer-content__item .links a:hover {
 .post-wrapper .post-content {
   margin-bottom: 100px;
 }
+.post-wrapper .post-content a{
+  color: rgb(18, 109, 212) !important;
+}
 
 .article-wrapper {
   width: 90%;

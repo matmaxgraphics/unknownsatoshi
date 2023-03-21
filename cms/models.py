@@ -72,8 +72,8 @@ class Product(models.Model):
 
 class Blog(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(blank=False, null=False)
+    title = models.CharField(max_length=2000)
+    slug = models.SlugField(max_length=2000, blank=False, null=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=True)
     post = RichTextUploadingField()
     featured_stories = models.BooleanField(default=False)
