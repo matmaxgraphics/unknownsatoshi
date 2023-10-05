@@ -3,7 +3,7 @@
 {% load static %}
 {% load hitcount_tags %}
 <title>{% block title %}UnknownSatoshi | {{blog.title}}{% endblock title %}</title>
-<meta name="description" content="{% block meta %} {{blog.meta_snippet|safe}} {% endblock meta %}">
+<meta name="description" content="{% block meta %} {{blog.meta_snippet|striptags|safe}} {% endblock meta %}">
 
 
 
